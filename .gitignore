@@ -10,3 +10,8 @@
 /GiantServer/GiantServer/obj
 /GiantServer/MyServer/.vs
 /GiantServer/MyServer/obj
+/GiantClient/MyClient/*
+/GiantServer/*
+/GiantServer/*.suo
+/GiantServer/GiantEx/*
+/GiantServer/GiantNode/*

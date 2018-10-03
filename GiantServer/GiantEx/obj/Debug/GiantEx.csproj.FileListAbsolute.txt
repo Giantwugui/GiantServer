@@ -1,7 +1,0 @@
-F:\wg\W & S\MyServer\MyServer\GiantEx\bin\Debug\GiantEx.dll
-F:\wg\W & S\MyServer\MyServer\GiantEx\bin\Debug\GiantEx.pdb
-F:\wg\W & S\MyServer\MyServer\GiantEx\bin\Debug\Newtonsoft.Json.dll
-F:\wg\W & S\MyServer\MyServer\GiantEx\obj\Debug\GiantEx.dll
-F:\wg\W & S\MyServer\MyServer\GiantEx\obj\Debug\GiantEx.pdb
-F:\wg\DependLib\GiantEx.dll
-F:\wg\DependLib\GiantEx.pdb
