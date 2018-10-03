@@ -1,0 +1,12 @@
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\MyClient.exe.config
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\MyClient.exe
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\MyClient.pdb
+F:\wg\W & S\MyServer\MyClient\MyClient\obj\Debug\MyClient.exe
+F:\wg\W & S\MyServer\MyClient\MyClient\obj\Debug\MyClient.pdb
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\GiantEx.dll
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\Newtonsoft.Json.dll
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\GiantEx.pdb
+F:\wg\W & S\MyServer\MyClient\MyClient\obj\Debug\MyClient.csprojResolveAssemblyReference.cache
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\MonoEX.dll
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\SevenZip.dll
+F:\wg\W & S\MyServer\MyClient\MyClient\bin\Debug\MonoEX.pdb
