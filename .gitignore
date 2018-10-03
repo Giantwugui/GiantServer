@@ -1,0 +1,12 @@
+/GiantClient/MyClient/obj
+/GiantClient/MyClient/bin
+/GiantClient/*.suo
+/GiantServer/Giant_Server.suo
+/GiantServer/Giant_Server.v12.suo
+/GiantServer/.vs
+/GiantServer/GiantEx/obj
+/GiantServer/GiantNode/bin
+/GiantServer/GiantNode/obj
+/GiantServer/GiantServer/obj
+/GiantServer/MyServer/.vs
+/GiantServer/MyServer/obj
