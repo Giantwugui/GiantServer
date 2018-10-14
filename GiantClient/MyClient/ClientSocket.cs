@@ -10,7 +10,6 @@ namespace MyClient
 {
     class ClientSocket
     {
-
         public ClientSocket(string ip, int port)
         {
             mEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
