@@ -41,7 +41,7 @@ namespace GiantNodeBox
                 throw new Exception(string.Format("Plugin {0} CreateInstance Error !", dllName));
             }
 
-            mNodeEvent = plugin.Event;
+            mNodeEvent = plugin.Events;
 
             mIsFrontNode = pluginAttribute.IsFrontNode;
 
@@ -55,6 +55,6 @@ namespace GiantNodeBox
 
         private readonly  bool mIsFrontNode = false;
 
-        private readonly NodeEvent mNodeEvent = null;
+        private readonly NodeEvents mNodeEvent = null;
     }
 }

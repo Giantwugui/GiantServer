@@ -28,7 +28,7 @@ namespace GiantNodeBox
         {
             foreach (IPlugin curr in m_Plugins)
             {
-                NodeEvent tempEvent = curr.Event;
+                NodeEvents tempEvent = curr.Events;
                 if (tempEvent == null) continue;
 
                 tempEvent.Call_OnUpdate(time);
@@ -42,7 +42,7 @@ namespace GiantNodeBox
         {
             foreach (IPlugin curr in m_Plugins)
             {
-                NodeEvent tempEvent = curr.Event;
+                NodeEvents tempEvent = curr.Events;
                 if (tempEvent == null) continue;
 
                 tempEvent.Call_OnHandle(session, request);
@@ -53,7 +53,7 @@ namespace GiantNodeBox
         {
             foreach (IPlugin curr in m_Plugins)
             {
-                NodeEvent tempEvent = curr.Event;
+                NodeEvents tempEvent = curr.Events;
                 if (tempEvent == null) continue;
 
                 tempEvent.Call_Init();
@@ -64,7 +64,7 @@ namespace GiantNodeBox
         {
             foreach (IPlugin curr in m_Plugins)
             {
-                NodeEvent tempEvent = curr.Event;
+                NodeEvents tempEvent = curr.Events;
                 if (tempEvent == null) continue;
 
                 tempEvent.Call_OnStartComplate();

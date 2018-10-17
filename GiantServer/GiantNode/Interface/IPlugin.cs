@@ -9,6 +9,8 @@ namespace GiantNode
 {
     public interface IPlugin
     {
-        NodeEvent Event { get; }
+        NodeEvents Events { get; }
+
+        Dictionary<string, string> GetCommandSet();
     }
 }
