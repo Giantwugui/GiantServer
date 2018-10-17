@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace GiantCore
 {
@@ -26,6 +23,14 @@ namespace GiantCore
             }
 
             return tempThread;
+        }
+
+        /// <summary>
+        /// 在线程池中创建线程
+        /// </summary>
+        public static void CreateThreadInThreadPool(WaitCallback callBack, Dictionary<string, string> param)
+        {
+            ThreadPool.QueueUserWorkItem(callBack, param);
         }
     }
 }

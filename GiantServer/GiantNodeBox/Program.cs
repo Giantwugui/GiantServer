@@ -6,12 +6,19 @@ namespace GiantNodeBox
     {
         static void Main(string[] args)
         {
-            PluginManager.StartInitPlugins();
-
-            while (true)
+            try
             {
+                PluginManager.StartPlugins();
 
-                Console.ReadLine();
+                while (true)
+                {
+
+                    Console.ReadLine();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
     }
