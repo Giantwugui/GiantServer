@@ -9,6 +9,6 @@ namespace GiantNode
 {
     public interface IPlugin
     {
-        GEvent Event { get; }
+        NodeEvent Event { get; }
     }
 }

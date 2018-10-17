@@ -1,6 +1,0 @@
-F:\wg\W & S\MyServer\MyServer\MyServer\bin\Debug\MyServer.exe.config
-F:\wg\W & S\MyServer\MyServer\MyServer\obj\Debug\MyServer.csprojResolveAssemblyReference.cache
-F:\wg\W & S\MyServer\MyServer\MyServer\bin\Debug\MyServer.exe
-F:\wg\W & S\MyServer\MyServer\MyServer\bin\Debug\MyServer.pdb
-F:\wg\W & S\MyServer\MyServer\MyServer\obj\Debug\MyServer.exe
-F:\wg\W & S\MyServer\MyServer\MyServer\obj\Debug\MyServer.pdb
