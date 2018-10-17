@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>E:\wg\GiantServer\GiantServer\GiantCore\GiantCore.xml</DocumentationFile>
+    <OutputPath>E:\wg\GiantServer\GiantServer\OutPut\</OutputPath>
+  </PropertyGroup>
+
 </Project>
