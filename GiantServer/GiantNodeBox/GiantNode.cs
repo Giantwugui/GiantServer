@@ -11,9 +11,9 @@ using GiantCore;
 using System.Net;
 using System.Threading;
 
-namespace GiantNode
+namespace GiantNodeBox
 {
-    public partial class GiantServer
+    public class GiantServer
     {
         public GiantServer()
         {
@@ -44,9 +44,6 @@ namespace GiantNode
                 m_allListener.Add(tempSocket);
                 Thread.Sleep(2);
             }
-
-            //初始化插件事件
-            PluginManager.InitPlugins();
 
             //启动完成事件
             PluginManager.OnStartComplate();

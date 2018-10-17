@@ -4,30 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using GiantNode;
 using GiantCore;
 
-namespace GiantNode
+namespace GiantNodeBox
 {
     class PluginManager
     {
         /// <summary>
         /// 初始化各个插件
         /// </summary>
-        public static void InitPlugins()
+        public static void StartInitPlugins()
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Type[] types = assembly.GetTypes();
-            foreach (Type type in types)
-            {
-                if (type.GetInterface("IPlugin") != null && !type.IsAbstract)
-                {
-                    IPlugin tempPlugin = Activator.CreateInstance(type) as IPlugin;
-                    if (tempPlugin != null)
-                    {
-                        m_Plugins.Add(tempPlugin);
-                    }
-                }
-            }
+            NodeHandle nodeHandle = new NodeHandle("TestPlugin.dll");
+
+            m_Plugins.Add(nodeHandle);
         }
 
         /// <summary>
@@ -80,6 +71,6 @@ namespace GiantNode
             }
         }
 
-        static List<IPlugin> m_Plugins = new List<IPlugin>();
+        static List<NodeHandle> m_Plugins = new List<NodeHandle>();
     }
 }

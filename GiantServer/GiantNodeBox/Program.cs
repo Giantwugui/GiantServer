@@ -6,7 +6,13 @@ namespace GiantNodeBox
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            PluginManager.StartInitPlugins();
+
+            while (true)
+            {
+
+                Console.ReadLine();
+            }
         }
     }
 }
