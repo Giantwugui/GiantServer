@@ -59,7 +59,7 @@ namespace GiantNode
         public void ToStart()
         {
             //初始化插件事件
-            mNodeEvent.OnNodeInit(mRunTime.Param);
+            mNodeEvent.OnInit(mRunTime.Param);
 
             ThreadHelper.CreateThreadInThreadPool(UpdateLoop, null);
 
@@ -73,7 +73,7 @@ namespace GiantNode
             }
 
             //插件启动完成事件
-            mNodeEvent.OnNodeStartComplate();
+            mNodeEvent.OnStartComplate();
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace GiantNode
                 }
 
                 //插件跟新事件
-                mNodeEvent.OnNodeUpdate(delay);
+                mNodeEvent.OnUpdate(delay);
 
                 Thread.Sleep(1);
             }
@@ -117,7 +117,7 @@ namespace GiantNode
             {
                 case MessageType.InnerMessage:
                     {
-                        mNodeEvent.OnNodeInsideHandle(mRunTime.NodeId, message.Content);
+                        mNodeEvent.OnInsideHandle(mRunTime.NodeId, message.Content);
                     }
                     break;
             }

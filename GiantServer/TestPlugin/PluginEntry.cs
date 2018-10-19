@@ -13,12 +13,12 @@ namespace TestPlugin
         public PluginEntry()
         {
             mEvent = new NodeEvents();
-            mEvent.OnNodeInit += OnNodeInit;
-            mEvent.OnNodeCrash += OnCrash;
-            mEvent.OnNodeClosed += OnClosed;
-            mEvent.OnNodeUpdate += OnNodeUpdate;
-            mEvent.OnNodeInsideHandle += OnNodeInsideHandle;
-            mEvent.OnNodeStartComplate += OnNodeStartComplate;
+            mEvent.OnInit += OnNodeInit;
+            mEvent.OnCrash += OnCrash;
+            mEvent.OnClosed += OnClosed;
+            mEvent.OnUpdate += OnNodeUpdate;
+            mEvent.OnInsideHandle += OnNodeInsideHandle;
+            mEvent.OnStartComplate += OnNodeStartComplate;
         }
 
         public void OnNodeInit(Dictionary<string, string> param)
@@ -67,6 +67,7 @@ namespace TestPlugin
 
         private void OnNodeInsideHandle(uint fromNode, byte[] message)
         {
+            string Content = Encoding.UTF8.GetString(message);
         }
 
 
