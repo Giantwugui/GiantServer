@@ -3,7 +3,6 @@ using GiantNode.Interface;
 using NetMQ;
 using NetMQ.Sockets;
 using System.Collections.Generic;
-using System.Collections.Concurrent;
 using System;
 
 namespace GiantNode
