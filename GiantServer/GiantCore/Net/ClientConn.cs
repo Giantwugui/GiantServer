@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
 
 namespace GiantCore
 {
-    public class GClient : GSocket
+    /// <summary>
+    /// 客户端连接类
+    /// </summary>
+    public class ClientConn : GSocket
     {
-        public GClient(string host, int port)
+        public ClientConn(string host, int port)
             : base(host, port)
         {          
         }
@@ -19,7 +18,7 @@ namespace GiantCore
             base.ToSend(new GBuffer(message));
         }
 
-        public void ToStart()
+        public override void ToStart()
         {
             base.ToStart();
         }
@@ -48,10 +47,19 @@ namespace GiantCore
             }
         }
 
+        /// <summary>
+        /// 断开连接
+        /// </summary>
         public Action OnClosed = null;
 
+        /// <summary>
+        /// 连接成功
+        /// </summary>
         public Action<bool> OnConnected = null;
 
+        /// <summary>
+        /// 收到消息
+        /// </summary>
         public Action<byte[]> OnReceiveMessage = null;
     }
 }

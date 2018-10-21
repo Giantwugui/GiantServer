@@ -13,17 +13,8 @@ namespace GiantCore
     /// </summary>
     public class Session
     {
-        public Session() { }
-
-        public Socket ClientSocket
+        public Session(uint nodeId, uint uid)
         {
-            get { return mSocket; }
-            set { this.mSocket = value; }
-        }
-
-        public void SetSocket(Socket socket)
-        {
-            mSocket = socket;
         }
 
         /// <summary>
@@ -31,9 +22,35 @@ namespace GiantCore
         /// </summary>
         public void Return(string message)
         {
-            mSocket.Send(Encoding.Unicode.GetBytes(message));
         }
 
-        private Socket mSocket;
+
+        /// <summary>
+        /// 节点id
+        /// </summary>
+        public uint NodeId
+        {
+            get { return mNodeId; }
+            set { mNodeId = value; }
+        }
+
+        /// <summary>
+        /// 回话对象id
+        /// </summary>
+        public uint Uid
+        {
+            get { return mUid; }
+            set { mUid = value; }
+        }
+
+        /// <summary>
+        /// 节点id
+        /// </summary>
+        private uint mNodeId = 0;
+
+        /// <summary>
+        /// 回话对象id
+        /// </summary>
+        private uint mUid = 0;
     }
 }

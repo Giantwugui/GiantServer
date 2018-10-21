@@ -68,14 +68,8 @@ namespace GiantNode
 
             if (IsFrontNode)
             {
-                int port = 0;
-
-                if (!int.TryParse(mRunTime.GetParam("FrontPort"), out port))
-                {
-                    throw new ArgumentNullException(string.Format("Node {0}_{1} FrontPort can't be null ", mRunTime.NodeName, mRunTime.NodeId));
-                }
-
-                OutNetServer.Init(port);
+                //外部通讯服务
+                OutNetServer.Init(mRunTime);
             }
 
             //插件启动完成事件
@@ -92,10 +86,17 @@ namespace GiantNode
                 DateTime now = DateTime.Now;
 
                 float delay = (float)(now - mLastUpdateTime).TotalMilliseconds;
+                
+                Queue<IMessage> messages = MessageManager.PopList();
+
+                while (messages.Count > 0)
+                {
+                    DistributeMessage(messages.Dequeue());
+                }
 
                 mLastUpdateTime = now;
 
-                if (delay > 10)
+                if (delay > 5)
                 {
                     Log.LogOut(LogType.Warning, string.Format("节点{0} {1}s 没有响应了!", mNodeName, delay));
                 }
@@ -103,10 +104,24 @@ namespace GiantNode
                 //插件跟新事件
                 mNodeEvent.OnNodeUpdate(delay);
 
-                Thread.Sleep(10);
+                Thread.Sleep(1);
             }
         }
 
+        /// <summary>
+        /// 派发消息
+        /// </summary>
+        private void DistributeMessage(IMessage message)
+        {
+            switch (message.MessageType)
+            {
+                case MessageType.InnerMessage:
+                    {
+                        mNodeEvent.OnNodeInsideHandle(mRunTime.NodeId, message.Content);
+                    }
+                    break;
+            }
+        }
 
         public bool IsFrontNode
         {

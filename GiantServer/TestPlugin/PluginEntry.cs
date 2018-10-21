@@ -1,26 +1,29 @@
 ﻿using GiantCore;
 using GiantNode;
+using NetMQ;
+using NetMQ.Sockets;
 using System.Collections.Generic;
 using System.Text;
 
 namespace TestPlugin
 {
-    [PluginEntryAttribute("TestPlugin", false)]
+    [PluginEntryAttribute("TestPlugin", true)]
     class PluginEntry : IPlugin
     {
         public PluginEntry()
         {
             mEvent = new NodeEvents();
-            mEvent.OnNodeInit += OnInit;
+            mEvent.OnNodeInit += OnNodeInit;
             mEvent.OnNodeCrash += OnCrash;
             mEvent.OnNodeClosed += OnClosed;
-            mEvent.OnHandle += OnHandle;
-            mEvent.OnNodeUpdate += OnUpdate;
-            mEvent.OnNodeInsideHandle += OnInsideHandle;
+            mEvent.OnNodeUpdate += OnNodeUpdate;
+            mEvent.OnNodeInsideHandle += OnNodeInsideHandle;
+            mEvent.OnNodeStartComplate += OnNodeStartComplate;
         }
 
-        public void OnInit(Dictionary<string, string> param)
+        public void OnNodeInit(Dictionary<string, string> param)
         {
+            mPushSocket = new PushSocket("ipc://NodeServer_1_1");
         }
 
         public void OnClosed()
@@ -42,16 +45,30 @@ namespace TestPlugin
             }
         }
 
-        public void OnInsideHandle(uint fromNode, byte[] message)
-        {
-        }
-
         /// <summary>
         /// 心跳循环
         /// </summary>
-        public void OnUpdate(float time)
+        private void OnNodeUpdate(float time)
+        {
+            InnerMessage message = new InnerMessage()
+            {
+                MessageType = MessageType.InnerMessage,
+                ToNode = 1,
+                Content = Encoding.UTF8.GetBytes("test")
+            };
+
+            mPushSocket.SendFrame(message.ToJson());
+        }
+
+        private void OnNodeStartComplate()
+        {
+
+        }
+
+        private void OnNodeInsideHandle(uint fromNode, byte[] message)
         {
         }
+
 
         #region 实现基类接口
 
@@ -66,6 +83,8 @@ namespace TestPlugin
         }
 
         #endregion
+
+        PushSocket mPushSocket = null;
 
         NodeEvents mEvent = null;
     }

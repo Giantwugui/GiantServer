@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Net;
 using System.Net.Sockets;
-using GiantCore;
 
 namespace GiantCore
 {
@@ -36,15 +31,9 @@ namespace GiantCore
         public GSocket(string host, int port)
         {
             mIsSender = true;
-            IPAddress[] address = Dns.GetHostAddresses(host);
-            if (address.Length > 0 && AddressFamily.InterNetworkV6 == address[0].AddressFamily)
-            {
-                mSocket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
-            }
-            else
-            {
-                mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            }
+
+            mSocket = new Socket(AddressFamily.InterNetwork | AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+
             mPoint = new IPEndPoint(IPAddress.Parse(host), port);
         }
 
@@ -52,7 +41,7 @@ namespace GiantCore
         /// <summary>
         /// 启动服务
         /// </summary>
-        public void ToStart()
+        public virtual void ToStart()
         {
             if (mIsSender)
             {
@@ -168,12 +157,14 @@ namespace GiantCore
         /// <summary>
         /// 通知连接结果
         /// </summary>
-        /// <param name="isConnected"></param>
         protected abstract void NotifyConnected(bool isConnected);
 
         private Socket mSocket;
+
         private bool mIsSender = false;
+
         private IPEndPoint mPoint = null;
+
         private GBuffer mBuffer = new GBuffer();
     }
 

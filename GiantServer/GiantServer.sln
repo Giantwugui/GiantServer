@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantCore", "GiantCore\Gian
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestPlugin", "TestPlugin\TestPlugin.csproj", "{C15CDE74-A7E4-4F7E-9FA2-125444577755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiantNodeBox", "GiantNodeBox\GiantNodeBox.csproj", "{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantNodeBox", "GiantNodeBox\GiantNodeBox.csproj", "{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

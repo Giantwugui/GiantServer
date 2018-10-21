@@ -1,4 +1,6 @@
 ﻿using System;
+using NetMQ;
+using NetMQ.Sockets;
 
 namespace GiantNodeBox
 {
@@ -10,15 +12,26 @@ namespace GiantNodeBox
             {
                 PluginManager.StartPlugins();
 
-                while (true)
-                {
-
-                    Console.ReadLine();
-                }
+                Console.WriteLine("All node start complete !");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+            }
+
+            while (true)
+            {
+                try
+                {
+                    string cmd = Console.ReadLine();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
+
+
+
             }
         }
     }

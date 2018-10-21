@@ -36,7 +36,6 @@ namespace GiantNode
         /// </summary>
         public Action<uint, byte[]> OnNodeInsideHandle;
 
-
         /// <summary>
         /// 上线事件
         /// </summary>

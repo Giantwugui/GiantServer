@@ -22,7 +22,9 @@ namespace GiantCore
             if (size > 0)
             {
                 byte[] tempBuffer = new byte[size];
+
                 Array.Copy(tempBuffer, tempBuffer, size);
+
                 mContent.AddRange(tempBuffer);
             }
         }
@@ -30,9 +32,11 @@ namespace GiantCore
         public List<byte[]> PopList()
         {
             List<byte[]> tempList = new List<byte[]>();
+
             if (mContent.Count <= 0) return null;
 
             tempList.Add(mContent.ToArray());
+
             return tempList;
         }
 
@@ -52,7 +56,7 @@ namespace GiantCore
             get { return mContent.Count - 4; }
         }
 
-        public byte[] TempBuffer = new byte[1024];
+        public byte[] TempBuffer = new byte[4096];
 
         List<byte> mContent = new List<byte>();
     }

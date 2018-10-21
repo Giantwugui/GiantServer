@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>E:\wg\GiantServer\GiantServer\GiantCore\GiantCore.xml</DocumentationFile>
+    <DocumentationFile></DocumentationFile>
     <OutputPath>E:\wg\GiantServer\GiantServer\OutPut\</OutputPath>
   </PropertyGroup>
 
