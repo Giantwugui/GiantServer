@@ -6,9 +6,9 @@ namespace GiantCore
     /// <summary>
     /// 客户端连接类
     /// </summary>
-    public class ClientConn : GSocket
+    public class ClientSocket : GSocket
     {
-        public ClientConn(string host, int port)
+        public ClientSocket(string host, int port)
             : base(host, port)
         {          
         }

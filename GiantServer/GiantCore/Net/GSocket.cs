@@ -9,22 +9,15 @@ namespace GiantCore
     {
         public GSocket(Socket socket)
         {
-            if (socket == null)
+            if (socket.SocketType == SocketType.Stream && socket.ProtocolType == ProtocolType.Tcp)
             {
-                throw new Exception("socket can't be null !");
+                mSocket = socket;
+
+                mPoint = socket.RemoteEndPoint as IPEndPoint;
             }
             else
             {
-                mIsSender = false;
-                if (socket.SocketType == SocketType.Stream && socket.ProtocolType == ProtocolType.Tcp)
-                {
-                    mSocket = socket;
-                    mPoint = socket.RemoteEndPoint as IPEndPoint;
-                }
-                else
-                {
-                    throw new Exception("nonsupport socket type ! curr socket type is :" + socket.SocketType);
-                }
+                throw new Exception("nonsupport socket type ! curr socket type is :" + socket.SocketType);
             }
         }
 
@@ -115,16 +108,19 @@ namespace GiantCore
             catch (Exception ex)
             {
                 NotifyClosed(error);
+
                 throw ex;
             }
         }
 
         private void AsyncSended(IAsyncResult ar)
         {
-            SocketError error = SocketError.Success;
-            GBuffer buffer = ar.AsyncState as GBuffer;
             try
             {
+                SocketError error = SocketError.Success;
+
+                GBuffer buffer = ar.AsyncState as GBuffer;
+
                 int sendSize = mSocket.EndSend(ar, out error);
                 if (sendSize > 0)
                 {
@@ -157,7 +153,7 @@ namespace GiantCore
         /// <summary>
         /// 通知连接结果
         /// </summary>
-        protected abstract void NotifyConnected(bool isConnected);
+        protected virtual void NotifyConnected(bool isConnected) { }
 
         private Socket mSocket;
 

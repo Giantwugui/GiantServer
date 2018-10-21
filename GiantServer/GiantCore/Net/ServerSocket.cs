@@ -34,10 +34,6 @@ namespace GiantCore
             }
         }
 
-        protected override void NotifyConnected(bool isConnected)
-        {
-        }
-
         protected override void NotifyReceived(byte[] message)
         {
             if (OnReceiveMessage != null)
