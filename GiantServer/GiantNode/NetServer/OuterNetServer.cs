@@ -10,7 +10,7 @@ namespace GiantNode
     /// <summary>
     /// 外部通讯服务
     /// </summary>
-    public class OutNetServer
+    public class OuterNetServer
     {
         public static void Init(IRunTime runTime)
         {
@@ -24,21 +24,11 @@ namespace GiantNode
             }
 
             mTcpListener = new TcpListener(new IPEndPoint(IPAddress.Any, port));
+
             mTcpListener.Start(3000);
 
             ThreadHelper.CreateThread(ListenLoop, "AcceptListen");
         }
-
-        public ServerSocket GetSocket(uint uid)
-        {
-            if (mSocket.ContainsKey(uid))
-            {
-                return mSocket[uid];
-            }
-
-            return null;
-        }
-
 
         private static void ListenLoop()
         {
@@ -46,18 +36,13 @@ namespace GiantNode
             {
                 Socket socket = mTcpListener.AcceptSocket();
 
-                ServerSocket serverSocket = new ServerSocket(socket);
+                ServerSession serverSocket = new ServerSession(socket);
 
                 serverSocket.OnClosed += OnClosed;
 
                 serverSocket.OnReceiveMessage += OnReceiveMessage;
 
-                if (!mSocket.TryAdd(serverSocket.Uid, serverSocket))
-                {
-                    throw new Exception(string.Format("重复的客户端会话 Id {0}", serverSocket.Uid));
-                }
-
-                if (!mSessionList.TryAdd(serverSocket.Uid, new Session(mRunTime.NodeId, serverSocket.Uid)))
+                if (!mSessionList.TryAdd(serverSocket.Uid, serverSocket))
                 {
                     throw new Exception(string.Format("重复的客户端会话 Id {0}", serverSocket.Uid));
                 }
@@ -69,21 +54,26 @@ namespace GiantNode
 
         }
 
+
+
         /// <summary>
         /// 客户端下线
         /// </summary>
-        private static void OnClosed(uint uid)
+        private static void OnClosed(Session session)
         {
-            mSocket.TryRemove(uid, out ServerSocket serverSocket);
-
-            mSessionList.TryRemove(uid, out Session session);
+            mSessionList.TryRemove(session.Uid, out ServerSession serverSocket);
         }
 
         /// <summary>
         /// 接受到来自客户端的消息
         /// </summary>
-        private static void OnReceiveMessage(uint uid, byte[] message)
+        private static void OnReceiveMessage(Session session, byte[] message)
         {
+        }
+
+        public static uint NodeId
+        {
+            get { return mRunTime.NodeId; }
         }
 
         /// <summary>
@@ -97,13 +87,8 @@ namespace GiantNode
         private static TcpListener mTcpListener = null;
 
         /// <summary>
-        /// 通讯对象
-        /// </summary>
-        private static ConcurrentDictionary<uint, ServerSocket> mSocket = new ConcurrentDictionary<uint, ServerSocket>();
-
-        /// <summary>
         /// 回话对象
         /// </summary>
-        private static ConcurrentDictionary<uint, Session> mSessionList = new ConcurrentDictionary<uint, Session>();
+        private static ConcurrentDictionary<ulong, ServerSession> mSessionList = new ConcurrentDictionary<ulong, ServerSession>();
     }
 }

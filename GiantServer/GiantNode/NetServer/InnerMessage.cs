@@ -7,12 +7,23 @@ namespace GiantNode
         /// <summary>
         /// 内部消息
         /// </summary>
-        InnerMessage = 1,
+        Inner = 1,
 
         /// <summary>
         /// 客户端消息
         /// </summary>
-        ClientMessagge = 2,
+        Client = 2,
+
+        /// <summary>
+        /// 上线消息
+        /// </summary>
+        Online = 3,
+
+        /// <summary>
+        /// 下线消息
+        /// </summary>
+        Offline = 4,
+
     }
 
 
@@ -20,7 +31,7 @@ namespace GiantNode
     /// 内部消息
     /// </summary>
     [ProtoContract]
-    public class InnerMessage : IMessage
+    public class InnerMessage
     {
         public uint ToNode
         {

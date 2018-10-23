@@ -6,7 +6,7 @@ namespace GiantNode
     /// 外部消息
     /// </summary>
     [ProtoContract]
-    public class OutMessage : IMessage
+    public class OuterMessage
     {
         public uint ToNode
         {
@@ -14,17 +14,18 @@ namespace GiantNode
             set { mToNodeId = value; }
         }
 
-        public MessageType MessageType
-        {
-            get { return mMessageType; }
-            set { mMessageType = value; }
-        }
-
         public byte[] Content
         {
             get { return mContent; }
             set { mContent = value; }
         }
+
+        public uint Uid
+        {
+            get { return mUid; }
+            set { mUid = value; }
+        }
+
 
         /// <summary>
         /// 消息类型
@@ -39,9 +40,15 @@ namespace GiantNode
         private uint mToNodeId = 0;
 
         /// <summary>
-        /// 消息内容
+        /// 客户端id
         /// </summary>
         [ProtoMember(3)]
+        private uint mUid = 0;
+
+        /// <summary>
+        /// 消息内容
+        /// </summary>
+        [ProtoMember(4)]
         private byte[] mContent;
     }
 }

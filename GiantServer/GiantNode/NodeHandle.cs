@@ -69,7 +69,7 @@ namespace GiantNode
             if (IsFrontNode)
             {
                 //外部通讯服务
-                OutNetServer.Init(mRunTime);
+                OuterNetServer.Init(mRunTime);
             }
 
             //插件启动完成事件
@@ -87,7 +87,7 @@ namespace GiantNode
 
                 float delay = (float)(now - mLastUpdateTime).TotalMilliseconds;
                 
-                Queue<IMessage> messages = MessageManager.PopList();
+                Queue<Message> messages = MessageManager.PopList();
 
                 while (messages.Count > 0)
                 {
@@ -111,13 +111,26 @@ namespace GiantNode
         /// <summary>
         /// 派发消息
         /// </summary>
-        private void DistributeMessage(IMessage message)
+        private void DistributeMessage(Message message)
         {
             switch (message.MessageType)
             {
-                case MessageType.InnerMessage:
+                case MessageType.Inner:
                     {
-                        mNodeEvent.OnInsideHandle(mRunTime.NodeId, message.Content);
+                        mNodeEvent.OnInsideHandle(mRunTime.NodeId, (byte[])message.Param[0]);
+                    }
+                    break;
+                case MessageType.Client:
+                    {
+                        OuterMessage outerMessage = (OuterMessage)message.Param[0];
+
+                        if (outerMessage.ToNode == mRunTime.NodeId)
+                        {
+                            //mNodeEvent.OnHandle();
+                        }
+                        else
+                        {
+                        }
                     }
                     break;
             }

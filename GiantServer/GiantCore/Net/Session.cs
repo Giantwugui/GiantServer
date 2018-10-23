@@ -1,13 +1,15 @@
 ﻿using System;
+using ProtoBuf;
 
 namespace GiantCore
 {
     /// <summary>
     /// 客户端会话信息类
     /// </summary>
+    [ProtoContract]
     public class Session
     {
-        public Session(uint nodeId, uint uid)
+        public Session(uint nodeId, ulong uid)
         {
             mUid = uid;
             mNodeId = nodeId;
@@ -33,7 +35,7 @@ namespace GiantCore
         /// <summary>
         /// 回话对象id
         /// </summary>
-        public uint Uid
+        public ulong Uid
         {
             get { return mUid; }
             set { mUid = value; }
@@ -42,11 +44,13 @@ namespace GiantCore
         /// <summary>
         /// 节点id
         /// </summary>
+        [ProtoMember(1)]
         private uint mNodeId = 0;
 
         /// <summary>
         /// 回话对象id
         /// </summary>
-        private uint mUid = 0;
+        [ProtoMember(2)]
+        private ulong mUid = 0;
     }
 }

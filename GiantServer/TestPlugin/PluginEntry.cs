@@ -52,7 +52,7 @@ namespace TestPlugin
         {
             InnerMessage message = new InnerMessage()
             {
-                MessageType = MessageType.InnerMessage,
+                MessageType = MessageType.Inner,
                 ToNode = 1,
                 Content = Encoding.UTF8.GetBytes("test")
             };

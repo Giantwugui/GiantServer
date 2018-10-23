@@ -28,6 +28,14 @@ namespace GiantNode
                 }
             }
         }
+
+        /// <summary>
+        /// 转发消息
+        /// </summary>
+        public static void Transmit(uint toNode, Message message)
+        {
+            mPublisher[toNode].SendFrame(message.ToJson());
+        }
        
 
         private static void ReceiveLoop()
@@ -38,7 +46,7 @@ namespace GiantNode
                 {
                     InnerMessage message = mPuller.ReceiveFrameString().ToObject<InnerMessage>();
 
-                    MessageManager.Enqueue(message);
+                    MessageManager.Enqueue(new Message(message.MessageType, message.Content));
                 }
                 catch (Exception ex)
                 {
