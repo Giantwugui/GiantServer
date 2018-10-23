@@ -115,22 +115,90 @@ namespace GiantNode
         {
             switch (message.MessageType)
             {
-                case MessageType.Inner:
-                    {
-                        mNodeEvent.OnInsideHandle(mRunTime.NodeId, (byte[])message.Param[0]);
-                    }
-                    break;
                 case MessageType.Client:
                     {
-                        OuterMessage outerMessage = (OuterMessage)message.Param[0];
+                        Session session = (Session)message.Param[0];
+
+                        OuterMessage outerMessage = (OuterMessage)message.Param[1];
 
                         if (outerMessage.ToNode == mRunTime.NodeId)
                         {
-                            //mNodeEvent.OnHandle();
+                            mNodeEvent.Events_OnHandle(session, outerMessage.Content);
                         }
                         else
                         {
+                             InnerMessage innerMessage = new InnerMessage(outerMessage.ToNode, InnerMessageType.Client, outerMessage.Content);
+
+                            innerMessage.Add<Session>("Session", session);
+
+                            InnerNetServer.Transmit(outerMessage.ToNode, innerMessage.ToProtoString());
                         }
+                    }
+                    break;
+                case MessageType.ClientOnline:
+                    {
+                        Session session = (Session)message.Param[0];
+
+                        foreach (var currNode in mRunTime.Nodes)
+                        {
+                            if (currNode != mRunTime.NodeId)
+                            {
+                                InnerMessage innerMessage = new InnerMessage(currNode, InnerMessageType.ClientOnline, session.ToProtoBytes());
+
+                                innerMessage.Add<Session>("Session", session);
+
+                                InnerNetServer.Transmit(currNode, innerMessage.ToProtoString());
+                            }
+                        }
+                    }
+                    break;
+                case MessageType.ClientOffline:
+                    {
+                        Session session = (Session)message.Param[0];
+
+                        foreach (var currNode in mRunTime.Nodes)
+                        {
+                            if (currNode != mRunTime.NodeId)
+                            {
+                                InnerMessage innerMessage = new InnerMessage(currNode, InnerMessageType.ClientOffline, session.ToProtoBytes());
+
+                                innerMessage.Add<Session>("Session", session);
+
+                                InnerNetServer.Transmit(currNode, innerMessage.ToProtoString());
+                            }
+                        }
+                    }
+                    break;
+                case MessageType.Inner:
+                    {
+                        OnInnerMessage((InnerMessage)message.Param[0]);
+                    }
+                    break;
+            }
+        }
+
+        private void OnInnerMessage(InnerMessage innerMessage)
+        {
+            switch (innerMessage.MessageType)
+            {
+                case InnerMessageType.Inner:
+                    {
+                        mNodeEvent.Events_OnInsideHandle(NodeId, innerMessage.Content);
+                    }
+                    break;
+                case InnerMessageType.Client:
+                    {
+                        mNodeEvent.Events_OnHandle(innerMessage.Get<Session>("Session"), innerMessage.Content);
+                    }
+                    break;
+                case InnerMessageType.ClientOnline:
+                    {
+                        mNodeEvent.Events_OnClientOnline(innerMessage.Get<Session>("Session"));
+                    }
+                    break;
+                case InnerMessageType.ClientOffline:
+                    {
+                        mNodeEvent.Events_OnClientOffline(innerMessage.Get<Session>("Session"));
                     }
                     break;
             }
@@ -141,12 +209,29 @@ namespace GiantNode
             get { return mRunTime.IsFrontNode; }
         }
 
+        public uint NodeId
+        {
+            get { return mRunTime.NodeId; }
+        }
+
+        /// <summary>
+        /// 环境运行时
+        /// </summary>
         private NodeRuntime mRunTime = null;
 
+        /// <summary>
+        /// 上次更新时间
+        /// </summary>
         private DateTime mLastUpdateTime = DateTime.Now;
 
+        /// <summary>
+        /// 节点昵称
+        /// </summary>
         private readonly string mNodeName = "";
 
+        /// <summary>
+        /// 节点事件
+        /// </summary>
         private readonly NodeEvents mNodeEvent = null;
     }
 }

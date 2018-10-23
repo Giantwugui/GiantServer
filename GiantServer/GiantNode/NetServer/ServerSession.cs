@@ -40,7 +40,7 @@ namespace GiantNode
         {
             if (OnReceiveMessage != null)
             {
-                OnReceiveMessage(mSession, message);
+                OnReceiveMessage(mSession, message.ToProtoObject<OuterMessage>());
             }
         }
 
@@ -75,6 +75,11 @@ namespace GiantNode
             get { return mSession.Uid; }
         }
 
+        public Session Session
+        {
+            get { return mSession; }
+        }
+
         /// <summary>
         /// 断开连接
         /// </summary>
@@ -83,7 +88,7 @@ namespace GiantNode
         /// <summary>
         /// 收到消息
         /// </summary>
-        public Action<Session, byte[]> OnReceiveMessage = null;
+        public Action<Session, OuterMessage> OnReceiveMessage = null;
 
         /// <summary>
         /// 回话标识

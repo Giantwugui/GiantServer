@@ -50,14 +50,9 @@ namespace TestPlugin
         /// </summary>
         private void OnNodeUpdate(float time)
         {
-            InnerMessage message = new InnerMessage()
-            {
-                MessageType = MessageType.Inner,
-                ToNode = 1,
-                Content = Encoding.UTF8.GetBytes("test")
-            };
+            InnerMessage message = new InnerMessage(1, InnerMessageType.Inner, Encoding.UTF8.GetBytes("test"));
 
-            mPushSocket.SendFrame(message.ToJson());
+            mPushSocket.SendFrame(message.ToProtoString());
         }
 
         private void OnNodeStartComplate()

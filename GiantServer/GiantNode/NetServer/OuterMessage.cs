@@ -1,4 +1,5 @@
-﻿using ProtoBuf;
+﻿using GiantCore;
+using ProtoBuf;
 
 namespace GiantNode
 {
@@ -20,35 +21,16 @@ namespace GiantNode
             set { mContent = value; }
         }
 
-        public uint Uid
-        {
-            get { return mUid; }
-            set { mUid = value; }
-        }
-
-
-        /// <summary>
-        /// 消息类型
-        /// </summary>
-        [ProtoMember(1)]
-        private MessageType mMessageType;
-
         /// <summary>
         /// 发往节点id
         /// </summary>
-        [ProtoMember(2)]
+        [ProtoMember(1)]
         private uint mToNodeId = 0;
-
-        /// <summary>
-        /// 客户端id
-        /// </summary>
-        [ProtoMember(3)]
-        private uint mUid = 0;
 
         /// <summary>
         /// 消息内容
         /// </summary>
-        [ProtoMember(4)]
+        [ProtoMember(2)]
         private byte[] mContent;
     }
 }

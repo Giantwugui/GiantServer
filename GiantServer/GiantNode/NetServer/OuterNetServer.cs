@@ -20,7 +20,7 @@ namespace GiantNode
 
             if (!int.TryParse(runTime.GetParam("FrontPort"), out port))
             {
-                throw new ArgumentNullException(string.Format("Node {0}_{1} FrontPort can't be null ", runTime.NodeName, runTime.NodeId));
+                throw new ArgumentNullException(string.Format("Node {0}_{1} FrontPort 不能为空 ", runTime.NodeName, runTime.NodeId));
             }
 
             mTcpListener = new TcpListener(new IPEndPoint(IPAddress.Any, port));
@@ -46,6 +46,10 @@ namespace GiantNode
                 {
                     throw new Exception(string.Format("重复的客户端会话 Id {0}", serverSocket.Uid));
                 }
+
+                MessageManager.Add(new Message(MessageType.ClientOnline, serverSocket.Session));
+
+                serverSocket.ToStart();
             }
             catch (Exception ex)
             {
@@ -61,14 +65,19 @@ namespace GiantNode
         /// </summary>
         private static void OnClosed(Session session)
         {
-            mSessionList.TryRemove(session.Uid, out ServerSession serverSocket);
+            mSessionList.TryRemove(session.Uid, out ServerSession serverSession);
+
+            MessageManager.Add(new Message(MessageType.ClientOffline, session));
+
+            serverSession.Dispose();
         }
 
         /// <summary>
         /// 接受到来自客户端的消息
         /// </summary>
-        private static void OnReceiveMessage(Session session, byte[] message)
+        private static void OnReceiveMessage(Session session, OuterMessage message)
         {
+            MessageManager.Add(new Message(MessageType.Client, session, message));
         }
 
         public static uint NodeId

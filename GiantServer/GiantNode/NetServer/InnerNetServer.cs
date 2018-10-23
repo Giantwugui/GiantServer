@@ -32,9 +32,9 @@ namespace GiantNode
         /// <summary>
         /// 转发消息
         /// </summary>
-        public static void Transmit(uint toNode, Message message)
+        public static void Transmit(uint toNode, string message)
         {
-            mPublisher[toNode].SendFrame(message.ToJson());
+            mPublisher[toNode].SendFrame(message);
         }
        
 
@@ -44,9 +44,9 @@ namespace GiantNode
             {
                 try
                 {
-                    InnerMessage message = mPuller.ReceiveFrameString().ToObject<InnerMessage>();
+                    InnerMessage message = mPuller.ReceiveFrameString().ToProtoObject<InnerMessage>();
 
-                    MessageManager.Enqueue(new Message(message.MessageType, message.Content));
+                    MessageManager.Add(new Message(MessageType.Inner, message));
                 }
                 catch (Exception ex)
                 {

@@ -1,8 +1,12 @@
 ﻿using ProtoBuf;
+using System.Collections.Generic;
 
 namespace GiantNode
 {
-    public enum MessageType
+    /// <summary>
+    /// 内部消息类型
+    /// </summary>
+    public enum InnerMessageType
     {
         /// <summary>
         /// 内部消息
@@ -12,17 +16,17 @@ namespace GiantNode
         /// <summary>
         /// 客户端消息
         /// </summary>
-        Client = 2,
+        Client = 1<<1,
 
         /// <summary>
         /// 上线消息
         /// </summary>
-        Online = 3,
+        ClientOnline = 1<<2,
 
         /// <summary>
         /// 下线消息
         /// </summary>
-        Offline = 4,
+        ClientOffline = 1<<3,
 
     }
 
@@ -33,13 +37,30 @@ namespace GiantNode
     [ProtoContract]
     public class InnerMessage
     {
+        public InnerMessage(uint toNode, InnerMessageType messageType, byte[] content)
+        {
+            mToNodeId = toNode;
+            mMessageType = messageType;
+            mContent["Content"] = content;
+        }
+
+        public void Add<T>(string key, T o) where T : class
+        {
+            mContent[key] = o.ToProtoBytes();
+        }
+
+        public T Get<T>(string key) where T : class
+        {
+            return mContent.ContainsKey(key) ? mContent[key].ToProtoObject<T>() : null;
+        }
+
         public uint ToNode
         {
             get { return mToNodeId; }
             set { mToNodeId = value; }
         }
 
-        public MessageType MessageType
+        public InnerMessageType MessageType
         {
             get { return mMessageType; }
             set { mMessageType = value; }
@@ -47,15 +68,21 @@ namespace GiantNode
 
         public byte[] Content
         {
-            get { return mContent; }
-            set { mContent = value; }
+            get
+            {
+                return mContent["Content"];
+            }
+            set
+            {
+                mContent["Content"] = value;
+            }
         }
 
         /// <summary>
         /// 消息类型
         /// </summary>
         [ProtoMember(1)]
-        private MessageType mMessageType;
+        private InnerMessageType mMessageType;
 
         /// <summary>
         /// 发往节点id
@@ -67,6 +94,6 @@ namespace GiantNode
         /// 消息内容
         /// </summary>
         [ProtoMember(3)]
-        private byte[] mContent;
+        private Dictionary<string, byte[]> mContent = new Dictionary<string, byte[]>();
     }
 }
