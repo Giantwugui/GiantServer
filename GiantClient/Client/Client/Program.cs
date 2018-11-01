@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text;
+using System.Threading;
+using GiantCore;
 
 namespace Client
 {
@@ -6,8 +9,36 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            try
+            {
+                NetServices.ToStart();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
 
+            while (true)
+            {
+                string cmd = Console.ReadLine();
+
+                if (cmd == "Test")
+                {
+                    ThreadHelper.CreateThread(ThreadLoop, "Send");
+                }
+            }
         }
+
+        private static void ThreadLoop()
+        {
+            while (true)
+            {
+                NetServices.Send(new OuterMessage() {  ToNode = 1, Content = Encoding.UTF8.GetBytes("client") });
+
+                Thread.Sleep(100);
+            }
+        }
+
+
     }
 }

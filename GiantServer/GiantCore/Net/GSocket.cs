@@ -25,7 +25,7 @@ namespace GiantCore
         {
             mIsSender = true;
 
-            mSocket = new Socket(AddressFamily.InterNetwork | AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+            mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             mPoint = new IPEndPoint(IPAddress.Parse(host), port);
         }
@@ -57,21 +57,6 @@ namespace GiantCore
             mSocket.BeginConnect(mPoint, AsyncConnected, null);
         }
 
-
-        private void ToReceive()
-        {
-            SocketError error = SocketError.SocketError;
-            try
-            {
-                mSocket.BeginReceive(mBuffer.TempBuffer, 0, mBuffer.TempBuffer.Length, SocketFlags.None, out error, AsyncReceive, null);
-            }
-            catch(Exception ex)
-            {
-                NotifyClosed(error);
-                throw ex;
-            }
-        }
-
         private void AsyncConnected(IAsyncResult ar)
         {
             try
@@ -87,9 +72,24 @@ namespace GiantCore
             }
         }
 
+        private void ToReceive()
+        {
+            SocketError error = SocketError.SocketError;
+            try
+            {
+                mSocket.BeginReceive(mBuffer.TempBuffer, 0, mBuffer.TempBuffer.Length, SocketFlags.None, out error, AsyncReceive, null);
+            }
+            catch(Exception ex)
+            {
+                NotifyClosed(error);
+                throw ex;
+            }
+        }
+
         private void AsyncReceive(IAsyncResult ar)
         {
             SocketError error = SocketError.SocketError;
+
             try
             {
                 int size = mSocket.EndReceive(ar, out error);
@@ -102,14 +102,21 @@ namespace GiantCore
                         NotifyReceived(curr);
                     }
                 }
-
-                ToReceive();
             }
             catch (Exception ex)
             {
                 NotifyClosed(error);
 
                 throw ex;
+            }
+
+            if (error == SocketError.Success)
+            {
+                ToReceive();
+            }
+            else
+            {
+                NotifyClosed(error);
             }
         }
 

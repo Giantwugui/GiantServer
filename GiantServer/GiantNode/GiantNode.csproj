@@ -6,6 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
+    <OutputPath>E:\wg\GiantNode\GiantServer\OutPut</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GiantCore\GiantCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Network\HTTP\" />
   </ItemGroup>
 
 </Project>

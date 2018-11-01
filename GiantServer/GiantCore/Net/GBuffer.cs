@@ -20,7 +20,7 @@ namespace GiantCore
             {
                 byte[] tempBuffer = new byte[size];
 
-                Array.Copy(tempBuffer, tempBuffer, size);
+                Array.Copy(TempBuffer, tempBuffer, size);
 
                 mContent.AddRange(tempBuffer);
             }
@@ -50,7 +50,7 @@ namespace GiantCore
 
         public int SendSize
         {
-            get { return mContent.Count - 4; }
+            get { return mContent.Count; }
         }
 
         public byte[] TempBuffer = new byte[4096];

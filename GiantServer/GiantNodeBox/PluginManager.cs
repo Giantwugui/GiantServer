@@ -12,7 +12,7 @@ namespace GiantNodeBox
 
             List<uint> allNodes = new List<uint>(1);
 
-            NodeHandle nodeHandle = new NodeHandle("TestPlugin.dll", new NodeRuntime(1, 1, "TestPlugin", allNodes.ToArray(), param));
+            NodeHandle nodeHandle = new NodeHandle("GatewayPlugin.dll", new NodeRuntime(1, 1, "GatewayPlugin", allNodes.ToArray(), param));
 
             nodeHandle.ToStart();
 

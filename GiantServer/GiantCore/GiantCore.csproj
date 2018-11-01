@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
-    <OutputPath>E:\wg\GiantServer\GiantServer\OutPut\</OutputPath>
+    <OutputPath>E:\wg\GiantNode\GiantServer\OutPut</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
