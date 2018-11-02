@@ -51,6 +51,33 @@ namespace GiantCore
             mSocket.BeginSend(buffer.Content.ToArray(), 0, buffer.SendSize, SocketFlags.None, AsyncSended, buffer);
         }
 
+        private void AsyncSended(IAsyncResult ar)
+        {
+            try
+            {
+                SocketError error = SocketError.Success;
+
+                GBuffer buffer = ar.AsyncState as GBuffer;
+
+                int sendSize = mSocket.EndSend(ar, out error);
+                if (sendSize > 0)
+                {
+                    if (sendSize != buffer.SendSize)
+                    {
+                        ToSend(mBuffer);
+                    }
+                }
+                else
+                {
+                    NotifyClosed(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
 
         private void ToConn()
         {
@@ -117,33 +144,6 @@ namespace GiantCore
             else
             {
                 NotifyClosed(error);
-            }
-        }
-
-        private void AsyncSended(IAsyncResult ar)
-        {
-            try
-            {
-                SocketError error = SocketError.Success;
-
-                GBuffer buffer = ar.AsyncState as GBuffer;
-
-                int sendSize = mSocket.EndSend(ar, out error);
-                if (sendSize > 0)
-                {
-                    if (sendSize != mBuffer.SendSize)
-                    {
-                        ToSend(mBuffer);
-                    }
-                }
-                else
-                {
-                    NotifyClosed(error);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
 

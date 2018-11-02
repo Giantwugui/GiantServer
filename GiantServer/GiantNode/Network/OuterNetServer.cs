@@ -14,11 +14,9 @@ namespace GiantNode
     {
         public static void Init(IRunTime runTime)
         {
-            int port = 0;
-
             mRunTime = runTime;
 
-            if (!int.TryParse(runTime.GetParam("FrontPort"), out port))
+            if (!int.TryParse(runTime.GetParam("FrontPort"), out int port))
             {
                 throw new ArgumentNullException($"Node {runTime.NodeName}_{runTime.NodeId} FrontPort 不能为空 ");
             }
@@ -26,39 +24,36 @@ namespace GiantNode
             mTcpListener = new TcpListener(IPAddress.Any, port);
             mTcpListener.Start(3000);
 
-            AcceptAsync();
+            ThreadHelper.CreateThread(AcceptLoop, "Accept");
         }
 
-        private static void AcceptAsync()
-        {
-            AcceptComplete(mTcpListener.AcceptSocket());
-        }
 
-        private static void AcceptComplete(Socket socket)
+        private static void AcceptLoop()
         {
             try
             {
-                TSocket serverSocket = new TSocket(socket);
-
-                serverSocket.OnClosed += OnClosed;
-
-                serverSocket.OnReceiveMessage += OnReceiveMessage;
-
-                if (!mSessionList.TryAdd(serverSocket.Uid, serverSocket))
+                while (true)
                 {
-                    throw new Exception($"重复的客户端会话 Id {serverSocket.Uid}");
+                    TSocket serverSocket = new TSocket(mTcpListener.AcceptSocket());
+
+                    serverSocket.OnClosed += OnClosed;
+
+                    serverSocket.OnReceiveMessage += OnReceiveMessage;
+
+                    if (!mSessionList.TryAdd(serverSocket.Uid, serverSocket))
+                    {
+                        throw new Exception($"重复的客户端会话 Id {serverSocket.Uid}");
+                    }
+
+                    MessageManager.Add(new Message(MessageType.ClientOnline, serverSocket.Session));
+
+                    serverSocket.ToStart();
                 }
-
-                MessageManager.Add(new Message(MessageType.ClientOnline, serverSocket.Session));
-
-                serverSocket.ToStart();
             }
             catch(Exception ex)
             {
                 throw new Exception($"mAccept error {ex.ToString()}");
             }
-
-            AcceptAsync();
         }
 
 

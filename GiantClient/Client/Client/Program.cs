@@ -24,7 +24,8 @@ namespace Client
 
                 if (cmd == "Test")
                 {
-                    ThreadHelper.CreateThread(ThreadLoop, "Send");
+                    NetServices.Send(new OuterMessage() {  ToNode = 1, Content = Encoding.UTF8.GetBytes("client") });
+                    //ThreadHelper.CreateThread(ThreadLoop, "Send");
                 }
             }
         }
@@ -33,8 +34,8 @@ namespace Client
         {
             while (true)
             {
-                NetServices.Send(new OuterMessage() {  ToNode = 1, Content = Encoding.UTF8.GetBytes("client") });
 
+                NetServices.Send(new OuterMessage() {  ToNode = 1, Content = Encoding.UTF8.GetBytes("client") });
                 Thread.Sleep(100);
             }
         }
