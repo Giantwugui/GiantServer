@@ -15,3 +15,4 @@
 /GiantServer/*.suo
 /GiantServer/GiantEx/*
 /GiantServer/GiantNode/*
+/GiantClient/Client/Client/*
