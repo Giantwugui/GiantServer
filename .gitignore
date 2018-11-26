@@ -16,3 +16,8 @@
 /GiantServer/GiantEx/*
 /GiantServer/GiantNode/*
 /GiantClient/Client/Client/*
+/OODB/OODB/obj
+/OODB/OODB/bin
+/OODB/.vs
+/.gitignore
+/.gitattributes
