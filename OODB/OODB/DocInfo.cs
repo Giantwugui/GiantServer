@@ -7,38 +7,39 @@ namespace OODB
     class IndexInfo
     {
         public string Name;
-        public Dictionary<string, OODBIndexType> Keys = new Dictionary<string, OODBIndexType>();
         public bool IsUnique = false;
+        public Dictionary<string, OODBIndexType> Keys = new Dictionary<string, OODBIndexType>();
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
 
-        public static bool operator ==(IndexInfo i1, IndexInfo i2)
+        public static bool operator ==(IndexInfo index1, IndexInfo index2)
         {
-            if((Object)i1==null)
+            if (index1 is null)
             {
-                if ((Object)i2 == null)
+                if (index2 is null)
                     return true;
                 else
                     return false;
             }
 
             //注意我们调用Equals来判断是否相等。而不是在自己的函数中判、断。这是因为如果在自己的函数中判断。比如有rec2=null的情况。如果是这种情况。我们要判断if(rec2==null) {…}。其中rec2==null也是调用一个等号运算符，这里面有一个递归的过程，造成了死循环。  
-            return Object.Equals(i1, i2);
+            return Object.Equals(index1, index2);
         }
-        public static bool operator !=(IndexInfo i1, IndexInfo i2)
+
+        public static bool operator !=(IndexInfo index1, IndexInfo index2)
         {
-            if ((Object)i1 == null)
+            if (index1 is null)
             {
-                if ((Object)i2 == null)
+                if (index2 is null)
                     return false;
                 else
                     return true;
             }
 
-            return !Object.Equals(i1, i2);
+            return !Object.Equals(index1, index2);
         }
 
         public override bool Equals(object obj)
@@ -85,14 +86,15 @@ namespace OODB
                     OOFieldAttribute fattr = fdAttributes[0] as OOFieldAttribute;
                     _FieldAttrs.Add(curr.Name, fattr.DefaultValue);
 
-                    
                     //检查缺省值合法性
                     if (fattr.DefaultValue == null && !curr.PropertyType.IsValueType)//缺省值设置为空
                     {
 
-                    }else
-                    if( fattr.DefaultValue.GetType() != curr.PropertyType)
+                    }
+                    else if (fattr.DefaultValue.GetType() != curr.PropertyType)
+                    {
                         throw new Exception(String.Format("[{0}.{1}] 缺省值类型不正确", type.Name, curr.Name));
+                    }
                 }
 
                 //索引信息读入
@@ -103,7 +105,7 @@ namespace OODB
                     {
                       
                         OOFieldIndexAttribute fielIndex = fieldIndexAttributes[0] as OOFieldIndexAttribute;
-                        string idxName = String.IsNullOrEmpty(fielIndex.groupName) ? curr.Name : fielIndex.groupName;
+                        string idxName = String.IsNullOrEmpty(fielIndex.GroupName) ? curr.Name : fielIndex.GroupName;
 
                         IndexInfo indexObj;
                         if (!_FieldIndexs.ContainsKey(idxName))

@@ -153,7 +153,7 @@ namespace OODB
             {
                 case "String":
                     {
-                        if (OODBInstance.__WriteRecord&&!strFields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord&&!strFields._NeedUpdate.Contains(fieldName))
                             strFields._NeedUpdate.Add(fieldName);
 
                         string vv = (string)v;
@@ -166,7 +166,7 @@ namespace OODB
                 case "Int64":
                     {
 
-                        if (OODBInstance.__WriteRecord && !longFields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord && !longFields._NeedUpdate.Contains(fieldName))
                             longFields._NeedUpdate.Add(fieldName);
 
                         long vv = Convert.ToInt64(v);
@@ -178,7 +178,7 @@ namespace OODB
                     break;
                 case "Int32":
                     {
-                        if (OODBInstance.__WriteRecord && !int32Fields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord && !int32Fields._NeedUpdate.Contains(fieldName))
                             int32Fields._NeedUpdate.Add(fieldName);
 
                         int vv = Convert.ToInt32(v);
@@ -190,7 +190,7 @@ namespace OODB
                     break;
                 case "UInt32":
                     {
-                        if (OODBInstance.__WriteRecord && !uint32Fields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord && !uint32Fields._NeedUpdate.Contains(fieldName))
                             uint32Fields._NeedUpdate.Add(fieldName);
 
                         uint vv = Convert.ToUInt32(v);
@@ -202,7 +202,7 @@ namespace OODB
                     break;
                 case "Single":
                     {
-                        if (OODBInstance.__WriteRecord && !singleFields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord && !singleFields._NeedUpdate.Contains(fieldName))
                             singleFields._NeedUpdate.Add(fieldName);
 
                         float vv = Convert.ToSingle(v);
@@ -214,7 +214,7 @@ namespace OODB
                     break;
                 case "Byte[]":
                     {
-                        if (OODBInstance.__WriteRecord && !byteArrayFields._NeedUpdate.Contains(fieldName))
+                        if (OODBInstance.mWriteRecord && !byteArrayFields._NeedUpdate.Contains(fieldName))
                             byteArrayFields._NeedUpdate.Add(fieldName);
 
                         var vv = (byte[])v;

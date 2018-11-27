@@ -46,7 +46,7 @@ namespace demo
         public Player(OOConn conn) : base(conn) { }
 
         [OOField("")]
-        [OOFieldIndex(OODBIndexType.Asc,Unique = true,groupName="Key1_key2")]
+        [OOFieldIndex(OODBIndexType.Asc,Unique = true,GroupName="Key1_key2")]
         public String Key1
         {
             get
@@ -57,7 +57,7 @@ namespace demo
         }
 
         [OOField("")]
-        [OOFieldIndex(OODBIndexType.Asc, Unique = true, groupName = "Key1_key2")]
+        [OOFieldIndex(OODBIndexType.Asc, Unique = true, GroupName = "Key1_key2")]
         public String Key2
         {
             get
@@ -69,7 +69,6 @@ namespace demo
 
 
         [OOField(88.0f)]
-        [OOFieldIndex(OODBIndexType.Asc)]
         public float Exp
         {
             get {  return GetValue<float>();  }
@@ -133,10 +132,15 @@ namespace demo
 
                 const string playerName = "wen";
 
-                if (null == OOTab.FindFirst<Player>(conn, Query.EQ("name", playerName)))
+                if (null == OOTab.FindFirst<Player>(conn, Query.EQ("Name", playerName)))
                 {
-                    Player playerDB = new Player(conn);
-                    playerDB.Name = playerName;
+                    Player playerDB = new Player(conn)
+                    {
+                        Name = playerName,
+                        Key1 = "key1",
+                        Key2 = "key2",
+                    };
+
                     for (int i = 0; i < 5; i++)
                         playerDB.olist.Add(i);
                     playerDB.Sex = SEX.Woman;
@@ -170,7 +174,7 @@ namespace demo
 
                 while (true)
                 {
-                    IEnumerator it = OOTab.Find<Player>(conn, Query.EQ("name", playerName));
+                    IEnumerator it = OOTab.Find<Player>(conn, Query.EQ("Name", playerName));
                     while (it.MoveNext())
                     {
                         Player playerObj = it.Current as Player;

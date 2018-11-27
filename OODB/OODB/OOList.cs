@@ -8,52 +8,53 @@ namespace OODB
     {
         public void Add(T v)
         {
-            _list.Add(v);
+            mList.Add(v);
 
             SetChanged();
         }
 
         void SetChanged()
         {
-            if(OODBInstance.__WriteRecord)
-            _changed = true;
+            if(OODBInstance.mWriteRecord)
+            mChanged = true;
         } 
 
         public void Insert(int index, T v)
         {
-            _list.Insert(index, v);
+            mList.Insert(index, v);
             SetChanged();
         }
 
         public void RemoveAt(int index)
         {
 
-            _list.RemoveAt(index);
+            mList.RemoveAt(index);
             SetChanged();
         }
 
         public void Remove(T v)
         {
-            _list.Remove(v);
+            mList.Remove(v);
             SetChanged();
         }
 
         public void Clear()
         {
-            _list.Clear();
+            mList.Clear();
             SetChanged();
         }
 
-        public int Count { get { return _list.Count; } }
+        public int Count { get { return mList.Count; } }
 
-        public T this[int index] { 
-            get { return _list[index]; } 
-            set {   _list[index] = value; SetChanged();   } 
+        public T this[int index]
+        { 
+            get { return mList[index]; } 
+            set {   mList[index] = value; SetChanged();   } 
         }
 
         internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
         {
-            if (!_changed) 
+            if (!mChanged) 
                 return;
 
             updateBuilder = updateBuilder.Set(parentPath, ToBsonValue());
@@ -63,7 +64,7 @@ namespace OODB
         {
             BsonArray barray = new BsonArray();
 
-            foreach (T curr in _list)
+            foreach (T curr in mList)
             {
                 barray.Add(OODBValueType.ToBsonValue(curr));
             }
@@ -74,26 +75,27 @@ namespace OODB
         internal override void FromBsonValue(BsonValue v)
         {
             BsonArray barray = v as BsonArray;
-            _list.Clear();
+            mList.Clear();
 
             for(int i=0;i<barray.Count;i++)
             {
                 object rv = OODBValueType.FromBsonValue(typeof(T), barray[i]);
-                _list.Add((T)rv);
+                mList.Add((T)rv);
             }
         }
 
         internal override void SetNoChanged()
         {
-            _changed = false; 
+            mChanged = false; 
         }
 
         public virtual bool Contains(T k)
         {
-            return _list.Contains(k);
+            return mList.Contains(k);
         }
 
-        internal bool _changed = false;//list类型一但有变化需要全部更新
-        List<T> _list = new List<T>(); 
+        internal bool mChanged = false;//list类型一但有变化需要全部更新
+
+        List<T> mList = new List<T>(); 
     }
 }

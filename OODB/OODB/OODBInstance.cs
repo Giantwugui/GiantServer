@@ -79,30 +79,27 @@ namespace OODB
         /// <summary>
         /// 初始化OODB
         /// </summary>
-        /// <returns></returns>
         public bool Init(System.Reflection.Assembly assembly)
         {
             try
             {
                 //扫描
-               
                 foreach (Type type in assembly.GetTypes())
                 { 
-                    System.Reflection.MemberInfo info = type;  
-                    object[] attributes = info.GetCustomAttributes(true);
+                    object[] attributes = type.GetCustomAttributes(typeof(OOTableAttribute), true);
+
                     for (int i = 0; i < attributes.Length; i++)
                     {
-                        OOTableAttribute att = attributes[i] as OOTableAttribute;
-                        if (att == null) continue;
+                        if (!(attributes[i] is OOTableAttribute att)) continue;
 
                         CheckDocClass(type, typeof(OOTab), null);
 
                         TabInfo cInfo = new TabInfo(type, att.DBNickName);
 
-                        if (!m_TabInfos.ContainsKey(att.DBNickName))
-                            m_TabInfos.Add(att.DBNickName, new Dictionary<string, TabInfo>());
+                        if (!mTabInfos.ContainsKey(att.DBNickName))
+                            mTabInfos.Add(att.DBNickName, new Dictionary<string, TabInfo>());
 
-                        m_TabInfos[cInfo.dbNickName].Add(cInfo.Name, cInfo);
+                        mTabInfos[cInfo.DBNickName].Add(cInfo.Name, cInfo);
                         m_TabInfosIndexByName.Add(cInfo.Name, cInfo);
                     }
                 }
@@ -111,7 +108,7 @@ namespace OODB
             }
             catch (Exception ex)
             {
-                m_LastError = ex.Message;
+                mLastError = ex.Message;
                 return false;
             }
         }
@@ -123,10 +120,10 @@ namespace OODB
         /// <param name="dbNickName"></param>
         public void UpdateIndex(string dbNickName, OOConn conn)
         {
-            if (!m_TabInfos.ContainsKey(dbNickName))
+            if (!mTabInfos.ContainsKey(dbNickName))
                 throw new Exception(String.Format("UpdateIndex 未知的数据库别名 {0}", dbNickName));
 
-            Dictionary<string, TabInfo> tabs = m_TabInfos[dbNickName];
+            Dictionary<string, TabInfo> tabs = mTabInfos[dbNickName];
             foreach (KeyValuePair<string, TabInfo> kv in tabs)
             {
                 TabInfo curr = kv.Value;
@@ -140,9 +137,12 @@ namespace OODB
                     {
                         if (currIndex.Name == "_id_") continue;
 
-                        IndexInfo nIdx = new IndexInfo();
-                        nIdx.Name = currIndex.Name;
-                        nIdx.IsUnique = currIndex.IsUnique;
+                        IndexInfo nIdx = new IndexInfo
+                        {
+                            Name = currIndex.Name,
+                            IsUnique = currIndex.IsUnique
+                        };
+
                         for (int i = 0; i < currIndex.Key.ElementCount; i++)
                         {
                             BsonElement el = currIndex.Key.GetElement(i);
@@ -228,29 +228,35 @@ namespace OODB
             }
         }
         
-        public string LastError { get { return m_LastError; } }
 
         public static OODBInstance Single = null;
 
+        string mLastError = "";
+        public string LastError { get { return mLastError; } }
+
+        //是否记录脏数据
+        internal static bool mWriteRecord = true;
+
         //表名 TabInfo
         internal Dictionary<string, TabInfo> m_TabInfosIndexByName = new   Dictionary<string, TabInfo>();
-        internal static bool __WriteRecord = true;//是否记录脏数据
+
+        //记录检查过的类型，避免递归检查，导致死循环
+        internal Dictionary<string, DocInfo> m_DocInfos = new Dictionary<string, DocInfo>();
+
         //数据库别名 表名 TabInfo
-        internal Dictionary<string, Dictionary<string, TabInfo>> m_TabInfos = new Dictionary<string, Dictionary<string, TabInfo>>();
-        internal Dictionary<string, DocInfo> m_DocInfos = new Dictionary<string, DocInfo>();//记录检查过的类型，避免递归检查，导致死循环
-        string m_LastError = "";
+        internal Dictionary<string, Dictionary<string, TabInfo>> mTabInfos = new Dictionary<string, Dictionary<string, TabInfo>>();
     }
 
     class WriteRecordDisabled:IDisposable
     {
         public WriteRecordDisabled()
         {
-            OODBInstance.__WriteRecord = false;
+            OODBInstance.mWriteRecord = false;
         }
 
         public void Dispose()
         {
-            OODBInstance.__WriteRecord = true;
+            OODBInstance.mWriteRecord = true;
         }
     }
 }

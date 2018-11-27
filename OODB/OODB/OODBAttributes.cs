@@ -25,7 +25,7 @@ namespace OODB
     {
         public OOFieldIndexAttribute(OODBIndexType indexType) { m_indexType = indexType; }
         public OODBIndexType IndexType { get { return m_indexType; } }
-        public string groupName = "";//组名，对于多字段索引，应设置一样的组名，组名即多维索引名
+        public string GroupName = "";//组名，对于多字段索引，应设置一样的组名，组名即多维索引名
         public bool Unique = false;//唯一索引
         OODBIndexType m_indexType;
     }

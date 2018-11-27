@@ -12,66 +12,66 @@ namespace OODB
     {
         public OODictionary()
         {
-            _isNodeValue = typeof(OOValueGroup).IsAssignableFrom(typeof(TValue));
+            mIsNodeValue = typeof(OOValueGroup).IsAssignableFrom(typeof(TValue));
         }
 
         public int Count
         {
-            get { return _Dictionary.Count; }
+            get { return mDictionary.Count; }
         }
 
         public virtual void Add(TKey k, TValue v)
         {
-            _Dictionary.Add(k, v);
+            mDictionary.Add(k, v);
             RecordOP(k, DictionaryOP.AddOrEdit);
         }
 
         public virtual void Remove(TKey k)
         {
-            _Dictionary.Remove(k);
+            mDictionary.Remove(k);
             RecordOP(k, DictionaryOP.Del);
         }
 
         public void Clear()
         {
-            foreach(var curr in _Dictionary)
+            foreach(var curr in mDictionary)
                 RecordOP(curr.Key, DictionaryOP.Del);
 
-            _Dictionary.Clear();
+            mDictionary.Clear();
         }
 
         public virtual TValue this[TKey key]
         {
-            get { return _Dictionary[key]; }
+            get { return mDictionary[key]; }
             set
             {
-                _Dictionary[key] = value;
+                mDictionary[key] = value;
                 RecordOP(key, DictionaryOP.AddOrEdit);
             }
         }
 
         public virtual bool ContainsKey(TKey k)
         {
-            return _Dictionary.ContainsKey(k);
+            return mDictionary.ContainsKey(k);
         }
 
         public virtual IEnumerator GetEnumerator()
         {
-            return _Dictionary.GetEnumerator();
+            return mDictionary.GetEnumerator();
         }
 
 
 
         internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
         {
-            if (_OPs.Count < 1)
+            if (mOperations.Count < 1)
             {
-                if (_isNodeValue && _Dictionary.Count > 0) //全部子对象构建命令
+                if (mIsNodeValue && mDictionary.Count > 0) //全部子对象构建命令
                 {
                     if (!String.IsNullOrEmpty(parentPath))
                         parentPath += ".";
 
-                    foreach (KeyValuePair<TKey, TValue> curr in _Dictionary)
+                    foreach (KeyValuePair<TKey, TValue> curr in mDictionary)
                     {
                         string objPath = parentPath + OODBValueType.ToStringValue(curr.Key);
                         OOValueGroup nv = curr.Value as OOValueGroup;
@@ -85,7 +85,7 @@ namespace OODB
             if (!String.IsNullOrEmpty(parentPath))
                 parentPath += ".";
 
-            foreach (KeyValuePair<TKey, DictionaryOP> curr in _OPs)
+            foreach (KeyValuePair<TKey, DictionaryOP> curr in mOperations)
             {
                 DictionaryOP op = curr.Value;
 
@@ -93,13 +93,13 @@ namespace OODB
                 if (op == DictionaryOP.AddOrEdit)
                 {
                     BsonValue v;
-                    if (_isNodeValue)
+                    if (mIsNodeValue)
                     {
-                        OOValueGroup nv = _Dictionary[curr.Key] as OOValueGroup;
+                        OOValueGroup nv = mDictionary[curr.Key] as OOValueGroup;
                         v = nv.ToBsonValue();
                     }
                     else
-                        v = OODBValueType.ToBsonValue(_Dictionary[curr.Key]);
+                        v = OODBValueType.ToBsonValue(mDictionary[curr.Key]);
 
                     updateBuilder = updateBuilder.Set(objPath, v);
                 }
@@ -110,11 +110,11 @@ namespace OODB
             }
 
             //所有对象都应调用BuildUpdateCmd
-            if (_isNodeValue && _Dictionary.Count > 0)
+            if (mIsNodeValue && mDictionary.Count > 0)
             {
-                foreach (KeyValuePair<TKey, TValue> curr in _Dictionary)
+                foreach (KeyValuePair<TKey, TValue> curr in mDictionary)
                 {
-                    if (_OPs.ContainsKey(curr.Key)) continue;//本次已经操作过，忽略执行
+                    if (mOperations.ContainsKey(curr.Key)) continue;//本次已经操作过，忽略执行
 
                     string objPath = parentPath + OODBValueType.ToStringValue(curr.Key);
                     OOValueGroup nv = curr.Value as OOValueGroup;
@@ -128,7 +128,7 @@ namespace OODB
             BsonDocument bDoc = v as BsonDocument;
             if (bDoc == null) return;
 
-            if (_isNodeValue)
+            if (mIsNodeValue)
             {
                 Type valueType = typeof(TValue);
 
@@ -138,8 +138,8 @@ namespace OODB
                     object vInstance = valueType.Assembly.CreateInstance(valueType.FullName);
                     OOValueGroup nv = vInstance as OOValueGroup;
                     nv.FromBsonValue(currKV.Value);
-                    _Dictionary.Add(key, (TValue)vInstance);
-                    _DBKeys.Add(key);
+                    mDictionary.Add(key, (TValue)vInstance);
+                    mDBKeys.Add(key);
                 }
             }
             else
@@ -148,8 +148,8 @@ namespace OODB
                 {
                     TKey key = (TKey)OODBValueType.FromStringValue(typeof(TKey), currKV.Name);
                     object vInstance = OODBValueType.FromBsonValue(typeof(TValue), currKV.Value);
-                    _Dictionary.Add(key, (TValue)vInstance);
-                    _DBKeys.Add(key);
+                    mDictionary.Add(key, (TValue)vInstance);
+                    mDBKeys.Add(key);
                 }
             }
         }
@@ -158,9 +158,9 @@ namespace OODB
         {
             BsonDocument bDoc = new BsonDocument();
 
-            if (_isNodeValue)
+            if (mIsNodeValue)
             {
-                foreach (KeyValuePair<TKey, TValue> curr in _Dictionary)
+                foreach (KeyValuePair<TKey, TValue> curr in mDictionary)
                 {
                     string strkey = OODBValueType.ToStringValue(curr.Key);
                     OOValueGroup nv = curr.Value as OOValueGroup;
@@ -169,7 +169,7 @@ namespace OODB
             }
             else
             {
-                foreach (KeyValuePair<TKey, TValue> curr in _Dictionary)
+                foreach (KeyValuePair<TKey, TValue> curr in mDictionary)
                 {
                     string strkey = OODBValueType.ToStringValue(curr.Key);
                     bDoc.Add(strkey, OODBValueType.ToBsonValue(curr.Value));
@@ -182,20 +182,20 @@ namespace OODB
         internal override void SetNoChanged()
         {
             //所有内存中的key变为数据库中的key
-            foreach (KeyValuePair<TKey, DictionaryOP> curr in _OPs)
+            foreach (KeyValuePair<TKey, DictionaryOP> curr in mOperations)
             {
-                if (curr.Value == DictionaryOP.AddOrEdit && !_DBKeys.Contains(curr.Key))
-                    _DBKeys.Add(curr.Key);
+                if (curr.Value == DictionaryOP.AddOrEdit && !mDBKeys.Contains(curr.Key))
+                    mDBKeys.Add(curr.Key);
             }
 
             //所有操作清除
-            _OPs.Clear();
+            mOperations.Clear();
 
 
             //所有子对象设为未变更
-            if (_isNodeValue)
+            if (mIsNodeValue)
             {
-                foreach (KeyValuePair<TKey, TValue> curr in _Dictionary)
+                foreach (KeyValuePair<TKey, TValue> curr in mDictionary)
                 {
                     OOValueGroup nv = curr.Value as OOValueGroup;
                     nv.SetNoChanged();
@@ -206,21 +206,21 @@ namespace OODB
 
         void RecordOP(TKey key, DictionaryOP op)
         {
-            if (!OODBInstance.__WriteRecord) return;
+            if (!OODBInstance.mWriteRecord) return;
 
-            if (_OPs.ContainsKey(key))
+            if (mOperations.ContainsKey(key))
             {
-                if (_OPs[key] == op)
+                if (mOperations[key] == op)
                     return;
 
-                _OPs[key] = op;
+                mOperations[key] = op;
             }
             else
-                _OPs.Add(key, op);
+                mOperations.Add(key, op);
 
-            if (op == DictionaryOP.Del && !_DBKeys.Contains(key))//删除一个数据库中不存在的key,可以忽略掉
+            if (op == DictionaryOP.Del && !mDBKeys.Contains(key))//删除一个数据库中不存在的key,可以忽略掉
             {
-                _OPs.Remove(key);
+                mOperations.Remove(key);
             }
         }
 
@@ -229,10 +229,12 @@ namespace OODB
             AddOrEdit,
             Del
         }
-        Dictionary<TKey, DictionaryOP> _OPs = new Dictionary<TKey, DictionaryOP>();//记录操作
-        HashSet<TKey> _DBKeys = new HashSet<TKey>();//在数据库内存在的key
-        Dictionary<TKey, TValue> _Dictionary = new Dictionary<TKey, TValue>();
-        bool _isNodeValue;
+
+        readonly bool mIsNodeValue;
+
+        HashSet<TKey> mDBKeys = new HashSet<TKey>();//在数据库内存在的key
+        Dictionary<TKey, TValue> mDictionary = new Dictionary<TKey, TValue>();
+        Dictionary<TKey, DictionaryOP> mOperations = new Dictionary<TKey, DictionaryOP>();//记录操作
     }
 
 

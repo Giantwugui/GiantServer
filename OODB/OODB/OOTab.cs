@@ -14,16 +14,16 @@ namespace OODB
         public OOTab(OOConn conn)
         {
             Type type = this.GetType();
-            m_MongoCollection = GetMongoCollection(type, conn);
+            mMongoCollection = GetMongoCollection(type, conn);
         }
 
         static MongoCollection<BsonDocument> GetMongoCollection(Type type, OOConn conn)
         {
-            string dbNickName = OODBInstance.Single.m_TabInfosIndexByName[type.Name].dbNickName;
+            string dbNickName = OODBInstance.Single.m_TabInfosIndexByName[type.Name].DBNickName;
             return conn.Database.GetCollection(type.Name);
         }
 
-        public long Count() { return m_MongoCollection.Count(); }
+        public long Count() { return mMongoCollection.Count(); }
 
         public void Save()
         {
@@ -37,7 +37,7 @@ namespace OODB
                 doc.Add("_id", _id);
 
                 //存盘
-                m_MongoCollection.Insert(doc);
+                mMongoCollection.Insert(doc);
             }
             else //增量更新
             {
@@ -50,7 +50,7 @@ namespace OODB
                 if (document.ElementCount > 0)
                 {
                     var queryName = Query.EQ("_id", _id);
-                    m_MongoCollection.Update(queryName, updateBuild);
+                    mMongoCollection.Update(queryName, updateBuild);
                 }
             }
 
@@ -163,7 +163,7 @@ namespace OODB
                 throw new Exception(String.Format("类 {0} 不支持存档功能", n));
         }
 
-        MongoCollection m_MongoCollection;
+        MongoCollection mMongoCollection;
     }
 
 }

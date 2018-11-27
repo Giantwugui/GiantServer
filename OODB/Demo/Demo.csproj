@@ -34,16 +34,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MongoDB.Bson">
-      <HintPath>..\..\..\QKOODB\lib\MongoDB.Bson.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver">
-      <HintPath>..\..\..\QKOODB\lib\MongoDB.Driver.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Core">
-      <HintPath>..\..\..\QKOODB\lib\MongoDB.Driver.Core.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Driver.Legacy">
-      <HintPath>..\..\..\QKOODB\lib\MongoDB.Driver.Legacy.dll</HintPath>
+      <HintPath>..\..\lib\MongoDB.Driver.Legacy.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

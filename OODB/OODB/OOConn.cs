@@ -7,18 +7,17 @@ namespace OODB
     public class OOConn : IDisposable
     {
 
-        public const int DefaultPort = 27017;
-
-
         public OOConn(string url, int port, string dbName, string userName, string userPass)
         {
 
-            MongoUrlBuilder urlBuilder = new MongoUrlBuilder();
-            urlBuilder.Server = new MongoServerAddress(url, port);
-            urlBuilder.DatabaseName = dbName;
-            urlBuilder.Username = userName;
-            urlBuilder.Password = userPass;
-            urlBuilder.W = WriteConcern.W1.W;
+            MongoUrlBuilder urlBuilder = new MongoUrlBuilder
+            {
+                Server = new MongoServerAddress(url, port),
+                DatabaseName = dbName,
+                Username = userName,
+                Password = userPass,
+                W = WriteConcern.W1.W
+            };
 
             MongoServerSettings setting = MongoServerSettings.FromUrl(urlBuilder.ToMongoUrl());
 
@@ -38,13 +37,15 @@ namespace OODB
             }
 
 
-            MongoUrlBuilder urlBuilder = new MongoUrlBuilder();
-            urlBuilder.Servers = serverList;
-            urlBuilder.DatabaseName = dbName;
-            urlBuilder.Username = userName;
-            urlBuilder.Password = userPass;
-            urlBuilder.ReadPreference = ReadPreference.PrimaryPreferred;
-            urlBuilder.W = WriteConcern.W1.W;
+            MongoUrlBuilder urlBuilder = new MongoUrlBuilder
+            {
+                Servers = serverList,
+                DatabaseName = dbName,
+                Username = userName,
+                Password = userPass,
+                ReadPreference = ReadPreference.PrimaryPreferred,
+                W = WriteConcern.W1.W
+            };
 
             MongoServerSettings setting = MongoServerSettings.FromUrl(urlBuilder.ToMongoUrl());
 
@@ -64,14 +65,16 @@ namespace OODB
             }
 
 
-            MongoUrlBuilder urlBuilder = new MongoUrlBuilder();
-            urlBuilder.Servers = serverList;
-            urlBuilder.DatabaseName = dbName;
-            urlBuilder.Username = userName;
-            urlBuilder.Password = userPass;
-            urlBuilder.ReadPreference = ReadPreference.PrimaryPreferred;
-            urlBuilder.ConnectionMode = (ConnectionMode)connectMode;
-            urlBuilder.W = WriteConcern.W1.W;
+            MongoUrlBuilder urlBuilder = new MongoUrlBuilder
+            {
+                Servers = serverList,
+                DatabaseName = dbName,
+                Username = userName,
+                Password = userPass,
+                ReadPreference = ReadPreference.PrimaryPreferred,
+                ConnectionMode = (ConnectionMode)connectMode,
+                W = WriteConcern.W1.W
+            };
 
             MongoServerSettings setting = MongoServerSettings.FromUrl(urlBuilder.ToMongoUrl());
 
@@ -82,8 +85,10 @@ namespace OODB
 
         public void Dispose()
         {
-
         }
+
+        public const int DefaultPort = 27017;
+
 
         internal readonly MongoDatabase Database;
         readonly MongoServer mServer;

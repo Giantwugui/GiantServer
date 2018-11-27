@@ -48,6 +48,7 @@ namespace OODB
         {
             return ChangeType(obj, conversionType, Thread.CurrentThread.CurrentCulture);
         }
+
         public static object ChangeType(object obj, Type conversionType, IFormatProvider provider)
         { 
             Type nullableType = Nullable.GetUnderlyingType(conversionType);

@@ -44,19 +44,10 @@ namespace OODB
 
     public class OODoc : OOValueGroup
     {
-        internal ObjectId _id = ObjectId.Empty;
-
-        internal MemValues<string> _MemString = new MemValues<string>();
-        //internal MemValues<DateTime> _MemDateTime = new MemValues<DateTime>();
-        internal MemValues<long> _MemLong = new MemValues<long>();
-        internal MemValues<Int32> _MemInt32 = new MemValues<Int32>();
-        internal MemValues<UInt32> _MemUInt32 = new MemValues<UInt32>();
-        internal MemValues<float> _MemSingle = new MemValues<float>();
-        internal MemValues<byte[]> _MemByteArray = new MemValues<byte[]>();
-       
+ 
         public OODoc()
         {
-            _docInfo = OODBInstance.Single.m_DocInfos[this.GetType().Name];
+            mDocInfo = OODBInstance.Single.m_DocInfos[this.GetType().Name];
         }
 
         public string GetID() {  return _id.ToString(); }
@@ -69,16 +60,16 @@ namespace OODB
 
             object reValue = OODBValueType.GetFieldValue(fieldName,
                      typeof(valueType),
-                     _MemString,
-                     _MemLong,
-                     _MemInt32,
-                     _MemUInt32,
-                     _MemSingle,
-                     _MemByteArray
+                     mMemString,
+                     mMemLong,
+                     mMemInt32,
+                     mMemUInt32,
+                     mMemSingle,
+                     mMemByteArray
                      );
 
             if (reValue == null)
-                reValue = _docInfo._FieldAttrs[fieldName];
+                reValue = mDocInfo._FieldAttrs[fieldName];
 
             return (valueType)reValue;
         }
@@ -106,23 +97,23 @@ namespace OODB
         void MSetValue<valueType>(valueType v,string fieldName )
         {
             OODBValueType.SetNeedChangedField(fieldName, v,
-                _MemString,
-                _MemLong,
-                _MemInt32,
-                _MemUInt32,
-                _MemSingle,
-                _MemByteArray
+                mMemString,
+                mMemLong,
+                mMemInt32,
+                mMemUInt32,
+                mMemSingle,
+                mMemByteArray
                 );
         }
 
         internal override void SetNoChanged()
         {
-            _MemString.SetNoChanged();
-            _MemLong.SetNoChanged();
-            _MemInt32.SetNoChanged();
-            _MemUInt32.SetNoChanged();
-            _MemSingle.SetNoChanged();
-            _MemByteArray.SetNoChanged();
+            mMemString.SetNoChanged();
+            mMemLong.SetNoChanged();
+            mMemInt32.SetNoChanged();
+            mMemUInt32.SetNoChanged();
+            mMemSingle.SetNoChanged();
+            mMemByteArray.SetNoChanged();
 
             //所有子对象设为未变更
             {
@@ -150,12 +141,12 @@ namespace OODB
         /// <returns></returns>
         internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
         {
-            _MemString.BuildUpdateCmd(parentPath, updateBuilder);
-            _MemLong.BuildUpdateCmd(parentPath, updateBuilder);
-            _MemInt32.BuildUpdateCmd(parentPath, updateBuilder);
-            _MemUInt32.BuildUpdateCmd(parentPath, updateBuilder);
-            _MemSingle.BuildUpdateCmd(parentPath, updateBuilder);
-            _MemByteArray.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemString.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemLong.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemInt32.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemUInt32.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemSingle.BuildUpdateCmd(parentPath, updateBuilder);
+            mMemByteArray.BuildUpdateCmd(parentPath, updateBuilder);
 
             if (!String.IsNullOrEmpty(parentPath))
                 parentPath += ".";
@@ -242,7 +233,18 @@ namespace OODB
             }
         }
 
-        DocInfo _docInfo;
+        DocInfo mDocInfo;
+
+        internal ObjectId _id = ObjectId.Empty;
+
+        internal MemValues<string> mMemString = new MemValues<string>();
+        //internal MemValues<DateTime> _MemDateTime = new MemValues<DateTime>();
+        internal MemValues<long> mMemLong = new MemValues<long>();
+        internal MemValues<Int32> mMemInt32 = new MemValues<Int32>();
+        internal MemValues<UInt32> mMemUInt32 = new MemValues<UInt32>();
+        internal MemValues<float> mMemSingle = new MemValues<float>();
+        internal MemValues<byte[]> mMemByteArray = new MemValues<byte[]>();
+
     };
 
 
