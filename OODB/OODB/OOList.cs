@@ -52,7 +52,7 @@ namespace OODB
             set {   mList[index] = value; SetChanged();   } 
         }
 
-        internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
+        internal override void BuildUpdateQuery(string parentPath, UpdateBuilder updateBuilder)
         {
             if (!mChanged) 
                 return;

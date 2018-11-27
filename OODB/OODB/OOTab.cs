@@ -43,7 +43,7 @@ namespace OODB
             {
                 //生成更新串
                 UpdateBuilder updateBuild = new UpdateBuilder();
-                this.BuildUpdateCmd("", updateBuild);
+                this.BuildUpdateQuery("", updateBuild);
 
                 //应用更新
                 BsonDocument document = updateBuild.ToBsonDocument();

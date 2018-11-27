@@ -6,10 +6,6 @@ namespace OODB
 {
     class IndexInfo
     {
-        public string Name;
-        public bool IsUnique = false;
-        public Dictionary<string, OODBIndexType> Keys = new Dictionary<string, OODBIndexType>();
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -65,6 +61,10 @@ namespace OODB
 
             return true;
         }
+
+        public string Name;
+        public bool IsUnique = false;
+        public Dictionary<string, OODBIndexType> Keys = new Dictionary<string, OODBIndexType>();
     }
 
     class DocInfo
@@ -84,7 +84,7 @@ namespace OODB
                         throw new Exception(String.Format("[{0}.{1}] 未定义字段特性", type.Name, curr.Name));
 
                     OOFieldAttribute fattr = fdAttributes[0] as OOFieldAttribute;
-                    _FieldAttrs.Add(curr.Name, fattr.DefaultValue);
+                    mFieldAttrs.Add(curr.Name, fattr.DefaultValue);
 
                     //检查缺省值合法性
                     if (fattr.DefaultValue == null && !curr.PropertyType.IsValueType)//缺省值设置为空
@@ -108,10 +108,10 @@ namespace OODB
                         string idxName = String.IsNullOrEmpty(fielIndex.GroupName) ? curr.Name : fielIndex.GroupName;
 
                         IndexInfo indexObj;
-                        if (!_FieldIndexs.ContainsKey(idxName))
-                            _FieldIndexs.Add(idxName, new IndexInfo());
+                        if (!mFieldIndexs.ContainsKey(idxName))
+                            mFieldIndexs.Add(idxName, new IndexInfo());
 
-                        indexObj = _FieldIndexs[idxName];
+                        indexObj = mFieldIndexs[idxName];
                         indexObj.Name = idxName;
                         indexObj.Keys.Add(curr.Name, fielIndex.IndexType);
 
@@ -123,9 +123,9 @@ namespace OODB
         }
 
         //字段，索引信息
-        internal Dictionary<string, IndexInfo> _FieldIndexs = new Dictionary<string, IndexInfo>();
+        internal Dictionary<string, IndexInfo> mFieldIndexs = new Dictionary<string, IndexInfo>();
 
         //字段，缺省值
-        internal Dictionary<string, object> _FieldAttrs = new Dictionary<string, object>();
+        internal Dictionary<string, object> mFieldAttrs = new Dictionary<string, object>();
     }
 }

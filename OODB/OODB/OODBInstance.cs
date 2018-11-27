@@ -15,67 +15,6 @@ namespace OODB
             Single = this;
         }
 
-       
-        void CheckDocClass(Type type, Type baseType, Type excludedBaseType)
-        {
-            if (m_DocInfos.ContainsKey(type.Name))
-                return;//检查过了，跳过
-
-            m_DocInfos.Add(type.Name,new DocInfo(type));
-
-            if (!baseType.IsAssignableFrom(type))
-                throw new Exception(String.Format("[{0}] 非法，必须从 {1} 继承", type.Name, baseType.Name));
-
-            if (excludedBaseType != null && excludedBaseType.IsAssignableFrom(type))
-                throw new Exception(String.Format("[{0}] 非法，不能从 {1} 继承", type.Name, excludedBaseType.Name));
-
-          
-
-            FieldInfo[] fieldInfos = type.GetFields();
-            foreach (FieldInfo curr in fieldInfos)
-            {
-                if (!OODBValueType.IsValueGroupType(curr.FieldType))
-                    throw new Exception(String.Format("[{0}.{1}] 非法，此处该类型是不被支持的", type.Name, curr.Name));
-
-                if (curr.FieldType.IsGenericType) //泛型
-                {
-                    Type[] TTypes = curr.FieldType.GetGenericArguments();
-                    if (curr.FieldType.Name == typeof(OOList<>).Name)
-                    {
-                        Type _TValueType = TTypes[0];
-
-                        if (!OODBValueType.IsValueType(_TValueType))
-                            throw new Exception(String.Format("[{0}.{1}] 非法,只能使用基本数据类型作为泛型类型", type.Name, curr.Name));
-                    }
-                    else if (curr.FieldType.Name == typeof(OODictionary<,>).Name)
-                    {
-                        Type _TValueType = TTypes[1];
-                        Type tKeyType = TTypes[0];
-                        if (!OODBValueType.IsValueType(tKeyType))
-                            throw new Exception(String.Format("OODoc [{0}] 非法，字段 {1} 的Key类型是不被支持的", type.Name, curr.Name));
-
-                        {
-                            bool isValueGroupType = OODBValueType.IsValueGroupType(_TValueType);
-                            if (!isValueGroupType && !OODBValueType.IsValueType(_TValueType))
-                                throw new Exception(String.Format("[{0}.{1}] 非法，泛类型是不被支持的", type.Name, curr.Name));
-
-                            if (isValueGroupType)
-                                CheckDocClass(_TValueType, typeof(OODoc), typeof(OOTab));
-                        }
-                    }
-                    else
-                        throw new Exception(String.Format("[{0}.{1}] 非法，使用了不支持的扩展类型", type.Name, curr.Name));
-                }
-                else
-                    CheckDocClass(curr.FieldType, typeof(OODoc), typeof(OOTab));  //深度对字段进行检查
-
-                if (!curr.IsInitOnly)
-                    throw new Exception(String.Format("[{0}.{1}] 非法，必须使用readonly修饰符", type.Name, curr.Name));
-            }
-        }
-
-
-
         /// <summary>
         /// 初始化OODB
         /// </summary>
@@ -165,7 +104,7 @@ namespace OODB
 
                 //分析索引
                 DocInfo docInfo = m_DocInfos[curr.Name];
-                foreach (KeyValuePair<string, IndexInfo> indexKV in docInfo._FieldIndexs)
+                foreach (KeyValuePair<string, IndexInfo> indexKV in docInfo.mFieldIndexs)
                 {
                     string indexName = indexKV.Key;
                     IndexInfo indexAttr = indexKV.Value;
@@ -182,7 +121,7 @@ namespace OODB
                 foreach (KeyValuePair<string, IndexInfo> indexKV in indexs)
                 {
                     string indexName = indexKV.Key;
-                    if (!docInfo._FieldIndexs.ContainsKey(indexName))
+                    if (!docInfo.mFieldIndexs.ContainsKey(indexName))
                         needDelIndexs.Add(indexName);//这是一个需要删除的索引 
                 }
 
@@ -203,7 +142,7 @@ namespace OODB
                     //新建
                     foreach (string key in needCreateIndexs)
                     {
-                        IndexInfo info = docInfo._FieldIndexs[key];
+                        IndexInfo info = docInfo.mFieldIndexs[key];
 
                         //生成需要索引的字段信息
                         IndexKeysBuilder keysBuilder = new IndexKeysBuilder();
@@ -227,7 +166,66 @@ namespace OODB
                 }
             }
         }
-        
+
+        void CheckDocClass(Type type, Type baseType, Type excludedBaseType)
+        {
+            if (m_DocInfos.ContainsKey(type.Name))
+                return;//检查过了，跳过
+
+            m_DocInfos.Add(type.Name, new DocInfo(type));
+
+            if (!baseType.IsAssignableFrom(type))
+                throw new Exception(String.Format("[{0}] 非法，必须从 {1} 继承", type.Name, baseType.Name));
+
+            if (excludedBaseType != null && excludedBaseType.IsAssignableFrom(type))
+                throw new Exception(String.Format("[{0}] 非法，不能从 {1} 继承", type.Name, excludedBaseType.Name));
+
+
+
+            FieldInfo[] fieldInfos = type.GetFields();
+            foreach (FieldInfo curr in fieldInfos)
+            {
+                if (!OODBValueType.IsValueGroupType(curr.FieldType))
+                    throw new Exception(String.Format("[{0}.{1}] 非法，此处该类型是不被支持的", type.Name, curr.Name));
+
+                if (curr.FieldType.IsGenericType) //泛型
+                {
+                    Type[] TTypes = curr.FieldType.GetGenericArguments();
+                    if (curr.FieldType.Name == typeof(OOList<>).Name)
+                    {
+                        Type _TValueType = TTypes[0];
+
+                        if (!OODBValueType.IsValueType(_TValueType))
+                            throw new Exception(String.Format("[{0}.{1}] 非法,只能使用基本数据类型作为泛型类型", type.Name, curr.Name));
+                    }
+                    else if (curr.FieldType.Name == typeof(OODictionary<,>).Name)
+                    {
+                        Type _TValueType = TTypes[1];
+                        Type tKeyType = TTypes[0];
+                        if (!OODBValueType.IsValueType(tKeyType))
+                            throw new Exception(String.Format("OODoc [{0}] 非法，字段 {1} 的Key类型是不被支持的", type.Name, curr.Name));
+
+                        {
+                            bool isValueGroupType = OODBValueType.IsValueGroupType(_TValueType);
+                            if (!isValueGroupType && !OODBValueType.IsValueType(_TValueType))
+                                throw new Exception(String.Format("[{0}.{1}] 非法，泛类型是不被支持的", type.Name, curr.Name));
+
+                            if (isValueGroupType)
+                                CheckDocClass(_TValueType, typeof(OODoc), typeof(OOTab));
+                        }
+                    }
+                    else
+                        throw new Exception(String.Format("[{0}.{1}] 非法，使用了不支持的扩展类型", type.Name, curr.Name));
+                }
+                else
+                    CheckDocClass(curr.FieldType, typeof(OODoc), typeof(OOTab));  //深度对字段进行检查
+
+                if (!curr.IsInitOnly)
+                    throw new Exception(String.Format("[{0}.{1}] 非法，必须使用readonly修饰符", type.Name, curr.Name));
+            }
+        }
+
+
 
         public static OODBInstance Single = null;
 

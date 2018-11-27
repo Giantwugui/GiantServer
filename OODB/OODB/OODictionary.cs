@@ -7,7 +7,6 @@ using System.Collections;
 
 namespace OODB
 {
-
     public class OODictionary<TKey, TValue> : OOValueGroup, IEnumerable
     {
         public OODictionary()
@@ -62,7 +61,7 @@ namespace OODB
 
 
 
-        internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
+        internal override void BuildUpdateQuery(string parentPath, UpdateBuilder updateBuilder)
         {
             if (mOperations.Count < 1)
             {
@@ -75,7 +74,7 @@ namespace OODB
                     {
                         string objPath = parentPath + OODBValueType.ToStringValue(curr.Key);
                         OOValueGroup nv = curr.Value as OOValueGroup;
-                        nv.BuildUpdateCmd(objPath, updateBuilder);
+                        nv.BuildUpdateQuery(objPath, updateBuilder);
                     }
                 }
 
@@ -118,7 +117,7 @@ namespace OODB
 
                     string objPath = parentPath + OODBValueType.ToStringValue(curr.Key);
                     OOValueGroup nv = curr.Value as OOValueGroup;
-                    nv.BuildUpdateCmd(objPath, updateBuilder);
+                    nv.BuildUpdateQuery(objPath, updateBuilder);
                 }
             }
         }

@@ -11,7 +11,7 @@ namespace OODB
     {
        internal abstract BsonValue ToBsonValue();
 
-       internal abstract void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder);
+       internal abstract void BuildUpdateQuery(string parentPath, UpdateBuilder updateBuilder);
 
        internal abstract void SetNoChanged();
 
@@ -69,7 +69,7 @@ namespace OODB
                      );
 
             if (reValue == null)
-                reValue = mDocInfo._FieldAttrs[fieldName];
+                reValue = mDocInfo.mFieldAttrs[fieldName];
 
             return (valueType)reValue;
         }
@@ -139,7 +139,7 @@ namespace OODB
         /// </summary>
         /// <param name="parentPath">父路径 例 Player.Hero  其中Hero为当前类存储位</param>
         /// <returns></returns>
-        internal override void BuildUpdateCmd(string parentPath, UpdateBuilder updateBuilder)
+        internal override void BuildUpdateQuery(string parentPath, UpdateBuilder updateBuilder)
         {
             mMemString.BuildUpdateCmd(parentPath, updateBuilder);
             mMemLong.BuildUpdateCmd(parentPath, updateBuilder);
@@ -160,7 +160,7 @@ namespace OODB
                 {
                     var v = curr.GetValue(this);
                     OOValueGroup nv = v as OOValueGroup;
-                    nv.BuildUpdateCmd(parentPath+curr.Name, updateBuilder);
+                    nv.BuildUpdateQuery(parentPath+curr.Name, updateBuilder);
                 }
             }
         }
