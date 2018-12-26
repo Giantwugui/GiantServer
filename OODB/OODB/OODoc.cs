@@ -47,7 +47,7 @@ namespace OODB
  
         public OODoc()
         {
-            mDocInfo = OODBInstance.Single.m_DocInfos[this.GetType().Name];
+            mDocInfo = OODBInstance.Single.mDocInfos[this.GetType().Name];
         }
 
         public string GetID() {  return _id.ToString(); }

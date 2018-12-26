@@ -103,7 +103,7 @@ namespace OODB
                 HashSet<string> needCreateIndexs = new HashSet<string>();
 
                 //分析索引
-                DocInfo docInfo = m_DocInfos[curr.Name];
+                DocInfo docInfo = mDocInfos[curr.Name];
                 foreach (KeyValuePair<string, IndexInfo> indexKV in docInfo.mFieldIndexs)
                 {
                     string indexName = indexKV.Key;
@@ -169,10 +169,10 @@ namespace OODB
 
         void CheckDocClass(Type type, Type baseType, Type excludedBaseType)
         {
-            if (m_DocInfos.ContainsKey(type.Name))
+            if (mDocInfos.ContainsKey(type.Name))
                 return;//检查过了，跳过
 
-            m_DocInfos.Add(type.Name, new DocInfo(type));
+            mDocInfos.Add(type.Name, new DocInfo(type));
 
             if (!baseType.IsAssignableFrom(type))
                 throw new Exception(String.Format("[{0}] 非法，必须从 {1} 继承", type.Name, baseType.Name));
@@ -239,7 +239,7 @@ namespace OODB
         internal Dictionary<string, TabInfo> m_TabInfosIndexByName = new   Dictionary<string, TabInfo>();
 
         //记录检查过的类型，避免递归检查，导致死循环
-        internal Dictionary<string, DocInfo> m_DocInfos = new Dictionary<string, DocInfo>();
+        internal Dictionary<string, DocInfo> mDocInfos = new Dictionary<string, DocInfo>();
 
         //数据库别名 表名 TabInfo
         internal Dictionary<string, Dictionary<string, TabInfo>> mTabInfos = new Dictionary<string, Dictionary<string, TabInfo>>();
