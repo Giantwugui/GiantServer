@@ -1,7 +1,8 @@
-﻿using ProtoBuf;
+﻿using Giant.Core;
+using ProtoBuf;
 using System.Collections.Generic;
 
-namespace GiantCore
+namespace Giant.Net
 {
     /// <summary>
     /// 内部消息类型
@@ -34,7 +35,7 @@ namespace GiantCore
     /// <summary>
     /// 内部消息
     /// </summary>
-    [ProtoContract]
+    [ProtoContract(ImplicitFields = ImplicitFields.AllFields)]
     public class InnerMessage
     {
         public InnerMessage()
@@ -42,8 +43,8 @@ namespace GiantCore
 
         public InnerMessage(uint toNode, InnerMessageType messageType, byte[] content)
         {
-            mToNodeId = toNode;
-            mMessageType = messageType;
+            ToNodeId = toNode;
+            MessageType = messageType;
             mContent["Content"] = content;
         }
 
@@ -55,18 +56,6 @@ namespace GiantCore
         public T Get<T>(string key) where T : class
         {
             return mContent.ContainsKey(key) ? mContent[key].ToProtoObject<T>() : null;
-        }
-
-        public uint ToNode
-        {
-            get { return mToNodeId; }
-            set { mToNodeId = value; }
-        }
-
-        public InnerMessageType MessageType
-        {
-            get { return mMessageType; }
-            set { mMessageType = value; }
         }
 
         public byte[] Content
@@ -84,19 +73,16 @@ namespace GiantCore
         /// <summary>
         /// 消息类型
         /// </summary>
-        [ProtoMember(1)]
-        private InnerMessageType mMessageType;
+        public InnerMessageType MessageType { get; private set; }
 
         /// <summary>
         /// 发往节点id
         /// </summary>
-        [ProtoMember(2)]
-        private uint mToNodeId = 0;
+        public uint ToNodeId { get; private set; }
 
         /// <summary>
         /// 消息内容
         /// </summary>
-        [ProtoMember(3)]
         private Dictionary<string, byte[]> mContent = new Dictionary<string, byte[]>();
     }
 }

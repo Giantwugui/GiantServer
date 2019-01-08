@@ -1,4 +1,4 @@
-﻿using GiantCore;
+﻿using Giant.Net;
 using System;
 using System.Collections.Generic;
 using System.Text;

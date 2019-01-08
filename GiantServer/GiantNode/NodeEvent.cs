@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Giant.Net;
+using System;
 using System.Collections.Generic;
-using GiantCore;
 
 namespace GiantNode
 {
@@ -70,18 +70,12 @@ namespace GiantNode
 
         public void Events_OnHandle(Session session, byte[] message)
         {
-            if (OnHandle != null)
-            {
-                OnHandle(session, message);
-            }
+            OnHandle?.Invoke(session, message);
         }
 
         public void Events_OnInsideHandle(uint fromNode, byte[] message)
         {
-            if (OnInsideHandle != null)
-            {
-                OnInsideHandle(fromNode, message);
-            }
+            OnInsideHandle?.Invoke(fromNode, message);
         }
 
         public void Events_OnInit(Dictionary<string, string> param)

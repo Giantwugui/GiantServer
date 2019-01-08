@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace GiantNode
+namespace Giant.Net
 {
     /// <summary>
     /// 消息类型

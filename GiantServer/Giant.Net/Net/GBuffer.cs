@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GiantCore
+namespace Giant.Net
 {
     public class GBuffer
     {

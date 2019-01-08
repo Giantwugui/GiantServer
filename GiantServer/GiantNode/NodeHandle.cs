@@ -1,4 +1,5 @@
-﻿using GiantCore;
+﻿using Giant.Net;
+using Giant.Core;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -38,8 +39,7 @@ namespace GiantNode
                 throw new Exception(string.Format("Plugin {0} Have Not PluginEntryAttribute", dllName));
             }
 
-            IPlugin plugin = Activator.CreateInstance(entryList[0]) as IPlugin;
-            if (plugin == null)
+            if (!(Activator.CreateInstance(entryList[0]) is IPlugin plugin))
             {
                 throw new Exception(string.Format("Plugin {0} CreateInstance Error !", dllName));
             }

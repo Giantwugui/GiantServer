@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GiantCore
+namespace Giant.Core
 {
     /// <summary>
     /// 日志类型
@@ -10,7 +10,7 @@ namespace GiantCore
         /// <summary>
         /// 调试
         /// </summary>
-        Debug = 1,//调试
+        Debug = 1,
 
         /// <summary>
         /// 提示信息

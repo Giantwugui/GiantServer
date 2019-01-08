@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GiantCore
+namespace Giant.Core
 {
     public class Log
     {

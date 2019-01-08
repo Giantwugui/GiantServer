@@ -19,11 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GiantCore\GiantCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Network\HTTP\" />
+    <ProjectReference Include="..\Giant.Net\Giant.Net.csproj" />
   </ItemGroup>
 
 </Project>
