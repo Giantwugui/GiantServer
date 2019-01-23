@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     public class PluginEntryAttribute : Attribute
     {

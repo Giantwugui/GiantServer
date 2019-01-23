@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    class TCPChannel:BaseChannel
+    public class TCPChannel:BChannel
     {
         public TCPChannel(IPEndPoint ipEndPoint) : base(ipEndPoint)
         {
@@ -38,7 +38,7 @@ namespace Giant.Net
             ReceiveAsync();
         }
 
-        public override void Send()
+        public override void Send(string message)
         {
             SendAsync();
         }

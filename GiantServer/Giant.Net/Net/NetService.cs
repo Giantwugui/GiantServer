@@ -37,7 +37,7 @@ namespace Giant.Net
 
 
 
-        private void OnAccept(BaseChannel channel)
+        private void OnAccept(BChannel channel)
         {
         }
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     public interface IPlugin
     {

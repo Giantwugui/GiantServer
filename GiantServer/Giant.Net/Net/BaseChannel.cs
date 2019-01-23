@@ -1,32 +1,34 @@
-﻿using System;
+﻿using Giant.Core;
+using System;
 using System.Net;
 using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    abstract class BaseChannel
+    public abstract class BChannel
     {
-        public BaseChannel(IPEndPoint endPoint)
+        public BChannel(IPEndPoint endPoint)
         {
             RemoteAddress = endPoint;
         }
 
-        public BaseChannel(Socket socket)
+        public BChannel(Socket socket)
         {
+            Id = IdGenerater.GenerateId();
             RemoteAddress = (IPEndPoint)socket.RemoteEndPoint;
         }
 
 
         public abstract void Start();
-        public abstract void Send();
+        public abstract void Send(string message);
 
         protected void OnError(SocketError socketError)
         {
             mErrorCallBack?.Invoke(this, socketError);
         }
 
-        private Action<BaseChannel, SocketError> mErrorCallBack;
-        public event Action<BaseChannel, SocketError> ErrorCallBack
+        private Action<BChannel, SocketError> mErrorCallBack;
+        public event Action<BChannel, SocketError> ErrorCallBack
         {
             add { mErrorCallBack += value; }
             remove { mErrorCallBack -= value; }
@@ -34,11 +36,11 @@ namespace Giant.Net
 
         protected void OnReceived(byte[] message)
         {
-            mReceiveCallBack?.Invoke(message);
+            mReceiveCallBack?.Invoke(this, message);
         }
 
-        private Action<byte[]> mReceiveCallBack;
-        public event Action<byte[]> ReceiveCallBack
+        private Action<BChannel, byte[]> mReceiveCallBack;
+        public event Action<BChannel, byte[]> ReceiveCallBack
         {
             add { mReceiveCallBack += value; }
             remove { mReceiveCallBack -= value; }

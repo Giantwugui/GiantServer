@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     /// <summary>
     /// 节点句柄
@@ -61,10 +61,10 @@ namespace GiantNode
             //初始化插件事件
             mNodeEvent.OnInit(mRunTime.Param);
 
-            ThreadHelper.CreateThreadInThreadPool(UpdateLoop, null);
+            ThreadPool.QueueUserWorkItem(UpdateLoop, null);
 
             //内部通讯服务
-            InnerNetServer.Init(mRunTime);
+            InnerNetService.Init(mRunTime);
 
             if (IsFrontNode)
             {
@@ -131,7 +131,7 @@ namespace GiantNode
 
                             innerMessage.Add<Session>("Session", session);
 
-                            InnerNetServer.Transmit(outerMessage.ToNode, innerMessage.ToProtoString());
+                            InnerNetService.Transmit(outerMessage.ToNode, innerMessage.ToProtoString());
                         }
                     }
                     break;
@@ -147,7 +147,7 @@ namespace GiantNode
 
                                 innerMessage.Add<Session>("Session", session);
 
-                                InnerNetServer.Transmit(currNode, innerMessage.ToProtoString());
+                                InnerNetService.Transmit(currNode, innerMessage.ToProtoString());
                             }
                         }
                     }
@@ -164,7 +164,7 @@ namespace GiantNode
 
                                 innerMessage.Add<Session>("Session", session);
 
-                                InnerNetServer.Transmit(currNode, innerMessage.ToProtoString());
+                                InnerNetService.Transmit(currNode, innerMessage.ToProtoString());
                             }
                         }
                     }

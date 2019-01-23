@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GiantNode.Interface
+namespace Giant.Framework
 {
     public interface IRunTime
     {

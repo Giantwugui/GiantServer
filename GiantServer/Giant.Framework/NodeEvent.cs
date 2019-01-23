@@ -2,31 +2,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     public class NodeEvents
     {
         public void Events_OnClosed()
         {
-            if (OnClosed != null)
-            {
-                OnClosed();
-            }
+            OnClosed?.Invoke();
         }
 
         public void Events_OnCrash()
         {
-            if (OnCrash != null)
-            {
-                OnCrash();
-            }
+            OnCrash?.Invoke();
         }
         public void Events_OnStartComplate()
         {
-            if (OnStartComplate != null)
-            {
-                OnStartComplate();
-            }
+            OnStartComplate?.Invoke();
         }
         public void Events_OnUpdate(float delay)
         {

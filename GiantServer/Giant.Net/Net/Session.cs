@@ -9,9 +9,9 @@ namespace Giant.Net
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class Session
     {
-        public Session(uint nodeId, long uid)
+        public Session(uint nodeId, long id)
         {
-            Uid = uid;
+            this.Id = id;
             NodeId = nodeId;
         }
 
@@ -32,6 +32,6 @@ namespace Giant.Net
         /// 回话对象id
         /// </summary>
         [ProtoMember(2)]
-        public long Uid { get; private set; }
+        public long Id { get; private set; }
     }
 }

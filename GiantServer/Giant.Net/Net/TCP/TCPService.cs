@@ -13,13 +13,15 @@ namespace Giant.Net
             mAccepter.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 
             mAccepter.Bind(endPoint);
-            mAccepter.Listen(100);
+            mAccepter.Listen(1000);
 
             mAcceptCallBack = acceptCallback;
 
-            mAcceptThread = new Thread(AcceptLoop);
-            mAcceptThread.IsBackground = true;
-            mAcceptThread.Name = "AcceptLoop";
+            mAcceptThread = new Thread(AcceptLoop)
+            {
+                IsBackground = true,
+                Name = "AcceptLoop"
+            };
             mAcceptThread.Start();
         }
 
@@ -46,6 +48,6 @@ namespace Giant.Net
 
         private Socket mAccepter;
 
-        private Action<TCPChannel> mAcceptCallBack;
+        private readonly Action<TCPChannel> mAcceptCallBack;
     }
 }

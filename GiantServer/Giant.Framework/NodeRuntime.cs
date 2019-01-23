@@ -1,7 +1,7 @@
-﻿using GiantNode.Interface;
+﻿using Giant.Framework;
 using System.Collections.Generic;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     /// <summary>
     /// 节点运行时

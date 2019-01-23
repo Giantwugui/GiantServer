@@ -1,6 +1,6 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 using Giant.Net;
-using GiantNode;
 using NetMQ;
 using NetMQ.Sockets;
 using System.Collections.Generic;

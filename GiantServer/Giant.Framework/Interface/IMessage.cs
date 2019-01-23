@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Giant.Net;
+using System;
 
-namespace GiantNode
+namespace Giant.Framework
 {
     public interface IMessage
     {

@@ -13,8 +13,4 @@
     <OutputPath>E:\wg\GiantServer\GiantServer\OutPut\</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\GiantNode\GiantNode.csproj" />
-  </ItemGroup>
-
 </Project>
