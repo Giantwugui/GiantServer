@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantNodeBox", "GiantNodeBox\GiantNodeBox.csproj", "{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayPlugin", "Plugins\GatewayPlugin\GatewayPlugin.csproj", "{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}"
 EndProject
@@ -13,9 +13,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "Giant.Net\Gian
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Core", "Giant.Core\Giant.Core.csproj", "{179E1940-6BAD-471C-908A-01682DD29376}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Framework", "Giant.Framework\Giant.Framework.csproj", "{3C88C242-22AD-4E12-BD47-96D5842A1DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Framework", "Giant.Framework\Giant.Framework.csproj", "{3C88C242-22AD-4E12-BD47-96D5842A1DCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiantNode", "GiantNode\GiantNode.csproj", "{6077FA51-41F5-43EB-8AD7-580230BFEB79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantNode", "GiantNode\GiantNode.csproj", "{6077FA51-41F5-43EB-8AD7-580230BFEB79}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongodbDriver", "MongodbDriver", "{41683E85-5807-40F5-8F74-53E470489802}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{32D9D741-9528-4819-9C37-1472191F9A4F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Bson", "ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj", "{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver", "ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj", "{0B75B55C-A051-49DA-A2A7-281DC1A4B783}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.Core", "ThirdParty\MongodbDriver\MongoDB.Driver.Core\MongoDB.Driver.Core.csproj", "{E0A3DB16-82F9-4487-9898-B0316F8D7970}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "ThirdParty\MongodbDriver\MongoDB.Driver.GridFS\MongoDB.Driver.GridFS.csproj", "{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,12 +59,33 @@ Global
 		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B75B55C-A051-49DA-A2A7-281DC1A4B783}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B75B55C-A051-49DA-A2A7-281DC1A4B783}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B75B55C-A051-49DA-A2A7-281DC1A4B783}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B75B55C-A051-49DA-A2A7-281DC1A4B783}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0A3DB16-82F9-4487-9898-B0316F8D7970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0A3DB16-82F9-4487-9898-B0316F8D7970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0A3DB16-82F9-4487-9898-B0316F8D7970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0A3DB16-82F9-4487-9898-B0316F8D7970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC} = {00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}
+		{41683E85-5807-40F5-8F74-53E470489802} = {32D9D741-9528-4819-9C37-1472191F9A4F}
+		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B} = {41683E85-5807-40F5-8F74-53E470489802}
+		{0B75B55C-A051-49DA-A2A7-281DC1A4B783} = {41683E85-5807-40F5-8F74-53E470489802}
+		{E0A3DB16-82F9-4487-9898-B0316F8D7970} = {41683E85-5807-40F5-8F74-53E470489802}
+		{A10F7BDF-4763-4C2C-9F7F-8F192877DD66} = {41683E85-5807-40F5-8F74-53E470489802}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6848430-138E-45F6-B81B-350B8222A883}
