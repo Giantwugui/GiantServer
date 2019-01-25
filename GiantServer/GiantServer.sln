@@ -3,19 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantNodeBox", "GiantNodeBox\GiantNodeBox.csproj", "{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GatewayPlugin", "Plugins\GatewayPlugin\GatewayPlugin.csproj", "{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "Giant.Net\Giant.Net.csproj", "{5150661A-95B0-4872-86F0-DF9F23EA7B17}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Core", "Giant.Core\Giant.Core.csproj", "{179E1940-6BAD-471C-908A-01682DD29376}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Framework", "Giant.Framework\Giant.Framework.csproj", "{3C88C242-22AD-4E12-BD47-96D5842A1DCB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GiantNode", "GiantNode\GiantNode.csproj", "{6077FA51-41F5-43EB-8AD7-580230BFEB79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongodbDriver", "MongodbDriver", "{41683E85-5807-40F5-8F74-53E470489802}"
 EndProject
@@ -35,14 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CB3EFD3-9209-45EC-A049-9FCD00F1B556}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,10 +41,6 @@ Global
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6077FA51-41F5-43EB-8AD7-580230BFEB79}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -80,7 +62,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C55C3EAE-5F6F-4DA9-96C0-61B93BC60EBC} = {00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}
 		{41683E85-5807-40F5-8F74-53E470489802} = {32D9D741-9528-4819-9C37-1472191F9A4F}
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B} = {41683E85-5807-40F5-8F74-53E470489802}
 		{0B75B55C-A051-49DA-A2A7-281DC1A4B783} = {41683E85-5807-40F5-8F74-53E470489802}
