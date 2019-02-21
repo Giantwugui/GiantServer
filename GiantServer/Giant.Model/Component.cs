@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
+using Giant.Model.Helper;
 
 namespace Giant.Model
 {

@@ -1,25 +1,24 @@
-﻿using MongoDB.Driver;
-using System;
+﻿using System;
 
 namespace MongoDemo
 {
-    class Program
+    partial class Program
     {
-        static void Main(string[] args)
+         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-        }
+            try
+            {
+                TestRedis();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
-        static async void TestMongo()
-        {
-            MongoClient mongoClient = new MongoClient("mongodb://dbOwner:dbOwner@127.0.0.1:27017/ET");
-            var dataBase = mongoClient.GetDatabase("ET");
-
-            var collection = dataBase.GetCollection<Player>("Player");
-
-
-            //collection.InsertOne(square);
-            //collection.InsertOne(circle);
+            while (true)
+            {
+                Console.ReadLine();
+            }
         }
     }
 }

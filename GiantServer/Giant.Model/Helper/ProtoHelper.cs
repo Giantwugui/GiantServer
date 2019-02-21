@@ -2,7 +2,7 @@
 using System.Text;
 using ProtoBuf;
 
-namespace Giant.Core
+namespace Giant.Model.Helper
 {
     /// <summary>
     /// protobuf 扩展类

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Giant.Model
+namespace Giant.Model.Helper
 {
 	public static class TimeHelper
 	{
