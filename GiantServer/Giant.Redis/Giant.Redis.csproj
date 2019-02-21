@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Giant.Share\JsonHelper.cs" Link="JsonHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="protobuf-net" Version="2.4.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+  </ItemGroup>
+
+</Project>

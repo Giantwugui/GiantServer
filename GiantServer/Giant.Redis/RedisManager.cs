@@ -1,9 +1,9 @@
 ﻿using StackExchange.Redis;
 using System;
 
-namespace Giant.Model.Helper
+namespace Giant.Redis
 {
-    public class RedisHelper
+    public class RedisManager
     {
         public bool SetLinkParam(string host, int port)
         {
@@ -40,7 +40,7 @@ namespace Giant.Model.Helper
         }
 
 
-        private RedisHelper() { }
+        private RedisManager() { }
 
         private bool ConnectRedisService()
         {
@@ -59,11 +59,9 @@ namespace Giant.Model.Helper
 
             return connected;
         }
-
-
         
 
-        public static RedisHelper Instance { get; } = new RedisHelper();
+        public static RedisManager Instance { get; } = new RedisManager();
 
         /// <summary>
         /// 连接配置

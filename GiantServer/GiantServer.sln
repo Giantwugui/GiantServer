@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{00C34FB8-0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "Giant.Net\Giant.Net.csproj", "{5150661A-95B0-4872-86F0-DF9F23EA7B17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Core", "Giant.Core\Giant.Core.csproj", "{179E1940-6BAD-471C-908A-01682DD29376}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Framework", "Giant.Framework\Giant.Framework.csproj", "{3C88C242-22AD-4E12-BD47-96D5842A1DCB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongodbDriver", "MongodbDriver", "{41683E85-5807-40F5-8F74-53E470489802}"
@@ -23,9 +21,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.Core", "Thir
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "ThirdParty\MongodbDriver\MongoDB.Driver.GridFS\MongoDB.Driver.GridFS.csproj", "{A10F7BDF-4763-4C2C-9F7F-8F192877DD66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Model", "Giant.Model\Giant.Model.csproj", "{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Model", "Giant.Model\Giant.Model.csproj", "{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoDemo", "MongoDemo\MongoDemo.csproj", "{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDemo", "MongoDemo\MongoDemo.csproj", "{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Redis", "Giant.Redis\Giant.Redis.csproj", "{B8D2BB61-281A-4564-B8B6-2B6C22160697}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Giant.Share", "Giant.Share", "{87AC50DD-9540-461A-A613-2E4AE74D2436}"
+	ProjectSection(SolutionItems) = preProject
+		Giant.Share\JsonHelper.cs = Giant.Share\JsonHelper.cs
+		Giant.Share\ProtoHelper.cs = Giant.Share\ProtoHelper.cs
+		Giant.Share\TimeHelper.cs = Giant.Share\TimeHelper.cs
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +44,6 @@ Global
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{179E1940-6BAD-471C-908A-01682DD29376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{179E1940-6BAD-471C-908A-01682DD29376}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{179E1940-6BAD-471C-908A-01682DD29376}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{179E1940-6BAD-471C-908A-01682DD29376}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C88C242-22AD-4E12-BD47-96D5842A1DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +72,10 @@ Global
 		{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

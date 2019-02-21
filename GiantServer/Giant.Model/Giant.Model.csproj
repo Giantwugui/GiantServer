@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="protobuf-net" Version="2.4.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.0.519" />
+    <Compile Include="..\Giant.Share\TimeHelper.cs" Link="Helper\TimeHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,6 @@
-﻿namespace Giant.Model.Helper
+﻿using Giant.Share;
+
+namespace Giant.Model.Helper
 {
 	public static class IdGenerater
 	{

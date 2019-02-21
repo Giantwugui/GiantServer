@@ -8,7 +8,9 @@ namespace MongoDemo
         {
             try
             {
-                TestRedis();
+                //TestRedis();
+
+                TestMongo();
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
-﻿using Giant.Model.Helper;
+﻿using Giant.Redis;
+using Giant.Share;
 
 namespace MongoDemo
 {
@@ -8,13 +9,13 @@ namespace MongoDemo
         {
             Player player = new Player() { Account = "Redis" };
 
-            RedisHelper.Instance.SetLinkParam("127.0.0.1", 6379);
+            RedisManager.Instance.SetLinkParam("127.0.0.1", 6379);
 
-            RedisHelper.Instance.AddString("test", "kakkaka");
+            RedisManager.Instance.AddString("test", "kakkaka");
 
-            RedisHelper.Instance.HashSet("Player", player.Id.ToString(), player.ToJson());
+            RedisManager.Instance.HashSet("Player", player.Id.ToString(), player.ToJson());
 
-            Player cachePlayer = RedisHelper.Instance.HashGet("Player", player.Id.ToString()).ToObject<Player>();
+            Player cachePlayer = RedisManager.Instance.HashGet("Player", player.Id.ToString()).ToObject<Player>();
         }
     }
 }

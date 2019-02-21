@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Giant.Model.Helper
+namespace Giant.Share
 {
     public static class JsonHelper
     {

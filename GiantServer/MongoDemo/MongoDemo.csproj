@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
+    <ProjectReference Include="..\Giant.Redis\Giant.Redis.csproj" />
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>
 
