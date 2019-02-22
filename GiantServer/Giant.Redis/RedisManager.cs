@@ -3,54 +3,22 @@ using System;
 
 namespace Giant.Redis
 {
+
     public class RedisManager
     {
-        public bool SetLinkParam(string host, int port)
+
+        private RedisManager()
         {
-            Configuration = $"{host}:{port}";
+            Configuration = $"127.0.0.1:6379";
 
-            return ConnectRedisService();
+            ConnectRedisService();
         }
-
-        public bool SetLinkParam(string configuration)
-        {
-            Configuration = configuration;
-
-            return ConnectRedisService();
-        }
-
-        public async void AddString(string key, string value)
-        {
-            await database.StringSetAsync(key, value);
-        }
-
-        public string Get(string key)
-        {
-            return database.StringGet(key);
-        }
-
-        public string HashGet(string redisKey, string hashKey)
-        {
-            return database.HashGet(redisKey, hashKey);
-        }
-
-        public void HashSet(string redisKey, string hashKey, string hashValue)
-        {
-           database.HashSet(redisKey, hashKey, hashValue);
-        }
-
-
-        private RedisManager() { }
 
         private bool ConnectRedisService()
         {
             try
             {
-                ConnectionMultiplexer connection = ConnectionMultiplexer.Connect(Configuration);
-
-                database = connection.GetDatabase();
-
-                connected = database != null;
+                connection = ConnectionMultiplexer.Connect(Configuration);
             }
             catch (Exception ex)
             {
@@ -64,16 +32,36 @@ namespace Giant.Redis
         public static RedisManager Instance { get; } = new RedisManager();
 
         /// <summary>
-        /// 连接配置
+        /// 当前连接的Redis中的DataBase索引，默认0-16，可以在service.conf配置，最高64
+        /// </summary>
+        private int dataBaseIndex = 1;
+        public int DataBaseIndex { get { return dataBaseIndex; } }
+
+        /// <summary>
+        /// 当前连接的Redis中连接字符串，格式为：127.0.0.1:6379,allowadmin=true,passowrd=pwd
         /// </summary>
         public string Configuration { get; set; }
+
+        /// <summary>
+        /// 数据库连接对象
+        /// </summary>
+        private ConnectionMultiplexer connection;
+        public ConnectionMultiplexer Connection
+        {
+            get
+            {
+                if (connection == null)
+                {
+                    throw new Exception("必须先调用 RedisManager.SetLinkParam 配置Redis连接信息!");
+                }
+                return connection;
+            }
+        }
 
         /// <summary>
         /// 连接状态
         /// </summary>
         private bool connected = false;
         public bool Connected { get { return connected; } set { connected = value; } }
-
-        private IDatabase database;
     }
 }

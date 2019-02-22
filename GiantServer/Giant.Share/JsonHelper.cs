@@ -25,7 +25,7 @@ namespace Giant.Share
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="json">json字符串(eg.{"ID":"112","Name":"石子儿"})</param>
         /// <returns>对象实体</returns>
-        public static T ToObject<T>(this string json) where T : class
+        public static T ToObject<T>(this string json)
         {
             if (string.IsNullOrEmpty(json))
             {
