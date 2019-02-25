@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
     <ProjectReference Include="..\Giant.Redis\Giant.Redis.csproj" />
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />

@@ -19,6 +19,14 @@ namespace Giant.Redis
             try
             {
                 connection = ConnectionMultiplexer.Connect(Configuration);
+
+                //注册如下事件
+                connection.ConnectionFailed += MuxerConnectionFailed;
+                connection.ConnectionRestored += MuxerConnectionRestored;
+                connection.ErrorMessage += MuxerErrorMessage;
+                connection.ConfigurationChanged += MuxerConfigurationChanged;
+                connection.HashSlotMoved += MuxerHashSlotMoved;
+                connection.InternalError += MuxerInternalError;
             }
             catch (Exception ex)
             {
@@ -27,14 +35,78 @@ namespace Giant.Redis
 
             return connected;
         }
-        
+
+        #region 事件
+
+        /// <summary>
+        /// 配置更改时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerConfigurationChanged(object sender, EndPointEventArgs e)
+        {
+            //log.InfoAsync($"Configuration changed: {e.EndPoint}");
+        }
+
+        /// <summary>
+        /// 发生错误时
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerErrorMessage(object sender, RedisErrorEventArgs e)
+        {
+            //log.InfoAsync($"ErrorMessage: {e.Message}");
+        }
+
+        /// <summary>
+        /// 重新建立连接之前的错误
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerConnectionRestored(object sender, ConnectionFailedEventArgs e)
+        {
+            //log.InfoAsync($"ConnectionRestored: {e.EndPoint}");
+        }
+
+        /// <summary>
+        /// 连接失败 ， 如果重新连接成功你将不会收到这个通知
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerConnectionFailed(object sender, ConnectionFailedEventArgs e)
+        {
+            //log.InfoAsync($"重新连接：Endpoint failed: {e.EndPoint},  {e.FailureType} , {(e.Exception == null ? "" : e.Exception.Message)}");
+        }
+
+        /// <summary>
+        /// 更改集群
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerHashSlotMoved(object sender, HashSlotMovedEventArgs e)
+        {
+            //log.InfoAsync($"HashSlotMoved:NewEndPoint{e.NewEndPoint}, OldEndPoint{e.OldEndPoint}");
+        }
+
+        /// <summary>
+        /// redis类库错误
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void MuxerInternalError(object sender, InternalErrorEventArgs e)
+        {
+            //log.InfoAsync($"InternalError:Message{ e.Exception.Message}");
+        }
+
+        #endregion 事件
+
 
         public static RedisManager Instance { get; } = new RedisManager();
 
         /// <summary>
         /// 当前连接的Redis中的DataBase索引，默认0-16，可以在service.conf配置，最高64
         /// </summary>
-        private int dataBaseIndex = 1;
+        private int dataBaseIndex = 0;
         public int DataBaseIndex { get { return dataBaseIndex; } }
 
         /// <summary>

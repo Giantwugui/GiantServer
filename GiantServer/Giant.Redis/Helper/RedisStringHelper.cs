@@ -22,9 +22,9 @@ namespace Giant.Redis
         /// <param name="value">对象实体</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public void StringSet(string key, RedisValue value, TimeSpan expiry = default(TimeSpan))
+        public bool StringSet(string key, string value, TimeSpan expiry = default(TimeSpan))
         {
-            DataBase.StringSet(key, value);
+            return DataBase.StringSet(key, value);
         }
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace Giant.Redis
         /// <param name="value">对象实体</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public void StringSet<T>(string key, T value, TimeSpan expiry = default(TimeSpan))
+        public bool StringSet<T>(string key, T value, TimeSpan expiry = default(TimeSpan))
         {
-            DataBase.StringSet(key, value.ToJson());
+            return DataBase.StringSet(key, value.ToJson());
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Giant.Redis
         /// <returns></returns>
         public List<string> StringGet(params string[] keys)
         {
-            var values = base.DataBase.StringGet(ConvertToRedisKeys());
+            var values = base.DataBase.StringGet(ConvertToRedisKeys(keys));
             return ConvertToString(values);
         }
 
@@ -105,6 +105,62 @@ namespace Giant.Redis
             return ConvetList<T>(values);
         }
 
+        /// <summary>
+        /// 获取旧值赋上新值
+        /// </summary>
+        /// <param name="key">Key名称</param>
+        /// <param name="value">新值</param>
+        /// <returns></returns>
+        public string StringGetSet(string key, string value)
+        {
+            return base.DataBase.StringGetSet(key, value);
+        }
+
+        /// <summary>
+        /// 获取旧值赋上新值
+        /// </summary>
+        /// <typeparam name="T">数据类型</typeparam>
+        /// <param name="key">Key名称</param>
+        /// <param name="value">新值</param>
+        /// <returns></returns>
+        public T StringGetSet<T>(string key, T value)
+        {
+            string oValue = base.DataBase.StringGetSet(key, value.ToJson());
+            return oValue.ToObject<T>();
+        }
+
+
+        /// <summary>
+        /// 获取值的长度
+        /// </summary>
+        /// <param name="key">Key名称</param>
+        /// <returns></returns>
+        public long StringGetLength(string key)
+        {
+            return base.DataBase.StringLength(key);
+        }
+
+        /// <summary>
+        /// 数字增长val，返回自增后的值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="val">可以为负</param>
+        /// <returns>增长后的值</returns>
+        public double StringIncrement(string key, double val = 1)
+        {
+            return base.DataBase.StringIncrement(key, val);
+        }
+
+        /// <summary>
+        /// 数字减少val，返回自减少的值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="val">可以为负</param>
+        /// <returns>减少后的值</returns>
+        public double StringDecrement(string key, double val = 1)
+        {
+            return base.DataBase.StringDecrement(key, val);
+        }
         #endregion
 
         #region 异步方法
@@ -198,7 +254,7 @@ namespace Giant.Redis
         /// <returns></returns>
         public async Task<List<T>> StringGetAsync<T>(params string[] keys)
         {
-            var values = await base.DataBase.StringGetAsync(ConvertToRedisKeys());
+            var values = await base.DataBase.StringGetAsync(ConvertToRedisKeys(keys));
             return ConvetList<T>(values);
         }
 

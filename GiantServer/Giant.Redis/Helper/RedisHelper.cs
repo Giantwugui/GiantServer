@@ -146,13 +146,43 @@ namespace Giant.Redis
         }
         #endregion
 
+        /// <summary>
+        /// 执行Redis事务
+        /// </summary>
+        /// <param name="act"></param>
+        /// <returns></returns>
+        public bool RedisTransaction(Action<ITransaction> act)
+        {
+            var tran = DataBase.CreateTransaction();
+            act.Invoke(tran);
+            bool committed = tran.Execute();
+            return committed;
+        }
+        /// <summary>
+        /// Redis锁
+        /// </summary>
+        /// <param name="act"></param>
+        /// <param name="ts">锁住时间</param>
+        public void RedisLockTake(Action act, TimeSpan ts)
+        {
+            RedisValue token = Environment.MachineName;
+            string lockKey = "lock_LockTake";
+            if (DataBase.LockTake(lockKey, token, ts))
+            {
+                try
+                {
+                    act();
+                }
+                finally
+                {
+                    DataBase.LockRelease(lockKey, token);
+                }
+            }
+        }
 
         #region 扩展方法
 
-        protected RedisKey[] ConvertToRedisKeys(params string[] param)
-        {
-            return param.Select(x => (RedisKey)x).ToArray();
-        }
+        protected RedisKey[] ConvertToRedisKeys(params string[] param) => param.Select(x => (RedisKey)x).ToArray();
 
         protected List<string> ConvertToString(params RedisValue[] param)
         {
@@ -182,6 +212,13 @@ namespace Giant.Redis
         /// 数据库连接对象
         /// </summary>
         private ConnectionMultiplexer Connection { get; set; }
+
+
+        /// <summary>
+        /// 获取Redis事务对象
+        /// </summary>
+        /// <returns></returns>
+        public ITransaction CreateTransaction() => DataBase.CreateTransaction();
     }
 
 

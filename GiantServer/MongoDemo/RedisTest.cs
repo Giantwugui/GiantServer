@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using Redis.HelperTest;
 
 namespace MongoDemo
 {
@@ -16,9 +17,29 @@ namespace MongoDemo
 
         static void TestRedis()
         {
+            //var stringTest = new StringTest();
+            //stringTest.TestStringAction();
+            //stringTest.TestStringAsync();
+
+
+            //KeyTest keyTest = new KeyTest();
+            //keyTest.TestKeyAction();
+            //keyTest.TestKeyAsync();
+
+            //HashTest hashTest = new HashTest();
+            //hashTest.TestHashAction();
+            //hashTest.TestHashAsync();
+
+            //ListTest listTest = new ListTest();
+            //listTest.TestListAction();
+
+
+            SortedSetTest sortedSetTest = new SortedSetTest();
+            sortedSetTest.TestSortedSetAction();
+
             //ReadWriteTest();
 
-            ListTest();
+            //ListTest();
 
 
             //Player player = new Player() { Account = "Redis" };
@@ -46,7 +67,7 @@ namespace MongoDemo
                 for (int i = 0; i < testNumber; i++)
                 {
                     redis.StringSet(i.ToString(), new Player { Account = $"wg{i}号" });
-                    //redis.StringSet(key, "wdj");
+                    //redis.StringSet(key, "Giant");
                 }
                 sw.Stop();
                 Console.WriteLine($"写{testNumber}次共耗时：{sw.ElapsedMilliseconds}毫秒");

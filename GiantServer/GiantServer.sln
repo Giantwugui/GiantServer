@@ -25,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Model", "Giant.Model\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDemo", "MongoDemo\MongoDemo.csproj", "{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Redis", "Giant.Redis\Giant.Redis.csproj", "{B8D2BB61-281A-4564-B8B6-2B6C22160697}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "Giant.Redis\Giant.Redis.csproj", "{B8D2BB61-281A-4564-B8B6-2B6C22160697}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Giant.Share", "Giant.Share", "{87AC50DD-9540-461A-A613-2E4AE74D2436}"
 	ProjectSection(SolutionItems) = preProject

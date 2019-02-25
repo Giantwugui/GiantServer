@@ -16,7 +16,7 @@ namespace Giant.Share
                 return string.Empty;
             }
 
-            return JsonConvert.SerializeObject(o);
+            return o is string ? o.ToString() : JsonConvert.SerializeObject(o);
         }
 
         /// <summary>
