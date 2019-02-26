@@ -82,7 +82,7 @@ namespace Giant.Redis
 
         #endregion
 
-         #region 异步方法
+        #region 异步方法
 
         /// <summary>
         /// 删除单个key
@@ -144,6 +144,7 @@ namespace Giant.Redis
         {
             return await DataBase.KeyExpireAsync(key, expiry);
         }
+
         #endregion
 
         /// <summary>
@@ -173,6 +174,11 @@ namespace Giant.Redis
                 {
                     act();
                 }
+                catch (Exception ex)
+                {
+                    throw new Exception("未处理的异常 " + ex);
+                }
+
                 finally
                 {
                     DataBase.LockRelease(lockKey, token);
