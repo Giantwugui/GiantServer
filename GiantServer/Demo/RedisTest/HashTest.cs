@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Giant.Redis;
-using MongoDemo;
+using Giant.Model;
 
 namespace Redis.HelperTest
 {

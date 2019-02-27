@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MongoDemo
+namespace Demo
 {
     partial class Program
     {

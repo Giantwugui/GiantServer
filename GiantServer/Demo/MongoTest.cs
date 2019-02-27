@@ -1,7 +1,7 @@
-﻿using Giant.Model.Helper;
+﻿using Giant.Model;
 using MongoDB.Driver;
 
-namespace MongoDemo
+namespace Demo
 {
     partial class Program
     {

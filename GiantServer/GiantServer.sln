@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "Th
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Model", "Giant.Model\Giant.Model.csproj", "{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDemo", "MongoDemo\MongoDemo.csproj", "{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{88B3184F-BB98-4AF5-8D0C-04ADF5DA49A5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "Giant.Redis\Giant.Redis.csproj", "{B8D2BB61-281A-4564-B8B6-2B6C22160697}"
 EndProject

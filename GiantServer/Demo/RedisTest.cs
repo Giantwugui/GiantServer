@@ -1,5 +1,5 @@
 ﻿using Giant.Redis;
-using Giant.Share;
+using Giant.Model;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Redis.HelperTest;
 
-namespace MongoDemo
+namespace Demo
 {
     partial class Program
     {
@@ -34,10 +34,10 @@ namespace MongoDemo
             //listTest.TestListAction();
 
 
-            SortedSetTest sortedSetTest = new SortedSetTest();
-            sortedSetTest.TestSortedSetAction();
+            //SortedSetTest sortedSetTest = new SortedSetTest();
+            //sortedSetTest.TestSortedSetAction();
 
-            //ReadWriteTest();
+            ReadWriteTest();
 
             //ListTest();
 

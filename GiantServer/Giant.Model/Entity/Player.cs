@@ -1,11 +1,9 @@
-﻿using Giant.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace MongoDemo
+namespace Giant.Model
 {
-    class Player : Entity
+    public class Player : Entity
     {
         public DateTime LoginTime = DateTime.Now;
 

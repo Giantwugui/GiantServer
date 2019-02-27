@@ -3,13 +3,20 @@ using System;
 
 namespace Giant.Redis
 {
-
     public class RedisManager
     {
 
         private RedisManager()
         {
-            Configuration = $"127.0.0.1:6379";
+            Configuration = new ConfigurationOptions();
+            Configuration.EndPoints.Add("127.0.0.1:6379");
+
+            //集群连接方式
+            Configuration.EndPoints.Add("127.0.0.1:6380");
+
+            Configuration.AbortOnConnectFail = false;
+            Configuration.AllowAdmin = true;
+            //Configuration.Password = "";
 
             ConnectRedisService();
         }
@@ -112,7 +119,7 @@ namespace Giant.Redis
         /// <summary>
         /// 当前连接的Redis中连接字符串，格式为：127.0.0.1:6379,allowadmin=true,passowrd=pwd
         /// </summary>
-        public string Configuration { get; set; }
+        public ConfigurationOptions Configuration { get; set; }
 
         /// <summary>
         /// 数据库连接对象
