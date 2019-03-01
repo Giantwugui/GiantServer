@@ -9,7 +9,23 @@ namespace Giant.Model
 
         public string Account { get; set; }
 
-        private Dictionary<int, int> ItemsDict = new Dictionary<int, int>();
+        public Dictionary<BookName, Dictionary<int, Item>> ItemsDict = new Dictionary<BookName, Dictionary<int, Item>>();
+    }
+
+
+    public class Item
+    {
+        public BookName ItemType;
+        public int SubType;
+        public int Num;
+    }
+
+
+    public enum BookName
+    {
+        None = 0,
+        Hero = 1,
+        Item =2,
     }
 
 

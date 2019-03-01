@@ -8,9 +8,9 @@ namespace Demo
         {
             try
             {
-                TestRedis();
+                //TestRedis();
 
-                //TestMongo();
+                Mongo.TestMongo();
             }
             catch (Exception ex)
             {

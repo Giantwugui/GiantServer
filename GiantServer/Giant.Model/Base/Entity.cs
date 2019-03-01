@@ -43,7 +43,7 @@ namespace Giant.Model
         /// <summary>
         /// 所有下挂组件
         /// </summary>
-        [BsonElement("C")]
+        [BsonElement("Components")]
         [BsonIgnoreIfNull]
         private HashSet<Component> components = new HashSet<Component>();
 

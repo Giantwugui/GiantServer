@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
+    <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>
 
 </Project>
