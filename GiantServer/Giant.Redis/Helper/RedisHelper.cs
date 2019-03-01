@@ -186,6 +186,12 @@ namespace Giant.Redis
             }
         }
 
+        /// <summary>
+        /// 获取Redis事务对象
+        /// </summary>
+        /// <returns></returns>
+        public ITransaction CreateTransaction() => DataBase.CreateTransaction();
+
         #region 扩展方法
 
         protected RedisKey[] ConvertToRedisKeys(params string[] param) => param.Select(x => (RedisKey)x).ToArray();
@@ -219,12 +225,6 @@ namespace Giant.Redis
         /// </summary>
         private ConnectionMultiplexer Connection { get; set; }
 
-
-        /// <summary>
-        /// 获取Redis事务对象
-        /// </summary>
-        /// <returns></returns>
-        public ITransaction CreateTransaction() => DataBase.CreateTransaction();
     }
 
 

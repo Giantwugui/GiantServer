@@ -110,10 +110,11 @@ namespace Giant.Redis
 
         public static RedisManager Instance { get; } = new RedisManager();
 
+        private int dataBaseIndex = 0;
+
         /// <summary>
         /// 当前连接的Redis中的DataBase索引，默认0-16，可以在service.conf配置，最高64
         /// </summary>
-        private int dataBaseIndex = 0;
         public int DataBaseIndex { get { return dataBaseIndex; } }
 
         /// <summary>
@@ -121,10 +122,11 @@ namespace Giant.Redis
         /// </summary>
         public ConfigurationOptions Configuration { get; set; }
 
+        private ConnectionMultiplexer connection;
+
         /// <summary>
         /// 数据库连接对象
         /// </summary>
-        private ConnectionMultiplexer connection;
         public ConnectionMultiplexer Connection
         {
             get
@@ -137,10 +139,11 @@ namespace Giant.Redis
             }
         }
 
+        private bool connected = false;
+
         /// <summary>
         /// 连接状态
         /// </summary>
-        private bool connected = false;
         public bool Connected { get { return connected; } set { connected = value; } }
     }
 }
