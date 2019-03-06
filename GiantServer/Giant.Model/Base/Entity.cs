@@ -1,7 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Giant.Model
 {
@@ -15,9 +14,18 @@ namespace Giant.Model
         {
         }
 
+        public void AddComponent(Component component)
+        {
+            components.Add(component);
+
+            Type type = component.GetType();
+
+            componentDict[type] = component;
+        }
+
         public override void Dispose()
         {
-            if (IsDisposed())
+            if (IsDisposed)
             {
                 return;
             }

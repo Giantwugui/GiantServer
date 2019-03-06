@@ -1,11 +1,14 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace Giant.Net
+namespace Giant.Model
 {
-    public class TCPChannel:BChannel
+    /// <summary>
+    /// 信道：用于管理soket相关事件
+    /// </summary>
+    public class TChannel:BChannel
     {
-        public TCPChannel(IPEndPoint ipEndPoint) : base(ipEndPoint)
+        public TChannel(IPEndPoint ipEndPoint) : base(ipEndPoint)
         {
             IsConnected = false;
             mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -17,7 +20,7 @@ namespace Giant.Net
             mOuterArgs.Completed += OnComplete;
         }
 
-        public TCPChannel(Socket socket) : base(socket)
+        public TChannel(Socket socket) : base(socket)
         {
             IsConnected = true;
             mSocket = socket;

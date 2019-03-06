@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Giant.Core
+﻿namespace Giant.Model
 {
     public class Log
     {

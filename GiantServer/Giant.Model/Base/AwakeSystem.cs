@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Giant.Model
 {
     interface IAwake
     {
-        Type GetType();
+        Type Type();
     }
 
     interface IAwakeSystem
@@ -31,7 +29,7 @@ namespace Giant.Model
 
     public abstract class AwakeSystem<T> : IAwake, IAwakeSystem
     {
-        public Type GetType()
+        public Type Type()
         {
             return typeof(T);
         }
@@ -42,12 +40,12 @@ namespace Giant.Model
             this.Awake((T)o);
         }
 
-        public abstract void Awake(T t);
+        public abstract void Awake(T self);
     }
 
     public abstract class AwakeSystem<T, A> : IAwake, IAwakeSystem<A>
     {
-        public Type GetType()
+        public Type Type()
         {
             return typeof(T);
         }
@@ -56,12 +54,12 @@ namespace Giant.Model
         {
             this.Awake((T)o, a);
         }
-        public abstract void Awake(T t, A a);
+        public abstract void Awake(T self, A a);
     }
 
     public abstract class AwakeSystem<T, A, B> : IAwake, IAwakeSystem<A, B>
     {
-        public Type GetType()
+        public Type Type()
         {
             return typeof(T);
         }
@@ -71,12 +69,12 @@ namespace Giant.Model
             this.Awake((T)o, a, b);
         }
 
-        public abstract void Awake(T t, A a, B b);
+        public abstract void Awake(T self, A a, B b);
     }
 
     public abstract class AwakeSystem<T, A, B, C> : IAwake, IAwakeSystem<A, B, C>
     {
-        public Type GetType()
+        public Type Type()
         {
             return typeof(T);
         }
@@ -86,6 +84,6 @@ namespace Giant.Model
             this.Awake((T)o, a, b, c);
         }
 
-        public abstract void Awake(T t, A a, B b, C c);
+        public abstract void Awake(T self, A a, B b, C c);
     }
 }

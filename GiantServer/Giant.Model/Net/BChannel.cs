@@ -1,9 +1,9 @@
-﻿using Giant.Core;
+﻿using Giant.Model.Helper;
 using System;
 using System.Net;
 using System.Net.Sockets;
 
-namespace Giant.Net
+namespace Giant.Model
 {
     public abstract class BChannel
     {
@@ -28,7 +28,7 @@ namespace Giant.Net
         }
 
         private Action<BChannel, SocketError> mErrorCallBack;
-        public event Action<BChannel, SocketError> ErrorCallBack
+        public event Action<BChannel, SocketError> OnErrorCallBack
         {
             add { mErrorCallBack += value; }
             remove { mErrorCallBack -= value; }
@@ -40,7 +40,7 @@ namespace Giant.Net
         }
 
         private Action<BChannel, byte[]> mReceiveCallBack;
-        public event Action<BChannel, byte[]> ReceiveCallBack
+        public event Action<BChannel, byte[]> OnReceiveCallBack
         {
             add { mReceiveCallBack += value; }
             remove { mReceiveCallBack -= value; }
