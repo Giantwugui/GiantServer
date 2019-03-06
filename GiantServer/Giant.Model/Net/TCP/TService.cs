@@ -3,11 +3,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace Giant.Net
+namespace Giant.Model
 {
-    class TCPService : BaseService
+    /// <summary>
+    /// 用于侦听客户端连接请求(只处理连接请求)
+    /// </summary>
+    class TService : BaseService
     {
-        public TCPService(IPEndPoint endPoint, Action<TCPChannel> acceptCallback)
+        public TService(IPEndPoint endPoint, Action<BChannel> acceptCallback)
         {
             mAccepter = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             mAccepter.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
@@ -15,14 +18,9 @@ namespace Giant.Net
             mAccepter.Bind(endPoint);
             mAccepter.Listen(1000);
 
-            mAcceptCallBack = acceptCallback;
+            AcceptCallBack = acceptCallback;
 
-            mAcceptThread = new Thread(AcceptLoop)
-            {
-                IsBackground = true,
-                Name = "AcceptLoop"
-            };
-            mAcceptThread.Start();
+            mAccepter.AcceptAsync();
         }
 
         private void AcceptLoop()
@@ -33,9 +31,9 @@ namespace Giant.Net
                 {
                     Socket socket = mAccepter.Accept();
 
-                    TCPChannel channel = new TCPChannel(socket);
+                    TChannel channel = new TChannel(socket);
 
-                    mAcceptCallBack(channel);
+                    AcceptCallBack(channel);
                 }
                 catch
                 {
@@ -44,10 +42,6 @@ namespace Giant.Net
             }
         }
 
-        private Thread mAcceptThread;
-
         private Socket mAccepter;
-
-        private readonly Action<TCPChannel> mAcceptCallBack;
     }
 }

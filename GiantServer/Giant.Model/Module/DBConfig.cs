@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Giant.Model.Module
+﻿namespace Giant.Model
 {
     public class DBConfig : Component
     {

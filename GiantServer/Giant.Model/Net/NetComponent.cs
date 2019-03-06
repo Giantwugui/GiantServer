@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 
-namespace Giant.Net
+namespace Giant.Model
 {
     public enum NetServiceType
     {
@@ -10,8 +11,17 @@ namespace Giant.Net
         HTTP
     }
 
-    class NetService
+    class NetComponent : Entity
     {
+        private BaseService mService;
+
+        private Dictionary<long, Session> sessionDict = new Dictionary<long, Session>();
+
+
+        private void OnAccept(BChannel channel)
+        {
+        }
+
         public void Start(NetServiceType netServiceType, string address, int port)
         {
             try
@@ -21,10 +31,12 @@ namespace Giant.Net
                 {
                     case NetServiceType.TCP:
                         ipEndPoint = NetHelper.ToIPEndPoint(address, port);
-                        mService = new TCPService(ipEndPoint, OnAccept);
+                        mService = new TService(ipEndPoint, OnAccept);
                         break;
                     case NetServiceType.UDP:
                         ipEndPoint = NetHelper.ToIPEndPoint(address, port);
+                        break;
+                    case NetServiceType.HTTP:
                         break;
                 }
 
@@ -36,12 +48,16 @@ namespace Giant.Net
         }
 
 
-
-        private void OnAccept(BChannel channel)
+        public void Remove(long id)
         {
+            if (sessionDict.TryGetValue(id, out Session session))
+            {
+                //掉线相关处理
+                sessionDict.Remove(session.Id);
+            }
         }
 
 
-        private BaseService mService;
+
     }
 }

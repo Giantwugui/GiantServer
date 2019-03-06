@@ -13,4 +13,8 @@
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Net\UDP\" />
+  </ItemGroup>
+
 </Project>

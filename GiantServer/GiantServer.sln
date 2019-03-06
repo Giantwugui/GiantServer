@@ -5,8 +5,6 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{00C34FB8-0C11-48AF-A0A8-3A7BD0AA87D4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "Giant.Net\Giant.Net.csproj", "{5150661A-95B0-4872-86F0-DF9F23EA7B17}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MongodbDriver", "MongodbDriver", "{41683E85-5807-40F5-8F74-53E470489802}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", "{32D9D741-9528-4819-9C37-1472191F9A4F}"
@@ -34,16 +32,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Giant.Share", "Giant.Share"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Hotfix", "Giant.Hotfix\Giant.Hotfix.csproj", "{495CECEB-CDCC-47E1-A06F-992453D09DCB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.App", "Giant.App\Giant.App.csproj", "{4E18756F-5F0A-462D-9507-75AF855BF283}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5150661A-95B0-4872-86F0-DF9F23EA7B17}.Release|Any CPU.Build.0 = Release|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33628ACA-7B62-4C6B-B256-8FAF7EC77E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -76,6 +72,10 @@ Global
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E18756F-5F0A-462D-9507-75AF855BF283}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E18756F-5F0A-462D-9507-75AF855BF283}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E18756F-5F0A-462D-9507-75AF855BF283}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E18756F-5F0A-462D-9507-75AF855BF283}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

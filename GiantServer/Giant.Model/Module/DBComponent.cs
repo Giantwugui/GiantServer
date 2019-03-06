@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 
-namespace Giant.Model.Module
+namespace Giant.Model
 {
     sealed class DBComponentSystem : AwakeSystem<DBComponent, DBConfig>
     {

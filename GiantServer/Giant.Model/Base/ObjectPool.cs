@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Giant.Model
 {
@@ -33,6 +32,23 @@ namespace Giant.Model
             }
 
             return component;
+        }
+
+        /// <summary>
+        /// 回收
+        /// </summary>
+        /// <param name="component"></param>
+        public void Recycle(Component component)
+        {
+            Type type = component.GetType();
+
+            if (dictionary.TryGetValue(type, out Queue<Component> components))
+            {
+                if (components.Count < 100)
+                {
+                    dictionary[type].Enqueue(component);
+                }
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Giant.Core
+﻿namespace Giant.Model
 {
     /// <summary>
     /// 日志类型
