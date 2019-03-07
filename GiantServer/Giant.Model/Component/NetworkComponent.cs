@@ -11,7 +11,7 @@ namespace Giant.Model
         HTTP
     }
 
-    class NetComponent : Entity
+    class NetworkComponent : Component
     {
         private BaseService mService;
 
@@ -20,6 +20,11 @@ namespace Giant.Model
 
         private void OnAccept(BChannel channel)
         {
+            Session session = ComponentFactory.CreateWithParent<Session, BChannel>(this, channel, false);
+
+            sessionDict[session.Id] = session;
+
+            session.Start();
         }
 
         public void Start(NetServiceType netServiceType, string address, int port)

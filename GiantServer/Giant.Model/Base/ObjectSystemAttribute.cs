@@ -3,11 +3,13 @@
 namespace Giant.Model
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple =true)]
-    class BaseAttribute : Attribute
+    public class BaseAttribute : Attribute
     {
-        public Type AttributeType
+        public Type AttributeType { get; }
+
+        public BaseAttribute()
         {
-            get { return this.GetType(); }
+            AttributeType = this.GetType();
         }
     }
 
@@ -15,7 +17,7 @@ namespace Giant.Model
     /// 系统驱动系统标识
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple =true)]
-    class ObjectSystemAttribute : BaseAttribute
+    public class ObjectSystemAttribute : BaseAttribute
     {
     }
 }

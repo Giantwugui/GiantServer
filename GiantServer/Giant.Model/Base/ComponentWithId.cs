@@ -5,6 +5,12 @@ namespace Giant.Model
     [BsonIgnoreExtraElements]
     public abstract class ComponentWithId : Component
     {
+        [BsonId]
+        [BsonElement]
+        [BsonIgnoreIfDefault]
+        [BsonDefaultValue(0L)]
+        public long Id { get; protected set; }
+
         protected ComponentWithId()
         {
             Id = InstanceId;
@@ -19,11 +25,5 @@ namespace Giant.Model
         {
             base.Dispose();
         }
-
-        [BsonId]
-        [BsonElement]
-        [BsonIgnoreIfDefault]
-        [BsonDefaultValue(0L)]
-        public long Id { get; protected set; }
     }
 }

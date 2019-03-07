@@ -2,19 +2,10 @@
 {
     public static class Game
     {
-        private static ObjectPool objectPool;
+        public static ObjectPool ObjectPool => new ObjectPool();
 
-        public static ObjectPool ObjectPool
-        {
-            get
-            {
-                if (objectPool == null)
-                {
-                    objectPool = new ObjectPool();
-                }
+        public static EventSystem EventSystem => new EventSystem();
 
-                return objectPool;
-            }
-        }
+        public static Screen Screen => new Screen();
     }
 }

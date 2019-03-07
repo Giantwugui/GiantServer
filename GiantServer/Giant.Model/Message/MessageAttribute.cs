@@ -2,20 +2,21 @@
 
 namespace Giant.Model
 {
-    public class OpcodeType
+    public static class Opcode
     {
-        public const ushort Login = 1;
+        public const ushort C2G_login = 101;
     }
 
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     class MessageAttribute : Attribute
     {
+        public ushort Opcode { get; private set; }
+
         public MessageAttribute(ushort opcode)
         {
             Opcode = opcode;
         }
 
-        public ushort Opcode { get; private set; }
     }
 }

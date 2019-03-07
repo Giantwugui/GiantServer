@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Demo\" />
+  </ItemGroup>
+
 </Project>

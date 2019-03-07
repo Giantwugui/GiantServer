@@ -2,27 +2,27 @@
 
 namespace Giant.Model
 {
-    interface IAwake
+    interface IAwakeSystem
     {
         Type Type();
     }
 
-    interface IAwakeSystem
+    interface IAwake
     {
         void Run(object o);
     }
 
-    interface IAwakeSystem<A>
+    interface IAwake<A>
     {
         void Run(object o, A a);
     }
 
-    interface IAwakeSystem<A, B>
+    interface IAwake<A, B>
     {
         void Run(object o, A a, B b);
     }
 
-    interface IAwakeSystem<A, B, C>
+    interface IAwake<A, B, C>
     {
         void Run(object o, A a, B b, C c);
     }
@@ -43,7 +43,7 @@ namespace Giant.Model
         public abstract void Awake(T self);
     }
 
-    public abstract class AwakeSystem<T, A> : IAwake, IAwakeSystem<A>
+    public abstract class AwakeSystem<T, A> : IAwakeSystem, IAwake<A>
     {
         public Type Type()
         {
@@ -57,7 +57,7 @@ namespace Giant.Model
         public abstract void Awake(T self, A a);
     }
 
-    public abstract class AwakeSystem<T, A, B> : IAwake, IAwakeSystem<A, B>
+    public abstract class AwakeSystem<T, A, B> : IAwakeSystem, IAwake<A, B>
     {
         public Type Type()
         {
@@ -72,7 +72,7 @@ namespace Giant.Model
         public abstract void Awake(T self, A a, B b);
     }
 
-    public abstract class AwakeSystem<T, A, B, C> : IAwake, IAwakeSystem<A, B, C>
+    public abstract class AwakeSystem<T, A, B, C> : IAwakeSystem, IAwake<A, B, C>
     {
         public Type Type()
         {

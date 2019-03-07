@@ -7,6 +7,7 @@ namespace Giant.Model
 {
     //所有的通讯消息都使用 protobuf 格式
 
+     [ObjectSystem]
     public class SessionAwakeSystem : AwakeSystem<Session, TChannel>
     {
         public override void Awake(Session self, TChannel a)
@@ -30,9 +31,9 @@ namespace Giant.Model
 
         private int RpcId { get; set; }
 
-        private NetComponent Network
+        private NetworkComponent Network
         {
-            get { return GetParent<NetComponent>(); }
+            get { return GetParent<NetworkComponent>(); }
         }
 
 
@@ -56,7 +57,13 @@ namespace Giant.Model
 
         private void OnRevceived(BChannel channel, byte[] message)
         {
-            
+            ushort opcode = Convert.ToUInt16()
+
+            if ((message[0] & 0x1) == 1)
+            {
+            }
+
+            //Rpc消息
         }
 
         public void Send(IRequest request)
