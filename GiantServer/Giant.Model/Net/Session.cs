@@ -57,11 +57,11 @@ namespace Giant.Model
 
         private void OnRevceived(BChannel channel, byte[] message)
         {
-            ushort opcode = Convert.ToUInt16()
+            //ushort opcode = Convert.ToUInt16()
 
-            if ((message[0] & 0x1) == 1)
-            {
-            }
+            //if ((message[0] & 0x1) == 1)
+            //{
+            //}
 
             //Rpc消息
         }
