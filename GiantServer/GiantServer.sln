@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "Th
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Model", "Giant.Model\Giant.Model.csproj", "{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "Giant.Redis\Giant.Redis.csproj", "{B8D2BB61-281A-4564-B8B6-2B6C22160697}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Giant.Share", "Giant.Share", "{87AC50DD-9540-461A-A613-2E4AE74D2436}"
 	ProjectSection(SolutionItems) = preProject
 		Giant.Share\JsonHelper.cs = Giant.Share\JsonHelper.cs
@@ -56,10 +54,6 @@ Global
 		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B8D2BB61-281A-4564-B8B6-2B6C22160697}.Release|Any CPU.Build.0 = Release|Any CPU
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{495CECEB-CDCC-47E1-A06F-992453D09DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
