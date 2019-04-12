@@ -14,7 +14,7 @@ namespace Giant.Net
     {
         private long IdGenerator = 0;
         private long MinTime = 0;//最近过期时间
-        private Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();
+        private Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
         private SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
 
         public Queue<long> outOfTime = new Queue<long>();
