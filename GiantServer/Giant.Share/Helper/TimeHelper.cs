@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Giant.Net
+namespace Giant.Share
 {
     public class TimeHelper
     {

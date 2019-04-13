@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.Collections.Generic;
 
-namespace Giant.Net
+namespace Giant.Share
 {
     public class TimerInfo
     {

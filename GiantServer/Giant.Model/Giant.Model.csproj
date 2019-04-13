@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Giant.Share\TimeHelper.cs" Link="Helper\TimeHelper.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
     <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>

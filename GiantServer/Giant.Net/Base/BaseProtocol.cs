@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.Net.Sockets;
 
 namespace Giant.Net
@@ -12,7 +13,7 @@ namespace Giant.Net
     /// <summary>
     /// 通讯类型抽象类
     /// </summary>
-    public abstract class BaseProtocol : IUpdate, IDisposable
+    public abstract class BaseProtocol: IDisposable
     {
         public uint Id { get; private set; }
 

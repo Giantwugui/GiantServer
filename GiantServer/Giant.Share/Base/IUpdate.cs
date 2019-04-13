@@ -1,4 +1,4 @@
-﻿namespace Giant.Net
+﻿namespace Giant.Share
 {
     public interface IUpdate
     {

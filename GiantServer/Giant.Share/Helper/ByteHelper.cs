@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Giant.Net
+namespace Giant.Share
 {
     public static class ByteHelper
     {
