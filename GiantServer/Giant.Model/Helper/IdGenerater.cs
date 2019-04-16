@@ -6,11 +6,11 @@ namespace Giant.Model.Helper
 	{
 		public static long AppId { private get; set; }
 
-		private static ushort value;
+        private static ushort value;
 
 		public static long GenerateId()
 		{
-			long time = TimeHelper.NowSeconds();
+			long time = TimeHelper.NowSeconds;
 
 			return (AppId << 48) + (time << 16) + ++value;
 		}

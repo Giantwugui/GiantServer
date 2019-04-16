@@ -20,7 +20,7 @@ namespace Giant.Model
 
         public void Update()
         {
-            long now = TimeHelper.Now();
+            long now = TimeHelper.NowMilliSeconds;
 
             List<long> overTime = new List<long>();
 
