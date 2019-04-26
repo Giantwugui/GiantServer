@@ -13,8 +13,4 @@
     <Folder Include="Helper\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
-  </ItemGroup>
-
 </Project>
