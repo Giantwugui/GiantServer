@@ -1,5 +1,4 @@
-﻿using Giant.Share;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -55,10 +54,10 @@ namespace Giant.Net
 
         public Session CreateSession(IPEndPoint endPoint)
         {
-            BaseProtocol protocol = service.CreateProtocol(endPoint);
-            protocol.Start();
+            BaseChannel channel = service.CreateChannel(endPoint);
+            channel.Start();
 
-            Session session = new Session(this, protocol);
+            Session session = new Session(this, channel);
 
             sessions[session.Id] = session;
             
@@ -125,10 +124,10 @@ namespace Giant.Net
             }
         }
 
-        private void OnAccept(BaseProtocol baseProtocol)
+        private void OnAccept(BaseChannel baseChannel)
         {
-            Session session = new Session(this, baseProtocol);
-            baseProtocol.Start();
+            Session session = new Session(this, baseChannel);
+            baseChannel.Start();
 
             sessions[session.Id] = session;
         }

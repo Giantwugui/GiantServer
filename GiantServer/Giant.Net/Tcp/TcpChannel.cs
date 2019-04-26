@@ -2,11 +2,10 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Concurrent;
-using Giant.Share;
 
 namespace Giant.Net
 {
-    public class TcpProtocol : BaseProtocol
+    public class TcpChannel : BaseChannel
     {
         private const ushort lengthSize = 2;//消息长度所占字节数
         private const int headLength= 6;//消息头长度 lengthSize + messageId
@@ -21,7 +20,7 @@ namespace Giant.Net
         private SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
         private SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
 
-        public TcpProtocol(Socket socket, TcpService service):base(service, ProtocolType.Accepter)
+        public TcpChannel(Socket socket, TcpService service):base(service, ChannelType.Accepter)
         {
             this.Socket = socket;
             this.IsConnected = true;
@@ -30,7 +29,7 @@ namespace Giant.Net
             outtererArgs.Completed += OnComplete;
         }
 
-        public TcpProtocol(IPEndPoint endPoint, TcpService service) : base(service, ProtocolType.Connecter)
+        public TcpChannel(IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
         {
             this.IsConnected = false;
             this.ipEndPoint = endPoint;
@@ -38,12 +37,12 @@ namespace Giant.Net
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
 
-            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
+            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         public override void Start()
         {
-            if (ProtocolType == ProtocolType.Connecter)
+            if (ChannelType == ChannelType.Connecter)
             {
                 Connect();
             }
