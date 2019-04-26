@@ -9,22 +9,36 @@ namespace Giant.Net
     {
         private HttpListener httpListener;
 
-        public void Start(int port)
+        public void Start(List<int> ports)
         {
-            httpListener = new HttpListener();
-            httpListener.Prefixes.Add($"http://*:{port}/");
-            httpListener.Start();
+            try
+            {
+                httpListener = new HttpListener();
+                ports.ForEach(port => httpListener.Prefixes.Add($"http://*:{port}/"));
+                httpListener.Start();
 
-            Receive();
+                ReceiveAsync();
+            }
+            catch (HttpListenerException e)
+            {
+                if (e.ErrorCode == 5)
+                {
+                    throw new Exception($"CMD管理员中输入: netsh http add urlacl url=http://*:8080/ user=Everyone", e);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
-        private async void Receive()
+        private async void ReceiveAsync()
         {
             var context = await httpListener.GetContextAsync();
 
             DoContext(context);
 
-            Receive();
+            ReceiveAsync();
         }
 
         private async void DoContext(HttpListenerContext context)
