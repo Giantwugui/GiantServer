@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    public class UdpProtocolType
+    public class UdpChannelState
     {
         public const byte SYN = 1;//请求建立连接
         public const byte ACK = 2;//数据传输,请求连接回应
@@ -20,13 +20,13 @@ namespace Giant.Net
         /// <summary>
         /// 所有UPD客户端连接信息
         /// </summary>
-        private Dictionary<uint, UdpProtocol> protocols = new Dictionary<uint, UdpProtocol>();
-        public Dictionary<uint, UdpProtocol> Protocols { get { return protocols; } }
+        private Dictionary<uint, UdpChannel> channels = new Dictionary<uint, UdpChannel>();
+        public Dictionary<uint, UdpChannel> Channels { get { return channels; } }
 
         /// <summary>
         /// 所有等待连接的客户端
         /// </summary>
-        private Dictionary<uint, UdpProtocol> waitConnectClients = new Dictionary<uint, UdpProtocol>();
+        private Dictionary<uint, UdpChannel> waitConnectClients = new Dictionary<uint, UdpChannel>();
 
         private EndPoint remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
@@ -36,15 +36,15 @@ namespace Giant.Net
             //指定端口为0则系统会随机绑定可用端口
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 0);
 
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, System.Net.Sockets.ProtocolType.Udp);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Socket.Bind(endPoint);
         }
 
-        public UdpService(int port, Action<BaseProtocol> onAcceptCallback)
+        public UdpService(int port, Action<BaseChannel> onAcceptCallback)
         {
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
 
-            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, System.Net.Sockets.ProtocolType.Udp);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Socket.Bind(endPoint);
 
             OnAccept += onAcceptCallback;
@@ -55,17 +55,17 @@ namespace Giant.Net
         {
             Receive();
 
-            foreach (var kv in protocols)
+            foreach (var kv in channels)
             {
                 kv.Value.Update();
             }
         }
 
-        public override BaseProtocol GetProtocol(uint id)
+        public override BaseChannel GetChannel(uint id)
         {
-            if (protocols.TryGetValue(id, out UdpProtocol protocol))
+            if (channels.TryGetValue(id, out UdpChannel channel))
             {
-                return protocol;
+                return channel;
             }
 
             return null;
@@ -73,11 +73,11 @@ namespace Giant.Net
 
         public override void Remove(uint id)
         {
-            if (protocols.TryGetValue(id, out var protocol))
+            if (channels.TryGetValue(id, out var channel))
             {
-                protocol.Dispose();
+                channel.Dispose();
 
-                protocols.Remove(id);
+                channels.Remove(id);
             }
         }
 
@@ -86,23 +86,23 @@ namespace Giant.Net
         /// </summary>
         /// <param name="endPoint"></param>
         /// <returns></returns>
-        public override BaseProtocol CreateProtocol(IPEndPoint endPoint)
+        public override BaseChannel CreateChannel(IPEndPoint endPoint)
         {
             uint udpId = IdGenerator.NewId;
 
-            if (protocols.TryGetValue(udpId, out UdpProtocol protocol))
+            if (channels.TryGetValue(udpId, out UdpChannel channel))
             {
-                protocol.Dispose();
+                channel.Dispose();
 
-                protocols.Remove(udpId);
+                channels.Remove(udpId);
             }
 
-            protocol = new UdpProtocol((uint)udpId, Socket, endPoint, this);
+            channel = new UdpChannel((uint)udpId, Socket, endPoint, this);
 
-            protocols[udpId] = protocol;
-            waitConnectClients[udpId] = protocol;
+            channels[udpId] = channel;
+            waitConnectClients[udpId] = channel;
 
-            return protocol;
+            return channel;
         }
 
 
@@ -122,12 +122,12 @@ namespace Giant.Net
                         return;
                     }
 
-                    UdpProtocol protocol = null;
+                    UdpChannel channel = null;
                     byte flag = tempBuffer[0];
 
                     switch (flag)
                     {
-                        case UdpProtocolType.SYN://请求建立连接
+                        case UdpChannelState.SYN://请求建立连接
                             {
                                 // UdpProtocolType + remoteUdp
                                 if (msgLength != 5)
@@ -136,22 +136,22 @@ namespace Giant.Net
                                 }
 
                                 uint remoteUdp = BitConverter.ToUInt32(tempBuffer, 1);
-                                if (waitConnectClients.TryGetValue(remoteUdp, out UdpProtocol client))
+                                if (waitConnectClients.TryGetValue(remoteUdp, out UdpChannel client))
                                 {
                                     waitConnectClients.Remove(remoteUdp);
                                 }
 
-                                protocol = new UdpProtocol(IdGenerator.NewId, remoteUdp, this.Socket, (IPEndPoint)remoteIPEndPoint, this);
+                                channel = new UdpChannel(IdGenerator.NewId, remoteUdp, this.Socket, (IPEndPoint)remoteIPEndPoint, this);
 
                                 remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
-                                protocols[protocol.Id] = protocol;
-                                waitConnectClients[protocol.RemoteUdp] = protocol;
+                                channels[channel.Id] = channel;
+                                waitConnectClients[channel.RemoteUdp] = channel;
 
-                                this.Accept(protocol);
+                                this.Accept(channel);
                             }
                             break;
-                        case UdpProtocolType.ACK://建立连接
+                        case UdpChannelState.ACK://建立连接
                             {
                                 // UdpProtocolType + remoteUdp +localUdp 1+4+4
                                 if (msgLength != 9)
@@ -162,15 +162,15 @@ namespace Giant.Net
                                 uint remoteUdp = BitConverter.ToUInt32(tempBuffer, 1);
                                 uint localUdp = BitConverter.ToUInt32(tempBuffer, 5);
 
-                                protocol = (UdpProtocol)GetProtocol(localUdp);
+                                channel = (UdpChannel)GetChannel(localUdp);
 
-                                if (protocol != null)
+                                if (channel != null)
                                 {
-                                    protocol.OnConnected(remoteUdp);
+                                    channel.OnConnected(remoteUdp);
                                 }
                             }
                             break;
-                        case UdpProtocolType.MSG://收到消息
+                        case UdpChannelState.MSG://收到消息
                             {
                                 //不是有效的消息
                                 if (msgLength < 9)
@@ -184,24 +184,24 @@ namespace Giant.Net
                                 uint remoteUdp = BitConverter.ToUInt32(tempBuffer, 1);
                                 uint localUdp = BitConverter.ToUInt32(tempBuffer, 5);
 
-                                protocol = (UdpProtocol)GetProtocol(localUdp);
-                                if (protocol != null)
+                                channel = (UdpChannel)GetChannel(localUdp);
+                                if (channel != null)
                                 {
-                                    if (protocol.RemoteUdp == remoteUdp)
+                                    if (channel.RemoteUdp == remoteUdp)
                                     {
-                                        protocol.OnReceive(tempBuffer, 9, msgLength - 9);
+                                        channel.OnReceive(tempBuffer, 9, msgLength - 9);
                                     }
                                     else
                                     {
-                                        protocol.Dispose();
-                                        protocols.Remove(protocol.Id);
+                                        channel.Dispose();
+                                        channels.Remove(channel.Id);
                                     }
                                 }
 
-                                waitConnectClients.Remove(protocol.RemoteUdp);
+                                waitConnectClients.Remove(channel.RemoteUdp);
                             }
                             break;
-                        case UdpProtocolType.FIN://断开连接
+                        case UdpChannelState.FIN://断开连接
                             {
                                 if (msgLength != 9)
                                 {
@@ -211,15 +211,15 @@ namespace Giant.Net
                                 uint remoteUdp = BitConverter.ToUInt32(tempBuffer, 1);
                                 uint localUdp = BitConverter.ToUInt32(tempBuffer, 5);
 
-                                protocol = (UdpProtocol)GetProtocol(localUdp);
+                                channel = (UdpChannel)GetChannel(localUdp);
 
-                                if (protocol != null)
+                                if (channel != null)
                                 {
-                                    if (protocol.RemoteUdp == remoteUdp)
+                                    if (channel.RemoteUdp == remoteUdp)
                                     {
-                                        protocol.Dispose();
-                                        protocols.Remove(protocol.Id);
-                                        waitConnectClients.Remove(protocol.RemoteUdp);
+                                        channel.Dispose();
+                                        channels.Remove(channel.Id);
+                                        waitConnectClients.Remove(channel.RemoteUdp);
                                     }
                                 }
                             }

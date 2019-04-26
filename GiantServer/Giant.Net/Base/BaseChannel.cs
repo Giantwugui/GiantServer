@@ -3,7 +3,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    public enum ProtocolType
+    public enum ChannelType
     {
         Accepter = 1,
         Connecter = 2,
@@ -12,11 +12,11 @@ namespace Giant.Net
     /// <summary>
     /// 通讯类型抽象类
     /// </summary>
-    public abstract class BaseProtocol: IDisposable
+    public abstract class BaseChannel: IDisposable
     {
         public uint Id { get; private set; }
 
-        public ProtocolType ProtocolType { get; private set; }
+        public ChannelType ChannelType { get; private set; }
 
         public BaseService Service { get; private set; }
 
@@ -39,16 +39,16 @@ namespace Giant.Net
             remove { onRead -= value; }
         }
 
-        public BaseProtocol(BaseService service, ProtocolType type)
+        public BaseChannel(BaseService service, ChannelType type)
         {
             this.Id = IdGenerator.NewId;
-            this.ProtocolType = type;
+            this.ChannelType = type;
             this.Service = service;
         }
 
-        public BaseProtocol(uint id, BaseService service, ProtocolType type)
+        public BaseChannel(uint id, BaseService service, ChannelType type)
         {
-            this.ProtocolType = type;
+            this.ChannelType = type;
             this.Service = service;
         }
 

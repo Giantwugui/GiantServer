@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Giant.Net
 {
-    public class HttpService
+    public class HttpService : BaseService
     {
         private HttpListener httpListener;
 
@@ -86,5 +86,24 @@ namespace Giant.Net
             }
         }
 
+        public override BaseChannel GetChannel(uint id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override BaseChannel CreateChannel(IPEndPoint endPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Update()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Remove(uint id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

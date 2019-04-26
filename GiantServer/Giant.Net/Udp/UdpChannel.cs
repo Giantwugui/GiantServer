@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    public class UdpProtocol : BaseProtocol
+    public class UdpChannel : BaseChannel
     {
         private DateTime LastReceiveMsgTime = TimeHelper.Now;
 
@@ -16,8 +16,8 @@ namespace Giant.Net
 
         public IPEndPoint RemoteIPEndPoint { get; set; }
 
-        public UdpProtocol(uint udpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
-            : base(udpId, udpService, ProtocolType.Connecter)
+        public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
+            : base(udpId, udpService, ChannelType.Connecter)
         {
             RemoteUdp = 0;
             this.Socket = socket;
@@ -26,8 +26,8 @@ namespace Giant.Net
             this.Connect();
         }
 
-        public UdpProtocol(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
-            : base(udpId, udpService, ProtocolType.Accepter)
+        public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
+            : base(udpId, udpService, ChannelType.Accepter)
         {
             RemoteUdp = remoteUdpId;
             this.Socket = socket;
@@ -62,7 +62,7 @@ namespace Giant.Net
             }
 
             byte[] content = new byte[message.Length + 9];
-            content.WriteTo(0, UdpProtocolType.MSG);
+            content.WriteTo(0, UdpChannelState.MSG);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
             content.WriteTo(9, message);
@@ -76,7 +76,7 @@ namespace Giant.Net
         public override void Connect()
         {
             byte[] content = new byte[5];
-            content.WriteTo(0, UdpProtocolType.SYN);
+            content.WriteTo(0, UdpChannelState.SYN);
             content.WriteTo(1, Id);
 
             Write(content);
@@ -84,7 +84,7 @@ namespace Giant.Net
 
         public override void Update()
         {
-            if (this.ProtocolType == ProtocolType.Connecter)
+            if (this.ChannelType == ChannelType.Connecter)
             {
                 if (!IsConnected && (TimeHelper.Now - LastReceiveMsgTime).TotalSeconds > 10)
                 {
@@ -103,7 +103,7 @@ namespace Giant.Net
             this.IsConnected = false;
 
             byte[] content = new byte[9];
-            content.WriteTo(0, UdpProtocolType.FIN);
+            content.WriteTo(0, UdpChannelState.FIN);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
             Write(content);
@@ -128,7 +128,7 @@ namespace Giant.Net
         private void Accept()
         {
             byte[] content = new byte[9];
-            content.WriteTo(0, UdpProtocolType.ACK);
+            content.WriteTo(0, UdpChannelState.ACK);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
 

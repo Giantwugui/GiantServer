@@ -5,7 +5,7 @@ namespace Giant.Net
 {
     public class Session : IDisposable
     {
-        private BaseProtocol baseProtocol;//通讯对象
+        private BaseChannel baseChannel;//通讯对象
 
         private Dictionary<ushort, Action<IMessage>> responseCallback = new Dictionary<ushort, Action<IMessage>>();//消息回调
 
@@ -13,15 +13,15 @@ namespace Giant.Net
 
         public uint Id { get; private set; }
 
-        public Session(NetworkService networkService, BaseProtocol baseSession)
+        public Session(NetworkService networkService, BaseChannel baseSession)
         {
             Id = baseSession.Id;
 
             NetworkService = networkService;
-            this.baseProtocol = baseSession;
+            this.baseChannel = baseSession;
 
-            this.baseProtocol.OnRead += OnRead;
-            this.baseProtocol.OnError += OnError;
+            this.baseChannel.OnRead += OnRead;
+            this.baseChannel.OnError += OnError;
         }
 
 
@@ -34,13 +34,13 @@ namespace Giant.Net
 
         public void Transfer(byte[] message)
         {
-            baseProtocol.Transfer(message);
+            baseChannel.Transfer(message);
         }
 
 
         public void Dispose()
         {
-            baseProtocol.Dispose();
+            baseChannel.Dispose();
 
             //清空所有消息回调
             responseCallback.Clear();

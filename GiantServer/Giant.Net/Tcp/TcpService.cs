@@ -14,19 +14,19 @@ namespace Giant.Net
         /// <summary>
         /// 所有客户端连接信息
         /// </summary>
-        private Dictionary<uint, TcpProtocol> protocols = new Dictionary<uint, TcpProtocol>();
-        public Dictionary<uint, TcpProtocol> Protocols { get { return protocols; } }
+        private Dictionary<uint, TcpChannel> channels = new Dictionary<uint, TcpChannel>();
+        public Dictionary<uint, TcpChannel> Channels { get { return channels; } }
 
         public TcpService()
         {
         }
 
-        public TcpService(IPEndPoint endPoint, Action<BaseProtocol> onAcceptCallback)
+        public TcpService(IPEndPoint endPoint, Action<BaseChannel> onAcceptCallback)
         {
             this.OnAccept += onAcceptCallback;
             innerArgs.Completed += OnComplete;
 
-            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, System.Net.Sockets.ProtocolType.Tcp);
+            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.Socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             this.Socket.Bind(endPoint);
             this.Socket.Listen(200);
@@ -37,17 +37,17 @@ namespace Giant.Net
 
         public override void Update()
         {
-            foreach (var kv in protocols)
+            foreach (var kv in channels)
             {
                 kv.Value.Update();
             }
         }
 
-        public override BaseProtocol GetProtocol(uint id)
+        public override BaseChannel GetChannel(uint id)
         {
-            if (protocols.TryGetValue(id, out TcpProtocol protocol))
+            if (channels.TryGetValue(id, out TcpChannel channel))
             {
-                return protocol;
+                return channel;
             }
 
             return null;
@@ -55,11 +55,11 @@ namespace Giant.Net
 
         public override void Remove(uint id)
         {
-            if (protocols.TryGetValue(id, out var protocol))
+            if (channels.TryGetValue(id, out var channel))
             {
-                protocol.Dispose();
+                channel.Dispose();
 
-                protocols.Remove(id);
+                channels.Remove(id);
             }
         }
 
@@ -68,13 +68,13 @@ namespace Giant.Net
         /// </summary>
         /// <param name="endPoint"></param>
         /// <returns></returns>
-        public override BaseProtocol CreateProtocol(IPEndPoint endPoint)
+        public override BaseChannel CreateChannel(IPEndPoint endPoint)
         {
-            TcpProtocol protocol = new TcpProtocol(endPoint, this);
+            TcpChannel channel = new TcpChannel(endPoint, this);
 
-            protocols[protocol.Id] = protocol;
+            channels[channel.Id] = channel;
 
-            return protocol;
+            return channel;
         }
 
         private void AcceptAsync()
@@ -113,11 +113,11 @@ namespace Giant.Net
         {
             if (eventArgs.LastOperation == SocketAsyncOperation.Accept && eventArgs.SocketError == SocketError.Success)
             {
-                TcpProtocol protocol = new TcpProtocol(eventArgs.AcceptSocket, this);
+                TcpChannel channel = new TcpChannel(eventArgs.AcceptSocket, this);
 
-                protocols[protocol.Id] = protocol;
+                channels[channel.Id] = channel;
 
-                this.Accept(protocol);
+                this.Accept(channel);
             }
 
             AcceptAsync();
