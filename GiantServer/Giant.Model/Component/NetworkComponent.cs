@@ -35,11 +35,11 @@ namespace Giant.Model
                 switch (netServiceType)
                 {
                     case NetServiceType.TCP:
-                        ipEndPoint = NetHelper.ToIPEndPoint(address, port);
+                        ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
                         mService = new TService(ipEndPoint, OnAccept);
                         break;
                     case NetServiceType.UDP:
-                        ipEndPoint = NetHelper.ToIPEndPoint(address, port);
+                        ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
                         break;
                     case NetServiceType.HTTP:
                         break;
