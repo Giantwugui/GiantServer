@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using Giant.Share;
 
 namespace Giant.Model
 {
@@ -35,11 +36,11 @@ namespace Giant.Model
                 switch (netServiceType)
                 {
                     case NetServiceType.TCP:
-                        ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
+                        //ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
                         mService = new TService(ipEndPoint, OnAccept);
                         break;
                     case NetServiceType.UDP:
-                        ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
+                        //ipEndPoint = NetworkHelper.ToIPEndPoint(address, port);
                         break;
                     case NetServiceType.HTTP:
                         break;

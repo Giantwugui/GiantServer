@@ -5,11 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
+    <Compile Remove="Demo\**" />
+    <EmbeddedResource Remove="Demo\**" />
+    <None Remove="Demo\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Demo\" />
+    <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
   </ItemGroup>
 
 </Project>

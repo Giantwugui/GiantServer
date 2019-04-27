@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
-    <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
-    <ProjectReference Include="..\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
+    <Folder Include="Net\UDP\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Net\UDP\" />
+    <ProjectReference Include="..\..\Common\Giant.Share\Giant.Share.csproj" />
+    <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
+    <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>
 
 </Project>

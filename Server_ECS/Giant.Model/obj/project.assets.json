@@ -1481,6 +1481,7 @@
       "path": "system.buffers/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.1/.xml",
@@ -1857,6 +1858,7 @@
       "path": "system.globalization.extensions/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -3431,23 +3433,23 @@
     },
     "Giant.Share/1.0.0": {
       "type": "project",
-      "path": "../Giant.Share/Giant.Share.csproj",
-      "msbuildProject": "../Giant.Share/Giant.Share.csproj"
+      "path": "../../Common/Giant.Share/Giant.Share.csproj",
+      "msbuildProject": "../../Common/Giant.Share/Giant.Share.csproj"
     },
     "MongoDB.Bson/0.0.0-local": {
       "type": "project",
-      "path": "../ThirdParty/MongodbDriver/MongoDB.Bson/MongoDB.Bson.csproj",
-      "msbuildProject": "../ThirdParty/MongodbDriver/MongoDB.Bson/MongoDB.Bson.csproj"
+      "path": "../../Common/ThirdParty/MongodbDriver/MongoDB.Bson/MongoDB.Bson.csproj",
+      "msbuildProject": "../../Common/ThirdParty/MongodbDriver/MongoDB.Bson/MongoDB.Bson.csproj"
     },
     "MongoDB.Driver/0.0.0-local": {
       "type": "project",
-      "path": "../ThirdParty/MongodbDriver/MongoDB.Driver/MongoDB.Driver.csproj",
-      "msbuildProject": "../ThirdParty/MongodbDriver/MongoDB.Driver/MongoDB.Driver.csproj"
+      "path": "../../Common/ThirdParty/MongodbDriver/MongoDB.Driver/MongoDB.Driver.csproj",
+      "msbuildProject": "../../Common/ThirdParty/MongodbDriver/MongoDB.Driver/MongoDB.Driver.csproj"
     },
     "MongoDB.Driver.Core/0.0.0-local": {
       "type": "project",
-      "path": "../ThirdParty/MongodbDriver/MongoDB.Driver.Core/MongoDB.Driver.Core.csproj",
-      "msbuildProject": "../ThirdParty/MongodbDriver/MongoDB.Driver.Core/MongoDB.Driver.Core.csproj"
+      "path": "../../Common/ThirdParty/MongodbDriver/MongoDB.Driver.Core/MongoDB.Driver.Core.csproj",
+      "msbuildProject": "../../Common/ThirdParty/MongodbDriver/MongoDB.Driver.Core/MongoDB.Driver.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -3465,11 +3467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\GiantServer\\GiantServer\\Giant.Model\\Giant.Model.csproj",
+      "projectUniqueName": "F:\\GiantServer\\Server\\Giant.Model\\Giant.Model.csproj",
       "projectName": "Giant.Model",
-      "projectPath": "F:\\GiantServer\\GiantServer\\Giant.Model\\Giant.Model.csproj",
+      "projectPath": "F:\\GiantServer\\Server\\Giant.Model\\Giant.Model.csproj",
       "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
-      "outputPath": "F:\\GiantServer\\GiantServer\\Giant.Model\\obj\\",
+      "outputPath": "F:\\GiantServer\\Server\\Giant.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3488,14 +3490,14 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "F:\\GiantServer\\GiantServer\\Giant.Share\\Giant.Share.csproj": {
-              "projectPath": "F:\\GiantServer\\GiantServer\\Giant.Share\\Giant.Share.csproj"
+            "F:\\GiantServer\\Common\\Giant.Share\\Giant.Share.csproj": {
+              "projectPath": "F:\\GiantServer\\Common\\Giant.Share\\Giant.Share.csproj"
             },
-            "F:\\GiantServer\\GiantServer\\ThirdParty\\MongodbDriver\\MongoDB.Bson\\MongoDB.Bson.csproj": {
-              "projectPath": "F:\\GiantServer\\GiantServer\\ThirdParty\\MongodbDriver\\MongoDB.Bson\\MongoDB.Bson.csproj"
+            "F:\\GiantServer\\Common\\ThirdParty\\MongodbDriver\\MongoDB.Bson\\MongoDB.Bson.csproj": {
+              "projectPath": "F:\\GiantServer\\Common\\ThirdParty\\MongodbDriver\\MongoDB.Bson\\MongoDB.Bson.csproj"
             },
-            "F:\\GiantServer\\GiantServer\\ThirdParty\\MongodbDriver\\MongoDB.Driver\\MongoDB.Driver.csproj": {
-              "projectPath": "F:\\GiantServer\\GiantServer\\ThirdParty\\MongodbDriver\\MongoDB.Driver\\MongoDB.Driver.csproj"
+            "F:\\GiantServer\\Common\\ThirdParty\\MongodbDriver\\MongoDB.Driver\\MongoDB.Driver.csproj": {
+              "projectPath": "F:\\GiantServer\\Common\\ThirdParty\\MongodbDriver\\MongoDB.Driver\\MongoDB.Driver.csproj"
             }
           }
         }
