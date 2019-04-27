@@ -9,8 +9,6 @@ namespace Demo
             try
             {
                 //TestRedis();
-
-                Mongo.TestMongo();
             }
             catch (Exception ex)
             {
