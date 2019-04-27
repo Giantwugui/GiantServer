@@ -1,4 +1,0 @@
-F:\GiantServer\GiantServer\Giant.Model\obj\Debug\netcoreapp2.2\Giant.Model.csprojAssemblyReference.cache
-F:\GiantServer\GiantServer\Giant.Model\obj\Debug\netcoreapp2.2\Giant.Model.csproj.CoreCompileInputs.cache
-F:\GiantServer\GiantServer\Giant.Model\obj\Debug\netcoreapp2.2\Giant.Model.AssemblyInfoInputs.cache
-F:\GiantServer\GiantServer\Giant.Model\obj\Debug\netcoreapp2.2\Giant.Model.AssemblyInfo.cs
