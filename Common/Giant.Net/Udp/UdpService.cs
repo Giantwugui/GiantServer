@@ -21,8 +21,8 @@ namespace Giant.Net
         /// <summary>
         /// 所有UPD客户端连接信息
         /// </summary>
-        private Dictionary<uint, UdpChannel> channels = new Dictionary<uint, UdpChannel>();
-        public Dictionary<uint, UdpChannel> Channels { get { return channels; } }
+        private Dictionary<long, UdpChannel> channels = new Dictionary<long, UdpChannel>();
+        public Dictionary<long, UdpChannel> Channels { get { return channels; } }
 
         /// <summary>
         /// 所有等待连接的客户端
@@ -72,7 +72,7 @@ namespace Giant.Net
             return null;
         }
 
-        public override void Remove(uint id)
+        public override void Remove(long id)
         {
             if (channels.TryGetValue(id, out var channel))
             {

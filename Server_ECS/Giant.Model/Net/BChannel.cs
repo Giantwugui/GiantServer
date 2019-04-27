@@ -1,4 +1,4 @@
-﻿using Giant.Model.Helper;
+﻿using Giant.Model;
 using System;
 using System.Net;
 using System.Net.Sockets;

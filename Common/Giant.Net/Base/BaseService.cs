@@ -27,7 +27,7 @@ namespace Giant.Net
 
         public abstract void Update();
 
-        public abstract void Remove(uint id);
+        public abstract void Remove(long id);
 
         public virtual void Accept(BaseChannel channel)
         {

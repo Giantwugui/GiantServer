@@ -79,6 +79,18 @@ namespace Giant.Share
             content[offset + 3] = (byte)((num & 0xff000000) >> 24);
         }
 
+        public static void WriteTo(this byte[] content, int offset, long num)
+        {
+            content[offset] = (byte)((num & 0xff));
+            content[offset + 1] = (byte)((num & 0xff00) >> 8);
+            content[offset + 2] = (byte)((num & 0xff0000) >> 16);
+            content[offset + 3] = (byte)((num & 0xff000000) >> 24);
+            content[offset + 4] = (byte)((num & 0xff000000) >> 32);
+            content[offset + 5] = (byte)((num & 0xff000000) >> 40);
+            content[offset + 6] = (byte)((num & 0xff000000) >> 48);
+            content[offset + 7] = (byte)((num & 0xff000000) >> 56);
+        }
+
 
 
     }

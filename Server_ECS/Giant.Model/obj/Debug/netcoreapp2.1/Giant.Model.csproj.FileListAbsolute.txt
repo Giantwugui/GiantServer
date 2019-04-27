@@ -40,3 +40,9 @@ F:\GiantServer\Server\Giant.Model\bin\Debug\netcoreapp2.1\MongoDB.Driver.Core.xm
 F:\GiantServer\Server\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.csproj.CopyComplete
 F:\GiantServer\Server\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.dll
 F:\GiantServer\Server\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.pdb
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.csprojAssemblyReference.cache
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.csproj.CoreCompileInputs.cache
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.AssemblyInfoInputs.cache
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.AssemblyInfo.cs
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.dll
+F:\GiantServer\Server_ECS\Giant.Model\obj\Debug\netcoreapp2.1\Giant.Model.pdb

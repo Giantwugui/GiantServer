@@ -14,8 +14,8 @@ namespace Giant.Net
         /// <summary>
         /// 所有客户端连接信息
         /// </summary>
-        private Dictionary<uint, TcpChannel> channels = new Dictionary<uint, TcpChannel>();
-        public Dictionary<uint, TcpChannel> Channels { get { return channels; } }
+        private Dictionary<long, TcpChannel> channels = new Dictionary<long, TcpChannel>();
+        public Dictionary<long, TcpChannel> Channels { get { return channels; } }
 
         public TcpService()
         {
@@ -53,7 +53,7 @@ namespace Giant.Net
             return null;
         }
 
-        public override void Remove(uint id)
+        public override void Remove(long id)
         {
             if (channels.TryGetValue(id, out var channel))
             {

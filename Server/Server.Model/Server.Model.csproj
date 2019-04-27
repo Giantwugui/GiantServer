@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Net\UDP\" />
+    <Compile Remove="Net\**" />
+    <EmbeddedResource Remove="Net\**" />
+    <None Remove="Net\**" />
   </ItemGroup>
 
   <ItemGroup>

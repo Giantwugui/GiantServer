@@ -55,7 +55,7 @@ namespace Giant.Net
             Console.WriteLine(message.ToUtf8String(offset, length));
         }
 
-        public override void Write(byte[] message)
+        public override void Send(byte[] message)
         {
             if (!IsConnected)
             {

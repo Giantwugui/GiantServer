@@ -14,8 +14,8 @@ namespace Giant.Net
         /// <summary>
         /// 所有客户端连接信息
         /// </summary>
-        private Dictionary<uint, HttpChannel> channels = new Dictionary<uint, HttpChannel>();
-        public Dictionary<uint, HttpChannel> Channels { get { return channels; } }
+        private Dictionary<long, HttpChannel> channels = new Dictionary<long, HttpChannel>();
+        public Dictionary<long, HttpChannel> Channels { get { return channels; } }
 
         public HttpService()
         {
@@ -91,7 +91,7 @@ namespace Giant.Net
         {
         }
 
-        public override void Remove(uint id)
+        public override void Remove(long id)
         {
             if (channels.TryGetValue(id, out HttpChannel channel))
             {

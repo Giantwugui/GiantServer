@@ -45,7 +45,7 @@ namespace Giant.Net
         {
         }
 
-        public override async void Write(byte[] message)
+        public override async void Send(byte[] message)
         {
             try
             {

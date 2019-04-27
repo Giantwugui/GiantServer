@@ -62,7 +62,7 @@ namespace Giant.Net
             ConnectAsync();
         }
 
-        public override void Write(byte[] message)
+        public override void Send(byte[] message)
         {
             if (!IsConnected)
             {

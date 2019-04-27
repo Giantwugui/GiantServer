@@ -8,9 +8,9 @@ namespace Giant.Model
     //所有的通讯消息都使用 protobuf 格式
 
      [ObjectSystem]
-    public class SessionAwakeSystem : AwakeSystem<Session, TChannel>
+    public class SessionAwakeSystem : AwakeSystem<Session, TcpChannel>
     {
-        public override void Awake(Session self, TChannel a)
+        public override void Awake(Session self, TcpChannel a)
         {
             self.Awake(a);
         }
@@ -25,9 +25,9 @@ namespace Giant.Model
         /// <summary>
         /// 所有的请求消息
         /// </summary>
-        private Dictionary<int, Action<IResponse>> requestCallBack = new Dictionary<int, Action<IResponse>>();
+        private Dictionary<long, Action<IResponse>> requestCallBack = new Dictionary<long, Action<IResponse>>();
 
-        private TChannel Channel { get; set; }
+        private TcpChannel Channel { get; set; }
 
         private int RpcId { get; set; }
 
@@ -37,7 +37,7 @@ namespace Giant.Model
         }
 
 
-        public void Awake(TChannel channel)
+        public void Awake(TcpChannel channel)
         {
             this.Channel = channel;
 

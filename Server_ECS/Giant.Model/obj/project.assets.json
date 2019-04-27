@@ -3467,11 +3467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\GiantServer\\Server\\Giant.Model\\Giant.Model.csproj",
+      "projectUniqueName": "F:\\GiantServer\\Server_ECS\\Giant.Model\\Giant.Model.csproj",
       "projectName": "Giant.Model",
-      "projectPath": "F:\\GiantServer\\Server\\Giant.Model\\Giant.Model.csproj",
+      "projectPath": "F:\\GiantServer\\Server_ECS\\Giant.Model\\Giant.Model.csproj",
       "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
-      "outputPath": "F:\\GiantServer\\Server\\Giant.Model\\obj\\",
+      "outputPath": "F:\\GiantServer\\Server_ECS\\Giant.Model\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -14,7 +14,7 @@ namespace Giant.Net
     /// </summary>
     public abstract class BaseChannel: IDisposable
     {
-        public uint Id { get; private set; }
+        public long Id { get; private set; }
 
         public ChannelType ChannelType { get; private set; }
 
@@ -43,7 +43,7 @@ namespace Giant.Net
             this.Service = service;
         }
 
-        public BaseChannel(uint id, BaseService service, ChannelType type)
+        public BaseChannel(long id, BaseService service, ChannelType type)
         {
             this.ChannelType = type;
             this.Service = service;
@@ -57,7 +57,7 @@ namespace Giant.Net
         /// 转发消息
         /// </summary>
         /// <param name="message">消息体</param>
-        public abstract void Write(byte[] message);
+        public abstract void Send(byte[] message);
  
 
         public virtual void Start()

@@ -12,7 +12,7 @@ namespace Giant.Net
 
         public NetworkService NetworkService { get; private set; }
 
-        public uint Id { get; private set; }
+        public long Id { get; private set; }
 
         public Session(NetworkService networkService, BaseChannel baseSession)
         {
@@ -30,12 +30,12 @@ namespace Giant.Net
         {
             BindResponse(message, callback);
 
-            Write(message.MsgContent);
+            Send(message.MsgContent);
         }
 
-        public void Write(byte[] message)
+        public void Send(byte[] message)
         {
-            baseChannel.Write(message);
+            baseChannel.Send(message);
         }
 
 

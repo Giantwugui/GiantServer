@@ -19,9 +19,9 @@ namespace Giant.Net
 
         private NetworkType networkType;
 
-        private Dictionary<uint, Session> sessions = new Dictionary<uint, Session>();
+        private Dictionary<long, Session> sessions = new Dictionary<long, Session>();
 
-        public Dictionary<uint, Session> Sessions => sessions;
+        public Dictionary<long, Session> Sessions => sessions;
 
 
         public NetworkService(NetworkType network)
@@ -72,7 +72,7 @@ namespace Giant.Net
             return session;
         }
 
-        public void Remove(uint id)
+        public void Remove(long id)
         {
             if (sessions.TryGetValue(id, out Session session))
             {

@@ -1,6 +1,6 @@
 ﻿using Giant.Share;
 
-namespace Giant.Model.Helper
+namespace Giant.Model
 {
 	public static class IdGenerater
 	{
