@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,7 +13,7 @@ namespace Giant.Net
         WebSocket
     }
 
-    public class NetworkService : IUpdate,IDisposable
+    public class NetworkService : IUpdate, IDisposable
     {
         private BaseService service;
 

@@ -9,4 +9,8 @@
     <Compile Remove="Udp\UdpAsync.cs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
+  </ItemGroup>
+
 </Project>

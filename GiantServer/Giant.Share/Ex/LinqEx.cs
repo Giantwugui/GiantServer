@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Giant.Net
+namespace Giant.Share
 {
     public static class LinqEx
     {

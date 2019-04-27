@@ -1,5 +1,5 @@
-﻿using System;
-using System.Net.Sockets;
+﻿using Giant.Share;
+using System;
 
 namespace Giant.Net
 {

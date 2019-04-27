@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Giant.Share
 {
-    public static class ByteHelper
+    public static class ByteEx
     {
         public static string ToUtf8String(this byte[] content, int offset, int count)
         {
