@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Giant.Net
 {
@@ -29,12 +30,12 @@ namespace Giant.Net
         {
             BindResponse(message, callback);
 
-            Transfer(message.MsgContent);
+            Write(message.MsgContent);
         }
 
-        public void Transfer(byte[] message)
+        public void Write(byte[] message)
         {
-            baseChannel.Transfer(message);
+            baseChannel.Write(message);
         }
 
 
@@ -77,6 +78,7 @@ namespace Giant.Net
             }
             else //其他类型消息
             {
+                Console.WriteLine(Encoding.UTF8.GetString(message));
             }
         }
 
@@ -86,11 +88,16 @@ namespace Giant.Net
             {
                 case Exception ex:
                     {
+                        Console.WriteLine(ex);
                     }
                     break;
                 case int errorCode:
                     {
+                        Console.WriteLine($"ErrorCode {errorCode}");
                     }
+                    break;
+                default:
+                        Console.WriteLine(error);
                     break;
             }
 

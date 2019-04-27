@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 
 namespace Giant.Net
 {
@@ -10,6 +9,7 @@ namespace Giant.Net
     {
         Tcp,
         Udp,
+        WebSocket
     }
 
     public class NetworkService : IUpdate,IDisposable
@@ -20,6 +20,8 @@ namespace Giant.Net
 
         private Dictionary<uint, Session> sessions = new Dictionary<uint, Session>();
 
+        public Dictionary<uint, Session> Sessions => sessions;
+
 
         public NetworkService(NetworkType network)
         {
@@ -28,11 +30,11 @@ namespace Giant.Net
             Init();
         }
 
-        public NetworkService(NetworkType network, string ip, int port)
+        public NetworkService(NetworkType network, string address)
         {
             this.networkType = network;
 
-            Init(ip, port);
+            Init(address);
         }
 
         public Session GetSession(uint id)
@@ -45,11 +47,16 @@ namespace Giant.Net
             return null;
         }
 
-        public Session CreateSession(string ip, int port)
+        public Session CreateSession(string address)
         {
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            BaseChannel channel = service.CreateChannel(address);
+            channel.Start();
 
-            return CreateSession(endPoint);
+            Session session = new Session(this, channel);
+
+            sessions[session.Id] = session;
+
+            return session;
         }
 
         public Session CreateSession(IPEndPoint endPoint)
@@ -64,30 +71,18 @@ namespace Giant.Net
             return session;
         }
 
-        #region temp
-
-        public void Broadcase(byte[] message)
-        {
-            sessions.Values.ToList().ForEach(x => { x.Transfer(message); });
-        }
-
-
-        public void Transfer(uint udpId, byte[] message)
-        {
-            if (sessions.TryGetValue(udpId, out Session session))
-            {
-                session.Transfer(message);
-            }
-        }
-
-        #endregion
-
         public void Remove(uint id)
         {
             if (sessions.TryGetValue(id, out Session session))
             {
                 session.Dispose();
                 sessions.Remove(id);
+            }
+
+            int conns = sessions.Count;
+            if (conns % 10 == 0)
+            {
+                Console.WriteLine($"conn nun {conns}");
             }
         }
 
@@ -106,20 +101,27 @@ namespace Giant.Net
                 case NetworkType.Udp:
                     service = new UdpService();
                     break;
+                case NetworkType.WebSocket:
+                    service = new HttpService();
+                    break;
             }
         }
 
-        private void Init(string ip, int port)
+        private void Init(string address)
         {
             IPEndPoint endPoint;
             switch (this.networkType)
             {
                 case NetworkType.Tcp:
-                    endPoint = new IPEndPoint(IPAddress.Parse(ip), port);
+                    endPoint = NetworkHelper.ToIPEndPoint(address);
                     service = new TcpService(endPoint, OnAccept);
                     break;
                 case NetworkType.Udp:
-                    service = new UdpService(port, OnAccept);
+                    endPoint = NetworkHelper.ToIPEndPoint(address);
+                    service = new UdpService(endPoint.Port, OnAccept);
+                    break;
+                case NetworkType.WebSocket:
+                    service = new HttpService(address.Split(";").ToList(), OnAccept);
                     break;
             }
         }
@@ -130,6 +132,12 @@ namespace Giant.Net
             baseChannel.Start();
 
             sessions[session.Id] = session;
+
+            int conns = sessions.Count;
+            if (conns % 10 == 0)
+            {
+                Console.WriteLine($"conn nun {conns}");
+            }
         }
 
         public void Dispose()

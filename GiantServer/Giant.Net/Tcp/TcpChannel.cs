@@ -11,6 +11,7 @@ namespace Giant.Net
         private const int headLength= 6;//消息头长度 lengthSize + messageId
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
 
+        private Socket socket;
         private IPEndPoint ipEndPoint;
         private byte[] sendBuffer = new byte[contentLength];//发送消息临时缓冲区
         private byte[] receiveBuffer = new byte[contentLength];//接收消息临时缓冲区
@@ -22,7 +23,7 @@ namespace Giant.Net
 
         public TcpChannel(Socket socket, TcpService service):base(service, ChannelType.Accepter)
         {
-            this.Socket = socket;
+            this.socket = socket;
             this.IsConnected = true;
 
             innerArgs.Completed += OnComplete;
@@ -37,7 +38,7 @@ namespace Giant.Net
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
 
-            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         public override void Start()
@@ -60,7 +61,7 @@ namespace Giant.Net
             ConnectAsync();
         }
 
-        public override void Transfer(byte[] message)
+        public override void Write(byte[] message)
         {
             if (!IsConnected)
             {
@@ -99,13 +100,13 @@ namespace Giant.Net
         {
             try
             {
-                if (Socket == null)
+                if (socket == null)
                 {
                     return;
                 }
 
                 innerArgs.RemoteEndPoint = ipEndPoint;
-                if (this.Socket.ConnectAsync(innerArgs))
+                if (this.socket.ConnectAsync(innerArgs))
                 {
                     return;
                 }
@@ -127,7 +128,7 @@ namespace Giant.Net
                 {
                     outtererArgs.SetBuffer(message);
 
-                    if (Socket.SendAsync(outtererArgs))
+                    if (socket.SendAsync(outtererArgs))
                     {
                         return;
                     }
@@ -147,7 +148,7 @@ namespace Giant.Net
             try
             {
                 innerArgs.SetBuffer(receiveBuffer, 0, contentLength);
-                if (Socket.ReceiveAsync(innerArgs))
+                if (socket.ReceiveAsync(innerArgs))
                 {
                     return;
                 }

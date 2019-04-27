@@ -20,9 +20,6 @@ namespace Giant.Net
 
         public BaseService Service { get; private set; }
 
-        public Socket Socket { get; protected set; }
-
-
         public bool IsConnected { get; protected set; }
 
         private Action<object> onError;
@@ -60,7 +57,7 @@ namespace Giant.Net
         /// 转发消息
         /// </summary>
         /// <param name="message">消息体</param>
-        public abstract void Transfer(byte[] message);
+        public abstract void Write(byte[] message);
  
 
         public virtual void Start()

@@ -20,6 +20,8 @@ namespace Giant.Net
 
         public abstract BaseChannel GetChannel(uint id);
 
+        public abstract BaseChannel CreateChannel(string address);
+
         public abstract BaseChannel CreateChannel(IPEndPoint endPoint);
 
         public abstract void Update();

@@ -9,8 +9,4 @@
     <Compile Remove="Udp\UdpAsync.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helper\" />
-  </ItemGroup>
-
 </Project>

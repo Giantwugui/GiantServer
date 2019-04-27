@@ -7,30 +7,30 @@ namespace Giant.Net
 {
     public class UdpChannel : BaseChannel
     {
+        private Socket socket;
         private DateTime LastReceiveMsgTime = TimeHelper.Now;
 
         private Queue<byte[]> cachedMessage = new Queue<byte[]>();
+
 
 
         public uint RemoteUdp { get; set; }
 
         public IPEndPoint RemoteIPEndPoint { get; set; }
 
-        public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
-            : base(udpId, udpService, ChannelType.Connecter)
+        public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService udpService) : base(udpId, udpService, ChannelType.Connecter)
         {
             RemoteUdp = 0;
-            this.Socket = socket;
+            this.socket = socket;
             RemoteIPEndPoint = endPoint;
 
             this.Connect();
         }
 
-        public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService udpService)
-            : base(udpId, udpService, ChannelType.Accepter)
+        public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService udpService) : base(udpId, udpService, ChannelType.Accepter)
         {
             RemoteUdp = remoteUdpId;
-            this.Socket = socket;
+            this.socket = socket;
             RemoteIPEndPoint = endPoint;
 
             this.Accept();
@@ -54,7 +54,7 @@ namespace Giant.Net
             Console.WriteLine(message.ToUtf8String(offset, length));
         }
 
-        public override void Transfer(byte[] message)
+        public override void Write(byte[] message)
         {
             if (!IsConnected)
             {
@@ -67,7 +67,7 @@ namespace Giant.Net
             content.WriteTo(5, RemoteUdp);
             content.WriteTo(9, message);
 
-            Write(content);
+            SendTo(content);
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Giant.Net
             content.WriteTo(0, UdpChannelState.SYN);
             content.WriteTo(1, Id);
 
-            Write(content);
+            SendTo(content);
         }
 
         public override void Update()
@@ -106,20 +106,7 @@ namespace Giant.Net
             content.WriteTo(0, UdpChannelState.FIN);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
-            Write(content);
-        }
-
-
-        protected void Write(byte[] content)
-        {
-            try
-            {
-                Socket.SendTo(content, RemoteIPEndPoint);
-            }
-            catch
-            {
-                this.IsConnected = false;
-            }
+            SendTo(content);
         }
 
         /// <summary>
@@ -132,7 +119,20 @@ namespace Giant.Net
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
 
-            Write(content);
+            SendTo(content);
+        }
+
+
+        protected void SendTo(byte[] content)
+        {
+            try
+            {
+                socket.SendTo(content, RemoteIPEndPoint);
+            }
+            catch
+            {
+                this.IsConnected = false;
+            }
         }
 
     }

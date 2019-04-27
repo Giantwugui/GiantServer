@@ -63,6 +63,14 @@ namespace Giant.Net
             }
         }
 
+        public override BaseChannel CreateChannel(string address)
+        {
+            IPEndPoint endPoint = NetworkHelper.ToIPEndPoint(address);
+
+            return CreateChannel(endPoint);
+        }
+
+
         /// <summary>
         /// 创建一个通讯对象
         /// </summary>
