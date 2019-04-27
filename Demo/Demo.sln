@@ -7,13 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "..\GiantServer\Giant.Redis\Giant.Redis.csproj", "{F23BA41E-912B-4746-AA10-13EC615A91A2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UdpSender", "UdpTest\UdpSender\UdpSender.csproj", "{D0248E36-70EE-4B55-8A64-19B3622EE9A4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UdpReceiver", "UdpTest\UdpReceiver\UdpReceiver.csproj", "{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetTest", "NetTest", "{0C7E8C7F-E9D6-4685-9D62-EAF22F80FAB7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "..\GiantServer\Giant.Net\Giant.Net.csproj", "{E7084D40-8998-4680-A63D-D4832A638C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Share", "..\GiantServer\Giant.Share\Giant.Share.csproj", "{2D6D6B85-A357-487B-8508-B5A63FC93C3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,25 +23,13 @@ Global
 		{F23BA41E-912B-4746-AA10-13EC615A91A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F23BA41E-912B-4746-AA10-13EC615A91A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F23BA41E-912B-4746-AA10-13EC615A91A2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D0248E36-70EE-4B55-8A64-19B3622EE9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D0248E36-70EE-4B55-8A64-19B3622EE9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D0248E36-70EE-4B55-8A64-19B3622EE9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D0248E36-70EE-4B55-8A64-19B3622EE9A4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7084D40-8998-4680-A63D-D4832A638C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7084D40-8998-4680-A63D-D4832A638C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7084D40-8998-4680-A63D-D4832A638C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7084D40-8998-4680-A63D-D4832A638C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6D6B85-A357-487B-8508-B5A63FC93C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6D6B85-A357-487B-8508-B5A63FC93C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6D6B85-A357-487B-8508-B5A63FC93C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6D6B85-A357-487B-8508-B5A63FC93C3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{D0248E36-70EE-4B55-8A64-19B3622EE9A4} = {0C7E8C7F-E9D6-4685-9D62-EAF22F80FAB7}
-		{313C9DAA-80DB-4DE4-99DA-08BA2A8C723F} = {0C7E8C7F-E9D6-4685-9D62-EAF22F80FAB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DB614B2-BC18-4E7E-9DED-139AC7583355}
