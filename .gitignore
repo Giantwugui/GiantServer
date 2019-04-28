@@ -1,6 +1,3 @@
-/GiantClient/MyClient/obj
-/GiantClient/MyClient/bin
-/GiantClient/*.suo
 /GiantServer/Giant_Server.suo
 /GiantServer/Giant_Server.v12.suo
 /GiantServer/.vs
@@ -10,15 +7,10 @@
 /GiantServer/GiantServer/obj
 /GiantServer/MyServer/.vs
 /GiantServer/MyServer/obj
-/GiantClient/MyClient/*
 /GiantServer/*
 /GiantServer/*.suo
 /GiantServer/GiantEx/*
 /GiantServer/GiantNode/*
-/GiantClient/Client/Client/*
-/OODB/OODB/obj
-/OODB/OODB/bin
-/OODB/.vs
 /.gitignore
 /.gitattributes
 /Bin
