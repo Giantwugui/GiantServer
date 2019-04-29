@@ -9,6 +9,7 @@ namespace Giant.Frame
     public class BaseService
     {
         delegate bool ControlCtrlHandle(int ctrlType);
+        private CancellationTokenSource CancellationTokenSource;
 
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCtrlHandler(ControlCtrlHandle HandlerRoutine, bool Add);
@@ -29,6 +30,8 @@ namespace Giant.Frame
 
         private BaseService()
         {
+            CancellationTokenSource = new CancellationTokenSource();
+
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
@@ -80,16 +83,22 @@ namespace Giant.Frame
 
         private async void ReadLineAsync()
         {
-            //string 
-            string content = await Task.Run(() =>
+            while (true)
             {
-                content = Console.In.ReadLine();//异步阻塞
-                return content;
-            });
+                try
+                {
+                    string line = await Task.Run(() =>
+                    {
+                        return Console.In.ReadLine();
+                    }, CancellationTokenSource.Token);
 
-            DoMessageDispatch(content);
-
-            ReadLineAsync();
+                    DoMessageDispatch(line);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex);
+                }
+            }
         }
 
 
