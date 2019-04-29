@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Giant.Log;
 
 namespace Giant.Net
 {
@@ -78,7 +79,7 @@ namespace Giant.Net
             }
             else //其他类型消息
             {
-                Console.WriteLine(Encoding.UTF8.GetString(message));
+                Logger.Debug(Encoding.UTF8.GetString(message));
             }
         }
 
@@ -88,19 +89,20 @@ namespace Giant.Net
             {
                 case Exception ex:
                     {
-                        Console.WriteLine(ex);
+                        Logger.Error(ex);
                     }
                     break;
                 case int errorCode:
                     {
-                        Console.WriteLine($"ErrorCode {errorCode}");
+                        Logger.Error($"ErrorCode {errorCode}");
                     }
                     break;
                 default:
-                        Console.WriteLine(error);
+                    Logger.Error(error);
                     break;
             }
 
+            Logger.Error(error);
             NetworkService.Remove(this.Id);
         }
 

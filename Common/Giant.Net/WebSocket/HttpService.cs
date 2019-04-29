@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.Log;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -56,9 +57,9 @@ namespace Giant.Net
                     throw new Exception($"CMD管理员中输入: netsh http add urlacl url=http://*:8080/ user=Everyone", e);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                Logger.Error(ex);
             }
         }
 

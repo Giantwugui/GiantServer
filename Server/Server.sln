@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.Core", "..\C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "..\Common\ThirdParty\MongodbDriver\MongoDB.Driver.GridFS\MongoDB.Driver.GridFS.csproj", "{E133D53C-7572-496A-AAFD-CCDCB003D8A2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Log", "..\Common\Giant.Log\Giant.Log.csproj", "{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{E133D53C-7572-496A-AAFD-CCDCB003D8A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E133D53C-7572-496A-AAFD-CCDCB003D8A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E133D53C-7572-496A-AAFD-CCDCB003D8A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +76,7 @@ Global
 		{AC7EDA1A-7BDB-4FC2-ABBB-4ED83096CCDD} = {41683E85-5807-40F5-8F74-53E470489802}
 		{6CCEF52A-8341-4118-A428-2F2852BD495A} = {41683E85-5807-40F5-8F74-53E470489802}
 		{E133D53C-7572-496A-AAFD-CCDCB003D8A2} = {41683E85-5807-40F5-8F74-53E470489802}
+		{EE1BD74A-25F3-45AA-A7A2-DE1975186DBA} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6848430-138E-45F6-B81B-350B8222A883}

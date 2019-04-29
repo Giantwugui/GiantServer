@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Net.WebSockets;
+using Giant.Log;
 
 namespace Giant.Net
 {
@@ -71,7 +72,7 @@ namespace Giant.Net
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Logger.Error(ex);
             }
         }
 
@@ -114,7 +115,7 @@ namespace Giant.Net
             catch (Exception ex)
             {
                 this.Error(webSocket.State);
-                Console.WriteLine(ex);
+                Logger.Error(ex);
             }
         }
     }

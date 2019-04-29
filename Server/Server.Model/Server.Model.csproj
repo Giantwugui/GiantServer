@@ -11,9 +11,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Module\DBComponent.cs" />
+    <Compile Remove="Module\DBConfig.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Common\Giant.Share\Giant.Share.csproj" />
     <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
     <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Module\" />
   </ItemGroup>
 
 </Project>

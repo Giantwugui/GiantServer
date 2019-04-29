@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Giant.Log;
 
 namespace Giant.Net
 {
@@ -83,7 +84,7 @@ namespace Giant.Net
             int conns = sessions.Count;
             if (conns % 10 == 0)
             {
-                Console.WriteLine($"conn nun {conns}");
+                Logger.Info($"conn nun {conns}");
             }
         }
 
@@ -137,7 +138,7 @@ namespace Giant.Net
             int conns = sessions.Count;
             if (conns % 10 == 0)
             {
-                Console.WriteLine($"conn nun {conns}");
+                Logger.Info($"conn nun {conns}");
             }
         }
 

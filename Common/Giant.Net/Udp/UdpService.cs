@@ -1,4 +1,5 @@
-﻿using Giant.Share;
+﻿using Giant.Log;
+using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -236,7 +237,7 @@ namespace Giant.Net
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Logger.Error(ex);
                 }
             }
         }

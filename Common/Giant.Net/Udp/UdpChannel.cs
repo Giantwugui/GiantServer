@@ -1,4 +1,5 @@
 ﻿using Giant.Share;
+using Giant.Log;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -52,7 +53,7 @@ namespace Giant.Net
 
             cachedMessage.Enqueue(message.Read(offset, length));
 
-            Console.WriteLine(message.ToUtf8String(offset, length));
+            Logger.Info(message.ToUtf8String(offset, length));
         }
 
         public override void Send(byte[] message)

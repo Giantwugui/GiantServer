@@ -1,60 +1,77 @@
 ﻿using NLog;
 using System;
+using System.Collections.Generic;
 
 namespace Giant.Log
 {
-    public class Logger
+    /// <summary>
+    /// 自定义日志输出类
+    /// </summary>
+    public static class Logger
     {
-		private readonly NLog.Logger logger = LogManager.GetLogger("Logger");
+        private static bool writeToConsole = false;
+        private static LogAdapter logAdapter = new LogAdapter();
 
-        public void Debug(string msg, params object[] args)
+        public static void Init(bool write2Console, Dictionary<string, string> param)
         {
-            logger.Debug(msg, args);
+            writeToConsole = write2Console;
+
+            //添加自定义变量以及其他规则
+            //对于不同的日志使用场景，需要做不同的实现
+            foreach (var kv in param)
+            {
+                LogManager.Configuration.Variables.Add(kv.Key, kv.Value);
+            }
         }
 
-        public void Debug(string msg, Exception err)
+        public static void Debug(object message)
         {
-            logger.Debug(msg, err);
+#if DEBUG
+            logAdapter.Debug(message);
+            WriteToConsole(message);
+#endif
         }
 
-        public void Info(string msg, params object[] args)
+        public static void Error(object message)
         {
-            logger.Info(msg, args);
+            logAdapter.Error(message);
+            WriteToConsole(message);
         }
 
-        public void Info(string msg, Exception err)
+        public static void Fatal(object message)
         {
-            logger.Info(msg, err);
+            logAdapter.Fatal(message);
+            WriteToConsole(message);
         }
 
-        public void Trace(string msg, params object[] args)
+        public static void Info(object message)
         {
-            logger.Trace(msg, args);
+            logAdapter.Info(message);
+            WriteToConsole(message);
         }
 
-        public void Trace(string msg, Exception err)
+        public static void Trace(object message)
         {
-            logger.Trace(msg, err);
+            logAdapter.Trace(message);
+            WriteToConsole(message);
         }
 
-        public void Error(string msg, params object[] args)
+        public static void Warn(object message)
         {
-            logger.Error(msg, args);
+            logAdapter.Warn(message);
+            WriteToConsole(message);
         }
 
-        public void Error(string msg, Exception err)
+        public static void WriteToConsole(object message)
         {
-            logger.Error(msg, err);
-        }
-
-        public void Fatal(string msg, params object[] args)
-        {
-            logger.Fatal(msg, args);
-        }
-
-        public void Fatal(string msg, Exception err)
-        {
-            logger.Fatal(msg, err);
+#if DEBUG
+            Console.WriteLine(message);
+#else
+            if (writeToConsole)
+            {
+                Console.WriteLine(message);
+            }
+#endif
         }
     }
 }
