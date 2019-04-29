@@ -13,6 +13,9 @@
     <None Update="C:\Users\wanxin\.nuget\packages\nlog.config\4.6.2\contentFiles\any\any\NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

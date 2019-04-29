@@ -20,7 +20,7 @@ namespace Giant.Log
             //对于不同的日志使用场景，需要做不同的实现
             foreach (var kv in param)
             {
-                LogManager.Configuration.Variables.Add(kv.Key, kv.Value);
+                LogManager.Configuration.Variables[kv.Key] = kv.Value;
             }
         }
 
@@ -30,18 +30,6 @@ namespace Giant.Log
             logAdapter.Debug(message);
             WriteToConsole(message);
 #endif
-        }
-
-        public static void Error(object message)
-        {
-            logAdapter.Error(message);
-            WriteToConsole(message);
-        }
-
-        public static void Fatal(object message)
-        {
-            logAdapter.Fatal(message);
-            WriteToConsole(message);
         }
 
         public static void Info(object message)
@@ -59,7 +47,22 @@ namespace Giant.Log
         public static void Warn(object message)
         {
             logAdapter.Warn(message);
-            WriteToConsole(message);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(message);
+        }
+
+        public static void Error(object message)
+        {
+            logAdapter.Error(message);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+        }
+
+        public static void Fatal(object message)
+        {
+            logAdapter.Fatal(message);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.WriteLine(message);
         }
 
         public static void WriteToConsole(object message)
