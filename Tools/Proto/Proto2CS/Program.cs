@@ -27,8 +27,8 @@ namespace ETTools
                 protoc = "protoc";
             }
 
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Common/Giant.Message/Message/\" --proto_path=\"../Common/Giant.Message/Proto/\" OuterMessage.proto", waitExit: true);
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Common/Giant.Message/Message/\" --proto_path=\"../Common/Giant.Message/Proto/\" InnerMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" OuterMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" InnerMessage.proto", waitExit: true);
 
             Proto2CS("Giant.Message", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
             Proto2CS("Giant.Message", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
@@ -41,9 +41,9 @@ namespace ETTools
             Console.WriteLine("proto2cs succeed!");
         }
 
-        private const string protoPath = "../Common/Giant.Message/Proto";
-        private const string clientMessagePath = "../Common/Giant.Message/Message/";
-        private const string hotfixMessagePath = "../Common/Giant.Message/Message/";
+        private const string protoPath = "../Frame/Giant.Msg/Proto";
+        private const string clientMessagePath = "../Frame/Giant.Msg/Message/";
+        private const string hotfixMessagePath = "../Frame/Giant.Msg/Message/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
@@ -135,8 +135,8 @@ namespace ETTools
 
     public static class InnerProto2CS
     {
-        private const string protoPath = "../Common/Giant.Message/Proto/";
-        private const string serverMessagePath = "../Common/Giant.Message/Message/";
+        private const string protoPath = "../Frame/Giant.Msg/Proto/";
+        private const string serverMessagePath = "../Frame/Giant.Msg/Message/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
