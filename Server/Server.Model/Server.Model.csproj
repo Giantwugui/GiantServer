@@ -20,11 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Giant.Share\Giant.Share.csproj" />
+    <Folder Include="Module\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Module\" />
+    <ProjectReference Include="..\..\Frame\Giant.Share\Giant.Share.csproj" />
   </ItemGroup>
 
 </Project>
