@@ -12,9 +12,9 @@ namespace Giant.Net
     {
         private int RpcId { get; set; }
 
-        private BaseChannel baseChannel;//通讯对象
+        private readonly BaseChannel baseChannel;//通讯对象
 
-        private Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
+        private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
         public NetworkService NetworkService { get; private set; }
 
@@ -136,12 +136,6 @@ namespace Giant.Net
 
             Logger.Error(error);
             NetworkService.Remove(this.Id);
-        }
-
-
-        private static bool IsCallbackMessage(ushort messageId)
-        {
-            return messageId < 10000;
         }
 
     }

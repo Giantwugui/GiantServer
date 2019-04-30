@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Text;
 using Google.Protobuf;
 
-namespace Giant.Share
+namespace Giant.Message
 {
     /// <summary>
     /// protobuf 扩展类
@@ -12,7 +11,7 @@ namespace Giant.Share
     {
         public static byte[] ToBytes(object message)
         {
-            return ((IMessage)message).ToByteArray();
+            return ((Google.Protobuf.IMessage)message).ToByteArray();
         }
 
 
@@ -25,16 +24,16 @@ namespace Giant.Share
         {
             object obj = Activator.CreateInstance(type);
 
-            ((IMessage)obj).MergeFrom(content);
+            ((Google.Protobuf.IMessage)obj).MergeFrom(content);
 
             return obj;
         }
 
-        public static T FromStream<T>(this MemoryStream stream) where T : IMessage
+        public static T FromStream<T>(this MemoryStream stream) where T : Google.Protobuf.IMessage
         {
             T obj = Activator.CreateInstance<T>();
 
-            ((IMessage)obj).MergeFrom(stream);
+            ((Google.Protobuf.IMessage)obj).MergeFrom(stream);
 
             return obj;
         }
@@ -43,7 +42,7 @@ namespace Giant.Share
         {
             object obj = Activator.CreateInstance(type);
 
-            ((IMessage)obj).MergeFrom(stream);
+            ((Google.Protobuf.IMessage)obj).MergeFrom(stream);
 
             return obj;
         }
