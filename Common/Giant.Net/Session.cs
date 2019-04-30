@@ -1,43 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Giant.Log;
+using Giant.Message;
+using Giant.Share;
 
 namespace Giant.Net
 {
     public class Session : IDisposable
     {
+        private int RpcId { get; set; }
+
         private BaseChannel baseChannel;//通讯对象
 
-        private Dictionary<ushort, Action<IMessage>> responseCallback = new Dictionary<ushort, Action<IMessage>>();//消息回调
+        private Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
         public NetworkService NetworkService { get; private set; }
 
         public long Id { get; private set; }
 
-        public Session(NetworkService networkService, BaseChannel baseSession)
+        public Session(NetworkService networkService, BaseChannel baseChannel)
         {
-            Id = baseSession.Id;
-
+            Id = baseChannel.Id;
             NetworkService = networkService;
-            this.baseChannel = baseSession;
+            this.baseChannel = baseChannel;
 
             this.baseChannel.OnRead += OnRead;
             this.baseChannel.OnError += OnError;
         }
 
 
-        public void Call(IMessage message, Action<IMessage> callback)
+        public Task<IResponse> Call(IRequest message)
         {
-            BindResponse(message, callback);
+            int rpcId = ++RpcId;
+            message.RpcId = rpcId;
 
-            Send(message.MsgContent);
+            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
+
+            TaskCompletionSource<IResponse> completionSource = new TaskCompletionSource<IResponse>();
+
+            this.responseCallback[rpcId] = (response) =>
+            {
+                try
+                {
+                    if (response.Error == ErrorCode.ERR_Success)
+                    {
+                        completionSource.SetResult(response);
+                    }
+                    else
+                    {
+                        completionSource.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
+                    }
+                }
+                catch(Exception ex)
+                {
+                    completionSource.SetException(ex);
+                }
+            };
+
+            this.Send(opcode, message);
+
+            return completionSource.Task;
         }
 
-        public void Send(byte[] message)
+
+        public void Send(IMessage message)
         {
-            baseChannel.Send(message);
+            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
+            this.Send(opcode, message);
         }
+
+        private void Send(ushort opcode, IMessage message)
+        {
+            byte[] msg = ProtoHelper.ToBytes(message);
+
+            byte[] content = new byte[msg.Length + 2];
+            content.WriteTo(0, opcode);
+            content.WriteTo(2, msg);
+
+            this.baseChannel.Send(content);
+        }
+
 
 
         public void Dispose()
@@ -48,38 +92,26 @@ namespace Giant.Net
             responseCallback.Clear();
         }
 
-        /// <summary>
-        /// 绑定回调
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="callback"></param>
-        private void BindResponse(IMessage message, Action<IMessage> callback)
-        {
-            if (responseCallback.TryGetValue(message.Id, out Action<IMessage> action))
-            {
-                responseCallback.Remove(message.Id);
-            }
-
-            responseCallback.Add(message.Id, callback);
-        }
-
-        private void OnRead(byte[] message)
+        private void OnRead(byte[] content)
         {
             //消息id
-            ushort messageId = BitConverter.ToUInt16(message);
+            ushort opcode = BitConverter.ToUInt16(content);
 
-            //回调类消息
-            if (IsCallbackMessage(messageId))
+            Type msgType = NetworkService.MessageDispatcher.GetMessageType(opcode);
+
+            IMessage message = ProtoHelper.FromBytes(content, msgType) as IMessage;
+
+            if (message is IResponse response)
             {
-                if (responseCallback.TryGetValue(messageId, out var action))
+                if (responseCallback.TryGetValue(opcode, out var action))
                 {
-                    //action();
-                    responseCallback.Remove(messageId);
+                    action(response);
+                    responseCallback.Remove(opcode);
                 }
             }
-            else //其他类型消息
+            else
             {
-                Logger.Debug(Encoding.UTF8.GetString(message));
+                NetworkService.MessageDispatcher.Dispatch(this, opcode, message);
             }
         }
 

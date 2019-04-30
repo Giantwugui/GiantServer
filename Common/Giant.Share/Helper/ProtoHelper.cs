@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
-using ProtoBuf;
+using Google.Protobuf;
 
 namespace Giant.Share
 {
@@ -9,40 +10,43 @@ namespace Giant.Share
     /// </summary>
     public static class ProtoHelper
     {
-        public static string ToProtoString<T>(this T self) where T : class
+        public static byte[] ToBytes(object message)
         {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Serializer.Serialize<T>(stream, self);
-
-                return Encoding.UTF8.GetString(stream.ToArray());
-            }
+            return ((IMessage)message).ToByteArray();
         }
 
-        public static byte[] ToProtoBytes<T>(this T self) where T : class
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Serializer.Serialize<T>(stream, self);
 
-                return stream.ToArray();
-            }
+        public static void ToStream(object message)
+        {
+
         }
 
-        public static T ToProtoObject<T>(this string content)
+        public static object FromBytes(byte[] content, Type type)
         {
-            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(content)))
-            {
-                return Serializer.Deserialize<T>(stream);
-            }
+            object obj = Activator.CreateInstance(type);
+
+            ((IMessage)obj).MergeFrom(content);
+
+            return obj;
         }
 
-        public static T ToProtoObject<T>(this byte[] content)
+        public static T FromStream<T>(this MemoryStream stream) where T : IMessage
         {
-            using (MemoryStream stream = new MemoryStream(content))
-            {
-                return Serializer.Deserialize<T>(stream);
-            }
+            T obj = Activator.CreateInstance<T>();
+
+            ((IMessage)obj).MergeFrom(stream);
+
+            return obj;
         }
+
+        public static object FromStream(MemoryStream stream, Type type)
+        {
+            object obj = Activator.CreateInstance(type);
+
+            ((IMessage)obj).MergeFrom(stream);
+
+            return obj;
+        }
+
     }
 }

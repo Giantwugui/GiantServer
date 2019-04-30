@@ -30,13 +30,13 @@ namespace ETTools
             ProcessHelper.Run(protoc, "--csharp_out=\"../Common/Giant.Message/Message/\" --proto_path=\"../Common/Giant.Message/Proto/\" OuterMessage.proto", waitExit: true);
             ProcessHelper.Run(protoc, "--csharp_out=\"../Common/Giant.Message/Message/\" --proto_path=\"../Common/Giant.Message/Proto/\" InnerMessage.proto", waitExit: true);
 
+            Proto2CS("Giant.Message", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
+            Proto2CS("Giant.Message", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
+
             // InnerMessage.proto生成cs代码 
-            //原ET框架内部通讯是使用的json格式的
+            //原ET框架内部通讯是使用的json格式的 适用于mongodb等文档型数据库
             //此框架内外通讯全部使用protobuf
             //InnerProto2CS.Proto2CS(); 
-
-            Proto2CS("Giant.Message", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
-            Proto2CS("Giant.Message", "InnerMessage.proto", clientMessagePath, "OuterOpcode", 1000);
 
             Console.WriteLine("proto2cs succeed!");
         }

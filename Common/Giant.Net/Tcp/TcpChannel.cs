@@ -197,9 +197,16 @@ namespace Giant.Net
         {
             if (eventArgs.BytesTransferred > 0 && eventArgs.SocketError == SocketError.Success)
             {
-                byte[] message = new byte[eventArgs.BytesTransferred];
+                byte[] content = new byte[eventArgs.BytesTransferred];
 
-                Array.Copy(eventArgs.Buffer, message, eventArgs.BytesTransferred);
+                Array.Copy(eventArgs.Buffer, content, eventArgs.BytesTransferred);
+
+                //消息长度
+                ushort length = BitConverter.ToUInt16(content);
+
+                byte[] message = new byte[length];
+
+                Array.Copy(content, 2, message, 0, eventArgs.BytesTransferred - lengthSize);
 
                 this.Read(message);
 

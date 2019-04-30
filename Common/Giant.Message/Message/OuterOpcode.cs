@@ -1,121 +1,112 @@
 using Giant.Message;
 namespace Giant.Message
 {
-	[Message(OuterOpcode.M2M_TrasferUnitResponse)]
-	public partial class M2M_TrasferUnitResponse : IResponse {}
+	[Message(OuterOpcode.C2R_Login)]
+	public partial class C2R_Login : IRequest {}
 
-	[Message(OuterOpcode.M2A_Reload)]
-	public partial class M2A_Reload : IRequest {}
+	[Message(OuterOpcode.R2C_Login)]
+	public partial class R2C_Login : IResponse {}
 
-	[Message(OuterOpcode.A2M_Reload)]
-	public partial class A2M_Reload : IResponse {}
+	[Message(OuterOpcode.C2G_LoginGate)]
+	public partial class C2G_LoginGate : IRequest {}
 
-	[Message(OuterOpcode.G2G_LockRequest)]
-	public partial class G2G_LockRequest : IRequest {}
+	[Message(OuterOpcode.G2C_LoginGate)]
+	public partial class G2C_LoginGate : IResponse {}
 
-	[Message(OuterOpcode.G2G_LockResponse)]
-	public partial class G2G_LockResponse : IResponse {}
+	[Message(OuterOpcode.G2C_TestHotfixMessage)]
+	public partial class G2C_TestHotfixMessage : IMessage {}
 
-	[Message(OuterOpcode.G2G_LockReleaseRequest)]
-	public partial class G2G_LockReleaseRequest : IRequest {}
+	[Message(OuterOpcode.C2M_TestActorRequest)]
+	public partial class C2M_TestActorRequest : IActorLocationRequest {}
 
-	[Message(OuterOpcode.G2G_LockReleaseResponse)]
-	public partial class G2G_LockReleaseResponse : IResponse {}
+	[Message(OuterOpcode.M2C_TestActorResponse)]
+	public partial class M2C_TestActorResponse : IActorLocationResponse {}
 
-	[Message(OuterOpcode.DBSaveBatchResponse)]
-	public partial class DBSaveBatchResponse : IResponse {}
+	[Message(OuterOpcode.PlayerInfo)]
+	public partial class PlayerInfo : IMessage {}
 
-	[Message(OuterOpcode.DBSaveResponse)]
-	public partial class DBSaveResponse : IResponse {}
+	[Message(OuterOpcode.C2G_PlayerInfo)]
+	public partial class C2G_PlayerInfo : IRequest {}
 
-	[Message(OuterOpcode.DBQueryRequest)]
-	public partial class DBQueryRequest : IRequest {}
+	[Message(OuterOpcode.G2C_PlayerInfo)]
+	public partial class G2C_PlayerInfo : IResponse {}
 
-	[Message(OuterOpcode.DBQueryBatchRequest)]
-	public partial class DBQueryBatchRequest : IRequest {}
+	[Message(OuterOpcode.C2M_TestRequest)]
+	public partial class C2M_TestRequest : IActorLocationRequest {}
 
-	[Message(OuterOpcode.DBQueryJsonRequest)]
-	public partial class DBQueryJsonRequest : IRequest {}
+	[Message(OuterOpcode.M2C_TestResponse)]
+	public partial class M2C_TestResponse : IActorLocationResponse {}
 
-	[Message(OuterOpcode.ObjectAddRequest)]
-	public partial class ObjectAddRequest : IRequest {}
+	[Message(OuterOpcode.Actor_TransferRequest)]
+	public partial class Actor_TransferRequest : IActorLocationRequest {}
 
-	[Message(OuterOpcode.ObjectAddResponse)]
-	public partial class ObjectAddResponse : IResponse {}
+	[Message(OuterOpcode.Actor_TransferResponse)]
+	public partial class Actor_TransferResponse : IActorLocationResponse {}
 
-	[Message(OuterOpcode.ObjectRemoveRequest)]
-	public partial class ObjectRemoveRequest : IRequest {}
+	[Message(OuterOpcode.C2G_EnterMap)]
+	public partial class C2G_EnterMap : IRequest {}
 
-	[Message(OuterOpcode.ObjectRemoveResponse)]
-	public partial class ObjectRemoveResponse : IResponse {}
-
-	[Message(OuterOpcode.ObjectLockRequest)]
-	public partial class ObjectLockRequest : IRequest {}
-
-	[Message(OuterOpcode.ObjectLockResponse)]
-	public partial class ObjectLockResponse : IResponse {}
-
-	[Message(OuterOpcode.ObjectUnLockRequest)]
-	public partial class ObjectUnLockRequest : IRequest {}
-
-	[Message(OuterOpcode.ObjectUnLockResponse)]
-	public partial class ObjectUnLockResponse : IResponse {}
-
-	[Message(OuterOpcode.ObjectGetRequest)]
-	public partial class ObjectGetRequest : IRequest {}
-
-	[Message(OuterOpcode.ObjectGetResponse)]
-	public partial class ObjectGetResponse : IResponse {}
-
-	[Message(OuterOpcode.R2G_GetLoginKey)]
-	public partial class R2G_GetLoginKey : IRequest {}
-
-	[Message(OuterOpcode.G2R_GetLoginKey)]
-	public partial class G2R_GetLoginKey : IResponse {}
-
-	[Message(OuterOpcode.G2M_CreateUnit)]
-	public partial class G2M_CreateUnit : IRequest {}
-
-	[Message(OuterOpcode.M2G_CreateUnit)]
-	public partial class M2G_CreateUnit : IResponse {}
+	[Message(OuterOpcode.G2C_EnterMap)]
+	public partial class G2C_EnterMap : IResponse {}
 
 // 自己的unit id
 // 所有的unit
-//repeated UnitInfo Units = 2;
-	[Message(OuterOpcode.G2M_SessionDisconnect)]
-	public partial class G2M_SessionDisconnect : IActorLocationMessage {}
+	[Message(OuterOpcode.UnitInfo)]
+	public partial class UnitInfo {}
+
+	[Message(OuterOpcode.M2C_CreateUnits)]
+	public partial class M2C_CreateUnits : IActorMessage {}
+
+	[Message(OuterOpcode.Frame_ClickMap)]
+	public partial class Frame_ClickMap : IActorLocationMessage {}
+
+	[Message(OuterOpcode.M2C_PathfindingResult)]
+	public partial class M2C_PathfindingResult : IActorMessage {}
+
+	[Message(OuterOpcode.C2R_Ping)]
+	public partial class C2R_Ping : IRequest {}
+
+	[Message(OuterOpcode.R2C_Ping)]
+	public partial class R2C_Ping : IResponse {}
+
+	[Message(OuterOpcode.G2C_Test)]
+	public partial class G2C_Test : IMessage {}
+
+	[Message(OuterOpcode.C2M_Reload)]
+	public partial class C2M_Reload : IRequest {}
+
+	[Message(OuterOpcode.M2C_Reload)]
+	public partial class M2C_Reload : IResponse {}
 
 }
 namespace Giant.Message
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort M2M_TrasferUnitResponse = 1001;
-		 public const ushort M2A_Reload = 1002;
-		 public const ushort A2M_Reload = 1003;
-		 public const ushort G2G_LockRequest = 1004;
-		 public const ushort G2G_LockResponse = 1005;
-		 public const ushort G2G_LockReleaseRequest = 1006;
-		 public const ushort G2G_LockReleaseResponse = 1007;
-		 public const ushort DBSaveBatchResponse = 1008;
-		 public const ushort DBSaveResponse = 1009;
-		 public const ushort DBQueryRequest = 1010;
-		 public const ushort DBQueryBatchRequest = 1011;
-		 public const ushort DBQueryJsonRequest = 1012;
-		 public const ushort ObjectAddRequest = 1013;
-		 public const ushort ObjectAddResponse = 1014;
-		 public const ushort ObjectRemoveRequest = 1015;
-		 public const ushort ObjectRemoveResponse = 1016;
-		 public const ushort ObjectLockRequest = 1017;
-		 public const ushort ObjectLockResponse = 1018;
-		 public const ushort ObjectUnLockRequest = 1019;
-		 public const ushort ObjectUnLockResponse = 1020;
-		 public const ushort ObjectGetRequest = 1021;
-		 public const ushort ObjectGetResponse = 1022;
-		 public const ushort R2G_GetLoginKey = 1023;
-		 public const ushort G2R_GetLoginKey = 1024;
-		 public const ushort G2M_CreateUnit = 1025;
-		 public const ushort M2G_CreateUnit = 1026;
-		 public const ushort G2M_SessionDisconnect = 1027;
+		 public const ushort C2R_Login = 101;
+		 public const ushort R2C_Login = 102;
+		 public const ushort C2G_LoginGate = 103;
+		 public const ushort G2C_LoginGate = 104;
+		 public const ushort G2C_TestHotfixMessage = 105;
+		 public const ushort C2M_TestActorRequest = 106;
+		 public const ushort M2C_TestActorResponse = 107;
+		 public const ushort PlayerInfo = 108;
+		 public const ushort C2G_PlayerInfo = 109;
+		 public const ushort G2C_PlayerInfo = 110;
+		 public const ushort C2M_TestRequest = 111;
+		 public const ushort M2C_TestResponse = 112;
+		 public const ushort Actor_TransferRequest = 113;
+		 public const ushort Actor_TransferResponse = 114;
+		 public const ushort C2G_EnterMap = 115;
+		 public const ushort G2C_EnterMap = 116;
+		 public const ushort UnitInfo = 117;
+		 public const ushort M2C_CreateUnits = 118;
+		 public const ushort Frame_ClickMap = 119;
+		 public const ushort M2C_PathfindingResult = 120;
+		 public const ushort C2R_Ping = 121;
+		 public const ushort R2C_Ping = 122;
+		 public const ushort G2C_Test = 123;
+		 public const ushort C2M_Reload = 124;
+		 public const ushort M2C_Reload = 125;
 	}
 }

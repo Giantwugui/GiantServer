@@ -24,6 +24,7 @@ namespace Giant.Net
 
         public Dictionary<long, Session> Sessions => sessions;
 
+        public MessageDispatcher MessageDispatcher { get; set; }
 
         public NetworkService(NetworkType network)
         {
