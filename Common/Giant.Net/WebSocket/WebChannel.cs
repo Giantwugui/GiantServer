@@ -5,7 +5,7 @@ using Giant.Log;
 
 namespace Giant.Net
 {
-    public class HttpChannel : BaseChannel
+    public class WebChannel : BaseChannel
     {
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
 
@@ -16,14 +16,14 @@ namespace Giant.Net
         private readonly byte[] reveiveBuffer = new byte[contentLength];
         
 
-        public HttpChannel(HttpListenerWebSocketContext socketContext, HttpService service) : base(service, ChannelType.Accepter)
+        public WebChannel(HttpListenerWebSocketContext socketContext, WebService service) : base(service, ChannelType.Accepter)
         {
             this.webSocket = socketContext.WebSocket;
             this.socketContext = socketContext;
             this.IsConnected = true;
         }
 
-        public HttpChannel(WebSocket webSocket, HttpService service) : base(service, ChannelType.Connecter)
+        public WebChannel(WebSocket webSocket, WebService service) : base(service, ChannelType.Connecter)
         {
             this.IsConnected = false;
             this.webSocket = webSocket;

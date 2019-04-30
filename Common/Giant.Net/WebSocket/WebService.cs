@@ -1,28 +1,26 @@
 ﻿using Giant.Log;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 using System.Net.WebSockets;
-using System.Web;
 
 namespace Giant.Net
 {
-    public class HttpService : BaseService
+    public class WebService : BaseService
     {
         private HttpListener httpListener;
 
         /// <summary>
         /// 所有客户端连接信息
         /// </summary>
-        private Dictionary<long, HttpChannel> channels = new Dictionary<long, HttpChannel>();
-        public Dictionary<long, HttpChannel> Channels { get { return channels; } }
+        private Dictionary<long, WebChannel> channels = new Dictionary<long, WebChannel>();
+        public Dictionary<long, WebChannel> Channels { get { return channels; } }
 
-        public HttpService()
+        public WebService()
         {
         }
 
-        public HttpService(List<string> prefixes, Action<BaseChannel> onAcceptCallback)
+        public WebService(List<string> prefixes, Action<BaseChannel> onAcceptCallback)
         {
             this.OnAccept += onAcceptCallback;
 
@@ -42,7 +40,7 @@ namespace Giant.Net
 
                 HttpListenerWebSocketContext socketContext = await context.AcceptWebSocketAsync(null);
 
-                HttpChannel channel = new HttpChannel(socketContext, this);
+                WebChannel channel = new WebChannel(socketContext, this);
 
                 this.Accept(channel);
 
@@ -77,7 +75,7 @@ namespace Giant.Net
         {
             ClientWebSocket webSocket = new ClientWebSocket();
 
-            HttpChannel channel = new HttpChannel(webSocket, this);
+            WebChannel channel = new WebChannel(webSocket, this);
             channel.ConnectAsync(address);
 
             return channel;
@@ -94,7 +92,7 @@ namespace Giant.Net
 
         public override void Remove(long id)
         {
-            if (channels.TryGetValue(id, out HttpChannel channel))
+            if (channels.TryGetValue(id, out WebChannel channel))
             {
                 channel.Dispose();
                 channels.Remove(id);

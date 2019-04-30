@@ -19,8 +19,8 @@ namespace Giant.Net
         private ConcurrentQueue<byte[]> waitSendMessage = new ConcurrentQueue<byte[]>();//发送消息队列
         private ConcurrentQueue<byte[]> receivedMessage = new ConcurrentQueue<byte[]>();//接收消息队列
 
-        private SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
-        private SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
+        private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
+        private readonly SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
 
         public TcpChannel(Socket socket, TcpService service):base(service, ChannelType.Accepter)
         {

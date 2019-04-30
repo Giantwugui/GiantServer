@@ -20,7 +20,7 @@ namespace Giant.Net
 
         private NetworkType networkType;
 
-        private Dictionary<long, Session> sessions = new Dictionary<long, Session>();
+        private readonly Dictionary<long, Session> sessions = new Dictionary<long, Session>();
 
         public Dictionary<long, Session> Sessions => sessions;
 
@@ -29,6 +29,7 @@ namespace Giant.Net
         public NetworkService(NetworkType network)
         {
             this.networkType = network;
+            this.MessageDispatcher = new MessageDispatcher();
 
             Init();
         }
@@ -36,6 +37,7 @@ namespace Giant.Net
         public NetworkService(NetworkType network, string address)
         {
             this.networkType = network;
+            this.MessageDispatcher = new MessageDispatcher();
 
             Init(address);
         }
@@ -50,7 +52,7 @@ namespace Giant.Net
             return null;
         }
 
-        public Session CreateSession(string address)
+        public Session Create(string address)
         {
             BaseChannel channel = service.CreateChannel(address);
             channel.Start();
@@ -62,7 +64,7 @@ namespace Giant.Net
             return session;
         }
 
-        public Session CreateSession(IPEndPoint endPoint)
+        public Session Create(IPEndPoint endPoint)
         {
             BaseChannel channel = service.CreateChannel(endPoint);
             channel.Start();
@@ -105,7 +107,7 @@ namespace Giant.Net
                     service = new UdpService();
                     break;
                 case NetworkType.WebSocket:
-                    service = new HttpService();
+                    service = new WebService();
                     break;
             }
         }
@@ -124,7 +126,7 @@ namespace Giant.Net
                     service = new UdpService(endPoint.Port, OnAccept);
                     break;
                 case NetworkType.WebSocket:
-                    service = new HttpService(address.Split(";").ToList(), OnAccept);
+                    service = new WebService(address.Split(";").ToList(), OnAccept);
                     break;
             }
         }

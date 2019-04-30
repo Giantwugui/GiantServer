@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>F:\GiantFrame\Bin</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,8 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Giant.Share\Giant.Share.csproj" />
-    <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj" />
-    <ProjectReference Include="..\..\Common\ThirdParty\MongodbDriver\MongoDB.Driver\MongoDB.Driver.csproj" />
   </ItemGroup>
 
   <ItemGroup>
