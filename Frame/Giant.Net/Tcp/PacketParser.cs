@@ -54,21 +54,22 @@ namespace Giant.Net
 						}
 						else
 						{
+                            byte[] bytes = this.memoryStream.GetBuffer();
+
                             //获取消息长度放入到memorystream
-							this.buffer.Read(this.memoryStream.GetBuffer(), 0, this.packetSizeLength);
+                            this.buffer.Read(bytes, 0, this.packetSizeLength);
 							
-                            //消息长度限制
 							switch (this.packetSizeLength)
 							{
 								case Packet.PacketSizeLength4:
-									this.packetSize = BitConverter.ToInt32(this.memoryStream.GetBuffer(), 0);
+									this.packetSize = BitConverter.ToInt32(bytes, 0);
 									if (this.packetSize > ushort.MaxValue * 16 || this.packetSize < Packet.MinPacketSize)
 									{
 										throw new Exception($"recv packet size error: {this.packetSize}");
 									}
 									break;
 								case Packet.PacketSizeLength2:
-									this.packetSize = BitConverter.ToUInt16(this.memoryStream.GetBuffer(), 0);
+									this.packetSize = BitConverter.ToUInt16(bytes, 0);
 									if (this.packetSize > ushort.MaxValue || this.packetSize < Packet.MinPacketSize)
 									{
 										throw new Exception($"recv packet size error: {this.packetSize}");
@@ -88,17 +89,15 @@ namespace Giant.Net
 						else
 						{
 							this.memoryStream.Seek(0, SeekOrigin.Begin);
-
-                            //设置消息的长度
 							this.memoryStream.SetLength(this.packetSize);
 							byte[] bytes = this.memoryStream.GetBuffer();
 
                             //读取消息体到memorystream 会覆盖之前的长度标识
 							this.buffer.Read(bytes, 0, this.packetSize);
-							this.isOK = true;
 							this.state = ParserState.PacketSize;
+							this.isOK = true;
 							finish = true;
-						}
+                        }
 						break;
 				}
 			}
