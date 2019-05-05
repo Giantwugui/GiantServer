@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Giant.Message;
 namespace Giant.Message
 {
@@ -108,5 +110,34 @@ namespace Giant.Message
 		 public const ushort G2C_Test = 123;
 		 public const ushort C2M_Reload = 124;
 		 public const ushort M2C_Reload = 125;
+
+		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
+		{
+			{C2R_Login, typeof(C2R_Login)},
+			{R2C_Login, typeof(R2C_Login)},
+			{C2G_LoginGate, typeof(C2G_LoginGate)},
+			{G2C_LoginGate, typeof(G2C_LoginGate)},
+			{G2C_TestHotfixMessage, typeof(G2C_TestHotfixMessage)},
+			{C2M_TestActorRequest, typeof(C2M_TestActorRequest)},
+			{M2C_TestActorResponse, typeof(M2C_TestActorResponse)},
+			{PlayerInfo, typeof(PlayerInfo)},
+			{C2G_PlayerInfo, typeof(C2G_PlayerInfo)},
+			{G2C_PlayerInfo, typeof(G2C_PlayerInfo)},
+			{C2M_TestRequest, typeof(C2M_TestRequest)},
+			{M2C_TestResponse, typeof(M2C_TestResponse)},
+			{Actor_TransferRequest, typeof(Actor_TransferRequest)},
+			{Actor_TransferResponse, typeof(Actor_TransferResponse)},
+			{C2G_EnterMap, typeof(C2G_EnterMap)},
+			{G2C_EnterMap, typeof(G2C_EnterMap)},
+			{UnitInfo, typeof(UnitInfo)},
+			{M2C_CreateUnits, typeof(M2C_CreateUnits)},
+			{Frame_ClickMap, typeof(Frame_ClickMap)},
+			{M2C_PathfindingResult, typeof(M2C_PathfindingResult)},
+			{C2R_Ping, typeof(C2R_Ping)},
+			{R2C_Ping, typeof(R2C_Ping)},
+			{G2C_Test, typeof(G2C_Test)},
+			{C2M_Reload, typeof(C2M_Reload)},
+			{M2C_Reload, typeof(M2C_Reload)},
+		};
 	}
 }

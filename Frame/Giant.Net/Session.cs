@@ -39,7 +39,7 @@ namespace Giant.Net
 
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
 
-            TaskCompletionSource<IResponse> completionSource = new TaskCompletionSource<IResponse>();
+            TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
 
             this.responseCallback[rpcId] = (response) =>
             {
@@ -47,22 +47,22 @@ namespace Giant.Net
                 {
                     if (response.Error == ErrorCode.ERR_Success)
                     {
-                        completionSource.SetResult(response);
+                        tcs.SetResult(response);
                     }
                     else
                     {
-                        completionSource.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
+                        tcs.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
                     }
                 }
                 catch(Exception ex)
                 {
-                    completionSource.SetException(ex);
+                    tcs.SetException(ex);
                 }
             };
 
             this.Send(opcode, message);
 
-            return completionSource.Task;
+            return tcs.Task;
         }
 
 

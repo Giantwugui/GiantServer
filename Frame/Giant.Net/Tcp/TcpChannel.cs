@@ -59,7 +59,7 @@ namespace Giant.Net
 
         public override void Start()
         {
-            if (ChannelType == ChannelType.Connecter)
+            if (!this.IsConnected)
             {
                 Connect();
             }

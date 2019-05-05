@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Giant.Message;
 namespace Giant.Message
 {
@@ -117,5 +119,36 @@ namespace Giant.Message
 		 public const ushort G2M_CreateUnit = 1025;
 		 public const ushort M2G_CreateUnit = 1026;
 		 public const ushort G2M_SessionDisconnect = 1027;
+
+		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
+		{
+			{M2M_TrasferUnitResponse, typeof(M2M_TrasferUnitResponse)},
+			{M2A_Reload, typeof(M2A_Reload)},
+			{A2M_Reload, typeof(A2M_Reload)},
+			{G2G_LockRequest, typeof(G2G_LockRequest)},
+			{G2G_LockResponse, typeof(G2G_LockResponse)},
+			{G2G_LockReleaseRequest, typeof(G2G_LockReleaseRequest)},
+			{G2G_LockReleaseResponse, typeof(G2G_LockReleaseResponse)},
+			{DBSaveBatchResponse, typeof(DBSaveBatchResponse)},
+			{DBSaveResponse, typeof(DBSaveResponse)},
+			{DBQueryRequest, typeof(DBQueryRequest)},
+			{DBQueryBatchRequest, typeof(DBQueryBatchRequest)},
+			{DBQueryJsonRequest, typeof(DBQueryJsonRequest)},
+			{ObjectAddRequest, typeof(ObjectAddRequest)},
+			{ObjectAddResponse, typeof(ObjectAddResponse)},
+			{ObjectRemoveRequest, typeof(ObjectRemoveRequest)},
+			{ObjectRemoveResponse, typeof(ObjectRemoveResponse)},
+			{ObjectLockRequest, typeof(ObjectLockRequest)},
+			{ObjectLockResponse, typeof(ObjectLockResponse)},
+			{ObjectUnLockRequest, typeof(ObjectUnLockRequest)},
+			{ObjectUnLockResponse, typeof(ObjectUnLockResponse)},
+			{ObjectGetRequest, typeof(ObjectGetRequest)},
+			{ObjectGetResponse, typeof(ObjectGetResponse)},
+			{R2G_GetLoginKey, typeof(R2G_GetLoginKey)},
+			{G2R_GetLoginKey, typeof(G2R_GetLoginKey)},
+			{G2M_CreateUnit, typeof(G2M_CreateUnit)},
+			{M2G_CreateUnit, typeof(M2G_CreateUnit)},
+			{G2M_SessionDisconnect, typeof(G2M_SessionDisconnect)},
+		};
 	}
 }

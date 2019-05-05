@@ -55,6 +55,8 @@ namespace ETTools
             string s = File.ReadAllText(proto);
 
             StringBuilder sb = new StringBuilder();
+            sb.Append("using System;\n");
+            sb.Append("using System.Collections.Generic;\n");
             sb.Append("using Giant.Message;\n");
             sb.Append($"namespace {ns}\n");
             sb.Append("{\n");
@@ -124,6 +126,17 @@ namespace ETTools
             {
                 sb.AppendLine($"\t\t public const ushort {info.Name} = {info.Opcode};");
             }
+            sb.Append("\n");
+
+            sb.AppendLine("\t\tpublic static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>");
+            sb.AppendLine("\t\t{");
+            foreach (OpcodeInfo info in msgOpcode)
+            {
+                sb.Append("\t\t\t{");
+                sb.Append($"{info.Name}, typeof({info.Name})");
+                sb.Append("},\n");
+            }
+            sb.AppendLine("\t\t};");
 
             sb.AppendLine("\t}");
             sb.AppendLine("}");
@@ -156,6 +169,8 @@ namespace ETTools
             string s = File.ReadAllText(proto);
 
             StringBuilder sb = new StringBuilder();
+            sb.Append("using System;\n");
+            sb.Append("using System.Collections.Generic;\n");
             sb.Append("using Giant.Message;\n");
             sb.Append("using System.Collections.Generic;\n");
             sb.Append($"namespace {ns}\n");
@@ -261,6 +276,17 @@ namespace ETTools
             {
                 sb.AppendLine($"\t\t public const ushort {info.Name} = {info.Opcode};");
             }
+            sb.Append("\n");
+
+            sb.AppendLine("\t\tpublic static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>");
+            sb.AppendLine("\t\t{");
+            foreach (OpcodeInfo info in msgOpcode)
+            {
+                sb.Append("\t\t\t{");
+                sb.Append($"{info.Name}, typeof({info.Name})");
+                sb.Append("},\n");
+            }
+            sb.AppendLine("\t\t};");
 
             sb.AppendLine("\t}");
             sb.AppendLine("}");

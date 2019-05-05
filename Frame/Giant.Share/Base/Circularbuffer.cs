@@ -8,11 +8,7 @@ namespace Giant.Share
     public class CircularBuffer: Stream
     {
         public int ChunkSize = 8192;
-
-        //buffer队列 正在使用的 把所接收到的消息分成段缓存在多个byte[]当中
         private readonly Queue<byte[]> bufferQueue = new Queue<byte[]>();
-
-        //已经不再使用了的
         private readonly Queue<byte[]> bufferCache = new Queue<byte[]>();
 
         public int LastIndex { get; set; }
@@ -74,11 +70,9 @@ namespace Giant.Share
         {
             if (!this.bufferCache.TryDequeue(out byte[] buffer))
             {
-                //首次使用的时候 新构建一个 byte[] 
                 buffer = new byte[ChunkSize];
             }
 
-            //新建的byte[] 加入队列
             this.bufferQueue.Enqueue(buffer);
             this.lastBuffer = buffer;
         }
