@@ -96,12 +96,12 @@ namespace Giant.Net
             service.Update();
         }
 
-        private void Init()
+        private void Init(int packetSizeLength = Packet.PacketSizeLength2)
         {
             switch (this.networkType)
             {
                 case NetworkType.Tcp:
-                    service = new TcpService();
+                    service = new TcpService(packetSizeLength);
                     break;
                 case NetworkType.Udp:
                     service = new UdpService();
@@ -112,14 +112,14 @@ namespace Giant.Net
             }
         }
 
-        private void Init(string address)
+        private void Init(string address, int packetSizeLength = Packet.PacketSizeLength2)
         {
             IPEndPoint endPoint;
             switch (this.networkType)
             {
                 case NetworkType.Tcp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new TcpService(endPoint, OnAccept);
+                    service = new TcpService(packetSizeLength, endPoint, OnAccept);
                     break;
                 case NetworkType.Udp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);

@@ -1,43 +1,58 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Collections.Concurrent;
 using Giant.Share;
+using Giant.Log;
 
 namespace Giant.Net
 {
     public class TcpChannel : BaseChannel
     {
-        private const ushort lengthSize = 2;//消息长度所占字节数
-        private const int headLength= 6;//消息头长度 lengthSize + messageId
-        private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
+        private readonly Socket socket;
+        private readonly IPEndPoint ipEndPoint;
+        private readonly byte[] packetSizeCache;
 
-        private Socket socket;
-        private IPEndPoint ipEndPoint;
-        private byte[] sendBuffer = new byte[contentLength];//发送消息临时缓冲区
-        private byte[] receiveBuffer = new byte[contentLength];//接收消息临时缓冲区
-        private ConcurrentQueue<byte[]> waitSendMessage = new ConcurrentQueue<byte[]>();//发送消息队列
-        private ConcurrentQueue<byte[]> receivedMessage = new ConcurrentQueue<byte[]>();//接收消息队列
+        private readonly PacketParser parser;
+        private readonly MemoryStream memoryStream;
+        private readonly CircularBuffer recvBuffer = new CircularBuffer();//接收消息临时缓冲区
+        private readonly CircularBuffer sendBuffer = new CircularBuffer();//发送消息临时缓冲区
 
         private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
         private readonly SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
 
-        public TcpChannel(Socket socket, TcpService service):base(service, ChannelType.Accepter)
+
+        public bool IsSending { get; set; }
+        public bool IsRecving { get; set; }
+
+        public override MemoryStream Stream => this.memoryStream;
+
+        public TcpChannel(int packetSize, Socket socket, TcpService service):base(service, ChannelType.Accepter)
         {
             this.socket = socket;
+            this.IsSending = false;
             this.IsConnected = true;
 
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
+
+            this.packetSizeCache = new byte[service.PacketSizeLength];
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
         }
 
-        public TcpChannel(IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
+        public TcpChannel(int packetSize, IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
         {
+            this.IsSending = false;
             this.IsConnected = false;
             this.ipEndPoint = endPoint;
 
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
+
+            this.packetSizeCache = new byte[service.PacketSizeLength];
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
@@ -50,7 +65,7 @@ namespace Giant.Net
             }
             else
             {
-                ReceiveAsync();
+                StartRecv();
             }
         }
 
@@ -62,24 +77,42 @@ namespace Giant.Net
             ConnectAsync();
         }
 
-        public override void Send(byte[] message)
+        public override void Send(MemoryStream stream)
         {
             if (!IsConnected)
             {
                 return;
             }
 
-            byte[] content = new byte[message.Length + lengthSize];
+            switch (((TcpService)Service).PacketSizeLength)
+            {
+                case Packet.PacketSizeLength2:
+                    {
+                        if (stream.Length > uint.MaxValue)
+                        {
+						    throw new Exception($"send packet too large: {stream.Length}");
+                        }
 
-            content.WriteTo(0, (ushort)message.Length);
-            content.WriteTo(2, message);
+                        this.packetSizeCache.WriteTo(0, (ushort)stream.Length);
+                    }
+                    break;
+                case Packet.PacketSizeLength4:
+                    {
+                    }
+                    break;
+            }
 
-            waitSendMessage.Enqueue(content);
+            this.sendBuffer.Write(packetSizeCache, 0, packetSizeCache.Length);
+            this.sendBuffer.Write(stream);
+
+            StartSend();
         }
 
         public override void Update()
         {
-            SendAsync();
+            if (!this.IsSending)
+            {
+            }
         }
 
         public override void Dispose()
@@ -87,14 +120,14 @@ namespace Giant.Net
             this.IsConnected = false;
         }
 
-        protected override void Error(object error)
+        protected override void OnError(object error)
         {
             if (this.IsConnected)
             {
                 this.IsConnected = false;
             }
 
-            base.Error(error);
+            base.OnError(error);
         }
 
         private void ConnectAsync()
@@ -116,51 +149,69 @@ namespace Giant.Net
             }
             catch (Exception ex)
             {
-                this.Error(SocketError.ConnectionRefused);
-                this.Error(ex);
+                this.OnError(SocketError.ConnectionRefused);
+                this.OnError(ex);
             }
         }
 
-        private void SendAsync()
+        private void StartSend()
         {
-            try
+            if (!this.IsConnected)
             {
-                if (waitSendMessage.TryDequeue(out byte[] message))
-                {
-                    outtererArgs.SetBuffer(message);
-
-                    if (socket.SendAsync(outtererArgs))
-                    {
-                        return;
-                    }
-
-                    SendComplete(outtererArgs);
-                }
+                return;
             }
-            catch (Exception ex)
+
+            // 没有数据需要发送
+            if (this.sendBuffer.Length == 0)
             {
-                this.Error(SocketError.Disconnecting);
-                this.Error(ex);
+                this.IsSending = false;
+                return;
             }
+
+            this.IsSending = true;
+
+            int sendSize = this.sendBuffer.ChunkSize - this.sendBuffer.FirstIndex;
+            if (sendSize > this.sendBuffer.Length)
+            {
+                sendSize = (int)this.sendBuffer.Length;
+            }
+
+            this.SendAsync(this.sendBuffer.First, this.sendBuffer.FirstIndex, sendSize);
         }
 
-        private void ReceiveAsync()
+        private void SendAsync(byte[] buffer, int offset, int count)
         {
             try
             {
-                innerArgs.SetBuffer(receiveBuffer, 0, contentLength);
-                if (socket.ReceiveAsync(innerArgs))
-                {
-                    return;
-                }
-
-                ReceiveComplete(innerArgs);
+                this.outtererArgs.SetBuffer(buffer, offset, count);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Error(SocketError.ConnectionReset);
-                Error(ex);
+                throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
             }
+            if (this.socket.SendAsync(this.outtererArgs))
+            {
+                return;
+            }
+            SendComplete(this.outtererArgs);
+        }
+
+        private void StartRecv()
+        {
+            int size = recvBuffer.ChunkSize - recvBuffer.LastIndex;
+
+            ReceiveAsync(recvBuffer.Last, recvBuffer.LastIndex, size);
+        }
+
+        private void ReceiveAsync(byte[] buffer, int offset, int length)
+        {
+            innerArgs.SetBuffer(buffer, offset, length);
+            if (socket.ReceiveAsync(innerArgs))
+            {
+                return;
+            }
+
+            ReceiveComplete(innerArgs);
         }
 
         private void OnComplete(object sender, SocketAsyncEventArgs eventArgs)
@@ -185,49 +236,100 @@ namespace Giant.Net
             {
                 this.IsConnected = true;
 
-                ReceiveAsync();
+                StartRecv();
             }
             else
             {
-                this.Error(eventArgs.SocketError);
+                this.OnError(eventArgs.SocketError);
             }
         }
 
         private void ReceiveComplete(SocketAsyncEventArgs eventArgs)
         {
-            if (eventArgs.BytesTransferred > 0 && eventArgs.SocketError == SocketError.Success)
+            if (this.socket == null)
             {
-                byte[] content = new byte[eventArgs.BytesTransferred];
-
-                Array.Copy(eventArgs.Buffer, content, eventArgs.BytesTransferred);
-
-                //消息长度
-                ushort length = BitConverter.ToUInt16(content);
-
-                byte[] message = new byte[length];
-
-                Array.Copy(content, 2, message, 0, eventArgs.BytesTransferred - lengthSize);
-
-                this.Read(message);
-
-                ReceiveAsync();
+                return;
             }
-            else
+
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)eventArgs;
+
+            if (e.SocketError != SocketError.Success)
             {
-                this.Error(SocketError.SocketError);
+                this.OnError((int)e.SocketError);
+                return;
             }
+
+            if (e.BytesTransferred == 0)
+            {
+                this.OnError(ErrorCode.ERR_PeerDisconnect);
+                return;
+            }
+
+            this.recvBuffer.LastIndex += e.BytesTransferred;
+            if (this.recvBuffer.LastIndex == this.sendBuffer.ChunkSize)
+            {
+                this.recvBuffer.LastIndex = 0;
+                this.recvBuffer.AddLast();
+            }
+
+            // 收到消息回调
+            while (true)
+            {
+                try
+                {
+                    if (!this.parser.Parse())
+                    {
+                        break;
+                    }
+                }
+                catch (Exception ee)
+                {
+                    Logger.Error(ee);
+                    this.OnError(ErrorCode.ERR_SocketError);
+                    return;
+                }
+
+                try
+                {
+                    this.OnRead(this.parser.GetPacket());
+                }
+                catch (Exception ee)
+                {
+                    Logger.Error(ee);
+                }
+            }
+
+            StartRecv();
         }
 
         private void SendComplete(SocketAsyncEventArgs eventArgs)
         {
-            if (eventArgs.BytesTransferred > 0 && eventArgs.SocketError == SocketError.Success)
+            if (this.socket == null)
             {
-                SendAsync();
+                return;
             }
-            else
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)eventArgs;
+
+            if (e.SocketError != SocketError.Success)
             {
-                this.Error(SocketError.SocketError);
+                this.OnError((int)e.SocketError);
+                return;
             }
+
+            if (e.BytesTransferred == 0)
+            {
+                this.OnError(ErrorCode.ERR_PeerDisconnect);
+                return;
+            }
+
+            this.sendBuffer.FirstIndex += e.BytesTransferred;
+            if (this.sendBuffer.FirstIndex == this.sendBuffer.ChunkSize)
+            {
+                this.sendBuffer.FirstIndex = 0;
+                this.sendBuffer.RemoveFirst();
+            }
+
+            this.StartSend();
         }
 
     }

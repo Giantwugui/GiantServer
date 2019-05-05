@@ -14,10 +14,9 @@ namespace Giant.Message
             return ((Google.Protobuf.IMessage)message).ToByteArray();
         }
 
-
-        public static void ToStream(object message)
+        public static void ToStream(MemoryStream memoryStream, object message)
         {
-
+            ((Google.Protobuf.IMessage)message).WriteTo(memoryStream);
         }
 
         public static object FromBytes(byte[] content, Type type)

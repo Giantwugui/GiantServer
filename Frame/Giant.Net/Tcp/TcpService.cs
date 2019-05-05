@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.IO;
 
 namespace Giant.Net
 {
 
     public class TcpService : BaseService
     {
-        private SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
+        private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
+        public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();
 
         /// <summary>
         /// 所有客户端连接信息
@@ -17,12 +19,18 @@ namespace Giant.Net
         private Dictionary<long, TcpChannel> channels = new Dictionary<long, TcpChannel>();
         public Dictionary<long, TcpChannel> Channels { get { return channels; } }
 
-        public TcpService()
+
+        public int PacketSizeLength { get; set; }
+
+        public TcpService(int packetSizeLength)
         {
+            this.PacketSizeLength = packetSizeLength;
         }
 
-        public TcpService(IPEndPoint endPoint, Action<BaseChannel> onAcceptCallback)
+        public TcpService(int packetSizeLength, IPEndPoint endPoint, Action<BaseChannel> onAcceptCallback)
         {
+            this.PacketSizeLength = packetSizeLength;
+
             this.OnAccept += onAcceptCallback;
             innerArgs.Completed += OnComplete;
 
@@ -78,7 +86,7 @@ namespace Giant.Net
         /// <returns></returns>
         public override BaseChannel CreateChannel(IPEndPoint endPoint)
         {
-            TcpChannel channel = new TcpChannel(endPoint, this);
+            TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, endPoint, this);
 
             channels[channel.Id] = channel;
 
@@ -87,24 +95,18 @@ namespace Giant.Net
 
         private void AcceptAsync()
         {
-            try
+            if (Socket == null)
             {
-                if (Socket == null)
-                {
-                    return;
-                }
-
-                innerArgs.AcceptSocket = null;
-                if (this.Socket.AcceptAsync(innerArgs))
-                {
-                    return;
-                }
-
-                AcceptComplete(innerArgs);
+                return;
             }
-            catch(Exception ex)
+
+            innerArgs.AcceptSocket = null;
+            if (this.Socket.AcceptAsync(innerArgs))
             {
+                return;
             }
+
+            AcceptComplete(innerArgs);
         }
 
         private void OnComplete(object sender, SocketAsyncEventArgs eventArgs)
@@ -121,7 +123,7 @@ namespace Giant.Net
         {
             if (eventArgs.LastOperation == SocketAsyncOperation.Accept && eventArgs.SocketError == SocketError.Success)
             {
-                TcpChannel channel = new TcpChannel(eventArgs.AcceptSocket, this);
+                TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, eventArgs.AcceptSocket, this);
 
                 channels[channel.Id] = channel;
 

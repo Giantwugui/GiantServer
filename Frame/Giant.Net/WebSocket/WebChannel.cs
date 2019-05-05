@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Net.WebSockets;
 using Giant.Log;
+using System.IO;
 
 namespace Giant.Net
 {
@@ -9,24 +10,30 @@ namespace Giant.Net
     {
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
 
-        private WebSocket webSocket;
+        private readonly WebSocket webSocket;
         private readonly HttpListenerWebSocketContext socketContext;
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-        private readonly byte[] reveiveBuffer = new byte[contentLength];
-        
+        private readonly MemoryStream recvStream;
+        private readonly MemoryStream memoryStream;
+
+        public override MemoryStream Stream => this.memoryStream;
 
         public WebChannel(HttpListenerWebSocketContext socketContext, WebService service) : base(service, ChannelType.Accepter)
         {
-            this.webSocket = socketContext.WebSocket;
-            this.socketContext = socketContext;
             this.IsConnected = true;
+            this.socketContext = socketContext;
+            this.webSocket = socketContext.WebSocket;
+            this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public WebChannel(WebSocket webSocket, WebService service) : base(service, ChannelType.Connecter)
         {
             this.IsConnected = false;
             this.webSocket = webSocket;
+            this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public override void Start()
@@ -36,7 +43,7 @@ namespace Giant.Net
                 return;
             }
 
-            ReceiveAsync();
+            StartRecv();
         }
 
         /// <summary>
@@ -46,7 +53,7 @@ namespace Giant.Net
         {
         }
 
-        public override async void Send(byte[] message)
+        public override async void Send(MemoryStream memoryStream)
         {
             try
             {
@@ -55,11 +62,11 @@ namespace Giant.Net
                     return;
                 }
 
-                await webSocket.SendAsync(message, WebSocketMessageType.Text, true, tokenSource.Token);
+                await webSocket.SendAsync(memoryStream.GetBuffer(), WebSocketMessageType.Text, true, cancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
-                this.Error(ex);
+                this.OnError(ex);
             }
         }
 
@@ -67,7 +74,7 @@ namespace Giant.Net
         {
             try
             {
-                await ((ClientWebSocket)webSocket).ConnectAsync(new Uri(url), tokenSource.Token);
+                await ((ClientWebSocket)webSocket).ConnectAsync(new Uri(url), cancellationTokenSource.Token);
                 this.IsConnected = true;
             }
             catch (Exception ex)
@@ -86,36 +93,71 @@ namespace Giant.Net
             webSocket.Dispose();
         }
 
-        protected override void Error(object error)
+        protected override void OnError(object error)
         {
-            base.Error(error);
+            base.OnError(error);
 
             this.IsConnected = false;
         }
 
-        private async void ReceiveAsync()
+        private async void StartRecv()
         {
+            if (!this.IsConnected)
+            {
+                return;
+            }
+
             try
             {
-                //持续接收需要 保留偏移量以便于做数据拼接，这里只是处理了每次数据一次传输完成的情况
-                WebSocketReceiveResult result = await webSocket.ReceiveAsync(reveiveBuffer, tokenSource.Token);
-
-                //接收过程中有报错
-                if (result.EndOfMessage)
+                while (true)
                 {
-                    byte[] content = new byte[result.Count];
+#if SERVER
+                    ValueWebSocketReceiveResult receiveResult;
+#else
+                    WebSocketReceiveResult receiveResult;
+#endif
+                    int receiveCount = 0;
+                    do
+                    {
+#if SERVER
+                        receiveResult = await this.webSocket.ReceiveAsync(
+                            new Memory<byte>(this.recvStream.GetBuffer(), receiveCount, this.recvStream.Capacity - receiveCount),
+                            cancellationTokenSource.Token);
+#else
+                        receiveResult = await this.webSocket.ReceiveAsync(
+                            new ArraySegment<byte>(this.recvStream.GetBuffer(), receiveCount, this.recvStream.Capacity - receiveCount),
+                            cancellationTokenSource.Token);
+#endif
+                        if (!this.IsConnected)
+                        {
+                            return;
+                        }
 
-                    Array.Copy(reveiveBuffer, 0, content, 0, result.Count);
+                        receiveCount += receiveResult.Count;
+                    }
+                    while (!receiveResult.EndOfMessage);
 
-                    this.Read(content);
+                    if (receiveResult.MessageType == WebSocketMessageType.Close)
+                    {
+                        this.OnError(ErrorCode.ERR_WebsocketPeerReset);
+                        return;
+                    }
+
+                    if (receiveResult.Count > ushort.MaxValue)
+                    {
+                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveResult.Count}",cancellationTokenSource.Token);
+                        this.OnError(ErrorCode.ERR_WebsocketMessageTooBig);
+                        return;
+                    }
+
+                    this.recvStream.SetLength(receiveResult.Count);
+                    this.OnRead(this.recvStream);
                 }
-
-                this.ReceiveAsync();
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                this.Error(webSocket.State);
-                Logger.Error(ex);
+                Logger.Error(e);
+                this.OnError(ErrorCode.ERR_WebsocketRecvError);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Giant.Log;
+using Microsoft.IO;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -9,6 +10,7 @@ namespace Giant.Net
     public class WebService : BaseService
     {
         private HttpListener httpListener;
+        public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();
 
         /// <summary>
         /// 所有客户端连接信息

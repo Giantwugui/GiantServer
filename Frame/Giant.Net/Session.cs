@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using Giant.Log;
 using Giant.Message;
@@ -12,8 +12,9 @@ namespace Giant.Net
     {
         private int RpcId { get; set; }
 
-        private readonly BaseChannel baseChannel;//通讯对象
+        private readonly BaseChannel channel;//通讯对象
 
+		private readonly byte[] opcodeBytes = new byte[2];
         private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
         public NetworkService NetworkService { get; private set; }
@@ -24,10 +25,10 @@ namespace Giant.Net
         {
             Id = baseChannel.Id;
             NetworkService = networkService;
-            this.baseChannel = baseChannel;
+            this.channel = baseChannel;
 
-            this.baseChannel.OnRead += OnRead;
-            this.baseChannel.OnError += OnError;
+            this.channel.OnReadCallback += OnRead;
+            this.channel.OnErrorCallback += OnError;
         }
 
 
@@ -73,33 +74,37 @@ namespace Giant.Net
 
         private void Send(ushort opcode, IMessage message)
         {
-            byte[] msg = ProtoHelper.ToBytes(message);
+            var stream = this.channel.Stream;
+            opcodeBytes.WriteTo(0, opcode);
 
-            byte[] content = new byte[msg.Length + 2];
-            content.WriteTo(0, opcode);
-            content.WriteTo(2, msg);
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Write(opcodeBytes, 0, opcodeBytes.Length);
+            stream.SetLength(Packet.MessageIndex);
 
-            this.baseChannel.Send(content);
+            ProtoHelper.ToStream(stream, message);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            this.channel.Send(stream);
         }
-
 
 
         public void Dispose()
         {
-            baseChannel.Dispose();
+            channel.Dispose();
 
             //清空所有消息回调
             responseCallback.Clear();
         }
 
-        private void OnRead(byte[] content)
+        private void OnRead(MemoryStream memoryStream)
         {
             //消息id
-            ushort opcode = BitConverter.ToUInt16(content);
+            ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), Packet.OpcodeIndex);
+            memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 
             Type msgType = NetworkService.MessageDispatcher.GetMessageType(opcode);
 
-            IMessage message = ProtoHelper.FromBytes(content, msgType) as IMessage;
+            IMessage message = ProtoHelper.FromStream(memoryStream, msgType) as IMessage;
 
             if (message is IResponse response)
             {

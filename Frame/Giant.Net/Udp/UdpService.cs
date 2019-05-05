@@ -1,5 +1,6 @@
 ﻿using Giant.Log;
 using Giant.Share;
+using Microsoft.IO;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -18,6 +19,7 @@ namespace Giant.Net
     public class UdpService : BaseService
     {
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
+        public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();
 
         /// <summary>
         /// 所有UPD客户端连接信息

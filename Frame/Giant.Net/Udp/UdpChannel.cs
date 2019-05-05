@@ -4,36 +4,37 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
 
 namespace Giant.Net
 {
     public class UdpChannel : BaseChannel
     {
-        private Socket socket;
-        private DateTime LastReceiveMsgTime = TimeHelper.Now;
-
-        private Queue<byte[]> cachedMessage = new Queue<byte[]>();
-
-
+        private readonly Socket socket;
+        private readonly MemoryStream memoryStream;
+        private readonly DateTime LastReceiveMsgTime = TimeHelper.Now;
 
         public uint RemoteUdp { get; set; }
 
         public IPEndPoint RemoteIPEndPoint { get; set; }
+        public override MemoryStream Stream => this.memoryStream;
 
-        public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService udpService) : base(udpId, udpService, ChannelType.Connecter)
+        public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Connecter)
         {
             RemoteUdp = 0;
             this.socket = socket;
             RemoteIPEndPoint = endPoint;
 
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
             this.Connect();
         }
 
-        public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService udpService) : base(udpId, udpService, ChannelType.Accepter)
+        public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Accepter)
         {
             RemoteUdp = remoteUdpId;
             this.socket = socket;
             RemoteIPEndPoint = endPoint;
+            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
 
             this.Accept();
         }
@@ -46,28 +47,29 @@ namespace Giant.Net
 
         public void OnReceive(byte[] message, int offset, int length)
         {
-            if (!IsConnected)
+            if (!this.IsConnected)
             {
-                IsConnected = true;
+                this.IsConnected = true;
             }
 
-            cachedMessage.Enqueue(message.Read(offset, length));
+            this.memoryStream.Seek(0, SeekOrigin.Begin);
+            this.memoryStream.Write(message, offset, length);
 
-            Logger.Info(message.ToUtf8String(offset, length));
+            OnRead(this.memoryStream);
         }
 
-        public override void Send(byte[] message)
+        public override void Send(MemoryStream memoryStream)
         {
             if (!IsConnected)
             {
                 return;
             }
 
-            byte[] content = new byte[message.Length + 9];
+            byte[] content = new byte[memoryStream.Length + 9];
             content.WriteTo(0, UdpChannelState.MSG);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
-            content.WriteTo(9, message);
+            content.WriteTo(9, memoryStream.GetBuffer());
 
             SendTo(content);
         }
@@ -92,11 +94,6 @@ namespace Giant.Net
                 {
                     this.Connect();
                 }
-            }
-
-            while (cachedMessage.TryDequeue(out byte[] message))
-            {
-                Read(message);
             }
         }
 

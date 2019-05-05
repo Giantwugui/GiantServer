@@ -1,5 +1,6 @@
 ﻿using Giant.Share;
 using System;
+using System.IO;
 
 namespace Giant.Net
 {
@@ -20,20 +21,22 @@ namespace Giant.Net
 
         public BaseService Service { get; private set; }
 
+        public abstract MemoryStream Stream { get; }
+
         public bool IsConnected { get; protected set; }
 
-        private Action<object> onError;
-        public event Action<object> OnError
+        private Action<object> onErrorCallback;
+        public event Action<object> OnErrorCallback
         {
-            add { onError += value; }
-            remove { onError -= value; }
+            add { onErrorCallback += value; }
+            remove { onErrorCallback -= value; }
         }
 
-        private Action<byte[]> onRead;
-        public event Action<byte[]> OnRead
+        private Action<MemoryStream> onReadCallback;
+        public event Action<MemoryStream> OnReadCallback
         {
-            add { onRead += value; }
-            remove { onRead -= value; }
+            add { onReadCallback += value; }
+            remove { onReadCallback -= value; }
         }
 
         public BaseChannel(BaseService service, ChannelType type)
@@ -56,8 +59,7 @@ namespace Giant.Net
         /// <summary>
         /// 转发消息
         /// </summary>
-        /// <param name="message">消息体</param>
-        public abstract void Send(byte[] message);
+        public abstract void Send(MemoryStream memoryStream);
  
 
         public virtual void Start()
@@ -70,14 +72,14 @@ namespace Giant.Net
         }
 
 
-        protected void Read(byte[] message)
+        protected void OnRead(MemoryStream memoryStream)
         {
-            onRead?.Invoke(message);
+            onReadCallback?.Invoke(memoryStream);
         }
 
-        protected virtual void Error(object error)
+        protected virtual void OnError(object error)
         {
-            onError?.Invoke(error);
+            onErrorCallback?.Invoke(error);
         }
 
     }
