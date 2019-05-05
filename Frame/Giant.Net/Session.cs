@@ -1,25 +1,24 @@
-﻿using System;
+﻿using Giant.Log;
+using Giant.Message;
+using Giant.Share;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Giant.Log;
-using Giant.Message;
-using Giant.Share;
 
 namespace Giant.Net
 {
     public class Session : IDisposable
     {
-        private int RpcId { get; set; }
-
         private readonly BaseChannel channel;//通讯对象
-
 		private readonly byte[] opcodeBytes = new byte[2];
         private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
         public NetworkService NetworkService { get; private set; }
 
         public long Id { get; private set; }
+
+        private int RpcId { get; set; }
 
         public Session(NetworkService networkService, BaseChannel baseChannel)
         {
@@ -139,7 +138,6 @@ namespace Giant.Net
                     break;
             }
 
-            Logger.Error(error);
             NetworkService.Remove(this.Id);
         }
 
