@@ -8,16 +8,14 @@ namespace Giant.Net
 {
     public class WebChannel : BaseChannel
     {
-        private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
-
         private readonly WebSocket webSocket;
         private readonly HttpListenerWebSocketContext socketContext;
         private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         private readonly MemoryStream recvStream;
-        private readonly MemoryStream memoryStream;
+        private readonly MemoryStream sendStream;
 
-        public override MemoryStream Stream => this.memoryStream;
+        public override MemoryStream Stream => this.sendStream;
 
         public WebChannel(HttpListenerWebSocketContext socketContext, WebService service) : base(service, ChannelType.Accepter)
         {
@@ -25,7 +23,7 @@ namespace Giant.Net
             this.socketContext = socketContext;
             this.webSocket = socketContext.WebSocket;
             this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public WebChannel(WebSocket webSocket, WebService service) : base(service, ChannelType.Connecter)
@@ -33,7 +31,7 @@ namespace Giant.Net
             this.IsConnected = false;
             this.webSocket = webSocket;
             this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public override void Start()
@@ -53,7 +51,7 @@ namespace Giant.Net
         {
         }
 
-        public override async void Send(MemoryStream memoryStream)
+        public override async void Send(MemoryStream stream)
         {
             try
             {
@@ -62,7 +60,7 @@ namespace Giant.Net
                     return;
                 }
 
-                await webSocket.SendAsync(memoryStream.GetBuffer(), WebSocketMessageType.Text, true, cancellationTokenSource.Token);
+                await webSocket.SendAsync(stream.GetBuffer(), WebSocketMessageType.Text, true, cancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
@@ -111,23 +109,15 @@ namespace Giant.Net
             {
                 while (true)
                 {
-#if SERVER
-                    ValueWebSocketReceiveResult receiveResult;
-#else
-                    WebSocketReceiveResult receiveResult;
-#endif
                     int receiveCount = 0;
+                    ValueWebSocketReceiveResult receiveResult;
+
                     do
                     {
-#if SERVER
                         receiveResult = await this.webSocket.ReceiveAsync(
                             new Memory<byte>(this.recvStream.GetBuffer(), receiveCount, this.recvStream.Capacity - receiveCount),
                             cancellationTokenSource.Token);
-#else
-                        receiveResult = await this.webSocket.ReceiveAsync(
-                            new ArraySegment<byte>(this.recvStream.GetBuffer(), receiveCount, this.recvStream.Capacity - receiveCount),
-                            cancellationTokenSource.Token);
-#endif
+
                         if (!this.IsConnected)
                         {
                             return;
@@ -143,9 +133,9 @@ namespace Giant.Net
                         return;
                     }
 
-                    if (receiveResult.Count > ushort.MaxValue)
+                    if (receiveCount > ushort.MaxValue)
                     {
-                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveResult.Count}",cancellationTokenSource.Token);
+                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}",cancellationTokenSource.Token);
                         this.OnError(ErrorCode.ERR_WebsocketMessageTooBig);
                         return;
                     }

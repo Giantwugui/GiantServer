@@ -59,7 +59,7 @@ namespace Giant.Net
         /// <summary>
         /// 转发消息
         /// </summary>
-        public abstract void Send(MemoryStream memoryStream);
+        public abstract void Send(MemoryStream stream);
  
 
         public virtual void Start()

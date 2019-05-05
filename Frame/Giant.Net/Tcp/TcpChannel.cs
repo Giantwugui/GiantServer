@@ -63,8 +63,10 @@ namespace Giant.Net
             {
                 Connect();
             }
-            else
+
+            if (!this.IsRecving)
             {
+                this.IsRecving = true;
                 StartRecv();
             }
         }
@@ -132,26 +134,18 @@ namespace Giant.Net
 
         private void ConnectAsync()
         {
-            try
+            if (socket == null)
             {
-                if (socket == null)
-                {
-                    return;
-                }
-
-                innerArgs.RemoteEndPoint = ipEndPoint;
-                if (this.socket.ConnectAsync(innerArgs))
-                {
-                    return;
-                }
-
-                ConnectComplete(innerArgs);
+                return;
             }
-            catch (Exception ex)
+
+            innerArgs.RemoteEndPoint = ipEndPoint;
+            if (this.socket.ConnectAsync(innerArgs))
             {
-                this.OnError(SocketError.ConnectionRefused);
-                this.OnError(ex);
+                return;
             }
+
+            ConnectComplete(innerArgs);
         }
 
         private void StartSend()
@@ -232,16 +226,14 @@ namespace Giant.Net
 
         private void ConnectComplete(SocketAsyncEventArgs eventArgs)
         {
-            if (eventArgs.LastOperation == SocketAsyncOperation.Connect && eventArgs.SocketError == SocketError.Success)
-            {
-                this.IsConnected = true;
-
-                StartRecv();
-            }
-            else
+            if (eventArgs.SocketError != SocketError.Success)
             {
                 this.OnError(eventArgs.SocketError);
+                return;
             }
+
+            this.IsConnected = true;
+            Start();
         }
 
         private void ReceiveComplete(SocketAsyncEventArgs eventArgs)

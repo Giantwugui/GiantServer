@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.IO;
 
 namespace Giant.Net
@@ -20,19 +21,19 @@ namespace Giant.Net
 
 	public class PacketParser
 	{
-		private readonly CircularBuffer buffer;
-		private int packetSize;
-		private ParserState state;
-		public MemoryStream memoryStream;
 		private bool isOK;
-		private readonly int packetSizeLength;
+		private int packetSize;
+        private ParserState state;
+		public MemoryStream memoryStream;
+        private readonly CircularBuffer buffer;
+        private readonly int packetSizeLength;
 
-		public PacketParser(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
+        public PacketParser(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
 		{
-			this.packetSizeLength = packetSizeLength;
 			this.buffer = buffer;
-			this.memoryStream = memoryStream;
-		}
+            this.memoryStream = memoryStream;
+			this.packetSizeLength = packetSizeLength;
+        }
 
 		public bool Parse()
 		{

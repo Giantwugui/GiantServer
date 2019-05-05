@@ -11,13 +11,13 @@ namespace Giant.Net
     public class UdpChannel : BaseChannel
     {
         private readonly Socket socket;
-        private readonly MemoryStream memoryStream;
+        private readonly MemoryStream sendStream;
         private readonly DateTime LastReceiveMsgTime = TimeHelper.Now;
 
         public uint RemoteUdp { get; set; }
 
         public IPEndPoint RemoteIPEndPoint { get; set; }
-        public override MemoryStream Stream => this.memoryStream;
+        public override MemoryStream Stream => this.sendStream;
 
         public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Connecter)
         {
@@ -25,16 +25,16 @@ namespace Giant.Net
             this.socket = socket;
             RemoteIPEndPoint = endPoint;
 
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
             this.Connect();
         }
 
         public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Accepter)
         {
-            RemoteUdp = remoteUdpId;
             this.socket = socket;
+            RemoteUdp = remoteUdpId;
             RemoteIPEndPoint = endPoint;
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
 
             this.Accept();
         }
@@ -52,24 +52,25 @@ namespace Giant.Net
                 this.IsConnected = true;
             }
 
-            this.memoryStream.Seek(0, SeekOrigin.Begin);
-            this.memoryStream.Write(message, offset, length);
+            this.sendStream.Seek(0, SeekOrigin.Begin);
+            this.sendStream.Write(message, offset, length);
 
-            OnRead(this.memoryStream);
+            OnRead(this.sendStream);
         }
 
-        public override void Send(MemoryStream memoryStream)
+        public override void Send(MemoryStream stream)
         {
             if (!IsConnected)
             {
                 return;
             }
 
-            byte[] content = new byte[memoryStream.Length + 9];
+            byte[] content = new byte[stream.Length + 9];
             content.WriteTo(0, UdpChannelState.MSG);
             content.WriteTo(1, Id);
             content.WriteTo(5, RemoteUdp);
-            content.WriteTo(9, memoryStream.GetBuffer());
+
+            Array.Copy(stream.GetBuffer(), stream.Position, content, 9, stream.Length);
 
             SendTo(content);
         }
