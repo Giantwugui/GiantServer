@@ -24,9 +24,9 @@ namespace Giant.Net
 		private bool isOK;
 		private int packetSize;
         private ParserState state;
-		public MemoryStream memoryStream;
         private readonly CircularBuffer buffer;
         private readonly int packetSizeLength;
+        private MemoryStream memoryStream;
 
         public PacketParser(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
 		{

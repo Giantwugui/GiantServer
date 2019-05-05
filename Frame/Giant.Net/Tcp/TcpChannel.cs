@@ -90,7 +90,7 @@ namespace Giant.Net
             {
                 case Packet.PacketSizeLength2:
                     {
-                        if (stream.Length > uint.MaxValue)
+                        if (stream.Length > ushort.MaxValue)
                         {
 						    throw new Exception($"send packet too large: {stream.Length}");
                         }
@@ -100,6 +100,12 @@ namespace Giant.Net
                     break;
                 case Packet.PacketSizeLength4:
                     {
+                        if (stream.Length > ushort.MaxValue * 16)
+                        {
+                            throw new Exception($"send packet too large: {stream.Length}");
+                        }
+
+                        this.packetSizeCache.WriteTo(0, (int)stream.Length);
                     }
                     break;
             }
