@@ -4,8 +4,8 @@ namespace Giant.Share
 {
     public class MultiMap<K,V>
     {
-        private Dictionary<K, V> keyValueMap = new Dictionary<K, V>();
-        private Dictionary<V, K> valueKeyMap = new Dictionary<V, K>();
+        private readonly Dictionary<K, V> keyValueMap = new Dictionary<K, V>();
+        private readonly Dictionary<V, K> valueKeyMap = new Dictionary<V, K>();
 
         public bool TryGetValue(K key, out V value)
         {

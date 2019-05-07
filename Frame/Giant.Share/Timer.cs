@@ -12,7 +12,7 @@ namespace Giant.Share
 
     public class Timer : IUpdate
     {
-        private long IdGenerator = 0;
+        private long timerId = 0;
         private long MinTime = 0;//最近过期时间
         private Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
         private SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
@@ -58,14 +58,14 @@ namespace Giant.Share
 
         public void Wait(long delay, Action callBack)
         {
-            TimerInfo timerInfo = new TimerInfo() { Id = ++IdGenerator, Time = TimeHelper.NowMilliSeconds + delay, CallBack = callBack };
+            TimerInfo timerInfo = new TimerInfo() { Id = ++timerId, Time = TimeHelper.NowMilliSeconds + delay, CallBack = callBack };
 
             Add(timerInfo);
         }
 
         public void WaitTill(long time, Action callBack)
         {
-            TimerInfo timerInfo = new TimerInfo() { Id = ++IdGenerator, Time = time, CallBack = callBack };
+            TimerInfo timerInfo = new TimerInfo() { Id = ++timerId, Time = time, CallBack = callBack };
 
             Add(timerInfo);
         }
