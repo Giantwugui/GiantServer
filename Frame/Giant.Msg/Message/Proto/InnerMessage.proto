@@ -1,5 +1,5 @@
 syntax = "proto3";
-package Giant.Message;
+package Giant.Msg;
 
 message M2M_TrasferUnitResponse // IResponse
 {

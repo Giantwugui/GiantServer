@@ -1,4 +1,4 @@
-﻿using Giant.Message;
+﻿using Giant.Msg;
 using Giant.Share;
 using System;
 using System.Collections.Generic;

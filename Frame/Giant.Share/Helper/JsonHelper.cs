@@ -1,38 +1,55 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Text;
 
 namespace Giant.Share
 {
-    public static class JsonHelper
+    public class JsonHelper
     {
-        /// <summary>
-        /// 将对象序列化为JSON格式
-        /// </summary>
-        /// <param name="o">对象</param>
-        /// <returns>json字符串</returns>
-        public static string ToJson(this object o)
+        public static string ToJson(object message)
         {
-            if (null == o)
+            if (null == message)
             {
                 return string.Empty;
             }
 
-            return o is string ? o.ToString() : JsonConvert.SerializeObject(o);
+            return message is string ? message as string : JsonConvert.SerializeObject(message);
         }
 
-        /// <summary>
-        /// 解析JSON字符串生成对象实体
-        /// </summary>
-        /// <typeparam name="T">对象类型</typeparam>
-        /// <param name="json">json字符串(eg.{"ID":"112","Name":"石子儿"})</param>
-        /// <returns>对象实体</returns>
-        public static T ToObject<T>(this string json)
+        public static byte[] ToBytes(object message)
+        {
+            string jsonStr = ToJson(message);
+            return Encoding.UTF8.GetBytes(jsonStr);
+        }
+
+        public static void ToStream(MemoryStream stream, object message)
+        {
+            byte[] content = ToBytes(message);
+            stream.Write(content);
+        }
+
+        public static object FromBytes(byte[] content, Type type)
+        {
+            string jsonStr = Encoding.UTF8.GetString(content);
+            return FromJson(jsonStr, type);
+        }
+
+        public static object FromStream(MemoryStream stream, Type type)
+        {
+            byte[] buffer = new byte[stream.Length - stream.Position];
+            stream.Read(buffer);
+            return FromBytes(buffer, type);
+        }
+
+        public static object FromJson(string json, Type type)
         {
             if (string.IsNullOrEmpty(json))
             {
-                return default(T);
+                return default;
             }
 
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonConvert.DeserializeObject(json, type);
         }
     }
 }

@@ -13,6 +13,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Parser\**" />
+    <EmbeddedResource Remove="Parser\**" />
+    <None Remove="Parser\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.7.0" />
   </ItemGroup>
 

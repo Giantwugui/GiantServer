@@ -1,5 +1,5 @@
 syntax = "proto3";
-package Giant.Message;
+package Giant.Msg;
 
 message C2R_Login // IRequest
 {

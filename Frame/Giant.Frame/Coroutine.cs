@@ -21,16 +21,12 @@ namespace Giant.Frame
 
     public static class Coroutine
     {
-        private static int Sleeptime = 1;
-        private static List<CoroutineItem> removeList = new List<CoroutineItem>();
-        private static List<CoroutineItem> looping = new List<CoroutineItem>();
-        private static List<CoroutineItem> addWaiting = new List<CoroutineItem>();
-
+        private static readonly List<CoroutineItem> removeList = new List<CoroutineItem>();
+        private static readonly List<CoroutineItem> looping = new List<CoroutineItem>();
+        private static readonly List<CoroutineItem> addWaiting = new List<CoroutineItem>();
 
         public static void StartCoroutine(IEnumerator enumerable)
         {
-            Sleeptime = 1;
-
             CoroutineItem item = new CoroutineItem(enumerable);
 
             addWaiting.Add(item);
@@ -53,11 +49,7 @@ namespace Giant.Frame
 
             removeList.Clear();
 
-            if (looping.Count <= 0)
-            {
-                Sleeptime = 500;
-            }
-            else
+            if (looping.Count > 0)
             {
                 looping.ForEach(item =>
                 {

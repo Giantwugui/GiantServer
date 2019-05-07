@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Giant.Message
+namespace Giant.Msg
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class BaseAttribute : Attribute

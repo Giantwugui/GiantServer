@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Giant.Message;
-namespace Giant.Message
+namespace Giant.Msg
 {
 	[Message(InnerOpcode.M2M_TrasferUnitResponse)]
 	public partial class M2M_TrasferUnitResponse : IResponse {}
@@ -88,7 +87,7 @@ namespace Giant.Message
 	public partial class G2M_SessionDisconnect : IActorLocationMessage {}
 
 }
-namespace Giant.Message
+namespace Giant.Msg
 {
 	public static partial class InnerOpcode
 	{

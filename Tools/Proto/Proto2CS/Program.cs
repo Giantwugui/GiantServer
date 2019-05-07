@@ -15,6 +15,12 @@ namespace ETTools
 
     public static class Program
     {
+        private const string protoPath = "../Frame/Giant.Msg/Message/Proto";
+        private const string clientMessagePath = "../Frame/Giant.Msg/Message/";
+        private const string hotfixMessagePath = "../Frame/Giant.Msg/Message/";
+        private static readonly char[] splitChars = { ' ', '\t' };
+        private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
+
         public static void Main()
         {
             string protoc = "";
@@ -27,11 +33,11 @@ namespace ETTools
                 protoc = "protoc";
             }
 
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" OuterMessage.proto", waitExit: true);
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" InnerMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Message/Proto/\" OuterMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Message/Proto/\" InnerMessage.proto", waitExit: true);
 
-            Proto2CS("Giant.Message", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
-            Proto2CS("Giant.Message", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
+            Proto2CS("Giant.Msg", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
+            Proto2CS("Giant.Msg", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
 
             // InnerMessage.proto生成cs代码 
             //原ET框架内部通讯是使用的json格式的 适用于mongodb等文档型数据库
@@ -40,12 +46,6 @@ namespace ETTools
 
             Console.WriteLine("proto2cs succeed!");
         }
-
-        private const string protoPath = "../Frame/Giant.Msg/Proto";
-        private const string clientMessagePath = "../Frame/Giant.Msg/Message/";
-        private const string hotfixMessagePath = "../Frame/Giant.Msg/Message/";
-        private static readonly char[] splitChars = { ' ', '\t' };
-        private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
         public static void Proto2CS(string ns, string protoName, string outputPath, string opcodeClassName, int startOpcode, bool isClient = true)
         {
@@ -57,7 +57,6 @@ namespace ETTools
             StringBuilder sb = new StringBuilder();
             sb.Append("using System;\n");
             sb.Append("using System.Collections.Generic;\n");
-            sb.Append("using Giant.Message;\n");
             sb.Append($"namespace {ns}\n");
             sb.Append("{\n");
 
@@ -148,7 +147,7 @@ namespace ETTools
 
     public static class InnerProto2CS
     {
-        private const string protoPath = "../Frame/Giant.Msg/Proto/";
+        private const string protoPath = "../Frame/Giant.Msg/Message/Proto/";
         private const string serverMessagePath = "../Frame/Giant.Msg/Message/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
@@ -156,8 +155,8 @@ namespace ETTools
         public static void Proto2CS()
         {
             msgOpcode.Clear();
-            Proto2CS("Giant.Message", "InnerMessage.proto", serverMessagePath, "InnerOpcode", 1000);
-            GenerateOpcode("Giant.Message", "InnerOpcode", serverMessagePath);
+            Proto2CS("Giant.Msg", "InnerMessage.proto", serverMessagePath, "InnerOpcode", 1000);
+            GenerateOpcode("Giant.Msg", "InnerOpcode", serverMessagePath);
         }
 
         public static void Proto2CS(string ns, string protoName, string outputPath, string opcodeClassName, int startOpcode)
@@ -171,7 +170,6 @@ namespace ETTools
             StringBuilder sb = new StringBuilder();
             sb.Append("using System;\n");
             sb.Append("using System.Collections.Generic;\n");
-            sb.Append("using Giant.Message;\n");
             sb.Append("using System.Collections.Generic;\n");
             sb.Append($"namespace {ns}\n");
             sb.Append("{\n");

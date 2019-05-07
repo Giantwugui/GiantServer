@@ -1,5 +1,5 @@
 ﻿using Giant.Log;
-using Giant.Message;
+using Giant.Msg;
 using Giant.Share;
 using System;
 using System.Collections.Generic;
@@ -30,6 +30,26 @@ namespace Giant.Net
             this.channel.OnErrorCallback += OnError;
         }
 
+        public void Send(IMessage message)
+        {
+            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
+            this.Send(opcode, message);
+        }
+
+        private void Send(ushort opcode, IMessage message)
+        {
+            var stream = this.channel.Stream;
+            opcodeBytes.WriteTo(0, opcode);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Write(opcodeBytes, 0, opcodeBytes.Length);
+            stream.SetLength(Packet.MessageIndex);
+
+            ProtoHelper.ToStream(stream, message);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            this.channel.Send(stream);
+        }
 
         public Task<IResponse> Call(IRequest message)
         {
@@ -53,7 +73,7 @@ namespace Giant.Net
                         tcs.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     tcs.SetException(ex);
                 }
@@ -62,28 +82,6 @@ namespace Giant.Net
             this.Send(opcode, message);
 
             return tcs.Task;
-        }
-
-
-        public void Send(IMessage message)
-        {
-            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
-            this.Send(opcode, message);
-        }
-
-        private void Send(ushort opcode, IMessage message)
-        {
-            var stream = this.channel.Stream;
-            opcodeBytes.WriteTo(0, opcode);
-
-            stream.Seek(0, SeekOrigin.Begin);
-            stream.Write(opcodeBytes, 0, opcodeBytes.Length);
-            stream.SetLength(Packet.MessageIndex);
-
-            ProtoHelper.ToStream(stream, message);
-            stream.Seek(0, SeekOrigin.Begin);
-
-            this.channel.Send(stream);
         }
 
 
@@ -101,9 +99,8 @@ namespace Giant.Net
             ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), Packet.OpcodeIndex);
             memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 
-            Type msgType = NetworkService.MessageDispatcher.GetMessageType(opcode);
-
-            IMessage message = ProtoHelper.FromStream(memoryStream, msgType) as IMessage;
+            Type msgType = this.NetworkService.MessageDispatcher.GetMessageType(opcode);
+            IMessage message = this.NetworkService.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
 
             if (message is IResponse response)
             {

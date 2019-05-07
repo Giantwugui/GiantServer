@@ -1,4 +1,4 @@
-﻿namespace Giant.Message
+﻿namespace Giant.Msg
 {
 	// 不需要返回消息
 	public interface IActorMessage: IMessage

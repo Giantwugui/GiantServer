@@ -17,19 +17,20 @@ namespace Giant.Net
     public class NetworkService : IUpdate, IDisposable
     {
         private BaseService service;
-
         private NetworkType networkType;
 
         private readonly Dictionary<long, Session> sessions = new Dictionary<long, Session>();
-
         public Dictionary<long, Session> Sessions => sessions;
 
         public MessageDispatcher MessageDispatcher { get; set; }
+
+        public IMessageParser MessageParser { get; set; }
 
         public NetworkService(NetworkType network)
         {
             this.networkType = network;
             this.MessageDispatcher = new MessageDispatcher();
+            this.MessageParser = new ProtobufParser();
 
             Init();
         }

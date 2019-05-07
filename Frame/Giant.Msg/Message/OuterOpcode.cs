@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Giant.Message;
-namespace Giant.Message
+namespace Giant.Msg
 {
 	[Message(OuterOpcode.C2R_Login)]
 	public partial class C2R_Login : IRequest {}
@@ -81,7 +80,7 @@ namespace Giant.Message
 	public partial class M2C_Reload : IResponse {}
 
 }
-namespace Giant.Message
+namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{

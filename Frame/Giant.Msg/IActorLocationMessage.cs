@@ -1,4 +1,4 @@
-﻿namespace Giant.Message
+﻿namespace Giant.Msg
 {
 	public interface IActorLocationMessage : IActorRequest
 	{
