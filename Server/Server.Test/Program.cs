@@ -2,6 +2,10 @@
 using System.Threading;
 using Giant.DB;
 using Giant.DB.MongoDB;
+using MongoDB.Bson;
+using System.Linq.Expressions;
+using MongoDB.Driver;
+using System.Collections.Generic;
 
 namespace Server.Test
 {
@@ -14,6 +18,9 @@ namespace Server.Test
             dbService = new DBService(DataBaseType.MongoDB);
             dbService.Start("127.0.0.1:27017", "Giant", "", "");
 
+            FindPlayer();
+
+            TestInsertBatch();
 
             while (true)
             {
@@ -25,8 +32,18 @@ namespace Server.Test
             }
         }
 
+        public static async void FindPlayer()
+        {
+            BsonDocument elements = new BsonDocument();
+            elements.Add("Uid", 100010);
 
-        private static void TestInsert()
+            var query = new MongoDBQueryBatch<Player>(dbService, "Player", x => x.Uid > 1);
+
+            var player = await query.Task();
+        }
+
+
+        private static async void TestInsert()
         {
             long uid = 10000 * 10;
             Player player;
@@ -38,13 +55,27 @@ namespace Server.Test
                     Account = $"Account&{uid}"
                 };
 
-                MongoDBSaveTask task = new MongoDBSaveTask(dbService, player);
-                InsertToDB(task);
+                MongoDBInsert task = new MongoDBInsert(dbService, player);
+
+                await task.Task();
             }
         }
 
-        private static async void InsertToDB(MongoDBSaveTask task)
+        private static async void TestInsertBatch()
         {
+            long uid = 20000 * 10;
+            List<Player> player = new List<Player>();
+            for (int i = 0; i < 10; i++)
+            {
+                player.Add(new Player
+                {
+                    Uid = ++uid,
+                    Account = $"Account&{uid}"
+                });
+            }
+
+            var task = new MongoDBInsertBatch<Player>(dbService, player);
+
             await task.Task();
         }
     }
