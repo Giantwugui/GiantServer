@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Giant.DB
 {
-    public class DBTaskQueue
+    class TaskQueue
     {
         private TaskCompletionSource<DBTask> tcs;
         private Queue<DBTask> tasks = new Queue<DBTask>();
@@ -59,7 +59,7 @@ namespace Giant.DB
     public class DBTaskManager
     {
         private long taskId;
-        private readonly List<DBTaskQueue> taskList = new List<DBTaskQueue>();
+        private readonly List<TaskQueue> taskList = new List<TaskQueue>();
 
         public DBService DBService { get; private set; }
 
@@ -67,7 +67,7 @@ namespace Giant.DB
         {
             for (int i = 0; i < taskCount; ++i)
             {
-                taskList.Add(new DBTaskQueue());
+                taskList.Add(new TaskQueue());
             }
         }
 

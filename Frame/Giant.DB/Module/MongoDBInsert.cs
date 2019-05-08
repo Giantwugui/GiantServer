@@ -1,26 +1,55 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MongoDB
 {
-    public class MongoDBInsert : MongoDBTask<bool>
+    public class MongoDBInsert<T> : MongoDBTask<bool>
     {
-        private Player player;
+        private T item;
 
-        public MongoDBInsert(DBService service, Player player)
+        public MongoDBInsert(DBService service, string collectionName, T item)
         {
-            this.CollectionName = "Player";
-            this.Service = service;
-            this.player = player;
+            this.CollectionName = collectionName;
+            this.DBService = service;
+            this.item = item;
         }
 
         public override async Task Run()
         {
             try
             {
-                var collection = (this.Service.Service as MongoDBService).GetCollection<Player>(this.CollectionName);
+                var collection = this.Service.GetCollection<T>(this.CollectionName);
 
-                await collection.InsertOneAsync(this.player);
+                await collection.InsertOneAsync(this.item);
+
+                SetResult(true);
+            }
+            catch (Exception ex)
+            {
+                SetException(ex);
+            }
+        }
+    }
+
+    public class MongoDBInsertBatch<T> : MongoDBTask<bool>
+    {
+        private List<T> items;
+
+        public MongoDBInsertBatch(DBService service, string collectionName, List<T> items)
+        {
+            this.CollectionName = collectionName;
+            this.DBService = service;
+            this.items = items;
+        }
+
+        public override async Task Run()
+        {
+            try
+            {
+                var collection = this.Service.GetCollection<T>(this.CollectionName);
+
+                await collection.InsertManyAsync(this.items);
 
                 SetResult(true);
             }

@@ -9,5 +9,7 @@ namespace Giant.DB
         public long Uid { get; set; }
 
         public string Account { get; set; }
+
+        public int Level { get; set; }
     }
 }

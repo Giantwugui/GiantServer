@@ -6,6 +6,6 @@ namespace Giant.DB
 {
     public interface IDBService
     {
-        void Start(int taskCount);
+        void Start();
     }
 }

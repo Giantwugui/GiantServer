@@ -28,7 +28,7 @@ namespace Giant.DB
             this.database = this.client.GetDatabase(dbName);
         }
 
-        public void Start(int taskCount)
+        public void Start()
         {
         }
 

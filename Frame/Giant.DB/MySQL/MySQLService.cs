@@ -9,7 +9,7 @@ namespace Giant.DB
         {
         }
 
-        public void Start(int taskCount)
+        public void Start()
         {
         }
     }

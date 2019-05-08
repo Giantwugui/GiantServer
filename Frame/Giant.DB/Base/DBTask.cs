@@ -8,7 +8,7 @@ namespace Giant.DB
     {
         public long TaskId { get; set; }
 
-        public DBService Service { get; set; }
+        public DBService DBService { get; set; }
 
         public abstract Task Run();
     }
@@ -40,7 +40,7 @@ namespace Giant.DB
 
         private void AddToTaskManager()
         {
-            this.Service.TaskManager.AddTask(this);
+            this.DBService.TaskManager.AddTask(this);
         }
     }
 }
