@@ -1,10 +1,9 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Giant.DB.MongoDB
 {
@@ -23,7 +22,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
                 var result = await collection.FindSync<T>(this.definition).FirstAsync();
 
                 SetResult(result);
@@ -75,7 +74,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
                 var cursor = collection.FindSync<T>(this.definition, this.options);
 
                 List<T> resultList = new List<T>();

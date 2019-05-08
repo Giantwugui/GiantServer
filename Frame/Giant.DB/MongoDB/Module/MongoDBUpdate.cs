@@ -23,8 +23,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
-
+                var collection = this.GetCollection<T>(this.CollectionName);
                 await collection.FindOneAndReplaceAsync(this.definition, this.item);
 
                 SetResult(true);

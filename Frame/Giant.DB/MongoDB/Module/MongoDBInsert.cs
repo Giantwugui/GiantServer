@@ -19,7 +19,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
 
                 await collection.InsertOneAsync(this.item);
 
@@ -47,7 +47,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
 
                 await collection.InsertManyAsync(this.items);
 

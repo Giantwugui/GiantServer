@@ -20,7 +20,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
                 var result = await collection.DeleteOneAsync<T>(this.filter);
 
                 SetResult(result);
@@ -47,7 +47,7 @@ namespace Giant.DB.MongoDB
         {
             try
             {
-                var collection = this.Service.GetCollection<T>(this.CollectionName);
+                var collection = this.GetCollection<T>(this.CollectionName);
                 var result = await collection.DeleteManyAsync<T>(this.filter);
 
                 SetResult(result);
