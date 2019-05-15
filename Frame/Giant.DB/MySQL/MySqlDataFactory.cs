@@ -6,7 +6,7 @@ namespace Giant.DB.MySQL
 {
     public class MySqlDataFactory
     {
-        public static TResult BuildInstance<TResult>(Dictionary<string, object> dictionary) where TResult : MySqlData
+        public static TResult BuildInstance<TResult>(Dictionary<string, object> dictionary) where TResult : class
         {
             TResult result = Activator.CreateInstance<TResult>();
 

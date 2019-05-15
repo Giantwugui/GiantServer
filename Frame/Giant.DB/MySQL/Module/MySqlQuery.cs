@@ -5,10 +5,7 @@ using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
 {
-
-
-
-    public class MySqlQuery<T> : MySQLTask<T> where T : MySqlData
+    public class MySqlQuery<T> : MySQLTask<T> where T : class
     {
         public MySqlQuery(DBService service, string tableName)
         {
@@ -45,7 +42,7 @@ namespace Giant.DB.MySQL
         }
     }
 
-    public class MySqlQueryBatch<T> : MySQLTask<List<T>> where T : MySqlData
+    public class MySqlQueryBatch<T> : MySQLTask<List<T>> where T : class
     {
         public MySqlQueryBatch(DBService service, string tableName)
         {
