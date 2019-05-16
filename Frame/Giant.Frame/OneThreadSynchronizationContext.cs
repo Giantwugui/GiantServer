@@ -15,7 +15,7 @@ namespace Giant.Frame
 
         private Action acction;
 
-        public OneThreadSynchronizationContext()
+        private OneThreadSynchronizationContext()
         {
         }
 

@@ -8,23 +8,29 @@ namespace Giant.DB
     {
         private readonly MongoClient client;
         private readonly IMongoDatabase database;
-        private readonly MongoClientSettings clientSettings;
+        private readonly MongoUrl mongoUrl;
         private readonly Dictionary<string, object> collections = new Dictionary<string, object>();
 
         public MongoDBService(string host, string dbName, string account, string passWorld)
         {
             string[] hosts = host.Split(',', StringSplitOptions.RemoveEmptyEntries);
-            clientSettings = new MongoClientSettings();
-
             List<MongoServerAddress> servers = new List<MongoServerAddress>();
             foreach (var address in hosts)
             {
                 string[] strs = address.Split(':');
                 servers.Add(new MongoServerAddress(strs[0], int.Parse(strs[1])));
             }
-            clientSettings.Servers = servers;
 
-            this.client = new MongoClient(clientSettings);
+            MongoUrlBuilder builder = new MongoUrlBuilder
+            {
+                Username = account,
+                Password = passWorld,
+                DatabaseName = dbName,
+                Servers = servers
+            };
+
+            this.mongoUrl = builder.ToMongoUrl();//mongodb://user:pass@127.0.0.1:27017/db
+            this.client = new MongoClient(mongoUrl);
             this.database = this.client.GetDatabase(dbName);
         }
 

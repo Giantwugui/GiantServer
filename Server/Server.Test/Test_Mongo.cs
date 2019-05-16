@@ -16,17 +16,18 @@ namespace Server.Test
         public void Init()
         {
             dbService = new DBService(DataBaseType.MongoDB);
-            dbService.Start("127.0.0.1:27017", "Giant", "", "");
+            dbService.Start("127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
         }
 
         public async void TestMongo()
         {
-            TestFindBatch(10);
+            //await TestInsertBatch();
+            await TestFindBatch(10);
             await TestDelete();
-            TestFindBatch(10);
+            await TestFindBatch(10);
         }
 
-        public async void TestFindBatch(int num)
+        public async Task TestFindBatch(int num)
         {
             List<Player> players = await FindPlayerBySort(num);
 
@@ -76,7 +77,7 @@ namespace Server.Test
             }
         }
 
-        private async void TestInsertBatch()
+        private async Task TestInsertBatch()
         {
             long uid = 20000 * 10;
             List<Player> player = new List<Player>();
