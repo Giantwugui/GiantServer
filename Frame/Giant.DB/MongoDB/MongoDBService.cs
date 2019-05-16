@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Giant.DB
 {
-    public class MongoDBService : IDBService
+    public class MongoDBService : IService
     {
         private readonly MongoClient client;
         private readonly IMongoDatabase database;

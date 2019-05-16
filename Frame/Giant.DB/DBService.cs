@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace Giant.DB
+﻿namespace Giant.DB
 {
     public enum DataBaseType
     {
@@ -13,16 +10,16 @@ namespace Giant.DB
     {
         private readonly DataBaseType dbType;
 
-        public IDBService Service { get; private set; }
+        public IService Service { get; private set; }
 
-        public DBTaskManager TaskManager { get; private set; }//数据库操作服务
+        public DBTaskPool TaskPool { get; private set; }//数据库操作服务
 
         public DBService(DataBaseType dbType, int taskCount = 1)
         {
             this.dbType = dbType;
 
-            this.TaskManager = new DBTaskManager(taskCount);
-            this.TaskManager.Start();
+            this.TaskPool = new DBTaskPool(taskCount);
+            this.TaskPool.Start();
         }
 
         public void Start(string host, string dbName, string account, string passWorld)

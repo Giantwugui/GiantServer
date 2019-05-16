@@ -21,7 +21,7 @@ namespace Giant.DB
         {
             this.Tcs = new TaskCompletionSource<T>();
 
-            this.AddToTaskManager();
+            this.AddToTaskPool();
 
             return this.Tcs.Task;
         }
@@ -38,9 +38,9 @@ namespace Giant.DB
             Logger.Error(ex);
         }
 
-        private void AddToTaskManager()
+        private void AddToTaskPool()
         {
-            this.DBService.TaskManager.AddTask(this);
+            this.DBService.TaskPool.AddTask(this);
         }
     }
 }

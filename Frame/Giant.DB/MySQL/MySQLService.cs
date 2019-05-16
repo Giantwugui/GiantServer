@@ -3,7 +3,7 @@ using System.Data;
 
 namespace Giant.DB
 {
-    public class MySQLService : IDBService
+    public class MySQLService : IService
     {
         private readonly string connStr;
         private MySqlConnection connection;
