@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Giant.DB.MySQL
 {
@@ -33,9 +32,5 @@ namespace Giant.DB.MySQL
 
             return result;
         }
-
-        //public static string BuldInsertCommand<TValue>(TValue value, string tableName) where TValue : class
-        //{
-        //}
     }
 }

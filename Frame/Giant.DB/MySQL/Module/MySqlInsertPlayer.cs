@@ -1,15 +1,16 @@
 ﻿using Giant.Log;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
 {
-    public class MySqlInsertPlayer : MySqlQueryTask<Player>
+    public class MySqlInsertPlayer : MySqlNonQueryTask
     {
         private readonly Player player;
 
-        public MySqlInsertPlayer(DBService service, Player player) : base(service)
+        public MySqlInsertPlayer(DBService service, Player player)
         {
             this.DBService = service;
             this.player = player;
@@ -19,13 +20,16 @@ namespace Giant.DB.MySQL
         {
             try
             {
-                var command = this.GetCommand();
+                var connection = this.GetConnection();
                 try
                 {
+                    connection.Open();
+                    var command = connection.CreateCommand();
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Player Account,Uid,Level FROM Player WHERE Uid = @uid";
-                    command.Parameters.AddWithValue("@uid", this.uid);
-                    command.Connection.Open();
+                    command.CommandText = "INSERT INTO Player (Account,Uid,Level) VALUES(@account,@uid,@level)";
+                    command.Parameters.AddWithValue("@account", this.player.Account);
+                    command.Parameters.AddWithValue("@uid", this.player.Uid);
+                    command.Parameters.AddWithValue("@level", this.player.Level);
 
                     await base.Run(command);
                 }
@@ -35,7 +39,7 @@ namespace Giant.DB.MySQL
                 }
                 finally
                 {
-                    command.Connection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -45,44 +49,47 @@ namespace Giant.DB.MySQL
         }
     }
 
-    //public class MySqlQueryBatch<T> : MySQLTask<List<T>> where T : class
-    //{
-    //    public MySqlQueryBatch(DBService service, string tableName)
-    //    {
-    //        this.DBService = service;
-    //        this.TableName = tableName;
-    //    }
+    public class MySqlInsertPlayerBatch : MySqlNonQueryTask
+    {
+        private readonly List<Player> players;
 
-    //    public override async Task Run()
-    //    {
-    //        try
-    //        {
-    //            var command = this.GetCommand();
-    //            command.CommandText = "";
-    //            command.CommandType = CommandType.Text;
+        public MySqlInsertPlayerBatch(DBService service, List<Player> players)
+        {
+            this.DBService = service;
+            this.players = players;
+        }
 
-    //            var reader = await command.ExecuteReaderAsync();
+        public override async Task Run()
+        {
+            try
+            {
+                var connection = this.GetConnection();
+                try
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandType = CommandType.Text;
 
-    //            List<T> reasult = new List<T>();
-    //            Dictionary<string, object> datas = new Dictionary<string, object>();
+                    List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
+                    string valueStr = string.Join(",", playerStrList);
 
-    //            while (await reader.ReadAsync())
-    //            {
-    //                for (int i = 0; i < reader.FieldCount; ++i)
-    //                {
-    //                    datas[reader.GetName(i)] = reader[i];
-    //                }
+                    command.CommandText = $"INSERT INTO Player (Account,Uid,Level) VALUES {valueStr};";
 
-    //                reasult.Add(this.BuildData<T>(datas));
-    //                datas.Clear();
-    //            }
-
-    //            SetResult(reasult);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            SetException(ex);
-    //        }
-    //    }
-    //}
+                    await base.Run(command);
+                }
+                catch (Exception ex)
+                {
+                    SetException(ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+    }
 }

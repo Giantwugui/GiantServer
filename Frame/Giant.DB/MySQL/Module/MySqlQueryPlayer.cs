@@ -1,5 +1,6 @@
 ﻿using Giant.Log;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace Giant.DB.MySQL
     {
         private readonly int uid;
 
-        public MySqlQueryPlayer(DBService service, int uid) : base(service)
+        public MySqlQueryPlayer(DBService service, int uid)
         {
             this.DBService = service;
             this.uid = uid;
@@ -19,15 +20,21 @@ namespace Giant.DB.MySQL
         {
             try
             {
-                var command = this.GetCommand();
+                var connection = this.GetConnection();
                 try
                 {
+                    connection.Open();
+                    var command = connection.CreateCommand();
                     command.CommandType = CommandType.Text;
                     command.CommandText = "SELECT Account,Uid,Level FROM Player WHERE Uid = @uid";
                     command.Parameters.AddWithValue("@uid", this.uid);
-                    command.Connection.Open();
 
-                    await base.Run(command);
+                    Dictionary<string, object> datas = await base.Run(command);
+                    Player player = MySqlHelper.BuildInstance<Player>(datas);
+
+                    //其他属性的初始化
+
+                    SetResult(player);
                 }
                 catch (Exception ex)
                 {
@@ -35,7 +42,7 @@ namespace Giant.DB.MySQL
                 }
                 finally
                 {
-                    command.Connection.Close();
+                    connection.Close();
                 }
             }
             catch (Exception ex)
@@ -45,44 +52,45 @@ namespace Giant.DB.MySQL
         }
     }
 
-    //public class MySqlQueryBatch<T> : MySQLTask<List<T>> where T : class
-    //{
-    //    public MySqlQueryBatch(DBService service, string tableName)
-    //    {
-    //        this.DBService = service;
-    //        this.TableName = tableName;
-    //    }
 
-    //    public override async Task Run()
-    //    {
-    //        try
-    //        {
-    //            var command = this.GetCommand();
-    //            command.CommandText = "";
-    //            command.CommandType = CommandType.Text;
+    public class MySqlQueryMaxPlayerUid : MySqlQueryTask<int>
+    {
+        public MySqlQueryMaxPlayerUid(DBService service)
+        {
+            this.DBService = service;
+        }
 
-    //            var reader = await command.ExecuteReaderAsync();
+        public override async Task Run()
+        {
+            try
+            {
+                var connection = this.GetConnection();
+                try
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT Max(Uid) AS maxUid FROM Player";
 
-    //            List<T> reasult = new List<T>();
-    //            Dictionary<string, object> datas = new Dictionary<string, object>();
+                    var datas = await base.Run(command);
 
-    //            while (await reader.ReadAsync())
-    //            {
-    //                for (int i = 0; i < reader.FieldCount; ++i)
-    //                {
-    //                    datas[reader.GetName(i)] = reader[i];
-    //                }
+                    var max = datas["maxUid"];
 
-    //                reasult.Add(this.BuildData<T>(datas));
-    //                datas.Clear();
-    //            }
-
-    //            SetResult(reasult);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            SetException(ex);
-    //        }
-    //    }
-    //}
+                    SetResult(max == System.DBNull.Value ? 0 : (int)max);
+                }
+                catch (Exception ex)
+                {
+                    SetException(ex);
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+    }
 }

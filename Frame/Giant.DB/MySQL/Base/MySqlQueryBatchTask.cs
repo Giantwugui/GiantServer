@@ -1,44 +1,29 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
 namespace Giant.DB.MySQL
 {
-    public abstract class MySqlQueryBatchTask<T> : MySQLTask<List<T>> where T : class
+    public abstract class MySqlQueryBatchTask<T> : MySQLTask<List<T>>
     {
-        public MySqlQueryBatchTask(DBService service)
+        public async Task<List<Dictionary<string, object>>> Run(MySqlCommand command)
         {
-            this.DBService = service;
-        }
+            Dictionary<string, object> datas;
+            List<Dictionary<string, object>> reasult = new List<Dictionary<string, object>>();
 
-        public override async Task Run(MySqlCommand command)
-        {
-            try
+            var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
             {
-                var reader = await command.ExecuteReaderAsync();
-
-                List<T> reasult = new List<T>();
-                Dictionary<string, object> datas = new Dictionary<string, object>();
-
-                while (await reader.ReadAsync())
+                datas = new Dictionary<string, object>();
+                for (int i = 0; i < reader.FieldCount; ++i)
                 {
-                    for (int i = 0; i < reader.FieldCount; ++i)
-                    {
-                        datas[reader.GetName(i)] = reader[i];
-                    }
-
-                    reasult.Add(this.BuildData<T>(datas));
-                    datas.Clear();
+                    datas[reader.GetName(i)] = reader[i];
                 }
+                reasult.Add(datas);
+            }
 
-                SetResult(reasult);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-            }
+            return reasult;
         }
     }
 }
