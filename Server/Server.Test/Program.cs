@@ -10,15 +10,15 @@ namespace Server.Test
 {
     partial class Program
     {
-        private static DBService dbService;
 
         static void Main(string[] args)
         {
-            dbService = new DBService(DataBaseType.MongoDB);
-            dbService.Start("127.0.0.1:27017", "Giant", "", "");
+            //Test_Mongo mongo_test = new Test_Mongo();
+            //mongo_test.TestMongo();
 
-            //TestInsertBatch();
-            TestMongo();
+            Test_MySql test_MySql = new Test_MySql();
+            test_MySql.Init();
+            test_MySql.Test();
 
             while (true)
             {

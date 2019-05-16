@@ -8,7 +8,7 @@ namespace Giant.DB
     class TaskQueue
     {
         private TaskCompletionSource<DBTask> tcs;
-        private Queue<DBTask> tasks = new Queue<DBTask>();
+        private readonly Queue<DBTask> tasks = new Queue<DBTask>();
 
         public int TaskCount => tasks.Count;
 

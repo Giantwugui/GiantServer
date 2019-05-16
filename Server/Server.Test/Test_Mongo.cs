@@ -8,23 +8,32 @@ using MongoDB.Driver;
 
 namespace Server.Test
 {
-    partial class Program
+    class Test_Mongo
     {
-        public static async void TestMongo()
+        private DBService dbService;
+        private Random random = new Random();
+
+        public void Init()
+        {
+            dbService = new DBService(DataBaseType.MongoDB);
+            dbService.Start("127.0.0.1:27017", "Giant", "", "");
+        }
+
+        public async void TestMongo()
         {
             TestFindBatch(10);
             await TestDelete();
             TestFindBatch(10);
         }
 
-        public static async void TestFindBatch(int num)
+        public async void TestFindBatch(int num)
         {
             List<Player> players = await FindPlayerBySort(num);
 
             Console.WriteLine($"player count {players.Count}");
         }
 
-        public static async Task<List<Player>> FindPlayerBySort(int limit = 99999)
+        public async Task<List<Player>> FindPlayerBySort(int limit = 99999)
         {
             BsonDocument bsons = new BsonDocument()
             {
@@ -44,13 +53,13 @@ namespace Server.Test
         }
 
 
-        private static Task<DeleteResult> TestDelete()
+        private Task<DeleteResult> TestDelete()
         {
             var task = new MongoDBDeleteBatch<Player>(dbService, "Player", x => x.Uid > 0);
             return task.Task();
         }
 
-        private static async void TestInsert()
+        private async void TestInsert()
         {
             long uid = 10000 * 10;
             Player player;
@@ -67,8 +76,7 @@ namespace Server.Test
             }
         }
 
-        private static Random random = new Random();
-        private static async void TestInsertBatch()
+        private async void TestInsertBatch()
         {
             long uid = 20000 * 10;
             List<Player> player = new List<Player>();
