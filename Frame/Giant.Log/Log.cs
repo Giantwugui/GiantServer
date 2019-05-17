@@ -10,7 +10,7 @@ namespace Giant.Log
     public static class Logger
     {
         private static bool writeToConsole = false;
-        private static LogAdapter logAdapter = new LogAdapter();
+        private static readonly LogAdapter logAdapter = new LogAdapter();
 
         public static void Init(bool write2Console, Dictionary<string, string> param)
         {
