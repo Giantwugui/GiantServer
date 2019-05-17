@@ -40,7 +40,7 @@ namespace Giant.Net
         /// 使用post方法异步请求
         /// </summary>
         /// <param name="url">目标链接</param>
-        /// <param name="message">发送的参数字符串，只能用json</param>
+        /// <param name="message">发送的参数字符串</param>
         /// <param name="head">http头</param>
         /// <returns>返回的字符串</returns>
         public static async Task<string> PostAsync(string url, string message, Dictionary<string, string> head = null)

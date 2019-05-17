@@ -1,26 +1,23 @@
 ﻿using Giant.Log;
+using Giant.Share;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Giant.Frame
 {
     public class BaseService
     {
         delegate bool ControlCtrlHandle(int ctrlType);
-        private CancellationTokenSource CancellationTokenSource;
 
         [DllImport("kernel32.dll")]
         private static extern bool SetConsoleCtrlHandler(ControlCtrlHandle HandlerRoutine, bool Add);
-        private static ControlCtrlHandle cancelHandler = new ControlCtrlHandle(HandleMathord);
+        private static readonly ControlCtrlHandle cancelHandler = new ControlCtrlHandle(HandleMathord);
 
         public static BaseService Instance { get; } = new BaseService();
 
         private BaseService()
         {
-            CancellationTokenSource = new CancellationTokenSource();
-
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
@@ -47,14 +44,15 @@ namespace Giant.Frame
         {
             try
             {
-                ReadLineAsync();
-
                 //框架的各种初始化工作
+                ConsoleReader.Instance.Start(DoCmd);
+                
 
                 Console.WriteLine("server start finished ----------------------------------");
             }
-            catch
+            catch(Exception ex)
             {
+                Logger.Error(ex);
             }
 
             while (true)
@@ -72,28 +70,8 @@ namespace Giant.Frame
             }
         }
 
-        private async void ReadLineAsync()
-        {
-            while (true)
-            {
-                try
-                {
-                    string line = await Task.Run(() =>
-                    {
-                        return Console.In.ReadLine();
-                    }, CancellationTokenSource.Token);
 
-                    DoMessageDispatch(line);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex);
-                }
-            }
-        }
-
-
-        private void DoMessageDispatch(string message)
+        public virtual void DoCmd(string message)
         {
             switch (message)
             {
