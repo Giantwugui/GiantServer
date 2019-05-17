@@ -10,7 +10,7 @@ namespace Giant.Share
         public Action CallBack;
     }
 
-    public class Timer : IUpdate
+    public class Timer
     {
         private long timerId = 0;
         private long MinTime = 0;//最近过期时间

@@ -5,7 +5,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    public abstract class BaseService : IUpdate
+    public abstract class BaseService
     {
         public Socket Socket { get; protected set; }
 

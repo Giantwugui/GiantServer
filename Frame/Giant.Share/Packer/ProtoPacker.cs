@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Giant.Share
 {
-    public class ProtobufParser : IMessageParser
+    public class ProtoPacker : IMessagePacker
     {
         public byte[] SerializeTo(object message)
         {

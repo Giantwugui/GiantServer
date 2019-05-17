@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Giant.Share
 {
-    public interface IMessageParser
+    public interface IMessagePacker
     {
         byte[] SerializeTo(object message);
         void SerializeTo(MemoryStream stream, object message);

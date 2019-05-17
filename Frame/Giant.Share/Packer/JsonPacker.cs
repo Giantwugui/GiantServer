@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Giant.Share
 {
-    public class JsonParser : IMessageParser
+    public class JsonPacker : IMessagePacker
     {
         public byte[] SerializeTo(object message)
         {
