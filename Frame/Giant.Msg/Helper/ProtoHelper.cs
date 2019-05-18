@@ -2,7 +2,7 @@
 using System.IO;
 using Google.Protobuf;
 
-namespace Giant.Share
+namespace Giant.Msg
 {
     public static class ProtoHelper
     {

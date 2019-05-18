@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Giant.Share
+namespace Giant.Msg
 {
     public interface IMessagePacker
     {

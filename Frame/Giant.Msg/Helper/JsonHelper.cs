@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Giant.Share
+namespace Giant.Msg
 {
     public class JsonHelper
     {
