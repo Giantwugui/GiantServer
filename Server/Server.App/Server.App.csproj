@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Frame\Giant.Frame.csproj" />
+    <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
   </ItemGroup>
 
 </Project>

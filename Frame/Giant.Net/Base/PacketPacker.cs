@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Giant.Net
 {
-	public enum ParserState
+	public enum PackerState
 	{
 		PacketSize,
 		PacketBody
@@ -23,7 +23,7 @@ namespace Giant.Net
 	{
 		private bool isOK;
 		private int packetSize;
-        private ParserState state;
+        private PackerState state;
         private readonly CircularBuffer buffer;
         private readonly int packetSizeLength;
         private MemoryStream memoryStream;
@@ -47,7 +47,7 @@ namespace Giant.Net
 			{
 				switch (this.state)
 				{
-					case ParserState.PacketSize:
+					case PackerState.PacketSize:
 						if (this.buffer.Length < this.packetSizeLength)
 						{
 							finish = true;
@@ -78,10 +78,10 @@ namespace Giant.Net
 								default:
 									throw new Exception("packet size byte count must be 2 or 4!");
 							}
-							this.state = ParserState.PacketBody;
+							this.state = PackerState.PacketBody;
 						}
 						break;
-					case ParserState.PacketBody:
+					case PackerState.PacketBody:
 						if (this.buffer.Length < this.packetSize)
 						{
 							finish = true;
@@ -94,7 +94,7 @@ namespace Giant.Net
 
                             //读取消息体到memorystream 会覆盖之前的长度标识
 							this.buffer.Read(bytes, 0, this.packetSize);
-							this.state = ParserState.PacketSize;
+							this.state = PackerState.PacketSize;
 							this.isOK = true;
 							finish = true;
                         }

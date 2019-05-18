@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "..\Frame\Giant
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Share", "..\Frame\Giant.Share\Giant.Share.csproj", "{74CB736E-CAC1-442A-A106-62E7ACC8386B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.Test", "Server.Test\Server.Test.csproj", "{C504C114-7542-4CA2-BEAE-5012B6E26FF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Test", "Server.Test\Server.Test.csproj", "{C504C114-7542-4CA2-BEAE-5012B6E26FF8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Bson", "..\Frame\ThirdParty\MongodbDriver\MongoDB.Bson\MongoDB.Bson.csproj", "{F22ADE47-74CE-4766-9BA8-EEF00C392EF0}"
 EndProject
@@ -32,6 +32,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.Core", "..\Frame\ThirdParty\MongodbDriver\MongoDB.Driver.Core\MongoDB.Driver.Core.csproj", "{1962E3FE-F425-4591-ABC8-2C3B9E7B7BAF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB.Driver.GridFS", "..\Frame\ThirdParty\MongodbDriver\MongoDB.Driver.GridFS\MongoDB.Driver.GridFS.csproj", "{6BDF78B0-23CD-43D6-BB4F-1FBF266C666B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server.App", "Server.App\Server.App.csproj", "{1127FC0C-A5A6-47AD-8706-8D3F6B124EE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{6BDF78B0-23CD-43D6-BB4F-1FBF266C666B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BDF78B0-23CD-43D6-BB4F-1FBF266C666B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BDF78B0-23CD-43D6-BB4F-1FBF266C666B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1127FC0C-A5A6-47AD-8706-8D3F6B124EE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1127FC0C-A5A6-47AD-8706-8D3F6B124EE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1127FC0C-A5A6-47AD-8706-8D3F6B124EE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1127FC0C-A5A6-47AD-8706-8D3F6B124EE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
