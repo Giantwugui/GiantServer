@@ -16,7 +16,7 @@ namespace Giant.Net
 
     public class NetworkService : IDisposable
     {
-        private BaseService service;
+        private BaseNetService service;
         private readonly NetworkType networkType;
 
         private readonly Dictionary<long, Session> sessions = new Dictionary<long, Session>();

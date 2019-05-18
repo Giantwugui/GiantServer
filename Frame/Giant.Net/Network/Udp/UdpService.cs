@@ -15,7 +15,7 @@ namespace Giant.Net
         public const byte FIN = 4;//断开连接
     }
 
-    public class UdpService : BaseService
+    public class UdpService : BaseNetService
     {
         private uint genetareId = 0;
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度

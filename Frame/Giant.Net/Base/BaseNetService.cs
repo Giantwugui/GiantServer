@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace Giant.Net
 {
-    public abstract class BaseService
+    public abstract class BaseNetService
     {
         public Socket Socket { get; protected set; }
 

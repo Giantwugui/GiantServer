@@ -7,7 +7,7 @@ using System.Net.WebSockets;
 
 namespace Giant.Net
 {
-    public class WebService : BaseService
+    public class WebService : BaseNetService
     {
         private HttpListener httpListener;
         public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();

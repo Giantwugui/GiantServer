@@ -2,6 +2,12 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
+	[Message(OuterOpcode.CG_TEST)]
+	public partial class CG_TEST : IRequest {}
+
+	[Message(OuterOpcode.GC_TEST)]
+	public partial class GC_TEST : IResponse {}
+
 	[Message(OuterOpcode.C2R_Login)]
 	public partial class C2R_Login : IRequest {}
 
@@ -84,34 +90,38 @@ namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort C2R_Login = 101;
-		 public const ushort R2C_Login = 102;
-		 public const ushort C2G_LoginGate = 103;
-		 public const ushort G2C_LoginGate = 104;
-		 public const ushort G2C_TestHotfixMessage = 105;
-		 public const ushort C2M_TestActorRequest = 106;
-		 public const ushort M2C_TestActorResponse = 107;
-		 public const ushort PlayerInfo = 108;
-		 public const ushort C2G_PlayerInfo = 109;
-		 public const ushort G2C_PlayerInfo = 110;
-		 public const ushort C2M_TestRequest = 111;
-		 public const ushort M2C_TestResponse = 112;
-		 public const ushort Actor_TransferRequest = 113;
-		 public const ushort Actor_TransferResponse = 114;
-		 public const ushort C2G_EnterMap = 115;
-		 public const ushort G2C_EnterMap = 116;
-		 public const ushort UnitInfo = 117;
-		 public const ushort M2C_CreateUnits = 118;
-		 public const ushort Frame_ClickMap = 119;
-		 public const ushort M2C_PathfindingResult = 120;
-		 public const ushort C2R_Ping = 121;
-		 public const ushort R2C_Ping = 122;
-		 public const ushort G2C_Test = 123;
-		 public const ushort C2M_Reload = 124;
-		 public const ushort M2C_Reload = 125;
+		 public const ushort CG_TEST = 101;
+		 public const ushort GC_TEST = 102;
+		 public const ushort C2R_Login = 103;
+		 public const ushort R2C_Login = 104;
+		 public const ushort C2G_LoginGate = 105;
+		 public const ushort G2C_LoginGate = 106;
+		 public const ushort G2C_TestHotfixMessage = 107;
+		 public const ushort C2M_TestActorRequest = 108;
+		 public const ushort M2C_TestActorResponse = 109;
+		 public const ushort PlayerInfo = 110;
+		 public const ushort C2G_PlayerInfo = 111;
+		 public const ushort G2C_PlayerInfo = 112;
+		 public const ushort C2M_TestRequest = 113;
+		 public const ushort M2C_TestResponse = 114;
+		 public const ushort Actor_TransferRequest = 115;
+		 public const ushort Actor_TransferResponse = 116;
+		 public const ushort C2G_EnterMap = 117;
+		 public const ushort G2C_EnterMap = 118;
+		 public const ushort UnitInfo = 119;
+		 public const ushort M2C_CreateUnits = 120;
+		 public const ushort Frame_ClickMap = 121;
+		 public const ushort M2C_PathfindingResult = 122;
+		 public const ushort C2R_Ping = 123;
+		 public const ushort R2C_Ping = 124;
+		 public const ushort G2C_Test = 125;
+		 public const ushort C2M_Reload = 126;
+		 public const ushort M2C_Reload = 127;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
+			{CG_TEST, typeof(CG_TEST)},
+			{GC_TEST, typeof(GC_TEST)},
 			{C2R_Login, typeof(C2R_Login)},
 			{R2C_Login, typeof(R2C_Login)},
 			{C2G_LoginGate, typeof(C2G_LoginGate)},

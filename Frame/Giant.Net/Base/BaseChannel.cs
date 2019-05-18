@@ -19,7 +19,7 @@ namespace Giant.Net
 
         public ChannelType ChannelType { get; private set; }
 
-        public BaseService Service { get; private set; }
+        public BaseNetService Service { get; private set; }
 
         public abstract MemoryStream Stream { get; }
 
@@ -39,14 +39,14 @@ namespace Giant.Net
             remove { onReadCallback -= value; }
         }
 
-        public BaseChannel(BaseService service, ChannelType type)
+        public BaseChannel(BaseNetService service, ChannelType type)
         {
             this.InstanceId = IdGenerator.NewId;
             this.ChannelType = type;
             this.Service = service;
         }
 
-        public BaseChannel(long id, BaseService service, ChannelType type)
+        public BaseChannel(long id, BaseNetService service, ChannelType type)
         {
             this.ChannelType = type;
             this.Service = service;

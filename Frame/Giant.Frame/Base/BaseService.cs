@@ -1,5 +1,8 @@
 ﻿using Giant.Log;
+using Giant.Msg;
+using Giant.Net;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -28,6 +31,9 @@ namespace Giant.Frame
             return false;
         }
 
+        public NetworkService NetworkService { get; protected set; }
+
+
 
         public virtual void Init()
         {
@@ -40,11 +46,22 @@ namespace Giant.Frame
 
         }
 
+        public virtual void BindResponser()
+        {
+        }
+
+        public void AddResponser(ushort opcode, Action<Session, IMessage> action)
+        {
+            this.NetworkService.MessageDispatcher.RegisterHandler(opcode, action);
+        }
+
         public virtual void Update()
         {
             try
             {
                 OneThreadSynchronizationContext.Instance.Update();
+
+                this.NetworkService.Update();
             }
             catch (Exception ex)
             {

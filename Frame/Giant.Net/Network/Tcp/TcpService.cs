@@ -1,14 +1,13 @@
-﻿using System;
+﻿using Microsoft.IO;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using Microsoft.IO;
 
 namespace Giant.Net
 {
 
-    public class TcpService : BaseService
+    public class TcpService : BaseNetService
     {
         private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
         public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();

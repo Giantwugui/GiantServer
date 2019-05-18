@@ -17,7 +17,6 @@
         public DBService(DataBaseType dbType, int taskCount = 1)
         {
             this.dbType = dbType;
-
             this.TaskPool = new DBTaskPool(taskCount);
             this.TaskPool.Start();
         }

@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Server.App
 {
-    partial class Program
+    class Program
     {
         static Service Service;
 

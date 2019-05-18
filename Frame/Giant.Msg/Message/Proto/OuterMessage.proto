@@ -1,6 +1,18 @@
 syntax = "proto3";
 package Giant.Msg;
 
+message CG_TEST // IRequest
+{
+	int32 RpcId = 90;
+	string	TestContent	 = 1;	// 测试数据
+}
+
+message GC_TEST // IResponse
+{
+	int32 RpcId = 90;
+	int32 Result	 = 1;	
+}
+
 message C2R_Login // IRequest
 {
 	int32 RpcId = 90;
