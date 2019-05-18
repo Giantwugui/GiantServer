@@ -10,17 +10,18 @@ message CG_TEST // IRequest
 message GC_TEST // IResponse
 {
 	int32 RpcId = 90;
-	int32 Result	 = 1;	
+	int32 Error = 91;
+	string Message = 92;
 }
 
-message C2R_Login // IRequest
+message C2R_LOGIN // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	string	Password = 2;	// 密码
 }
 
-message R2C_Login // IResponse
+message R2C_LOGIN // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -29,13 +30,13 @@ message R2C_Login // IResponse
 	int64 Key	    = 2;
 }
 
-message C2G_LoginGate // IRequest
+message CG_LOGIN // IRequest
 {
 	int32 RpcId = 90;
 	int64 Key = 1;	// 帐号
 }
 
-message G2C_LoginGate // IResponse
+message GC_LOGIN // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

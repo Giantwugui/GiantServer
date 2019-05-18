@@ -7,7 +7,7 @@ namespace Giant.Net
     public class MessageDispatcher
     {
         public readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
-        public readonly Dictionary<ushort, Action<Session, IMessage>> Handlers = new Dictionary<ushort, Action<Session, IMessage>>();
+        public readonly Dictionary<ushort, IMHandler> Handlers = new Dictionary<ushort, IMHandler>();
 
         public MessageDispatcher()
         {
@@ -15,16 +15,21 @@ namespace Giant.Net
             opcodeTypes.AddRange(OuterOpcode.Opcode2Types);
         }
 
-        public void RegisterHandler(ushort opcode, Action<Session, IMessage> response)
+        public void RegisterHandler(ushort opcode, IMHandler handler)
         {
-            Handlers.Add(opcode, response);
+            Handlers.Add(opcode, handler);
+        }
+
+        public void RegisterHandler(IMHandler handler)
+        {
+            Handlers.Add(GetOpcode(handler.GetMessageType()), handler);
         }
 
         public void Dispatch(Session session, ushort id, IMessage message)
         {
-            if (Handlers.TryGetValue(id, out var action))
+            if (Handlers.TryGetValue(id, out IMHandler handler))
             {
-                action(session, message);
+                handler.Handle(session, message);
             }
         }
 

@@ -1,10 +1,9 @@
-﻿using Giant.Frame;
+﻿using Giant.DB;
+using Giant.Frame;
 using Giant.Log;
-using Giant.Share;
-using Giant.DB;
 using Giant.Net;
-using System;
-using System.IO;
+using Giant.Share;
+using System.Reflection;
 
 namespace Server.App
 {
@@ -26,7 +25,7 @@ namespace Server.App
             this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
 
             //绑定消息响应
-            BindResponser();
+            BindResponser(Assembly.GetExecutingAssembly());
 
             ConsoleReader.Instance.Start(DoCmd);
         }

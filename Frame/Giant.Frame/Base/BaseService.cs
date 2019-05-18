@@ -1,8 +1,7 @@
 ﻿using Giant.Log;
-using Giant.Msg;
 using Giant.Net;
 using System;
-using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -46,15 +45,6 @@ namespace Giant.Frame
 
         }
 
-        public virtual void BindResponser()
-        {
-        }
-
-        public void AddResponser(ushort opcode, Action<Session, IMessage> action)
-        {
-            this.NetworkService.MessageDispatcher.RegisterHandler(opcode, action);
-        }
-
         public virtual void Update()
         {
             try
@@ -66,6 +56,27 @@ namespace Giant.Frame
             catch (Exception ex)
             {
                 Logger.Error(ex);
+            }
+        }
+
+        /// <summary>
+        /// 自动注册消息处理调用
+        /// </summary>
+        protected void BindResponser(Assembly assembly)
+        {
+            Type handlerType = typeof(MessageHandlerAttribute);
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                Attribute attribute = type.GetCustomAttribute(handlerType);
+                if (attribute == null)
+                {
+                    continue;
+                }
+
+                IMHandler handler = Activator.CreateInstance(type) as IMHandler;
+
+                this.NetworkService.MessageDispatcher.RegisterHandler(handler);
             }
         }
 

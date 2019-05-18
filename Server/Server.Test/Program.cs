@@ -1,6 +1,8 @@
 ﻿using Giant.Frame;
 using System;
 using System.Threading;
+using System.Reflection;
+using Giant.Msg;
 
 namespace Server.Test
 {
@@ -8,18 +10,25 @@ namespace Server.Test
     {
         static void Main(string[] args)
         {
-            //所有异步回调到主线程
-            SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
+            try
+            {
+                //所有异步回调到主线程
+                SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
-            Test_Mongo mongo_test = new Test_Mongo();
-            mongo_test.Init();
-            mongo_test.TestMongo();
+                //Test_Mongo mongo_test = new Test_Mongo();
+                //mongo_test.Init();
+                //mongo_test.TestMongo();
 
-            //Test_MySql test_MySql = new Test_MySql();
-            //test_MySql.Init();
-            //test_MySql.Test();
+                //Test_MySql test_MySql = new Test_MySql();
+                //test_MySql.Init();
+                //test_MySql.Test();
 
-            Console.WriteLine("Server.Test start complate");
+                Console.WriteLine("Server.Test start complate");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
 
             while (true)
             {

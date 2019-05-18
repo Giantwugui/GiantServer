@@ -8,17 +8,17 @@ namespace Giant.Msg
 	[Message(OuterOpcode.GC_TEST)]
 	public partial class GC_TEST : IResponse {}
 
-	[Message(OuterOpcode.C2R_Login)]
-	public partial class C2R_Login : IRequest {}
+	[Message(OuterOpcode.C2R_LOGIN)]
+	public partial class C2R_LOGIN : IRequest {}
 
-	[Message(OuterOpcode.R2C_Login)]
-	public partial class R2C_Login : IResponse {}
+	[Message(OuterOpcode.R2C_LOGIN)]
+	public partial class R2C_LOGIN : IResponse {}
 
-	[Message(OuterOpcode.C2G_LoginGate)]
-	public partial class C2G_LoginGate : IRequest {}
+	[Message(OuterOpcode.CG_LOGIN)]
+	public partial class CG_LOGIN : IRequest {}
 
-	[Message(OuterOpcode.G2C_LoginGate)]
-	public partial class G2C_LoginGate : IResponse {}
+	[Message(OuterOpcode.GC_LOGIN)]
+	public partial class GC_LOGIN : IResponse {}
 
 	[Message(OuterOpcode.G2C_TestHotfixMessage)]
 	public partial class G2C_TestHotfixMessage : IMessage {}
@@ -92,10 +92,10 @@ namespace Giant.Msg
 	{
 		 public const ushort CG_TEST = 101;
 		 public const ushort GC_TEST = 102;
-		 public const ushort C2R_Login = 103;
-		 public const ushort R2C_Login = 104;
-		 public const ushort C2G_LoginGate = 105;
-		 public const ushort G2C_LoginGate = 106;
+		 public const ushort C2R_LOGIN = 103;
+		 public const ushort R2C_LOGIN = 104;
+		 public const ushort CG_LOGIN = 105;
+		 public const ushort GC_LOGIN = 106;
 		 public const ushort G2C_TestHotfixMessage = 107;
 		 public const ushort C2M_TestActorRequest = 108;
 		 public const ushort M2C_TestActorResponse = 109;
@@ -122,10 +122,10 @@ namespace Giant.Msg
 		{
 			{CG_TEST, typeof(CG_TEST)},
 			{GC_TEST, typeof(GC_TEST)},
-			{C2R_Login, typeof(C2R_Login)},
-			{R2C_Login, typeof(R2C_Login)},
-			{C2G_LoginGate, typeof(C2G_LoginGate)},
-			{G2C_LoginGate, typeof(G2C_LoginGate)},
+			{C2R_LOGIN, typeof(C2R_LOGIN)},
+			{R2C_LOGIN, typeof(R2C_LOGIN)},
+			{CG_LOGIN, typeof(CG_LOGIN)},
+			{GC_LOGIN, typeof(GC_LOGIN)},
 			{G2C_TestHotfixMessage, typeof(G2C_TestHotfixMessage)},
 			{C2M_TestActorRequest, typeof(C2M_TestActorRequest)},
 			{M2C_TestActorResponse, typeof(M2C_TestActorResponse)},
