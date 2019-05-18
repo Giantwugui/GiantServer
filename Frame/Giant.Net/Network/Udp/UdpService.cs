@@ -1,5 +1,4 @@
 ﻿using Giant.Log;
-using Giant.Share;
 using Microsoft.IO;
 using System;
 using System.Collections.Generic;

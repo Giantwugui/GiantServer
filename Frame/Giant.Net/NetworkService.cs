@@ -1,9 +1,9 @@
-﻿using Giant.Share;
+﻿using Giant.Log;
+using Giant.Msg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Giant.Log;
 
 namespace Giant.Net
 {
