@@ -24,4 +24,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="F:\GiantFrame\Proto\Proto2CS.bat" />
+  </Target>
+
 </Project>

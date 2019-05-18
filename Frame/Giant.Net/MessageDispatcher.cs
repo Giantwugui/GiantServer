@@ -1,4 +1,5 @@
 ﻿using Giant.Msg;
+using Giant.Log;
 using System;
 using System.Collections.Generic;
 
@@ -15,21 +16,20 @@ namespace Giant.Net
             opcodeTypes.AddRange(OuterOpcode.Opcode2Types);
         }
 
-        public void RegisterHandler(ushort opcode, IMHandler handler)
-        {
-            Handlers.Add(opcode, handler);
-        }
-
         public void RegisterHandler(IMHandler handler)
         {
             Handlers.Add(GetOpcode(handler.GetMessageType()), handler);
         }
 
-        public void Dispatch(Session session, ushort id, IMessage message)
+        public void Dispatch(Session session, ushort opcode, IMessage message)
         {
-            if (Handlers.TryGetValue(id, out IMHandler handler))
+            if (Handlers.TryGetValue(opcode, out IMHandler handler))
             {
                 handler.Handle(session, message);
+            }
+            else
+            {
+                Logger.Error($"Can not find the handler mathord opcode {opcode} message type {message.GetType()}");
             }
         }
 
@@ -37,7 +37,7 @@ namespace Giant.Net
         {
             if (!opcodeTypes.TryGetKey(type, out ushort opcode))
             {
-                throw new Exception($"Error GetOpcodeMessageType  Have not this type {type.Name} dispatch message type");
+                Logger.Error($"Error GetOpcodeMessageType  Have not this type {type.Name} dispatch message type");
             }
 
             return opcode;
@@ -47,7 +47,7 @@ namespace Giant.Net
         {
             if(!opcodeTypes.TryGetValue(opcode, out var type))
             {
-                throw new Exception($"Error GetOpcodeMessageType  Have not this opcode {opcode} dispatch message type");
+                Logger.Error($"Error GetOpcodeMessageType  Have not this opcode {opcode} dispatch message type");
             }
 
             return type;

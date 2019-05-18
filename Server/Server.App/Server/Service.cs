@@ -15,6 +15,8 @@ namespace Server.App
 
         public override void Init()
         {
+            this.ServerType = ServerType.Gate;
+
             //框架的各种初始化工作
             base.Init();
 

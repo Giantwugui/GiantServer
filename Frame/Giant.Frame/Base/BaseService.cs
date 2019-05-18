@@ -32,6 +32,8 @@ namespace Giant.Frame
 
         public NetworkService NetworkService { get; protected set; }
 
+        public ServerType ServerType { get; set; }
+
 
 
         public virtual void Init()

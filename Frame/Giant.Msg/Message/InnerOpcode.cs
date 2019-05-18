@@ -2,152 +2,47 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
-	[Message(InnerOpcode.M2M_TrasferUnitResponse)]
-	public partial class M2M_TrasferUnitResponse : IResponse {}
+	[Message(InnerOpcode.MA_Reload)]
+	public partial class MA_Reload : IRequest {}
 
-	[Message(InnerOpcode.M2A_Reload)]
-	public partial class M2A_Reload : IRequest {}
+	[Message(InnerOpcode.RG_GetLoginKey)]
+	public partial class RG_GetLoginKey : IRequest {}
 
-	[Message(InnerOpcode.A2M_Reload)]
-	public partial class A2M_Reload : IResponse {}
+	[Message(InnerOpcode.GR_GetLoginKey)]
+	public partial class GR_GetLoginKey : IResponse {}
 
-	[Message(InnerOpcode.G2G_LockRequest)]
-	public partial class G2G_LockRequest : IRequest {}
+	[Message(InnerOpcode.GM_CreateUnit)]
+	public partial class GM_CreateUnit : IRequest {}
 
-	[Message(InnerOpcode.G2G_LockResponse)]
-	public partial class G2G_LockResponse : IResponse {}
-
-	[Message(InnerOpcode.G2G_LockReleaseRequest)]
-	public partial class G2G_LockReleaseRequest : IRequest {}
-
-	[Message(InnerOpcode.G2G_LockReleaseResponse)]
-	public partial class G2G_LockReleaseResponse : IResponse {}
-
-	[Message(InnerOpcode.DBSaveBatchResponse)]
-	public partial class DBSaveBatchResponse : IResponse {}
-
-	[Message(InnerOpcode.DBSaveResponse)]
-	public partial class DBSaveResponse : IResponse {}
-
-	[Message(InnerOpcode.DBQueryRequest)]
-	public partial class DBQueryRequest : IRequest {}
-
-	[Message(InnerOpcode.DBQueryBatchRequest)]
-	public partial class DBQueryBatchRequest : IRequest {}
-
-	[Message(InnerOpcode.DBQueryJsonRequest)]
-	public partial class DBQueryJsonRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectAddRequest)]
-	public partial class ObjectAddRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectAddResponse)]
-	public partial class ObjectAddResponse : IResponse {}
-
-	[Message(InnerOpcode.ObjectRemoveRequest)]
-	public partial class ObjectRemoveRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectRemoveResponse)]
-	public partial class ObjectRemoveResponse : IResponse {}
-
-	[Message(InnerOpcode.ObjectLockRequest)]
-	public partial class ObjectLockRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectLockResponse)]
-	public partial class ObjectLockResponse : IResponse {}
-
-	[Message(InnerOpcode.ObjectUnLockRequest)]
-	public partial class ObjectUnLockRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectUnLockResponse)]
-	public partial class ObjectUnLockResponse : IResponse {}
-
-	[Message(InnerOpcode.ObjectGetRequest)]
-	public partial class ObjectGetRequest : IRequest {}
-
-	[Message(InnerOpcode.ObjectGetResponse)]
-	public partial class ObjectGetResponse : IResponse {}
-
-	[Message(InnerOpcode.R2G_GetLoginKey)]
-	public partial class R2G_GetLoginKey : IRequest {}
-
-	[Message(InnerOpcode.G2R_GetLoginKey)]
-	public partial class G2R_GetLoginKey : IResponse {}
-
-	[Message(InnerOpcode.G2M_CreateUnit)]
-	public partial class G2M_CreateUnit : IRequest {}
-
-	[Message(InnerOpcode.M2G_CreateUnit)]
-	public partial class M2G_CreateUnit : IResponse {}
+	[Message(InnerOpcode.MG_CreateUnit)]
+	public partial class MG_CreateUnit : IResponse {}
 
 // 自己的unit id
 // 所有的unit
 //repeated UnitInfo Units = 2;
-	[Message(InnerOpcode.G2M_SessionDisconnect)]
-	public partial class G2M_SessionDisconnect : IActorLocationMessage {}
+	[Message(InnerOpcode.GM_SessionDisconnect)]
+	public partial class GM_SessionDisconnect : IActorLocationMessage {}
 
 }
 namespace Giant.Msg
 {
 	public static partial class InnerOpcode
 	{
-		 public const ushort M2M_TrasferUnitResponse = 1001;
-		 public const ushort M2A_Reload = 1002;
-		 public const ushort A2M_Reload = 1003;
-		 public const ushort G2G_LockRequest = 1004;
-		 public const ushort G2G_LockResponse = 1005;
-		 public const ushort G2G_LockReleaseRequest = 1006;
-		 public const ushort G2G_LockReleaseResponse = 1007;
-		 public const ushort DBSaveBatchResponse = 1008;
-		 public const ushort DBSaveResponse = 1009;
-		 public const ushort DBQueryRequest = 1010;
-		 public const ushort DBQueryBatchRequest = 1011;
-		 public const ushort DBQueryJsonRequest = 1012;
-		 public const ushort ObjectAddRequest = 1013;
-		 public const ushort ObjectAddResponse = 1014;
-		 public const ushort ObjectRemoveRequest = 1015;
-		 public const ushort ObjectRemoveResponse = 1016;
-		 public const ushort ObjectLockRequest = 1017;
-		 public const ushort ObjectLockResponse = 1018;
-		 public const ushort ObjectUnLockRequest = 1019;
-		 public const ushort ObjectUnLockResponse = 1020;
-		 public const ushort ObjectGetRequest = 1021;
-		 public const ushort ObjectGetResponse = 1022;
-		 public const ushort R2G_GetLoginKey = 1023;
-		 public const ushort G2R_GetLoginKey = 1024;
-		 public const ushort G2M_CreateUnit = 1025;
-		 public const ushort M2G_CreateUnit = 1026;
-		 public const ushort G2M_SessionDisconnect = 1027;
+		 public const ushort MA_Reload = 1001;
+		 public const ushort RG_GetLoginKey = 1002;
+		 public const ushort GR_GetLoginKey = 1003;
+		 public const ushort GM_CreateUnit = 1004;
+		 public const ushort MG_CreateUnit = 1005;
+		 public const ushort GM_SessionDisconnect = 1006;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
-			{M2M_TrasferUnitResponse, typeof(M2M_TrasferUnitResponse)},
-			{M2A_Reload, typeof(M2A_Reload)},
-			{A2M_Reload, typeof(A2M_Reload)},
-			{G2G_LockRequest, typeof(G2G_LockRequest)},
-			{G2G_LockResponse, typeof(G2G_LockResponse)},
-			{G2G_LockReleaseRequest, typeof(G2G_LockReleaseRequest)},
-			{G2G_LockReleaseResponse, typeof(G2G_LockReleaseResponse)},
-			{DBSaveBatchResponse, typeof(DBSaveBatchResponse)},
-			{DBSaveResponse, typeof(DBSaveResponse)},
-			{DBQueryRequest, typeof(DBQueryRequest)},
-			{DBQueryBatchRequest, typeof(DBQueryBatchRequest)},
-			{DBQueryJsonRequest, typeof(DBQueryJsonRequest)},
-			{ObjectAddRequest, typeof(ObjectAddRequest)},
-			{ObjectAddResponse, typeof(ObjectAddResponse)},
-			{ObjectRemoveRequest, typeof(ObjectRemoveRequest)},
-			{ObjectRemoveResponse, typeof(ObjectRemoveResponse)},
-			{ObjectLockRequest, typeof(ObjectLockRequest)},
-			{ObjectLockResponse, typeof(ObjectLockResponse)},
-			{ObjectUnLockRequest, typeof(ObjectUnLockRequest)},
-			{ObjectUnLockResponse, typeof(ObjectUnLockResponse)},
-			{ObjectGetRequest, typeof(ObjectGetRequest)},
-			{ObjectGetResponse, typeof(ObjectGetResponse)},
-			{R2G_GetLoginKey, typeof(R2G_GetLoginKey)},
-			{G2R_GetLoginKey, typeof(G2R_GetLoginKey)},
-			{G2M_CreateUnit, typeof(G2M_CreateUnit)},
-			{M2G_CreateUnit, typeof(M2G_CreateUnit)},
-			{G2M_SessionDisconnect, typeof(G2M_SessionDisconnect)},
+			{MA_Reload, typeof(MA_Reload)},
+			{RG_GetLoginKey, typeof(RG_GetLoginKey)},
+			{GR_GetLoginKey, typeof(GR_GetLoginKey)},
+			{GM_CreateUnit, typeof(GM_CreateUnit)},
+			{MG_CreateUnit, typeof(MG_CreateUnit)},
+			{GM_SessionDisconnect, typeof(GM_SessionDisconnect)},
 		};
 	}
 }
