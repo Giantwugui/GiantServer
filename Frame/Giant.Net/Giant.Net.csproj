@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Compile Remove="Base\ISession.cs" />
-    <Compile Remove="Udp\UdpAsync.cs" />
+    <Compile Remove="Network\Udp\UdpAsync.cs" />
   </ItemGroup>
 
   <ItemGroup>
