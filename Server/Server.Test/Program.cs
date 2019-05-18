@@ -13,6 +13,11 @@ namespace Server.Test
     {
         static void Main(string[] args)
         {
+            long left = 1,right = 2;
+            long result = (left << 48) + (right << 16);//1000000000000000000000000000000100000000000000000
+
+
+
             //所有异步回调到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 

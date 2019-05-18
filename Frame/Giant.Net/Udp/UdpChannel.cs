@@ -67,7 +67,7 @@ namespace Giant.Net
 
             byte[] content = new byte[stream.Length + 9];
             content.WriteTo(0, UdpChannelState.MSG);
-            content.WriteTo(1, Id);
+            content.WriteTo(1, InstanceId);
             content.WriteTo(5, RemoteUdp);
 
             Array.Copy(stream.GetBuffer(), stream.Position, content, 9, stream.Length);
@@ -82,7 +82,7 @@ namespace Giant.Net
         {
             byte[] content = new byte[5];
             content.WriteTo(0, UdpChannelState.SYN);
-            content.WriteTo(1, Id);
+            content.WriteTo(1, InstanceId);
 
             SendTo(content);
         }
@@ -104,7 +104,7 @@ namespace Giant.Net
 
             byte[] content = new byte[9];
             content.WriteTo(0, UdpChannelState.FIN);
-            content.WriteTo(1, Id);
+            content.WriteTo(1, InstanceId);
             content.WriteTo(5, RemoteUdp);
             SendTo(content);
         }
@@ -116,7 +116,7 @@ namespace Giant.Net
         {
             byte[] content = new byte[9];
             content.WriteTo(0, UdpChannelState.ACK);
-            content.WriteTo(1, Id);
+            content.WriteTo(1, InstanceId);
             content.WriteTo(5, RemoteUdp);
 
             SendTo(content);

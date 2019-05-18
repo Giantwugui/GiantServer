@@ -46,7 +46,7 @@ namespace Giant.Net
 
                 this.Accept(channel);
 
-                channels[channel.Id] = channel;
+                channels[channel.InstanceId] = channel;
 
                 AcceptAsync();
             }

@@ -88,7 +88,7 @@ namespace Giant.Net
         {
             TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, endPoint, this);
 
-            channels[channel.Id] = channel;
+            channels[channel.InstanceId] = channel;
 
             return channel;
         }
@@ -125,7 +125,7 @@ namespace Giant.Net
             {
                 TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, eventArgs.AcceptSocket, this);
 
-                channels[channel.Id] = channel;
+                channels[channel.InstanceId] = channel;
 
                 this.Accept(channel);
             }

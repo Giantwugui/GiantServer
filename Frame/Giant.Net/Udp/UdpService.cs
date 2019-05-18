@@ -18,6 +18,7 @@ namespace Giant.Net
 
     public class UdpService : BaseService
     {
+        private uint genetareId = 0;
         private const ushort contentLength = ushort.MaxValue;//最大发送消息长度
         public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();
 
@@ -99,7 +100,7 @@ namespace Giant.Net
         /// <returns></returns>
         public override BaseChannel CreateChannel(IPEndPoint endPoint)
         {
-            uint udpId = IdGenerator.NewId;
+            uint udpId = ++genetareId;
 
             if (channels.TryGetValue(udpId, out UdpChannel channel))
             {
@@ -152,11 +153,11 @@ namespace Giant.Net
                                     waitConnectClients.Remove(remoteUdp);
                                 }
 
-                                channel = new UdpChannel(IdGenerator.NewId, remoteUdp, this.Socket, (IPEndPoint)remoteIPEndPoint, this);
+                                channel = new UdpChannel(++genetareId, remoteUdp, this.Socket, (IPEndPoint)remoteIPEndPoint, this);
 
                                 remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
-                                channels[channel.Id] = channel;
+                                channels[channel.InstanceId] = channel;
                                 waitConnectClients[channel.RemoteUdp] = channel;
 
                                 this.Accept(channel);
@@ -205,7 +206,7 @@ namespace Giant.Net
                                     else
                                     {
                                         channel.Dispose();
-                                        channels.Remove(channel.Id);
+                                        channels.Remove(channel.InstanceId);
                                     }
                                 }
 
@@ -229,7 +230,7 @@ namespace Giant.Net
                                     if (channel.RemoteUdp == remoteUdp)
                                     {
                                         channel.Dispose();
-                                        channels.Remove(channel.Id);
+                                        channels.Remove(channel.InstanceId);
                                         waitConnectClients.Remove(channel.RemoteUdp);
                                     }
                                 }

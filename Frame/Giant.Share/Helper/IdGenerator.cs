@@ -4,17 +4,8 @@ namespace Giant.Share
 {
     public class IdGenerator
     {
-        private static int startId = -1;
+        private static int startId;
         private static string timePrefix = "";
-        private static uint uintIdStart = ((uint)1) << 31;
-
-        /// <summary>
-        /// 重启失效
-        /// </summary>
-        public static uint NewId
-        {
-            get { return ++uintIdStart; }
-        }
 
         /// <summary>
         /// 年月日时分服务器id和自增id组合的19位id,
@@ -23,22 +14,20 @@ namespace Giant.Share
         /// <para>启动程序后，重复周期是 10 年,</para>
         /// <para>上一次启动和下一次启动之间重启周期是1分钟</para>
         /// </summary>
-        public static long LongId
+        public static long NewId
         {
             get
             {
-                string datekey = DateTime.Now.ToString("yyyyMMddHHmmss").Substring(3);
-                lock (timePrefix)
+                string datekey = TimeHelper.Now.ToString("yyyyMMddHHmmss").Substring(3);
+                if (!timePrefix.Equals(datekey))
                 {
-                    if (!timePrefix.Equals(datekey))
-                    {
-                        timePrefix = datekey;
-                        startId = -1;
-                    }
+                    timePrefix = datekey;
+                    startId = 0;
                 }
 
                 return Convert.ToInt64(datekey + startId.ToString().PadLeft(8, '0'));
             }
         }
+
     }
 }

@@ -15,7 +15,7 @@ namespace Giant.Net
     /// </summary>
     public abstract class BaseChannel: IDisposable
     {
-        public long Id { get; private set; }
+        public long InstanceId { get; private set; }
 
         public ChannelType ChannelType { get; private set; }
 
@@ -41,7 +41,7 @@ namespace Giant.Net
 
         public BaseChannel(BaseService service, ChannelType type)
         {
-            this.Id = IdGenerator.LongId;
+            this.InstanceId = IdGenerator.NewId;
             this.ChannelType = type;
             this.Service = service;
         }
@@ -68,7 +68,7 @@ namespace Giant.Net
 
         public virtual void Dispose()
         {
-            this.Service.Remove(this.Id);
+            this.Service.Remove(this.InstanceId);
         }
 
 

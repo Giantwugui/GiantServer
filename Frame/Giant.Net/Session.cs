@@ -22,7 +22,7 @@ namespace Giant.Net
 
         public Session(NetworkService networkService, BaseChannel baseChannel)
         {
-            Id = baseChannel.Id;
+            Id = baseChannel.InstanceId;
             NetworkService = networkService;
             this.channel = baseChannel;
 
