@@ -19,7 +19,7 @@ namespace Giant.Net
 		public const int MessageIndex = 2;
 	}
 
-	public class PacketParser
+	public class PacketPacker
 	{
 		private bool isOK;
 		private int packetSize;
@@ -28,7 +28,7 @@ namespace Giant.Net
         private readonly int packetSizeLength;
         private MemoryStream memoryStream;
 
-        public PacketParser(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
+        public PacketPacker(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
 		{
 			this.buffer = buffer;
             this.memoryStream = memoryStream;

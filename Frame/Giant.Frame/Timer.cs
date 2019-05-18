@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.Collections.Generic;
 
-namespace Giant.Share
+namespace Giant.Frame
 {
     public class TimerInfo
     {
@@ -15,7 +16,7 @@ namespace Giant.Share
         private long timerId = 0;
         private long MinTime = 0;//最近过期时间
         private Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
-        private SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
+        private readonly SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
 
         public Queue<long> outOfTime = new Queue<long>();
         public Queue<long> outOfTimeIds = new Queue<long>();

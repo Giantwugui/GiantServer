@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Giant.Frame
+namespace Giant.Share
 {
     public class CoroutineItem
     {

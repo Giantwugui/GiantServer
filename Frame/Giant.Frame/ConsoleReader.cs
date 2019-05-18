@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Giant.Share
+namespace Giant.Frame
 {
     public class ConsoleReader
     {

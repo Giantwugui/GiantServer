@@ -13,7 +13,7 @@ namespace Giant.Net
         private readonly IPEndPoint ipEndPoint;
         private readonly byte[] packetSizeCache;
 
-        private readonly PacketParser parser;
+        private readonly PacketPacker parser;
         private readonly MemoryStream memoryStream;
         private readonly CircularBuffer recvBuffer = new CircularBuffer();//接收消息临时缓冲区
         private readonly CircularBuffer sendBuffer = new CircularBuffer();//发送消息临时缓冲区
@@ -38,7 +38,7 @@ namespace Giant.Net
 
             this.packetSizeCache = new byte[service.PacketSizeLength];
             this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
+            this.parser = new PacketPacker(packetSize, this.recvBuffer, this.memoryStream);
         }
 
         public TcpChannel(int packetSize, IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
@@ -52,7 +52,7 @@ namespace Giant.Net
 
             this.packetSizeCache = new byte[service.PacketSizeLength];
             this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.parser = new PacketParser(packetSize, this.recvBuffer, this.memoryStream);
+            this.parser = new PacketPacker(packetSize, this.recvBuffer, this.memoryStream);
 
             this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
