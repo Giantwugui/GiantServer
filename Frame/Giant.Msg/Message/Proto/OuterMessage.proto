@@ -199,3 +199,9 @@ message MC_Reload // IResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+
+message ZGC_Broadcast // IMessage
+{
+	int32 RpcId = 90;
+	int32 Uid = 1;
+}

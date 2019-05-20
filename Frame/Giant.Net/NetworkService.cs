@@ -39,6 +39,7 @@ namespace Giant.Net
         {
             this.networkType = network;
             this.MessageDispatcher = new MessageDispatcher();
+            this.MessageParser = new ProtoPacker();
 
             Init(address);
         }

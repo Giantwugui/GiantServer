@@ -60,27 +60,5 @@ namespace Giant.Frame
                 Logger.Error(ex);
             }
         }
-
-        /// <summary>
-        /// 自动注册消息处理调用
-        /// </summary>
-        protected void BindResponser(Assembly assembly)
-        {
-            Type handlerType = typeof(MessageHandlerAttribute);
-            var types = assembly.GetTypes();
-            foreach (var type in types)
-            {
-                Attribute attribute = type.GetCustomAttribute(handlerType);
-                if (attribute == null)
-                {
-                    continue;
-                }
-
-                IMHandler handler = Activator.CreateInstance(type) as IMHandler;
-
-                this.NetworkService.MessageDispatcher.RegisterHandler(handler);
-            }
-        }
-
     }
 }

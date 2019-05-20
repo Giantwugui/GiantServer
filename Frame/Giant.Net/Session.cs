@@ -104,10 +104,10 @@ namespace Giant.Net
 
             if (message is IResponse response)
             {
-                if (responseCallback.TryGetValue(opcode, out var action))
+                if (responseCallback.TryGetValue(response.RpcId, out var action))
                 {
                     action(response);
-                    responseCallback.Remove(opcode);
+                    responseCallback.Remove(response.RpcId);
                 }
             }
             else

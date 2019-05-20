@@ -26,9 +26,6 @@ namespace Server.App
             //网络服务
             this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
 
-            //绑定消息响应
-            BindResponser(Assembly.GetExecutingAssembly());
-
             ConsoleReader.Instance.Start(DoCmd);
         }
 

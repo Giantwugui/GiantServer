@@ -82,6 +82,9 @@ namespace Giant.Msg
 	[Message(OuterOpcode.MC_Reload)]
 	public partial class MC_Reload : IResponse {}
 
+	[Message(OuterOpcode.ZGC_Broadcast)]
+	public partial class ZGC_Broadcast : IMessage {}
+
 }
 namespace Giant.Msg
 {
@@ -113,6 +116,7 @@ namespace Giant.Msg
 		 public const ushort RC_Ping = 124;
 		 public const ushort CM_Reload = 125;
 		 public const ushort MC_Reload = 126;
+		 public const ushort ZGC_Broadcast = 127;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
@@ -142,6 +146,7 @@ namespace Giant.Msg
 			{RC_Ping, typeof(RC_Ping)},
 			{CM_Reload, typeof(CM_Reload)},
 			{MC_Reload, typeof(MC_Reload)},
+			{ZGC_Broadcast, typeof(ZGC_Broadcast)},
 		};
 	}
 }

@@ -66,7 +66,8 @@ namespace Giant.Msg {
             "cnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJIj0KCUNNX1JlbG9hZBINCgVS",
             "cGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJEhAKCFBhc3N3b3JkGAIgASgJ",
             "IjoKCU1DX1JlbG9hZBINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIP",
-            "CgdNZXNzYWdlGFwgASgJYgZwcm90bzM="));
+            "CgdNZXNzYWdlGFwgASgJIisKDVpHQ19Ccm9hZGNhc3QSDQoFUnBjSWQYWiAB",
+            "KAUSCwoDVWlkGAEgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -95,7 +96,8 @@ namespace Giant.Msg {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CR_Ping), global::Giant.Msg.CR_Ping.Parser, new[]{ "RpcId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RC_Ping), global::Giant.Msg.RC_Ping.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CM_Reload), global::Giant.Msg.CM_Reload.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.MC_Reload), global::Giant.Msg.MC_Reload.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.MC_Reload), global::Giant.Msg.MC_Reload.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.ZGC_Broadcast), global::Giant.Msg.ZGC_Broadcast.Parser, new[]{ "RpcId", "Uid" }, null, null, null)
           }));
     }
     #endregion
@@ -5113,6 +5115,163 @@ namespace Giant.Msg {
           }
           case 738: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ZGC_Broadcast : pb::IMessage<ZGC_Broadcast> {
+    private static readonly pb::MessageParser<ZGC_Broadcast> _parser = new pb::MessageParser<ZGC_Broadcast>(() => new ZGC_Broadcast());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ZGC_Broadcast> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[26]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ZGC_Broadcast() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ZGC_Broadcast(ZGC_Broadcast other) : this() {
+      rpcId_ = other.rpcId_;
+      uid_ = other.uid_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ZGC_Broadcast Clone() {
+      return new ZGC_Broadcast(this);
+    }
+
+    /// <summary>Field number for the "RpcId" field.</summary>
+    public const int RpcIdFieldNumber = 90;
+    private int rpcId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Uid" field.</summary>
+    public const int UidFieldNumber = 1;
+    private int uid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Uid {
+      get { return uid_; }
+      set {
+        uid_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ZGC_Broadcast);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ZGC_Broadcast other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RpcId != other.RpcId) return false;
+      if (Uid != other.Uid) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (Uid != 0) hash ^= Uid.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Uid != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Uid);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Uid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Uid);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ZGC_Broadcast other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RpcId != 0) {
+        RpcId = other.RpcId;
+      }
+      if (other.Uid != 0) {
+        Uid = other.Uid;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Uid = input.ReadInt32();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
             break;
           }
         }

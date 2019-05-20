@@ -4,6 +4,7 @@ namespace Giant.Net
 {
     public enum ServerType
     {
+        Client = 0,
         Gate = 1,
     }
 
