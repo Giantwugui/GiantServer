@@ -7,31 +7,40 @@ namespace Giant.Net
 	{
 		Type GetMessageType();
 
-		void Handle(Session session, IMessage message);
+		void Handle(Session session, object message);
     }
 
-    public abstract class MHandler<T> : IMHandler where T : class
+    //通知类消息
+    public abstract class MHandler<Message> : IMHandler where Message : class
     {
+        public abstract void Run(Session session, Message message);
+
         public Type GetMessageType()
         {
-            return typeof(T);
+            return typeof(Message);
         }
 
-        public abstract void Handle(Session session, IMessage message);
+        public void Handle(Session session, object message)
+        {
+            Message msg = message as Message;
+
+            this.Run(session, msg);
+        }
     }
 
-    public abstract class MRpcHandler<Request, Response> : IMHandler where Request : IRequest where Response : IResponse
+    //请求响应类消息
+    public abstract class MRpcHandler<Request, Response> : IMHandler where Request : class, IRequest where Response : class, IResponse
     {
-        public abstract void Run(Session session, IRequest message, Action<Response> reply);
+        public abstract void Run(Session session, Request request, Action<Response> reply);
 
         public Type GetMessageType()
         {
             return typeof(Request);
         }
 
-        public void Handle(Session session, IMessage message)
+        public void Handle(Session session, object message)
         {
-            IRequest request = message as IRequest;
+            Request request = message as Request;
 
             this.Run(session, request, (Response response) =>
             {

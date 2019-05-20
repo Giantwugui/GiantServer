@@ -3,8 +3,8 @@
 	public interface IMessage
 	{
 	}
-	
-	public interface IRequest: IMessage
+
+    public interface IRequest : IMessage
 	{
 		int RpcId { get; set; }
 	}
