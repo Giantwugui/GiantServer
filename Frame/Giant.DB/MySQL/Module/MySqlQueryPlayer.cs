@@ -10,9 +10,8 @@ namespace Giant.DB.MySQL
     {
         private readonly int uid;
 
-        public MySqlQueryPlayer(DBService service, int uid)
+        public MySqlQueryPlayer(int uid)
         {
-            this.DBService = service;
             this.uid = uid;
         }
 
@@ -55,9 +54,8 @@ namespace Giant.DB.MySQL
 
     public class MySqlQueryMaxPlayerUid : MySqlQueryTask<int>
     {
-        public MySqlQueryMaxPlayerUid(DBService service)
+        public MySqlQueryMaxPlayerUid()
         {
-            this.DBService = service;
         }
 
         public override async Task Run()

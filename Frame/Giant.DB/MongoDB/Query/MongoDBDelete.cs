@@ -9,9 +9,8 @@ namespace Giant.DB.MongoDB
     {
         private readonly Expression<Func<T, bool>> filter;
 
-        public MongoDBDelete(DBService service, string collectionName, Expression<Func<T, bool>> filter)
+        public MongoDBDelete(string collectionName, Expression<Func<T, bool>> filter)
         {
-            this.DBService = service;
             this.filter = filter;
             this.CollectionName = collectionName;
         }
@@ -36,9 +35,8 @@ namespace Giant.DB.MongoDB
     {
         private readonly Expression<Func<T, bool>> filter;
 
-        public MongoDBDeleteBatch(DBService service, string collectionName, Expression<Func<T, bool>> filter)
+        public MongoDBDeleteBatch(string collectionName, Expression<Func<T, bool>> filter)
         {
-            this.DBService = service;
             this.filter = filter;
             this.CollectionName = collectionName;
         }

@@ -63,11 +63,13 @@ namespace Giant.Net
             {
                 Connect();
             }
-
-            if (!this.IsRecving)
+            else
             {
-                this.IsRecving = true;
-                StartRecv();
+                if (!this.IsRecving)
+                {
+                    this.IsRecving = true;
+                    StartRecv();
+                }
             }
         }
 

@@ -1,11 +1,6 @@
 syntax = "proto3";
 package Giant.Msg;
 
-message MA_Reload // IRequest
-{
-    int32 RpcId = 90;
-}
-
 message RG_GetLoginKey // IRequest
 {
     int32 RpcId = 90;
@@ -21,13 +16,6 @@ message GR_GetLoginKey // IResponse
     int64 Key = 1;
 }
 
-message GM_CreateUnit // IRequest
-{
-    int32 RpcId = 90;
-    int64 PlayerId = 1;
-    int64 GateSessionId = 2;
-}
-
 message MG_CreateUnit // IResponse
 {
     int32 RpcId = 90;
@@ -38,10 +26,4 @@ message MG_CreateUnit // IResponse
     int64 UnitId = 1;
     // 所有的unit
     //repeated UnitInfo Units = 2;
-}
-
-message GM_SessionDisconnect // IActorLocationMessage
-{
-    int32 RpcId = 90;
-    int64 ActorId = 94;
 }

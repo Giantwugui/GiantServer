@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Giant.DB\Giant.DB.csproj" />
     <ProjectReference Include="..\Giant.Log\Giant.Log.csproj" />
     <ProjectReference Include="..\Giant.Net\Giant.Net.csproj" />
     <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />

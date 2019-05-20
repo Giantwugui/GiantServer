@@ -1,16 +1,14 @@
 ﻿using Giant.Log;
+using Giant.Frame;
 using System.Threading;
 
 namespace Server.App
 {
-    class Program
+    class Program : BaseProgram
     {
-        static Service Service;
-
         static void Main(string[] args)
         {
-            Service = new Service();
-            Service.Init();
+            Service.Instacne.Init();
 
             Logger.Info($"server start complete------------- mainId {args[0]}");
             while (true)
@@ -18,7 +16,7 @@ namespace Server.App
                 Thread.Sleep(1);
 
 
-                Service.Update();
+                Service.Instacne.Update();
             }
         }
        

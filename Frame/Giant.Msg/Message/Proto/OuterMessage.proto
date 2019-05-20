@@ -1,19 +1,6 @@
 syntax = "proto3";
 package Giant.Msg;
 
-message CG_TEST // IRequest
-{
-	int32 RpcId = 90;
-	string	TestContent	 = 1;	// 测试数据
-}
-
-message GC_TEST // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
-
 message CR_LOGIN // IRequest
 {
 	int32 RpcId = 90;
@@ -44,26 +31,6 @@ message GC_LOGIN // IResponse
 	int64 PlayerId = 1;
 }
 
-message GC_TestHotfixMessage // IMessage
-{
-	string Info = 1;
-}
-
-message CM_TestActorRequest // IActorLocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 91;
-	string Info = 1;
-}
-
-message MC_TestActorResponse // IActorLocationResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-	string Info = 1;
-}
-
 message PlayerInfo // IMessage
 {
 	int32 RpcId = 90;
@@ -86,35 +53,6 @@ message GC_PlayerInfo // IResponse
     repeated int64 TestRepeatedInt64 = 5;
 }
 
-message CM_TestRequest // IActorLocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	string request = 1;
-}
-
-message MC_TestResponse // IActorLocationResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-	string response = 1;
-}
-
-message Actor_TransferRequest // IActorLocationRequest
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	int32 MapIndex = 1;
-}
-
-message Actor_TransferResponse // IActorLocationResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
-
 message CG_EnterMap // IRequest
 {
 	int32 RpcId = 90;
@@ -125,10 +63,9 @@ message GC_EnterMap // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	// 自己的unit id
-	int64 UnitId = 1;
-	// 所有的unit
-	repeated UnitInfo Units = 2;
+	
+	int64 UnitId = 1;// 自己的unit id
+	repeated UnitInfo Units = 2;// 所有的unit
 }
 
 message UnitInfo
@@ -138,24 +75,6 @@ message UnitInfo
 	float X = 2;
 	float Y = 3;
 	float Z = 4;
-}
-
-message MC_CreateUnits // IActorMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-    repeated UnitInfo Units = 1;
-}
-
-message Frame_ClickMap // IActorLocationMessage
-{
-	int32 RpcId = 90;
-	int64 ActorId = 93;
-	int64 Id = 94;
-	
-	float X = 1;
-	float Y = 2;
-	float Z = 3;
 }
 
 message MC_PathfindingResult // IActorMessage

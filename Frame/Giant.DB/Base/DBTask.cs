@@ -8,7 +8,7 @@ namespace Giant.DB
     {
         public long TaskId { get; set; }
 
-        public DBService DBService { get; set; }
+        public DBService DBService { get { return DBService.Instance; } }
 
         public abstract Task Run();
     }

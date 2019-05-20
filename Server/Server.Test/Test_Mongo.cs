@@ -1,22 +1,20 @@
 ﻿using Giant.DB;
 using Giant.DB.MongoDB;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using MongoDB.Driver;
 
 namespace Server.Test
 {
     class Test_Mongo
     {
-        private DBService dbService;
         private Random random = new Random();
 
         public void Init()
         {
-            dbService = new DBService(DataBaseType.MongoDB);
-            dbService.Start("127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
+            DBService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
         }
 
         public async void TestMongo()
@@ -47,7 +45,7 @@ namespace Server.Test
                 Sort = bsons
             };
 
-            var query = new MongoDBQueryBatch<Player>(dbService, "Player", x => x.Uid > 1, options);
+            var query = new MongoDBQueryBatch<Player>("Player", x => x.Uid > 1, options);
             var player = await query.Task();
 
             return player;
@@ -56,7 +54,7 @@ namespace Server.Test
 
         private Task<DeleteResult> TestDelete()
         {
-            var task = new MongoDBDeleteBatch<Player>(dbService, "Player", x => x.Uid > 0);
+            var task = new MongoDBDeleteBatch<Player>("Player", x => x.Uid > 0);
             return task.Task();
         }
 
@@ -72,7 +70,7 @@ namespace Server.Test
                     Account = $"Account&{uid}"
                 };
 
-                var task = new MongoDBInsert<Player>(dbService, "Player", player);
+                var task = new MongoDBInsert<Player>("Player", player);
                 await task.Task();
             }
         }
@@ -91,7 +89,7 @@ namespace Server.Test
                 });
             }
 
-            var task = new MongoDBInsertBatch<Player>(dbService, "Player", player);
+            var task = new MongoDBInsertBatch<Player>("Player", player);
             await task.Task();
         }
     }

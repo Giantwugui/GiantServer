@@ -8,12 +8,10 @@ namespace Server.Test
     public class Test_MySql
     {
         private int uid = 10000 * 10;
-        private DBService dbService;
 
         public void Init()
         {
-            dbService = new DBService(DataBaseType.MySQL);
-            dbService.Start("127.0.0.1", "wg_test", "root", "root");
+            DBService.Instance.Init(DataBaseType.MySQL, "127.0.0.1", "wg_test", "root", "root");
         }
 
         public void Test()
@@ -40,19 +38,19 @@ namespace Server.Test
 
                 players.Add(player);
             }
-            MySqlInsertPlayerBatch query = new MySqlInsertPlayerBatch(this.dbService, players);
+            MySqlInsertPlayerBatch query = new MySqlInsertPlayerBatch(players);
             var result = await query.Task();
         }
 
         public async void Test_Load()
         {
-            MySqlQueryPlayer query = new MySqlQueryPlayer(dbService, 10001);
+            MySqlQueryPlayer query = new MySqlQueryPlayer(10001);
             Player player = await query.Task();
         }
 
         public async void GetMaxUid()
         {
-            MySqlQueryMaxPlayerUid query = new MySqlQueryMaxPlayerUid(this.dbService);
+            MySqlQueryMaxPlayerUid query = new MySqlQueryMaxPlayerUid();
 
             var max = await query.Task();
 

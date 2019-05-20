@@ -8,10 +8,9 @@ namespace Giant.DB.MongoDB
     {
         private T item;
 
-        public MongoDBInsert(DBService service, string collectionName, T item)
+        public MongoDBInsert(string collectionName, T item)
         {
             this.CollectionName = collectionName;
-            this.DBService = service;
             this.item = item;
         }
 
@@ -36,10 +35,9 @@ namespace Giant.DB.MongoDB
     {
         private List<T> items;
 
-        public MongoDBInsertBatch(DBService service, string collectionName, List<T> items)
+        public MongoDBInsertBatch(string collectionName, List<T> items)
         {
             this.CollectionName = collectionName;
-            this.DBService = service;
             this.items = items;
         }
 

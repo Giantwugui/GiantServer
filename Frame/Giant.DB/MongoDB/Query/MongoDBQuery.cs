@@ -11,9 +11,8 @@ namespace Giant.DB.MongoDB
     {
         private readonly FilterDefinition<T> definition;
 
-        public MongoDBQuery(DBService service, string collectionName, Expression<Func<T, bool>> filter)
+        public MongoDBQuery(string collectionName, Expression<Func<T, bool>> filter)
         {
-            this.DBService = service;
             this.definition = filter;
             this.CollectionName = collectionName;
         }
@@ -23,7 +22,7 @@ namespace Giant.DB.MongoDB
             try
             {
                 var collection = this.GetCollection<T>(this.CollectionName);
-                var result = await collection.FindSync<T>(this.definition).FirstAsync();
+                var result = await collection.FindSync<T>(this.definition).FirstOrDefaultAsync();
 
                 SetResult(result);
             }
@@ -39,9 +38,8 @@ namespace Giant.DB.MongoDB
         private readonly FindOptions<T> options;
         private readonly FilterDefinition<T> definition;
 
-        public MongoDBQueryBatch(DBService service, string collectionName, Expression<Func<T, bool>> filter, FindOptions<T> options = null)
+        public MongoDBQueryBatch(string collectionName, Expression<Func<T, bool>> filter, FindOptions<T> options = null)
         {
-            this.DBService = service;
             this.CollectionName = collectionName;
             this.definition = filter;
             this.options = options;
@@ -57,9 +55,8 @@ namespace Giant.DB.MongoDB
         /// <param name="limit">查询数目</param>
         /// <param name="skip">跳过数目</param>
         /// <param name="sort">排序条件</param>
-        public MongoDBQueryBatch(DBService service, string collectionName, Expression<Func<T, bool>> filter, int limit, int skip, BsonDocument sort)
+        public MongoDBQueryBatch(string collectionName, Expression<Func<T, bool>> filter, int limit, int skip, BsonDocument sort)
         {
-            this.DBService = service;
             this.CollectionName = collectionName;
             this.definition = filter;
             this.options = new FindOptions<T>

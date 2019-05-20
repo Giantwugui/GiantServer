@@ -11,10 +11,9 @@ namespace Giant.DB.MongoDB
         private readonly FilterDefinition<T> definition;
 
 
-        public MongoDBUpdate(DBService service, string collectionName, Expression<Func<T, bool>> filter, T item)
+        public MongoDBUpdate(string collectionName, Expression<Func<T, bool>> filter, T item)
         {
             this.item = item;
-            this.DBService = service;
             this.definition = filter;
             this.CollectionName = collectionName;
         }

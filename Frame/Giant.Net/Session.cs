@@ -30,6 +30,11 @@ namespace Giant.Net
             this.channel.OnErrorCallback += OnError;
         }
 
+        public void Reply(IMessage message)
+        {
+            this.Send(message);
+        }
+
         public void Send(IMessage message)
         {
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
@@ -64,14 +69,17 @@ namespace Giant.Net
             {
                 try
                 {
-                    if (response.Error == ErrorCode.ERR_Success)
-                    {
-                        tcs.SetResult(response);
-                    }
-                    else
-                    {
-                        tcs.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
-                    }
+                    tcs.SetResult(response);
+
+                    //不能以异常的形式返回，客户端需要更具具体的错误码来做相应的操作
+                    //if (response.Error == ErrorCode.ERR_Success)
+                    //{
+                    //    tcs.SetResult(response);
+                    //}
+                    //else
+                    //{
+                    //    tcs.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
+                    //}
                 }
                 catch (Exception ex)
                 {

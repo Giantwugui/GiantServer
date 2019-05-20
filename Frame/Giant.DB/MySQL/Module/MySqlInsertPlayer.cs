@@ -10,9 +10,8 @@ namespace Giant.DB.MySQL
     {
         private readonly Player player;
 
-        public MySqlInsertPlayer(DBService service, Player player)
+        public MySqlInsertPlayer(Player player)
         {
-            this.DBService = service;
             this.player = player;
         }
 
@@ -53,9 +52,8 @@ namespace Giant.DB.MySQL
     {
         private readonly List<Player> players;
 
-        public MySqlInsertPlayerBatch(DBService service, List<Player> players)
+        public MySqlInsertPlayerBatch(List<Player> players)
         {
-            this.DBService = service;
             this.players = players;
         }
 
