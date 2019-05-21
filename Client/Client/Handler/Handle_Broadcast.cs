@@ -1,19 +1,15 @@
 ﻿using Giant.Msg;
 using Giant.Net;
+using System;
 
 namespace UdpSender.Handler
 {
     [MessageHandler(ServerType.Client)]
-    class Handle_Broadcast : MsgHandler<ZGC_Broadcast>
+    class Handle_Broadcast : MHandler<ZGC_Broadcast>
     {
-        public override void Handle(Session session, IMessage message)
+        public override void Run(Session session, ZGC_Broadcast message)
         {
-            RC_LOGIN login = message as RC_LOGIN;
-
-            if (login.Error == ErrorCode.ERR_Success)
-            {
-                //Console.WriteLine($" account {login.Account} pass {login.Password}");
-            }
+            Console.WriteLine(message.Message);
         }
     }
 }

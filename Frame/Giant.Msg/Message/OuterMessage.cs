@@ -49,8 +49,7 @@ namespace Giant.Msg {
             "CgdNZXNzYWdlGFwgASgJIj0KCUNNX1JlbG9hZBINCgVScGNJZBhaIAEoBRIP",
             "CgdBY2NvdW50GAEgASgJEhAKCFBhc3N3b3JkGAIgASgJIjoKCU1DX1JlbG9h",
             "ZBINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwg",
-            "ASgJIisKDVpHQ19Ccm9hZGNhc3QSDQoFUnBjSWQYWiABKAUSCwoDVWlkGAEg",
-            "ASgFYgZwcm90bzM="));
+            "ASgJIiAKDVpHQ19Ccm9hZGNhc3QSDwoHbWVzc2FnZRgBIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -69,7 +68,7 @@ namespace Giant.Msg {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RC_Ping), global::Giant.Msg.RC_Ping.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CM_Reload), global::Giant.Msg.CM_Reload.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.MC_Reload), global::Giant.Msg.MC_Reload.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.ZGC_Broadcast), global::Giant.Msg.ZGC_Broadcast.Parser, new[]{ "RpcId", "Uid" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.ZGC_Broadcast), global::Giant.Msg.ZGC_Broadcast.Parser, new[]{ "Message" }, null, null, null)
           }));
     }
     #endregion
@@ -3034,8 +3033,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public ZGC_Broadcast(ZGC_Broadcast other) : this() {
-      rpcId_ = other.rpcId_;
-      uid_ = other.uid_;
+      message_ = other.message_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3044,25 +3042,14 @@ namespace Giant.Msg {
       return new ZGC_Broadcast(this);
     }
 
-    /// <summary>Field number for the "RpcId" field.</summary>
-    public const int RpcIdFieldNumber = 90;
-    private int rpcId_;
+    /// <summary>Field number for the "message" field.</summary>
+    public const int MessageFieldNumber = 1;
+    private string message_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RpcId {
-      get { return rpcId_; }
+    public string Message {
+      get { return message_; }
       set {
-        rpcId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Uid" field.</summary>
-    public const int UidFieldNumber = 1;
-    private int uid_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Uid {
-      get { return uid_; }
-      set {
-        uid_ = value;
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -3079,16 +3066,14 @@ namespace Giant.Msg {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RpcId != other.RpcId) return false;
-      if (Uid != other.Uid) return false;
+      if (Message != other.Message) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RpcId != 0) hash ^= RpcId.GetHashCode();
-      if (Uid != 0) hash ^= Uid.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3102,13 +3087,9 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (Uid != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Uid);
-      }
-      if (RpcId != 0) {
-        output.WriteRawTag(208, 5);
-        output.WriteInt32(RpcId);
+      if (Message.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Message);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -3118,11 +3099,8 @@ namespace Giant.Msg {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RpcId != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
-      }
-      if (Uid != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Uid);
+      if (Message.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3135,11 +3113,8 @@ namespace Giant.Msg {
       if (other == null) {
         return;
       }
-      if (other.RpcId != 0) {
-        RpcId = other.RpcId;
-      }
-      if (other.Uid != 0) {
-        Uid = other.Uid;
+      if (other.Message.Length != 0) {
+        Message = other.Message;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3152,12 +3127,8 @@ namespace Giant.Msg {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Uid = input.ReadInt32();
-            break;
-          }
-          case 720: {
-            RpcId = input.ReadInt32();
+          case 10: {
+            Message = input.ReadString();
             break;
           }
         }

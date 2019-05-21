@@ -121,6 +121,5 @@ message MC_Reload // IResponse
 
 message ZGC_Broadcast // IMessage
 {
-	int32 RpcId = 90;
-	int32 Uid = 1;
+	string message = 1;
 }
