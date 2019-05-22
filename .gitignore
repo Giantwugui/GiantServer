@@ -1,16 +1,3 @@
-/GiantServer/Giant_Server.suo
-/GiantServer/Giant_Server.v12.suo
-/GiantServer/.vs
-/GiantServer/GiantEx/obj
-/GiantServer/GiantNode/bin
-/GiantServer/GiantNode/obj
-/GiantServer/GiantServer/obj
-/GiantServer/MyServer/.vs
-/GiantServer/MyServer/obj
-/GiantServer/*
-/GiantServer/*.suo
-/GiantServer/GiantEx/*
-/GiantServer/GiantNode/*
 /.gitignore
 /.gitattributes
 /Bin
