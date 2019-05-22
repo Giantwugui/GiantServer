@@ -189,7 +189,7 @@ namespace Giant.Redis
             Dictionary<T, double> dicList = new Dictionary<T, double>();
             foreach (var item in rValue)
             {
-                dicList.Add(((string)item.Element).ToObject<T>(), item.Score);
+                dicList.Add(((string)item.Element).FromJson<T>(), item.Score);
             }
             return dicList;
         }
@@ -226,7 +226,7 @@ namespace Giant.Redis
             Dictionary<T, double> dicList = new Dictionary<T, double>();
             foreach (var item in rValue)
             {
-                dicList.Add(((string)item.Element).ToObject<T>(), item.Score);
+                dicList.Add(((string)item.Element).FromJson<T>(), item.Score);
             }
             return dicList;
         }
@@ -484,7 +484,7 @@ namespace Giant.Redis
             Dictionary<T, double> dicList = new Dictionary<T, double>();
             foreach (var item in rValue)
             {
-                dicList.Add(((string)item.Element).ToObject<T>(), item.Score);
+                dicList.Add(((string)item.Element).FromJson<T>(), item.Score);
             }
             return dicList;
         }
@@ -521,7 +521,7 @@ namespace Giant.Redis
             Dictionary<T, double> dicList = new Dictionary<T, double>();
             foreach (var item in rValue)
             {
-                dicList.Add(((string)item.Element).ToObject<T>(), item.Score);
+                dicList.Add(((string)item.Element).FromJson<T>(), item.Score);
             }
             return dicList;
         }

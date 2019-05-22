@@ -73,7 +73,7 @@ namespace Giant.Redis
         public T SetRandomMember<T>(string key)
         {
             string rValue = base.DataBase.SetRandomMember(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Giant.Redis
         public T SetPop<T>(string key)
         {
             string rValue = base.DataBase.SetPop(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Giant.Redis
         public async Task<T> SetRandomMemberAsync<T>(string key)
         {
             string rValue = await base.DataBase.SetRandomMemberAsync(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Giant.Redis
         public async Task<T> SetPopAsync<T>(string key)
         {
             string rValue = await base.DataBase.SetPopAsync(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
 

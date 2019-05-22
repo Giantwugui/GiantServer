@@ -77,7 +77,7 @@ namespace Giant.Redis
         public T ListLeftPop<T>(string key)
         {
             string rValue = base.DataBase.ListLeftPop(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Giant.Redis
         public T ListRightPop<T>(string key)
         {
             string rValue = base.DataBase.ListRightPop(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Giant.Redis
         public T ListRightPopLeftPush<T>(string key, string destination)
         {
             string rValue = base.DataBase.ListRightPopLeftPush(key, destination);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Giant.Redis
         public List<T> ListRange<T>(string key)
         {
             var rValue = base.DataBase.ListRange(key);
-            return rValue.Select(x => ((string)x).ToObject<T>()).ToList();
+            return rValue.Select(x => ((string)x).FromJson<T>()).ToList();
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace Giant.Redis
         public T ListGetByIndex<T>(string key, long index)
         {
             string rValue = base.DataBase.ListGetByIndex(key, index);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Giant.Redis
         public async Task<T> ListLeftPopAsync<T>(string key)
         {
             string rValue = await base.DataBase.ListLeftPopAsync(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace Giant.Redis
         public async Task<T> ListRightPopAsync<T>(string key)
         {
             string rValue = await base.DataBase.ListRightPopAsync(key);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Giant.Redis
         public async Task<T> ListRightPopLeftPushAsync<T>(string key, string destination)
         {
             string rValue = await base.DataBase.ListRightPopLeftPushAsync(key, destination);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>
@@ -315,7 +315,7 @@ namespace Giant.Redis
         public async Task<T> ListGetByIndexAsync<T>(string key, long index)
         {
             string rValue = await base.DataBase.ListGetByIndexAsync(key, index);
-            return rValue.ToObject<T>();
+            return rValue.FromJson<T>();
         }
 
         /// <summary>

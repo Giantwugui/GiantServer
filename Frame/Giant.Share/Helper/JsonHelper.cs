@@ -3,11 +3,11 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Giant.Msg
+namespace Giant.Share
 {
-    public class JsonHelper
+    public static class JsonHelper
     {
-        public static string ToJson(object message)
+        public static string ToJson(this object message)
         {
             if (null == message)
             {
@@ -42,7 +42,7 @@ namespace Giant.Msg
             return FromBytes(buffer, type);
         }
 
-        public static object FromJson(string json, Type type)
+        public static object FromJson(this string json, Type type)
         {
             if (string.IsNullOrEmpty(json))
             {
@@ -50,6 +50,16 @@ namespace Giant.Msg
             }
 
             return JsonConvert.DeserializeObject(json, type);
+        }
+
+        public static T FromJson<T>(this string json)
+        {
+            if (string.IsNullOrEmpty(json))
+            {
+                return default;
+            }
+
+            return JsonConvert.DeserializeObject<T>(json);
         }
     }
 }

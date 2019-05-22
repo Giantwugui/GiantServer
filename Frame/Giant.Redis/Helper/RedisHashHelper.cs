@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Share;
 using StackExchange.Redis;
-using Giant.Share;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +15,7 @@ namespace Giant.Redis
     /// </summary>
     public class RedisHashHelper : RedisHelper
     {
-        private RedisHashHelper(): base()
+        private RedisHashHelper() : base()
         {
         }
 
@@ -78,7 +78,7 @@ namespace Giant.Redis
         public T HashGet<T>(string key, string dataKey)
         {
             string value = base.DataBase.HashGet(key, dataKey);
-            return value.ToObject<T>();
+            return value.FromJson<T>();
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Giant.Redis
             Dictionary<string, T> dic = new Dictionary<string, T>();
             foreach (var item in query)
             {
-                dic.Add(item.Name, ((string)item.Value).ToObject<T>());
+                dic.Add(item.Name, ((string)item.Value).FromJson<T>());
             }
             return dic;
         }
@@ -194,7 +194,7 @@ namespace Giant.Redis
         public async Task<T> HashGetAsync<T>(string key, string dataKey)
         {
             string value = await base.DataBase.HashGetAsync(key, dataKey);
-            return value.ToObject<T>();
+            return value.FromJson<T>();
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace Giant.Redis
             Dictionary<string, T> dic = new Dictionary<string, T>();
             foreach (var item in query)
             {
-                dic.Add(item.Name, ((string)item.Value).ToObject<T>());
+                dic.Add(item.Name, ((string)item.Value).FromJson<T>());
             }
             return dic;
         }

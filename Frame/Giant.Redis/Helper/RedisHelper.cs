@@ -209,7 +209,7 @@ namespace Giant.Redis
         /// <typeparam name="T"></typeparam>
         /// <param name="values"></param>
         /// <returns></returns>
-        protected List<T> ConvetList<T>(params RedisValue[] values) => values.Select(x=>((string)x).ToObject<T>()).ToList();
+        protected List<T> ConvetList<T>(params RedisValue[] values) => values.Select(x=>((string)x).FromJson<T>()).ToList();
 
 
         #endregion

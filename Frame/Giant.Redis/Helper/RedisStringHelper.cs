@@ -90,7 +90,7 @@ namespace Giant.Redis
         /// <returns></returns>
         public T StringGet<T>(string key)
         {
-            return StringGet(key).ToObject<T>();
+            return StringGet(key).FromJson<T>();
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Giant.Redis
         public T StringGetSet<T>(string key, T value)
         {
             string oValue = base.DataBase.StringGetSet(key, value.ToJson());
-            return oValue.ToObject<T>();
+            return oValue.FromJson<T>();
         }
 
 
@@ -243,7 +243,7 @@ namespace Giant.Redis
         public async Task<T> StringGetAsync<T>(string key)
         {
             string values = await base.DataBase.StringGetAsync(key);
-            return values.ToObject<T>();
+            return values.FromJson<T>();
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace Giant.Redis
         public async Task<T> StringGetSetAsync<T>(string key, T value)
         {
             string oValue = await base.DataBase.StringGetSetAsync(key, value.ToJson());
-            return oValue.ToObject<T>();
+            return oValue.FromJson<T>();
         }
 
         /// <summary>
