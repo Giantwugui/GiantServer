@@ -15,6 +15,8 @@ namespace Giant.Redis
     /// </summary>
     public class RedisHashHelper : RedisHelper
     {
+        public static RedisHashHelper Instance { get; } = new RedisHashHelper();
+
         private RedisHashHelper() : base()
         {
         }
@@ -251,7 +253,5 @@ namespace Giant.Redis
 
         #endregion 异步方法
 
-
-        public static RedisHashHelper Instance { get; } = new RedisHashHelper();
     }
 }

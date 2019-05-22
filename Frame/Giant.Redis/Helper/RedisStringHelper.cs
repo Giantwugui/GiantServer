@@ -9,6 +9,7 @@ namespace Giant.Redis
 {
     public class RedisStringHelper : RedisHelper
     {
+        public static RedisStringHelper Instance { get; } = new RedisStringHelper();
         private RedisStringHelper(): base()
         {
         }
@@ -22,7 +23,7 @@ namespace Giant.Redis
         /// <param name="value">对象实体</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public bool StringSet(string key, string value, TimeSpan expiry = default(TimeSpan))
+        public bool StringSet(string key, string value, TimeSpan expiry = default)
         {
             return DataBase.StringSet(key, value);
         }
@@ -35,7 +36,7 @@ namespace Giant.Redis
         /// <param name="value">对象实体</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public bool StringSet<T>(string key, T value, TimeSpan expiry = default(TimeSpan))
+        public bool StringSet<T>(string key, T value, TimeSpan expiry = default)
         {
             return DataBase.StringSet(key, value.ToJson());
         }
@@ -172,7 +173,7 @@ namespace Giant.Redis
         /// <param name="value">保存的值</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public async Task<bool> StringSetAsync(string key, string value, TimeSpan? expiry = default(TimeSpan?))
+        public async Task<bool> StringSetAsync(string key, string value, TimeSpan? expiry = default)
         {
             return await base.DataBase.StringSetAsync(key, value, expiry);
         }
@@ -196,7 +197,7 @@ namespace Giant.Redis
         /// <param name="obj">对象实体</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public async Task<bool> StringSetAsync<T>(string key, T obj, TimeSpan? expiry = default(TimeSpan?))
+        public async Task<bool> StringSetAsync<T>(string key, T obj, TimeSpan? expiry = default)
         {
             return await base.DataBase.StringSetAsync(key, obj.ToJson(), expiry);
         }
@@ -316,7 +317,5 @@ namespace Giant.Redis
 
         #endregion
 
-
-        public static RedisStringHelper Instance { get; } = new RedisStringHelper();
     }
 }

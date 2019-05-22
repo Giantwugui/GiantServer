@@ -12,9 +12,9 @@ namespace Giant.Redis
     {
         protected RedisHelper()
         {
-            Connection = RedisManager.Instance.Connection;
+            Connection = RedisService.Instance.Connection;
 
-            DataBase = Connection.GetDatabase(RedisManager.Instance.DataBaseIndex);
+            DataBase = Connection.GetDatabase(RedisService.Instance.DataBaseIndex);
         }
 
         #region 同步方式
@@ -75,7 +75,7 @@ namespace Giant.Redis
         /// <param name="key">redis key</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public bool KeyExpire(string key, TimeSpan? expiry = default(TimeSpan?))
+        public bool KeyExpire(string key, TimeSpan? expiry = default)
         {
             return DataBase.KeyExpire(key, expiry);
         }
@@ -140,7 +140,7 @@ namespace Giant.Redis
         /// <param name="key">redis key</param>
         /// <param name="expiry">过期时间</param>
         /// <returns></returns>
-        public async Task<bool> KeyExpireAsync(string key, TimeSpan? expiry = default(TimeSpan?))
+        public async Task<bool> KeyExpireAsync(string key, TimeSpan? expiry = default)
         {
             return await DataBase.KeyExpireAsync(key, expiry);
         }

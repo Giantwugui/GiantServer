@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Giant.Share
 {
-    //加解密模式 当模式为PaddingMode.PKCS7 能够正常加解密
     public static class AES
     {
         /// <summary>

@@ -13,6 +13,7 @@ namespace Giant.Redis
     /// </summary>
     public class RedisSetHelper : RedisHelper
     {
+        public static RedisSetHelper Instance { get; } = new RedisSetHelper();
         private RedisSetHelper(): base()
         {
         }
@@ -396,9 +397,5 @@ namespace Giant.Redis
         }
 
         #endregion
-
-
-
-        public static RedisSetHelper Instance { get; } = new RedisSetHelper();
     }
 }

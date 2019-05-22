@@ -13,6 +13,7 @@ namespace Giant.Redis
     /// </summary>
     public class RedisZSetHelper : RedisHelper
     {
+        public static RedisZSetHelper Instance { get; } = new RedisZSetHelper();
         private RedisZSetHelper(): base()
         {
         }
@@ -385,9 +386,8 @@ namespace Giant.Redis
         /// <returns></returns>
         public async Task<double> SortedSetMinScoreAsync(string key)
         {
-            double dValue = 0;
             var rValue = (await base.DataBase.SortedSetRangeByRankWithScoresAsync(key, 0, 0, Order.Ascending)).FirstOrDefault();
-            dValue = rValue != null ? rValue.Score : 0;
+            double dValue = rValue != null ? rValue.Score : 0;
             return dValue;
         }
 
@@ -611,9 +611,8 @@ namespace Giant.Redis
         /// <returns></returns>
         private double GetScore(string key)
         {
-            double dValue = 0;
             var rValue = base.DataBase.SortedSetRangeByRankWithScores(key, 0, 0, Order.Descending).FirstOrDefault();
-            dValue = rValue != null ? rValue.Score : 0;
+            double dValue = rValue != null ? rValue.Score : 0;
             return dValue + 1;
         }
 
@@ -662,7 +661,5 @@ namespace Giant.Redis
 
         #endregion
 
-
-        public static RedisZSetHelper Instance { get; } = new RedisZSetHelper();
     }
 }

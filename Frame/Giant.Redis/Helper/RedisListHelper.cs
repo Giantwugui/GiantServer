@@ -13,6 +13,9 @@ namespace Giant.Redis
     /// </summary>
     public class RedisListHelper : RedisHelper
     {
+        public static RedisListHelper Instance { get; } = new RedisListHelper();
+
+
         private RedisListHelper(): base()
         {
         }
@@ -341,7 +344,5 @@ namespace Giant.Redis
         }
         #endregion
 
-
-        public static RedisListHelper Instance { get; } = new RedisListHelper();
     }
 }
