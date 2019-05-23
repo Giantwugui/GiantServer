@@ -1,9 +1,8 @@
 ﻿using Giant.Log;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
-using StackExchange.Redis;
 
 namespace Giant.Redis
 {
