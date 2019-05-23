@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using Giant.Log;
 
 namespace Giant.Net
 {
@@ -120,7 +121,14 @@ namespace Giant.Net
 
         private void AcceptComplete(SocketAsyncEventArgs eventArgs)
         {
-            if (eventArgs.LastOperation == SocketAsyncOperation.Accept && eventArgs.SocketError == SocketError.Success)
+            if (eventArgs.SocketError != SocketError.Success)
+            {
+                Logger.Error(eventArgs.SocketError);
+                AcceptAsync();
+                return;
+            }
+
+            try
             {
                 TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, eventArgs.AcceptSocket, this);
 
@@ -128,8 +136,14 @@ namespace Giant.Net
 
                 this.Accept(channel);
             }
-
-            AcceptAsync();
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+            finally
+            {
+                AcceptAsync();
+            }
         }
 
 
