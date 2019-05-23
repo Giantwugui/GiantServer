@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.DB
+namespace Giant.DataTask
 {
-    public class DBTaskPool
+    public class TaskPool
     {
         private long taskId;
         private readonly List<TaskQueue> taskList = new List<TaskQueue>();
 
-        public DBService DBService { get; private set; }
-
-        public DBTaskPool(int taskCount)
+        public TaskPool(int taskCount)
         {
             for (int i = 0; i < taskCount; ++i)
             {
@@ -22,7 +20,7 @@ namespace Giant.DB
             taskList.ForEach(taskQueue => taskQueue.Start());
         }
 
-        public void AddTask(DBTask task)
+        public void AddTask(DataTask task)
         {
             ++this.taskId;
             task.TaskId = this.taskId;

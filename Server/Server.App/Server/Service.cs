@@ -21,7 +21,7 @@ namespace Server.App
             base.Init();
 
             //数据库服务
-            DBService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
+            DataBaseService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
 
             //网络服务
             this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");

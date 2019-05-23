@@ -14,7 +14,7 @@ namespace Server.Test
 
         public void Init()
         {
-            DBService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
+            DataBaseService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
         }
 
         public async void TestMongo()

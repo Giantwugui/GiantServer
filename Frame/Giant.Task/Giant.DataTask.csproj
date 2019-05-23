@@ -9,10 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.DB\Giant.DB.csproj" />
-    <ProjectReference Include="..\Giant.Log\Giant.Log.csproj" />
-    <ProjectReference Include="..\Giant.Net\Giant.Net.csproj" />
-    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
+    <Compile Remove="Async\ETCancellationTokenSource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Giant.DB
+namespace Giant.DataTask
 {
     class TaskQueue
     {
-        private TaskCompletionSource<DBTask> tcs;
-        private readonly Queue<DBTask> tasks = new Queue<DBTask>();
+        private TaskCompletionSource<DataTask> tcs;
+        private readonly Queue<DataTask> tasks = new Queue<DataTask>();
 
         public int TaskCount => tasks.Count;
 
@@ -16,7 +16,7 @@ namespace Giant.DB
         {
             while (true)
             {
-                DBTask task = await Get();
+                DataTask task = await Get();
 
                 try
                 {
@@ -29,7 +29,7 @@ namespace Giant.DB
             }
         }
 
-        public void Add(DBTask task)
+        public void Add(DataTask task)
         {
             //有等待获取任务的任务，则直接将该获取任务的任务设置为完成状态
             if (this.tcs != null)
@@ -45,9 +45,9 @@ namespace Giant.DB
             }
         }
 
-        private Task<DBTask> Get()
+        private Task<DataTask> Get()
         {
-            this.tcs = new TaskCompletionSource<DBTask>();
+            this.tcs = new TaskCompletionSource<DataTask>();
             if (this.tasks.TryDequeue(out var task))
             {
                 this.tcs.SetResult(task);

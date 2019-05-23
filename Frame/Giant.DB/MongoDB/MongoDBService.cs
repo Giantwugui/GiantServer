@@ -1,10 +1,11 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using Giant.DataTask;
 
 namespace Giant.DB
 {
-    public class MongoDBService : IService
+    public class MongoDBService : IDBService
     {
         private readonly MongoClient client;
         private readonly IMongoDatabase database;

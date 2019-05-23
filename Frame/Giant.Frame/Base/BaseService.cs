@@ -11,7 +11,7 @@ namespace Giant.Frame
     {
         public NetworkService NetworkService { get; protected set; }
 
-        public DBService DBService { get; protected set; }
+        public DataBaseService DBService { get; protected set; }
 
         public int MainId { get; private set; }
 

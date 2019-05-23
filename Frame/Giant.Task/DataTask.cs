@@ -2,20 +2,30 @@
 using System.Threading.Tasks;
 using Giant.Log;
 
-namespace Giant.DB
+namespace Giant.DataTask
 {
-    public abstract class DBTask
+    public interface IDataTask
+    {
+        long TaskId { get; set; }
+
+        IDataService DataService { get; }
+
+        Task Run();
+    }
+
+    public abstract class DataTask : IDataTask
     {
         public long TaskId { get; set; }
 
-        public DBService DBService { get { return DBService.Instance; } }
+        public abstract IDataService DataService { get; }
 
         public abstract Task Run();
     }
 
-    public abstract class DBTask<T> : DBTask
+
+    public abstract class DataTask<T> : DataTask
     {
-        public TaskCompletionSource<T> Tcs { get; set; }
+        private TaskCompletionSource<T> Tcs { get; set; }
 
         public virtual Task<T> Task()
         {
@@ -40,7 +50,7 @@ namespace Giant.DB
 
         private void AddToTaskPool()
         {
-            this.DBService.TaskPool.AddTask(this);
+            this.DataService.TaskPool.AddTask(this);
         }
     }
 }

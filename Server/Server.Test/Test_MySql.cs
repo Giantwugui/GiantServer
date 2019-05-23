@@ -11,7 +11,7 @@ namespace Server.Test
 
         public void Init()
         {
-            DBService.Instance.Init(DataBaseType.MySQL, "127.0.0.1", "wg_test", "root", "root");
+            DataBaseService.Instance.Init(DataBaseType.MySQL, "127.0.0.1", "wg_test", "root", "root");
         }
 
         public void Test()

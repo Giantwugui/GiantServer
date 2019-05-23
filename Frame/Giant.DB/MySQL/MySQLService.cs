@@ -1,12 +1,14 @@
-﻿using MySql.Data.MySqlClient;
-using System.Data;
+﻿using Giant.DataTask;
+using MySql.Data.MySqlClient;
 
 namespace Giant.DB
 {
-    public class MySQLService : IService
+    public class MySQLService : IDBService
     {
         private readonly string connStr;
         private MySqlConnection connection;
+
+        public DataBaseService DBService { get; private set; }
 
         public MySQLService(string host, string dbName, string account, string passWorld)
         {
