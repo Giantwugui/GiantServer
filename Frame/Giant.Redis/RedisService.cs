@@ -1,11 +1,14 @@
-﻿using StackExchange.Redis;
-using System;
+﻿using Giant.DataTask;
 using Giant.Log;
+using StackExchange.Redis;
+using System;
 
 namespace Giant.Redis
 {
-    public class RedisService
+    public class RedisService : IRedisService
     {
+        public TaskPool TaskPool { get; private set; }
+
         public bool Connected { get; set; }
 
         /// <summary>
@@ -20,20 +23,29 @@ namespace Giant.Redis
         /// </summary>
         public ConnectionMultiplexer Connection { get; private set; }
 
+        public IDatabase Database { get; private set; }
+
         public static RedisService Instance { get; } = new RedisService();
 
-
-        private RedisService()
+        public void Init(string host, string passWorld, int dbIndex = 0)
         {
-            Configuration = new ConfigurationOptions();
-            Configuration.EndPoints.Add("127.0.0.1:6379");
+            string[] hosts = host.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            this.Configuration = new ConfigurationOptions()
+            {
+                AbortOnConnectFail = false,
+                AllowAdmin = true,
+                Password = passWorld
+            };
 
-            //集群连接方式
-            Configuration.EndPoints.Add("127.0.0.1:6380");
+            foreach (var curr in hosts)
+            {
+                Configuration.EndPoints.Add(curr);
+            }
 
-            Configuration.AbortOnConnectFail = false;
-            Configuration.AllowAdmin = true;
-            //Configuration.Password = "";
+            this.DataBaseIndex = dbIndex;
+
+            this.TaskPool = new TaskPool(1);
+            this.TaskPool.Start();
 
             Connect();
         }
@@ -42,7 +54,9 @@ namespace Giant.Redis
         {
             try
             {
-                Connection = ConnectionMultiplexer.Connect(Configuration);
+                this.Connection = ConnectionMultiplexer.Connect(Configuration);
+                this.Database = this.Connection.GetDatabase(this.DataBaseIndex);
+                this.Connected = true;
 
                 //注册如下事件
                 Connection.ConnectionFailed += ConnectionFailed;

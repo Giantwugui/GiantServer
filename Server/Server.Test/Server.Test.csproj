@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Frame\Giant.Frame.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Msg\Giant.Msg.csproj" />
+    <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
   </ItemGroup>
 
 </Project>

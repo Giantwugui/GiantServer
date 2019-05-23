@@ -39,7 +39,7 @@ namespace Server.Test
                 players.Add(player);
             }
             MySqlInsertPlayerBatch query = new MySqlInsertPlayerBatch(players);
-            var result = await query.Task();
+            await query.Task();
         }
 
         public async void Test_Load()

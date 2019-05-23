@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Log\Giant.Log.csproj" />
     <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
+    <ProjectReference Include="..\Giant.Task\Giant.DataTask.csproj" />
   </ItemGroup>
 
 </Project>

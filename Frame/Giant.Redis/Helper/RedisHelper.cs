@@ -12,9 +12,9 @@ namespace Giant.Redis
     {
         protected RedisHelper()
         {
-            Connection = RedisService.Instance.Connection;
+            Connection = RedisManager.Instance.Connection;
 
-            DataBase = Connection.GetDatabase(RedisService.Instance.DataBaseIndex);
+            DataBase = Connection.GetDatabase(RedisManager.Instance.DataBaseIndex);
         }
 
         #region 同步方式

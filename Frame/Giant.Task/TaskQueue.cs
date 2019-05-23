@@ -7,7 +7,7 @@ namespace Giant.DataTask
 {
     class TaskQueue
     {
-        private TaskCompletionSource<DataTask> tcs;
+        private TaskCompletionSource<DataTask> tcs = new TaskCompletionSource<DataTask>();
         private readonly Queue<DataTask> tasks = new Queue<DataTask>();
 
         public int TaskCount => tasks.Count;
@@ -32,7 +32,7 @@ namespace Giant.DataTask
         public void Add(DataTask task)
         {
             //有等待获取任务的任务，则直接将该获取任务的任务设置为完成状态
-            if (this.tcs != null)
+            if (this.tcs != null && !this.tcs.Task.IsCompleted)
             {
                 var willFinish = this.tcs;
                 this.tcs = null;
