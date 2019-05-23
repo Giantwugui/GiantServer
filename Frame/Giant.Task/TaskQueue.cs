@@ -7,7 +7,7 @@ namespace Giant.DataTask
 {
     class TaskQueue
     {
-        private TaskCompletionSource<DataTask> tcs = new TaskCompletionSource<DataTask>();
+        private TaskCompletionSource<DataTask> tcs;
         private readonly Queue<DataTask> tasks = new Queue<DataTask>();
 
         public int TaskCount => tasks.Count;
