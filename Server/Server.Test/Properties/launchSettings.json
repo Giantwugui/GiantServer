@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Server.Test": {
-      "commandName": "Project",
-      "commandLineArgs": "1001"
-    }
-  }
-}
