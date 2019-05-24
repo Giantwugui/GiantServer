@@ -9,7 +9,8 @@ namespace Giant.Net
 {
     public static class HttpHelper
     {
-        static readonly char[] splitChar = new char[] { '&' };
+        static readonly char[] splitParam = new char[] { '&' };
+        static readonly char[] splitKV = new char[] { '=' };
 
         //public static async Task<string> PostAsync(string url, Dictionary<string, string> pairs)
         //{
@@ -81,15 +82,13 @@ namespace Giant.Net
         /// 使用post方法异步请求
         /// </summary>
         /// <param name="url">目标链接</param>
-        /// <param name="head">http头</param>
+        /// <param name="message">http头</param>
         /// <returns></returns>
-        public static async Task<string> PostAsync(string url, Dictionary<string, string> head)
+        public static async Task<string> PostAsync(string url, Dictionary<string, string> message)
         {
             HttpClient client = new HttpClient();
-            HttpContent content = new FormUrlEncodedContent(head);
+            HttpContent content = new FormUrlEncodedContent(message);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            head.ForEach(kv => client.DefaultRequestHeaders.Add(kv.Key, kv.Value));
 
             HttpResponseMessage response = await client.PostAsync(url, content);
             string result = await response.Content.ReadAsStringAsync();
@@ -124,13 +123,32 @@ namespace Giant.Net
                 string paramStr = url.Substring(startIndex + 1, endIndex - startIndex - 1);
                 if (!string.IsNullOrEmpty(paramStr))
                 {
-                    foreach (var curr in paramStr.Split(splitChar, StringSplitOptions.RemoveEmptyEntries))
+                    foreach (var curr in paramStr.Split(splitParam, StringSplitOptions.RemoveEmptyEntries))
                     {
-                        string[] kv = curr.Split('=');
+                        string[] kv = curr.Split(splitKV);
                         if (kv.Length != 2) continue;
 
                         param[kv[0]] = kv[1];
                     }
+                }
+            }
+
+            return param;
+        }
+
+        public static Dictionary<string, string> ParaseContent(string message)
+        {
+            Dictionary<string, string> param = new Dictionary<string, string>();
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                foreach (var curr in message.Split(splitParam, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    string[] kv = curr.Split(splitKV);
+
+                    if (kv.Length != 2) continue;
+
+                    param[kv[0]] = kv[1];
                 }
             }
 

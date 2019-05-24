@@ -68,7 +68,7 @@ namespace Giant.Log
         public static void WriteToConsole(object message)
         {
 #if DEBUG
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
 #else
             if (writeToConsole)
             {
