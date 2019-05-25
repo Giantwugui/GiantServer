@@ -82,7 +82,7 @@ namespace Giant.Data
 
         }
 
-        private Dictionary<string, string> ParesData( XmlAttributeCollection xmlAttribute)
+        private Dictionary<string, string> ParesData(XmlAttributeCollection xmlAttribute)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
             foreach (XmlAttribute kv in xmlAttribute)
@@ -97,12 +97,13 @@ namespace Giant.Data
         {
             if (!this.DataList.TryGetValue(name, out var dataList))
             {
-                this.DataList.Add(name, new Dictionary<int, Data>());
+                dataList = new Dictionary<int, Data>();
+                this.DataList.Add(name, dataList);
             }
 
             if (dataList.ContainsKey(data.Id))
             {
-                Logger.Warn($"Repeated id in xml :{name}");
+                Logger.Warn($"Repeated id in xml :{name} id {data.Id}");
                 return;
             }
 
