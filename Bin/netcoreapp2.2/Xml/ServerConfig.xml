@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root Config="ServerConfig">
+	<content id="1" MongoDBHost="127.0.0.1:27017"/>
+</Root>

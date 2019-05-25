@@ -2,7 +2,7 @@
 using System;
 using System.Threading;
 using System.Reflection;
-using Giant.Msg;
+using Giant.Data;
 
 namespace Server.Test
 {
@@ -23,7 +23,9 @@ namespace Server.Test
                 //test_MySql.Init();
                 //test_MySql.Test();
 
-                Test_Redis.Instance.Init();
+                DataManager.Instance.LoadData();
+
+                //Test_Redis.Instance.Init();
 
                 Console.WriteLine("Server.Test start complate");
             }

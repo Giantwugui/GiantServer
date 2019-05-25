@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "..\Frame\Gia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.DataTask", "..\Frame\Giant.Task\Giant.DataTask.csproj", "{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Data", "..\Frame\Giant.Data\Giant.Data.csproj", "{9A861E58-564F-45CB-89AA-E7DA48B0D537}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{74CB736E-CAC1-442A-A106-62E7ACC8386B} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{6001C596-F2AC-446E-AA9A-60F1AF0E2E64} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924} = {04646BC4-06AB-44C9-9112-19A442F41B42}
+		{9A861E58-564F-45CB-89AA-E7DA48B0D537} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6848430-138E-45F6-B81B-350B8222A883}
