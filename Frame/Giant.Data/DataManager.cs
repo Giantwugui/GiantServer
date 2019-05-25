@@ -10,6 +10,42 @@ namespace Giant.Data
         public int Id { get; set; }
 
         public Dictionary<string, string> Params { get; set; }
+
+        public string GetString(string key)
+        {
+            Params.TryGetValue(key, out string value);
+            return value;
+        }
+
+        public int GetInt(string key)
+        {
+            int value = 0;
+            if (Params.TryGetValue(key, out string strV))
+            {
+                int.TryParse(strV, out value);
+            }
+            return value;
+        }
+
+        public long GetLong(string key)
+        {
+            long value = 0;
+            if (Params.TryGetValue(key, out string strV))
+            {
+                long.TryParse(strV, out value);
+            }
+            return value;
+        }
+
+        public float GetFloat(string key)
+        {
+            float value = 0;
+            if (Params.TryGetValue(key, out string strV))
+            {
+                float.TryParse(strV, out value);
+            }
+            return value;
+        }
     }
 
 
@@ -33,6 +69,26 @@ namespace Giant.Data
             {
                 this.LoadFile(file);
             }
+        }
+
+        public Data GetData(string name, int id)
+        {
+            if (this.DataList.TryGetValue(name, out var data))
+            {
+                if (data.TryGetValue(id, out var aimData))
+                {
+                    return aimData;
+                }
+            }
+            return null; ;
+        }
+
+        public Dictionary<int, Data> GetDatas(string name)
+        {
+            if (this.DataList.TryGetValue(name, out var data))
+            {
+            }
+            return data;
         }
 
         private void LoadFile(string path)
