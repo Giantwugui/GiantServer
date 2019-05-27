@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Giant.Log;
+using MySql.Data.MySqlClient;
 using System;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace Giant.DB.MySQL
             catch (Exception ex)
             {
                 SetException(ex);
+                Logger.Error(ex);
             }
         }
     }

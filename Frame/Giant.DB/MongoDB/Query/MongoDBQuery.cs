@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Giant.Log;
 
 namespace Giant.DB.MongoDB
 {
@@ -29,6 +30,7 @@ namespace Giant.DB.MongoDB
             catch (Exception ex)
             {
                 SetException(ex);
+                Logger.Error(ex);
             }
         }
     }
@@ -85,6 +87,7 @@ namespace Giant.DB.MongoDB
             catch (Exception ex)
             {
                 SetException(ex);
+                Logger.Error(ex);
             }
         }
     }

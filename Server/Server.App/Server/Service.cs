@@ -1,6 +1,5 @@
 ﻿using Giant.Frame;
 using Giant.Log;
-using Giant.Net;
 using Giant.Share;
 
 namespace Server.App
@@ -11,7 +10,7 @@ namespace Server.App
 
         private Service()
         {
-            this.ServerType = ServerType.Gate;
+            this.AppType = AppyType.Gate;
         }
 
         public override void Init()

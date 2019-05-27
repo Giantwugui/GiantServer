@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Giant.Log;
+using MongoDB.Driver;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Giant.DB.MongoDB
             catch (Exception ex)
             {
                 SetException(ex);
+                Logger.Error(ex);
             }
         }
     }
@@ -53,6 +55,7 @@ namespace Giant.DB.MongoDB
             catch (Exception ex)
             {
                 SetException(ex);
+                Logger.Error(ex);
             }
         }
     }

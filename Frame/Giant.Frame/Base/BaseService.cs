@@ -3,6 +3,7 @@ using Giant.DB;
 using Giant.Log;
 using Giant.Net;
 using Giant.Redis;
+using Giant.Share;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -15,7 +16,7 @@ namespace Giant.Frame
 
         public int MainId { get; private set; }
 
-        public ServerType ServerType { get; set; }
+        public AppyType AppType { get; set; }
 
 
 
@@ -28,11 +29,9 @@ namespace Giant.Frame
 
             //框架的各种初始化工作
             DataManager.Instance.LoadData();
-
-            //网络服务
-            this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
-
             this.InitData();
+
+            this.InitNetwork();
             this.InitDBService();
             this.InitRedisService();
         }
@@ -54,19 +53,31 @@ namespace Giant.Frame
         public virtual void InitData()
         {
             DBConfig.Init();
+            ServerConfig.Init();
+        }
+
+        private void InitNetwork()
+        {
+            //网络服务
+            this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
         }
 
         private void InitDBService()
         {
             //数据库服务
-            DataBaseService.Instance.Init(DataBaseType.MongoDB, DBConfig.DBHost, DBConfig.DBName,
-                DBConfig.DBAccount, DBConfig.DBPwd, DBConfig.DBTaskCount);
+            if (this.AppType.NeedDBService())
+            {
+                DataBaseService.Instance.Init(DataBaseType.MongoDB, DBConfig.DBHost, DBConfig.DBName,
+                    DBConfig.DBAccount, DBConfig.DBPwd, DBConfig.DBTaskCount);
+            }
         }
 
         private void InitRedisService()
         {
-            //Redis服务
-            RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);
+            if (this.AppType.NeedRedisServer())
+            {
+                RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);
+            }
         }
 
         #region 窗口关闭事件

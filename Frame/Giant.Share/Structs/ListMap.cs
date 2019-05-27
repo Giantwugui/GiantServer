@@ -8,12 +8,7 @@ namespace Giant.Share
 
         public void Add(K key, V value)
         {
-            if (dicList.TryGetValue(key, out var valueList))
-            {
-                valueList.Add(value);
-                return;
-            }
-            else
+            if (!dicList.TryGetValue(key, out var valueList))
             {
                 valueList = new List<V>();
                 dicList.Add(key, valueList);
@@ -33,13 +28,11 @@ namespace Giant.Share
             {
                 return;
             }
-            else
+
+            valueList.Remove(value);
+            if (valueList.Count == 0)
             {
-                valueList.Remove(value);
-                if (valueList.Count == 0)
-                {
-                    dicList.Remove(key);
-                }
+                dicList.Remove(key);
             }
         }
 

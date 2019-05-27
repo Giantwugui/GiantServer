@@ -1,19 +1,14 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 
 namespace Giant.Net
 {
-    public enum ServerType
-    {
-        Client = 0,
-        Gate = 1,
-    }
-
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class MessageHandlerAttribute : Attribute
     {
-        public ServerType ServerType { get; private set; }
+        public AppyType ServerType { get; private set; }
 
-        public MessageHandlerAttribute(ServerType serverType)
+        public MessageHandlerAttribute(AppyType serverType)
         {
             this.ServerType = serverType;
         }

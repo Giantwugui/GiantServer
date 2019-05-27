@@ -16,7 +16,7 @@ namespace Giant.Data
 
         public static void Init()
         {
-            Data data = DataManager.Instance.GetData("ServerConfig", 1);
+            Data data = DataManager.Instance.GetData("DBConfig", 1);
             if (data == null)
             {
                 Logger.Error("Can not find XML ServerConfig");

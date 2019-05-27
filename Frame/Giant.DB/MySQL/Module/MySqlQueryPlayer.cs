@@ -38,6 +38,7 @@ namespace Giant.DB.MySQL
                 catch (Exception ex)
                 {
                     SetException(ex);
+                    Logger.Error(ex);
                 }
                 finally
                 {
