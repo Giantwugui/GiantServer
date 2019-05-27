@@ -1,8 +1,6 @@
-﻿using Giant.DB;
-using Giant.Frame;
+﻿using Giant.Frame;
 using Giant.Log;
 using Giant.Net;
-using Giant.Redis;
 using Giant.Share;
 
 namespace Server.App
@@ -21,21 +19,17 @@ namespace Server.App
             //框架的各种初始化工作
             base.Init();
 
-            //网络服务
-            this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
-
-            //数据库服务
-            DataBaseService.Instance.Init(DataBaseType.MongoDB, "127.0.0.1:27017", "Giant", "dbOwner", "dbOwner");
-
-            //Redis服务
-            RedisService.Instance.Init("127.0.0.1:6379", "", 0);
-
             ConsoleReader.Instance.Start(DoCmd);
         }
 
         public override void Update()
         {
             base.Update();
+        }
+
+        public override void InitData()
+        {
+            base.InitData();
         }
 
         private void DoCmd(string message)

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Model", "Server.Model\Server.Model.csproj", "{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frame", "Frame", "{04646BC4-06AB-44C9-9112-19A442F41B42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.DB", "..\Frame\Giant.DB\Giant.DB.csproj", "{CEEBA94A-E286-4A2B-B643-E7D128420C37}"
@@ -27,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Redis", "..\Frame\Gia
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.DataTask", "..\Frame\Giant.Task\Giant.DataTask.csproj", "{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Giant.Data", "..\Frame\Giant.Data\Giant.Data.csproj", "{9A861E58-564F-45CB-89AA-E7DA48B0D537}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Data", "..\Frame\Giant.Data\Giant.Data.csproj", "{9A861E58-564F-45CB-89AA-E7DA48B0D537}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{428AD826-1DD3-4E92-8AC5-7C3EC43B77E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Release|Any CPU.ActiveCfg = Release|Any CPU

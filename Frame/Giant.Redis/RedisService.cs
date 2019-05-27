@@ -27,7 +27,7 @@ namespace Giant.Redis
 
         public static RedisService Instance { get; } = new RedisService();
 
-        public void Init(string host, string passWorld, int dbIndex = 0)
+        public void Init(string host, string passWorld, int taskCount, int dbIndex = 0)
         {
             string[] hosts = host.Split(',', StringSplitOptions.RemoveEmptyEntries);
             this.Configuration = new ConfigurationOptions()

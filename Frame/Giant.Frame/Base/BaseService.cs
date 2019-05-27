@@ -1,6 +1,8 @@
-﻿using Giant.DB;
+﻿using Giant.Data;
+using Giant.DB;
 using Giant.Log;
 using Giant.Net;
+using Giant.Redis;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -10,8 +12,6 @@ namespace Giant.Frame
     public class BaseService
     {
         public NetworkService NetworkService { get; protected set; }
-
-        public DataBaseService DBService { get; protected set; }
 
         public int MainId { get; private set; }
 
@@ -27,7 +27,14 @@ namespace Giant.Frame
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
             //框架的各种初始化工作
+            DataManager.Instance.LoadData();
 
+            //网络服务
+            this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
+
+            this.InitData();
+            this.InitDBService();
+            this.InitRedisService();
         }
 
         public virtual void Update()
@@ -44,6 +51,23 @@ namespace Giant.Frame
             }
         }
 
+        public virtual void InitData()
+        {
+            ServerConfig.Init();
+        }
+
+        private void InitDBService()
+        {
+            //数据库服务
+            DataBaseService.Instance.Init(DataBaseType.MongoDB, ServerConfig.DBHost, ServerConfig.DBName,
+                ServerConfig.DBAccount, ServerConfig.DBPwd, ServerConfig.DBTaskCount);
+        }
+
+        private void InitRedisService()
+        {
+            //Redis服务
+            RedisService.Instance.Init(ServerConfig.RedisHost, ServerConfig.RedisPwd, ServerConfig.RedisTaskCount, 0);
+        }
 
         #region 窗口关闭事件
 
