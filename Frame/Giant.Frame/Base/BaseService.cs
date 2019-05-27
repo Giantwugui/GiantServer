@@ -53,20 +53,20 @@ namespace Giant.Frame
 
         public virtual void InitData()
         {
-            ServerConfig.Init();
+            DBConfig.Init();
         }
 
         private void InitDBService()
         {
             //数据库服务
-            DataBaseService.Instance.Init(DataBaseType.MongoDB, ServerConfig.DBHost, ServerConfig.DBName,
-                ServerConfig.DBAccount, ServerConfig.DBPwd, ServerConfig.DBTaskCount);
+            DataBaseService.Instance.Init(DataBaseType.MongoDB, DBConfig.DBHost, DBConfig.DBName,
+                DBConfig.DBAccount, DBConfig.DBPwd, DBConfig.DBTaskCount);
         }
 
         private void InitRedisService()
         {
             //Redis服务
-            RedisService.Instance.Init(ServerConfig.RedisHost, ServerConfig.RedisPwd, ServerConfig.RedisTaskCount, 0);
+            RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);
         }
 
         #region 窗口关闭事件
