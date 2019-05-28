@@ -485,9 +485,6 @@ namespace Giant.Msg {
     /// <summary>Field number for the "UnitId" field.</summary>
     public const int UnitIdFieldNumber = 1;
     private long unitId_;
-    /// <summary>
-    /// 自己的unit id
-    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public long UnitId {
       get { return unitId_; }

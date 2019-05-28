@@ -7,7 +7,8 @@ namespace Giant.Data
         public AppyType AppyType { get; set; }
         public int AppId { get; set; }
         public int SubId { get; set; }
-        public string Address { get; set; }
+        public string InnerAddress { get; set; }
+        public string OutterAddress { get; set; }
     }
 
     public class ServerConfig
@@ -35,7 +36,8 @@ namespace Giant.Data
                     AppyType = (AppyType)data.GetInt("AppType"),
                     AppId = data.GetInt("AppId"),
                     SubId = data.GetInt("SubId"),
-                    Address = data.GetString("Address"),
+                    InnerAddress = data.GetString("InnerAddress"),
+                    OutterAddress = data.GetString("OutterAddress"),
                 };
 
                 netTopology.Add(config.AppyType, config.SubId, config);

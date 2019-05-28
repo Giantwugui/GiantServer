@@ -14,7 +14,7 @@ namespace Giant.Net
         WebSocket
     }
 
-    public class NetworkService : IDisposable
+    public abstract class NetworkService : IDisposable
     {
         private BaseNetService service;
         private readonly NetworkType networkType;
@@ -29,8 +29,6 @@ namespace Giant.Net
         public NetworkService(NetworkType network)
         {
             this.networkType = network;
-            this.MessageDispatcher = new MessageDispatcher();
-            this.MessageParser = new ProtoPacker();
 
             Init();
         }
@@ -38,8 +36,6 @@ namespace Giant.Net
         public NetworkService(NetworkType network, string address)
         {
             this.networkType = network;
-            this.MessageDispatcher = new MessageDispatcher();
-            this.MessageParser = new ProtoPacker();
 
             Init(address);
         }

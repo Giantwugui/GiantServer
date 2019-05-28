@@ -9,18 +9,7 @@ namespace Giant.Share
         private Action<string> action;
         private readonly CancellationTokenSource cancellationTokenSource;
 
-        private static ConsoleReader instance;
-        public static ConsoleReader Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ConsoleReader();
-                }
-                return instance;
-            }
-        }
+        public static ConsoleReader Instance { get; } = new ConsoleReader();
 
         private ConsoleReader()
         {

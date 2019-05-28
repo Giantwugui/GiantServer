@@ -38,6 +38,11 @@ namespace Server.App
             base.InitData();
         }
 
+        public override void InitDone()
+        {
+            base.InitDone();
+        }
+
         private void DoCmd(string message)
         {
             switch (message)

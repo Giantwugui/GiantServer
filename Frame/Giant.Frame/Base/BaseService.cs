@@ -13,7 +13,8 @@ namespace Giant.Frame
 {
     public abstract class BaseService
     {
-        public NetworkService NetworkService { get; protected set; }
+        public InnerNetworkService InnerNetworkService { get; private set; }
+        public OutterNetworkService OutterNetworkService { get; private set; }
 
         public int AppId { get; private set; }
         public int SubId { get; private set; }
@@ -35,6 +36,7 @@ namespace Giant.Frame
 
             this.InitData();
             this.InitNetwork();
+            this.InitProtocol();
             this.InitDBService();
             this.InitRedisService();
         }
@@ -45,7 +47,7 @@ namespace Giant.Frame
             {
                 OneThreadSynchronizationContext.Instance.Update();
 
-                this.NetworkService.Update();
+                this.InnerNetworkService.Update();
             }
             catch (Exception ex)
             {
@@ -61,25 +63,48 @@ namespace Giant.Frame
             ServerConfig.Init();
         }
 
+        public virtual void InitDone()
+        {
+        }
+
+        //日志配置
         private void InitLogConfig()
         {
             Logger.Init(false, this.AppType.ToString(), this.AppId);
         }
 
+        //网络服务
         private void InitNetwork()
         {
-            //网络服务
             NetConfig config = ServerConfig.GetNetConfig(this.AppType, this.SubId);
-            this.NetworkService = new NetworkService(NetworkType.Tcp, config.Address);
+            this.InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, config.InnerAddress);
 
-            //注册消息响应
-            this.NetworkService.MessageDispatcher.RegisterHandler(this.AppType, Assembly.GetEntryAssembly());
-            this.NetworkService.MessageDispatcher.RegisterHandler(this.AppType, Assembly.GetExecutingAssembly());//通用的消息处理可以放在 "Giant.Frame" 程序集
+            //部分App只有内部服务，Zone
+            if (!string.IsNullOrEmpty(config.OutterAddress))
+            {
+                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress);
+            }
         }
 
+        //注册消息响应
+        private void InitProtocol()
+        {
+            Assembly properMsgAssembly = Assembly.GetEntryAssembly();//特有消息处理程序及(Giant.App)
+            Assembly golobalAssembly = Assembly.GetExecutingAssembly();//全局消息处理程序集(Giant.Frame)
+
+            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, golobalAssembly);
+            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
+
+            if (this.OutterNetworkService != null)
+            {
+                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, golobalAssembly);
+                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
+            }
+        }
+
+        //数据库服务
         private void InitDBService()
         {
-            //数据库服务
             if (this.AppType.NeedDBService())
             {
                 DataBaseService.Instance.Init(DataBaseType.MongoDB, DBConfig.DBHost, DBConfig.DBName,
@@ -87,9 +112,9 @@ namespace Giant.Frame
             }
         }
 
+        //Redis服务
         private void InitRedisService()
         {
-            //Redis服务
             if (this.AppType.NeedRedisServer())
             {
                 RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);

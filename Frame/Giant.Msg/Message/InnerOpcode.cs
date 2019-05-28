@@ -11,9 +11,6 @@ namespace Giant.Msg
 	[Message(InnerOpcode.MG_CreateUnit)]
 	public partial class MG_CreateUnit : IResponse {}
 
-// 自己的unit id
-// 所有的unit
-//repeated UnitInfo Units = 2;
 }
 namespace Giant.Msg
 {
