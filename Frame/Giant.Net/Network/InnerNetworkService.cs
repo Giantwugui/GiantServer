@@ -1,4 +1,5 @@
 ﻿using Giant.Msg;
+using Giant.Share;
 using System.Collections.Generic;
 using System.Net;
 
@@ -6,7 +7,7 @@ namespace Giant.Net
 {
     public class InnerNetworkService : NetworkService
     {
-        private readonly Dictionary<IPEndPoint, Session> innerSessions = new Dictionary<IPEndPoint, Session>();
+        private readonly Dictionary<string, Session> innerSessions = new Dictionary<string, Session>();
 
         public InnerNetworkService(NetworkType network, string address) : base(network, address)
         {
@@ -14,16 +15,15 @@ namespace Giant.Net
             this.MessageDispatcher = new MessageDispatcher();
         }
 
-        public Session GetSession(IPEndPoint endPoint)
+        public Session GetSession(string address)
         {
-            if (!innerSessions.TryGetValue(endPoint, out Session session))
+            if (!innerSessions.TryGetValue(address, out Session session))
             {
-                session = base.Create(endPoint);
-                innerSessions[endPoint] = session;
+                session = base.Create(address);
+                innerSessions[address] = session;
             }
 
             return session;
         }
-
     }
 }

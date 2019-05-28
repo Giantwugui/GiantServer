@@ -2,32 +2,32 @@
 {
     public static class AppHelper
     {
-        public static bool IsSame(this AppyType appyType, AppyType otherApp)
+        public static bool IsSame(this AppType appyType, AppType otherApp)
         {
             return (appyType & otherApp) > 0;
         }
 
 
-        public static bool NeedDBService(this AppyType appyType)
+        public static bool NeedDBService(this AppType appyType)
         {
             switch (appyType)
             {
-                case AppyType.Gate:
-                case AppyType.Manager:
-                case AppyType.Zone:
+                case AppType.Gate:
+                case AppType.Manager:
+                case AppType.Zone:
                     return true;
             }
             return false;
         }
 
-        public static bool NeedRedisServer(this AppyType appyType)
+        public static bool NeedRedisServer(this AppType appyType)
         {
             switch (appyType)
             {
-                case AppyType.Gate:
+                case AppType.Gate:
                     return false;
-                case AppyType.Manager:
-                case AppyType.Zone:
+                case AppType.Manager:
+                case AppType.Zone:
                     return true;
             }
             return false;

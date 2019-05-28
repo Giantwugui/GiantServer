@@ -6,9 +6,9 @@ namespace Giant.Net
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class MessageHandlerAttribute : Attribute
     {
-        public AppyType AppType { get; private set; }
+        public AppType AppType { get; private set; }
 
-        public MessageHandlerAttribute(AppyType serverType)
+        public MessageHandlerAttribute(AppType serverType)
         {
             this.AppType = serverType;
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 被2011 rel. 2 sp1 (1) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<Root Config="NetTopology">
+	<content id="1" Name="Gate" Gate="" Manager="1" Zone="1" Social="1"/>
+	<content id="2" Name="Manager" Gate="" Manager="" Zone="1" Social="1"/>
+	<content id="3" Name="Zone" Gate="" Manager="" Zone="" Social="1"/>
+	<content id="4" Name="Social" Gate="" Manager="" Zone="" Social=""/>
+</Root>

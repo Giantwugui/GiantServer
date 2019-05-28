@@ -1,6 +1,6 @@
 ﻿namespace Giant.Share
 {
-    public enum AppyType
+    public enum AppType
     {
         Gate = 1,
         Manager = 1<<1,

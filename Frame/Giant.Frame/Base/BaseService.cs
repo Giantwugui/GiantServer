@@ -13,18 +13,21 @@ namespace Giant.Frame
 {
     public abstract class BaseService
     {
+        public NetTopologyManager NetTopologyManager { get; private set; }
+
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 
         public int AppId { get; private set; }
         public int SubId { get; private set; }
-        public AppyType AppType { get; private set; }
+        public AppType AppType { get; private set; }
 
-        public virtual void Init(AppyType appyType, int appId, int subId)
+        public virtual void Init(AppType appyType, int appId, int subId)
         {
             this.AppType = appyType;
             this.AppId = appId;
             this.SubId = subId;
+            this.NetTopologyManager = new NetTopologyManager(this);
 
             SetConsoleCtrlHandler(cancelHandler, true);
 
@@ -39,6 +42,9 @@ namespace Giant.Frame
             this.InitProtocol();
             this.InitDBService();
             this.InitRedisService();
+
+            //初始化网络拓扑
+            this.NetTopologyManager.Init();
         }
 
         public virtual void Update()
@@ -61,6 +67,7 @@ namespace Giant.Frame
 
             DBConfig.Init();
             ServerConfig.Init();
+            NetTopologyConfig.Init();
         }
 
         public virtual void InitDone()

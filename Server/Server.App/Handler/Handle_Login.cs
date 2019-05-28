@@ -7,7 +7,7 @@ using System;
 
 namespace Server.App
 {
-    [MessageHandler(AppyType.Gate)]
+    [MessageHandler(AppType.Gate)]
     public class Handle_Login : MRpcHandler<CR_LOGIN, RC_LOGIN>
     {
         public override async void Run(Session session, CR_LOGIN request, Action<RC_LOGIN> reply)

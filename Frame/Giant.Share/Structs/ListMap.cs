@@ -22,6 +22,19 @@ namespace Giant.Share
             return dicList.TryGetValue(key, out outList);
         }
 
+        public List<V> this[K index]
+        {
+            get
+            {
+                if (dicList.TryGetValue(index, out var valueList))
+                {
+                    return valueList;
+                }
+
+                return new List<V>();
+            }
+        }
+
         public void Remove(K key, V value)
         {
             if (!dicList.TryGetValue(key, out var valueList))

@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Giant.Share;
 
 namespace Giant.Data
 {
     public class DataManager
     {
         private readonly string xmlPath;
-        private readonly Dictionary<string, Dictionary<int, Data>> DataList;
+        private readonly DepthMap<string, int, Data> DataList = new DepthMap<string, int, Data>();
 
         public static DataManager Instance { get; } = new DataManager();
 
         private DataManager()
         {
             xmlPath = $"{Directory.GetCurrentDirectory()}\\Xml";
-            DataList = new Dictionary<string, Dictionary<int, Data>>();
         }
 
         public void LoadData()
@@ -98,19 +98,7 @@ namespace Giant.Data
 
         private void AddToDataList(string name, Data data)
         {
-            if (!this.DataList.TryGetValue(name, out var dataList))
-            {
-                dataList = new Dictionary<int, Data>();
-                this.DataList.Add(name, dataList);
-            }
-
-            if (dataList.ContainsKey(data.Id))
-            {
-                Logger.Warn($"Repeated id in xml :{name} id {data.Id}");
-                return;
-            }
-
-            this.DataList[name].Add(data.Id, data);
+            this.DataList.Add(name, data.Id, data);
         }
     }
 }

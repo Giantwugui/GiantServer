@@ -13,7 +13,7 @@ namespace Server.App
         {
         }
 
-        public override void Init(AppyType appyType, int appId, int subId)
+        public override void Init(AppType appyType, int appId, int subId)
         {
             //框架的各种初始化工作
             base.Init(appyType, appId, subId);
