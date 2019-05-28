@@ -7,8 +7,7 @@ namespace Giant.Data
         public AppyType AppyType { get; set; }
         public int AppId { get; set; }
         public int SubId { get; set; }
-        public string IP { get; set; }
-        public int Port { get; set; }
+        public string Address { get; set; }
     }
 
     public class ServerConfig
@@ -36,8 +35,7 @@ namespace Giant.Data
                     AppyType = (AppyType)data.GetInt("AppType"),
                     AppId = data.GetInt("AppId"),
                     SubId = data.GetInt("SubId"),
-                    IP = data.GetString("IP"),
-                    Port = data.GetInt("Port"),
+                    Address = data.GetString("Address"),
                 };
 
                 netTopology.Add(config.AppyType, config.SubId, config);

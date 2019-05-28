@@ -24,6 +24,13 @@ namespace Giant.Log
             }
         }
 
+        public static void Init(bool write2Console, string appType, int appId)
+        {
+            writeToConsole = write2Console;
+            LogManager.Configuration.Variables["appType"] = appType;
+            LogManager.Configuration.Variables["appId"] = appId.ToString();
+        }
+
         public static void Debug(object message)
         {
 #if DEBUG
@@ -68,7 +75,7 @@ namespace Giant.Log
         public static void WriteToConsole(object message)
         {
 #if DEBUG
-            //Console.WriteLine(message);
+            Console.WriteLine(message);
 #else
             if (writeToConsole)
             {

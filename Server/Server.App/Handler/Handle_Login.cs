@@ -2,6 +2,7 @@
 using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
+using Giant.Share;
 using System;
 
 namespace Server.App

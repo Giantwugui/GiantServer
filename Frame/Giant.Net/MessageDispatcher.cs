@@ -1,5 +1,6 @@
 ﻿using Giant.Msg;
 using Giant.Log;
+using Giant.Share;
 using System;
 using System.Reflection;
 using System.Collections.Generic;
@@ -15,9 +16,6 @@ namespace Giant.Net
         {
             opcodeTypes.AddRange(InnerOpcode.Opcode2Types);
             opcodeTypes.AddRange(OuterOpcode.Opcode2Types);
-
-            //自动注册消息回调
-            RegisterHandler();
         }
 
         public void Dispatch(Session session, ushort opcode, IMessage message)
@@ -52,23 +50,18 @@ namespace Giant.Net
             return type;
         }
 
-
-        // 摘要:
-        //     Gets the process executable in the default application domain. In other application
-        //     domains, this is the first executable that was executed by System.AppDomain.ExecuteAssembly(System.String).
-        private void RegisterHandler()
-        {
-            this.RegisterHandler(Assembly.GetEntryAssembly());
-        }
-
-        private void RegisterHandler(Assembly assembly)
+        public void RegisterHandler(AppyType appyType, Assembly assembly)
         {
             Type handlerType = typeof(MessageHandlerAttribute);
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
-                Attribute attribute = type.GetCustomAttribute(handlerType);
-                if (attribute == null)
+                if (!(type.GetCustomAttribute(handlerType) is MessageHandlerAttribute attribute))
+                {
+                    continue;
+                }
+
+                if (!attribute.AppType.IsSame(appyType))
                 {
                     continue;
                 }

@@ -7,30 +7,33 @@ using Giant.Share;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Reflection;
 
 namespace Giant.Frame
 {
-    public class BaseService
+    public abstract class BaseService
     {
         public NetworkService NetworkService { get; protected set; }
 
-        public int MainId { get; private set; }
+        public int AppId { get; private set; }
+        public int SubId { get; private set; }
+        public AppyType AppType { get; private set; }
 
-        public AppyType AppType { get; set; }
-
-
-
-        public virtual void Init()
+        public virtual void Init(AppyType appyType, int appId, int subId)
         {
+            this.AppType = appyType;
+            this.AppId = appId;
+            this.SubId = subId;
+
             SetConsoleCtrlHandler(cancelHandler, true);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
             //框架的各种初始化工作
-            DataManager.Instance.LoadData();
-            this.InitData();
+            this.InitLogConfig();
 
+            this.InitData();
             this.InitNetwork();
             this.InitDBService();
             this.InitRedisService();
@@ -52,14 +55,25 @@ namespace Giant.Frame
 
         public virtual void InitData()
         {
+            DataManager.Instance.LoadData();
+
             DBConfig.Init();
             ServerConfig.Init();
+        }
+
+        private void InitLogConfig()
+        {
+            Logger.Init(false, this.AppType.ToString(), this.AppId);
         }
 
         private void InitNetwork()
         {
             //网络服务
-            this.NetworkService = new NetworkService(NetworkType.Tcp, "127.0.0.1:9091");
+            NetConfig config = ServerConfig.GetNetConfig(this.AppType, this.SubId);
+            this.NetworkService = new NetworkService(NetworkType.Tcp, config.Address);
+
+            //注册消息响应
+            this.NetworkService.MessageDispatcher.RegisterHandler(this.AppType, Assembly.GetEntryAssembly());
         }
 
         private void InitDBService()
@@ -74,6 +88,7 @@ namespace Giant.Frame
 
         private void InitRedisService()
         {
+            //Redis服务
             if (this.AppType.NeedRedisServer())
             {
                 RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);

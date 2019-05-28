@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\BsonHelper.cs" />
+    <Compile Remove="Packer\BsonPacker.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\Giant.Share\Helper\JsonHelper.cs" Link="Helper\JsonHelper.cs" />
   </ItemGroup>
 
