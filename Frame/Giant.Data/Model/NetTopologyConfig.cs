@@ -54,7 +54,7 @@ namespace Giant.Data
         private static void BuidTopology(AppType source, string otherStr)
         {
              AppType other = (AppType)Enum.Parse(typeof(AppType), otherStr);
-            var topology = ServerConfig.GetTopology(other);
+            var topology = ServerConfig.GetNetConfig(other);
             foreach (var kv in topology)
             {
                 netTopology.Add(source, kv.Value);

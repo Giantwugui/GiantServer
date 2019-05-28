@@ -15,13 +15,11 @@ namespace Giant.Data
 
     public class ServerConfig
     {
-        private static readonly DepthMap<AppType, int, NetConfig> netTopology = new DepthMap<AppType, int, NetConfig>();
-
-        public static DepthMap<AppType, int, NetConfig> NetTopology => netTopology;
+        private static readonly DepthMap<AppType, int, NetConfig> netConfigs= new DepthMap<AppType, int, NetConfig>();
 
         public static NetConfig GetNetConfig(AppType appyType, int sunId)
         {
-            netTopology.TryGetValue(appyType, sunId, out var config);
+            netConfigs.TryGetValue(appyType, sunId, out var config);
             return config;
         }
 
@@ -42,15 +40,15 @@ namespace Giant.Data
                     OutterAddress = data.GetString("OutterAddress"),
                 };
 
-                netTopology.Add(config.AppyType, config.SubId, config);
+                netConfigs.Add(config.AppyType, config.SubId, config);
             }
         }
 
-        public static Dictionary<int, NetConfig> GetTopology(AppType appyType)
+        public static Dictionary<int, NetConfig> GetNetConfig(AppType appyType)
         {
-            if (netTopology.TryGetValue(appyType, out var topology))
+            if (!netConfigs.TryGetValue(appyType, out var topology))
             {
-                Logger.Error($"Xml error, have no this AppType {appyType.ToString()}'s topology");
+                Logger.Error($"Xml error, have no this AppType {appyType.ToString()}'s Netconfig");
             }
             return topology;
         }
