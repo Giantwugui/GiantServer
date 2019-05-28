@@ -7,7 +7,7 @@ namespace Giant.Net
         public OutterNetworkService(NetworkType network, string address) : base(network, address)
         {
             this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new OutterMessageDispatcher();
+            this.MessageDispatcher = new MessageDispatcher();
         }
 
     }

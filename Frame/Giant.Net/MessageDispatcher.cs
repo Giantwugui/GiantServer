@@ -7,10 +7,16 @@ using System.Reflection;
 
 namespace Giant.Net
 {
-    public abstract class MessageDispatcher
+    public class MessageDispatcher
     {
-        protected readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
-        protected readonly Dictionary<ushort, IMHandler> Handlers = new Dictionary<ushort, IMHandler>();
+        private readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
+        private readonly Dictionary<ushort, IMHandler> Handlers = new Dictionary<ushort, IMHandler>();
+
+        public MessageDispatcher()
+        {
+            opcodeTypes.AddRange(InnerOpcode.Opcode2Types);
+            opcodeTypes.AddRange(OuterOpcode.Opcode2Types);
+        }
 
         public void Dispatch(Session session, ushort opcode, IMessage message)
         {

@@ -11,7 +11,7 @@ namespace Giant.Net
         public InnerNetworkService(NetworkType network, string address) : base(network, address)
         {
             this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new InnerMessageDispatcher();
+            this.MessageDispatcher = new MessageDispatcher();
         }
 
         public Session GetSession(IPEndPoint endPoint)
