@@ -25,6 +25,7 @@
             switch (appyType)
             {
                 case AppyType.Gate:
+                    return false;
                 case AppyType.Manager:
                 case AppyType.Zone:
                     return true;

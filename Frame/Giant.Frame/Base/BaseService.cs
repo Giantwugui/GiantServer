@@ -74,6 +74,7 @@ namespace Giant.Frame
 
             //注册消息响应
             this.NetworkService.MessageDispatcher.RegisterHandler(this.AppType, Assembly.GetEntryAssembly());
+            this.NetworkService.MessageDispatcher.RegisterHandler(this.AppType, Assembly.GetExecutingAssembly());//通用的消息处理可以放在 "Giant.Frame" 程序集
         }
 
         private void InitDBService()

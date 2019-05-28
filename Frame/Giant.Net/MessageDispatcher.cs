@@ -1,9 +1,9 @@
-﻿using Giant.Msg;
-using Giant.Log;
+﻿using Giant.Log;
+using Giant.Msg;
 using Giant.Share;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Giant.Net
 {
@@ -42,7 +42,7 @@ namespace Giant.Net
 
         public Type GetMessageType(ushort opcode)
         {
-            if(!opcodeTypes.TryGetValue(opcode, out var type))
+            if (!opcodeTypes.TryGetValue(opcode, out var type))
             {
                 Logger.Error($"Error GetOpcodeMessageType  Have not this opcode {opcode} dispatch message type");
             }
@@ -61,6 +61,7 @@ namespace Giant.Net
                     continue;
                 }
 
+                //只注册该App需要处理的消息处理
                 if (!attribute.AppType.IsSame(appyType))
                 {
                     continue;
@@ -74,7 +75,16 @@ namespace Giant.Net
 
         private void RegisterHandler(IMHandler handler)
         {
-            Handlers.Add(GetOpcode(handler.GetMessageType()), handler);
+            Type type = handler.GetMessageType();
+            ushort opcode = GetOpcode(type);
+
+            if (opcode == 0)
+            {
+                Logger.Warn($"Have no this handler's opcode, Handler {type.ToString()}, opcode {opcode}");
+                return;
+            }
+
+            Handlers.Add(opcode, handler);
         }
     }
 }

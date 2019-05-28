@@ -9,11 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Giant.Share\Helper\JsonHelper.cs" Link="Helper\JsonHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.0.601" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
     <ProjectReference Include="..\Giant.Task\Giant.DataTask.csproj" />
   </ItemGroup>
 

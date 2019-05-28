@@ -1,5 +1,4 @@
-﻿using Giant.Data;
-using Giant.Frame;
+﻿using Giant.Frame;
 using Giant.Log;
 using Giant.Share;
 using System;

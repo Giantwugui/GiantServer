@@ -14,6 +14,7 @@ namespace Server.App
             {
                 int appId = int.Parse(args[0]);
                 int subId = args.Length == 2 ? int.Parse(args[1]) : 0;
+
                 Service.Instacne.Init(AppyType.Gate, appId, subId);
 
                 Logger.Info($"server start complete------------- appId {appId} subId {subId}");
