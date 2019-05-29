@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Async\ETCancellationTokenSource.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
   </ItemGroup>
 

@@ -8,11 +8,12 @@ namespace Server.Test
 {
     class Test_Memory
     {
-        public static RecyclableMemoryStreamManager memoryStreamManager;
-        public static MemoryStream stream;
+        public static RecyclableMemoryStreamManager memoryStreamManager = new RecyclableMemoryStreamManager();
+        public static MemoryStream stream = memoryStreamManager.GetStream("Message");
 
         private static void TestMemoryStream()
         {
+
 
             //数据写入测试
             {

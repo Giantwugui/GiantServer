@@ -12,12 +12,13 @@ namespace Server.App
         {
             try
             {
-                int appId = int.Parse(args[0]);
-                int subId = args.Length == 2 ? int.Parse(args[1]) : 0;
+                AppType appType = (AppType)Enum.Parse(typeof(AppType), args[0]);
+                int appId = int.Parse(args[1]);
+                int subId = args.Length == 3 ? int.Parse(args[2]) : 0;
 
-                Service.Instacne.Init(AppType.Gate, appId, subId);
+                Service.Instacne.Init(appType, appId, subId);
 
-                Logger.Info($"server start complete------------- appId {appId} subId {subId}");
+                Logger.Info($"server start complete------------- appType {appType} appId {appId} subId {subId}");
             }
             catch (Exception ex)
             {

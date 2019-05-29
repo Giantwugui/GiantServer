@@ -29,6 +29,11 @@ namespace Giant.Frame
         {
             Session session;
             var netPology = NetTopologyConfig.GetTopology(this.AppType);
+            if (netPology == null)
+            {
+                return;
+            }
+
             foreach (var kv in netPology)
             {
                 session = this.Service.InnerNetworkService.GetSession(kv.InnerAddress);

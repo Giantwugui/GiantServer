@@ -92,6 +92,10 @@ namespace Giant.Net
             return tcs.Task;
         }
 
+        public void Start()
+        {
+            this.channel.Start();
+        }
 
         public void Dispose()
         {

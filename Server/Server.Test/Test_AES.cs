@@ -39,9 +39,9 @@ namespace Server.Test
                 string resultCBC = AES.Encrypt(key, aimStr, CipherMode.CBC);
                 string resultCFB = AES.Encrypt(key, aimStr, CipherMode.CFB);
                 string resultECB = AES.Encrypt(key, aimStr, CipherMode.ECB);
-                ////string resultCTS = CAES.Encrypt(key, aimStr, CipherMode.CTS);
-                ////string resultOFB = CAES.Encrypt(key, aimStr, CipherMode.OFB);
-                //string resultMS = CAES.Encrypt_Aes(key, aimStr);
+                string resultCTS = AES.Encrypt(key, aimStr, CipherMode.CTS);
+                string resultOFB = AES.Encrypt(key, aimStr, CipherMode.OFB);
+                string resultMS = AES.Encrypt_Aes(key, aimStr);
 
                 key = GetLegalKey(key);
 
@@ -50,31 +50,25 @@ namespace Server.Test
                 string decStrCBC = AES.Dencrypt(key, jm, CipherMode.CBC);
                 string decStrECB = AES.Dencrypt(key, jm, CipherMode.ECB);
 
-                string ttt = "";
+                string decStrCFB = AES.Dencrypt(key, jm, CipherMode.CFB);
+                string decStrCTS = AES.Dencrypt(key, resultCTS, CipherMode.CTS);
+                string decStrOFB = AES.Dencrypt(key, resultOFB, CipherMode.OFB);
+                string decStrMS = AES.Dencrypt_Aes(key, resultMS);
 
-                //string decStrCFB = CAES.Dencrypt(key, jm, CipherMode.CFB);
-                //string decStrCTS = CAES.Dencrypt(key, resultCTS, CipherMode.CTS);
-                //string decStrOFB = CAES.Dencrypt(key, resultOFB, CipherMode.OFB);
-                //string decStrMS = CAES.Dencrypt_Aes(key, resultMS);
+                Console.WriteLine("加密前: " + aimStr);
+                Console.WriteLine("加密后 CipherMode.CBC: " + resultCBC);
+                Console.WriteLine("加密后 CipherMode.CFB: " + resultCFB);
+                Console.WriteLine("加密后 CipherMode.CTS: " + resultCTS);
+                Console.WriteLine("加密后 CipherMode.ECB: " + resultECB);
+                Console.WriteLine("加密后 CipherMode.OFB: " + resultOFB);
+                Console.WriteLine("加密后 resultMS: " + resultMS);
 
-
-                //QK_JsonValue_Map tempMap = new QK_JsonValue_Map();
-                //tempMap.Parse(decStrCBC);
-
-                //Console.WriteLine("加密前: " + aimStr);
-                //Console.WriteLine("加密后 CipherMode.CBC: " + resultCBC);
-                //Console.WriteLine("加密后 CipherMode.CFB: " + resultCFB);
-                ////Console.WriteLine("加密后 CipherMode.CTS: " + resultCTS);
-                //Console.WriteLine("加密后 CipherMode.ECB: " + resultECB);
-                ////Console.WriteLine("加密后 CipherMode.OFB: " + resultOFB);
-                //Console.WriteLine("加密后 resultMS: " + resultMS);
-
-                //Console.WriteLine("解密后 CipherMode.CBC: " + decStrCBC);
-                //Console.WriteLine("解密后 CipherMode.CFB: " + decStrCFB);
-                ////Console.WriteLine("解密后 CipherMode.CTS: " + decStrCTS);
-                //Console.WriteLine("解密后 CipherMode.ECB: " + decStrECB);
-                //Console.WriteLine("解密后 CipherMode.OFB: " + decStrOFB);
-                //Console.WriteLine("解密后 decStrMS: " + decStrMS);
+                Console.WriteLine("解密后 CipherMode.CBC: " + decStrCBC);
+                Console.WriteLine("解密后 CipherMode.CFB: " + decStrCFB);
+                Console.WriteLine("解密后 CipherMode.CTS: " + decStrCTS);
+                Console.WriteLine("解密后 CipherMode.ECB: " + decStrECB);
+                Console.WriteLine("解密后 CipherMode.OFB: " + decStrOFB);
+                Console.WriteLine("解密后 decStrMS: " + decStrMS);
             }
 
             while (true)
@@ -123,17 +117,21 @@ namespace Server.Test
 
         public static byte[] EncryptBytes(byte[] input, byte[] aesKey, byte[] aesIV)
         {
-            Aes aes = new AesCryptoServiceProvider();
-            aes.Padding = PaddingMode.None;
-            aes.Mode = CipherMode.ECB;
+            Aes aes = new AesCryptoServiceProvider
+            {
+                Padding = PaddingMode.None,
+                Mode = CipherMode.ECB
+            };
             var enc = aes.CreateEncryptor(aesKey, aesIV);
             return enc.TransformFinalBlock(input, 0, input.Length);
         }
 
         public static byte[] DecryptBytes(byte[] encryptedOutput, byte[] aesKey, byte[] aesIV)
         {
-            Aes aes = new AesCryptoServiceProvider();
-            aes.Padding = PaddingMode.None;
+            Aes aes = new AesCryptoServiceProvider
+            {
+                Padding = PaddingMode.None
+            };
             var dec = aes.CreateDecryptor(aesKey, aesIV);
             return dec.TransformFinalBlock(encryptedOutput, 0, encryptedOutput.Length);
         }

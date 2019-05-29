@@ -6,7 +6,7 @@ namespace Giant.Data
 {
     public class NetTopologyConfig
     {
-        private static ListMap<AppType, NetConfig> netTopology = new ListMap<AppType, NetConfig>();
+        private static readonly ListMap<AppType, NetConfigModel> netTopology = new ListMap<AppType, NetConfigModel>();
 
         public static void Init()
         {
@@ -15,7 +15,7 @@ namespace Giant.Data
         }
 
 
-        public static List<NetConfig> GetTopology(AppType appType)
+        public static List<NetConfigModel> GetTopology(AppType appType)
         {
             netTopology.TryGetValue(appType, out var configs);
             return configs;
@@ -54,7 +54,7 @@ namespace Giant.Data
         private static void BuidTopology(AppType source, string otherStr)
         {
              AppType other = (AppType)Enum.Parse(typeof(AppType), otherStr);
-            var topology = ServerConfig.GetNetConfig(other);
+            var topology = NetConfig.GetNetConfig(other);
             foreach (var kv in topology)
             {
                 netTopology.Add(source, kv.Value);

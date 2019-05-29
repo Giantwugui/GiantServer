@@ -29,18 +29,16 @@ namespace Giant.Net
         public NetworkService(NetworkType network)
         {
             this.networkType = network;
-
             Init();
         }
 
         public NetworkService(NetworkType network, string address)
         {
             this.networkType = network;
-
             Init(address);
         }
 
-        public Session GetSession(uint id)
+        public Session GetSession(long id)
         {
             if (sessions.TryGetValue(id, out Session session))
             {
@@ -52,25 +50,15 @@ namespace Giant.Net
 
         public Session Create(string address)
         {
-            BaseChannel channel = service.CreateChannel(address);
-            channel.Start();
-
-            Session session = new Session(this, channel);
-
-            sessions[session.Id] = session;
-
-            return session;
+            return this.Create(NetworkHelper.ToIPEndPoint(address));
         }
 
         public Session Create(IPEndPoint endPoint)
         {
             BaseChannel channel = service.CreateChannel(endPoint);
-            channel.Start();
-
             Session session = new Session(this, channel);
-
-            sessions[session.Id] = session;
-            
+            session.Start();
+            sessions.Add(session.Id, session);
             return session;
         }
 
@@ -85,7 +73,7 @@ namespace Giant.Net
             int conns = sessions.Count;
             if (conns % 10 == 0)
             {
-                Logger.Info($"conn nun {conns}");
+                Logger.Info($"conn num {conns}");
             }
         }
 

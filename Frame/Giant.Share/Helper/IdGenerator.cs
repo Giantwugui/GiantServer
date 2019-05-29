@@ -24,6 +24,7 @@ namespace Giant.Share
                     timePrefix = datekey;
                     startId = 0;
                 }
+                ++startId;
 
                 return Convert.ToInt64(datekey + startId.ToString().PadLeft(8, '0'));
             }

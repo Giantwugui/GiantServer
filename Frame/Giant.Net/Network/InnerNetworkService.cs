@@ -1,7 +1,5 @@
 ﻿using Giant.Msg;
-using Giant.Share;
 using System.Collections.Generic;
-using System.Net;
 
 namespace Giant.Net
 {
@@ -19,7 +17,7 @@ namespace Giant.Net
         {
             if (!innerSessions.TryGetValue(address, out Session session))
             {
-                session = base.Create(address);
+                session = Create(address);
                 innerSessions[address] = session;
             }
 
