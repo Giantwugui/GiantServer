@@ -40,12 +40,8 @@ namespace Giant.Net
 
         public Session GetSession(long id)
         {
-            if (sessions.TryGetValue(id, out Session session))
-            {
-                return session;
-            }
-
-            return null;
+            sessions.TryGetValue(id, out Session session);
+            return session;
         }
 
         public Session Create(string address)
@@ -68,12 +64,6 @@ namespace Giant.Net
             {
                 session.Dispose();
                 sessions.Remove(id);
-            }
-
-            int conns = sessions.Count;
-            if (conns % 10 == 0)
-            {
-                Logger.Info($"conn num {conns}");
             }
         }
 
