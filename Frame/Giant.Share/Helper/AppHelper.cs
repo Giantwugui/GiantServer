@@ -12,6 +12,7 @@
         {
             switch (appyType)
             {
+                case AppType.AllServer:
                 case AppType.Gate:
                 case AppType.Manager:
                 case AppType.Zone:
@@ -26,6 +27,7 @@
             {
                 case AppType.Gate:
                     return false;
+                case AppType.AllServer:
                 case AppType.Manager:
                 case AppType.Zone:
                     return true;
