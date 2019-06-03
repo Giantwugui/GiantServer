@@ -107,14 +107,10 @@ namespace Giant.Frame
         private void InitProtocol()
         {
             Assembly properMsgAssembly = Assembly.GetEntryAssembly();//特有消息处理程序及(Giant.App)
-            Assembly golobalAssembly = Assembly.GetExecutingAssembly();//全局消息处理程序集(Giant.Frame)
-
-            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, golobalAssembly);
             this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
 
             if (this.OutterNetworkService != null)
             {
-                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, golobalAssembly);
                 this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
             }
         }

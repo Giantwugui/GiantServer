@@ -24,38 +24,38 @@ namespace Giant.Msg {
     static OuterMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJPdXRlck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyI6CgpDQV9TdG9wQXBw",
-            "Eg0KBVJwY0lkGFogASgFEg4KBk1haW5JZBgBIAEoBRINCgVTdWJJZBgCIAEo",
-            "BSI8CghDUl9MT0dJThINCgVScGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJ",
-            "EhAKCFBhc3N3b3JkGAIgASgJIlcKCFJDX0xPR0lOEg0KBVJwY0lkGFogASgF",
-            "Eg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDwoHQWRkcmVzcxgB",
-            "IAEoCRILCgNLZXkYAiABKAMiJgoIQ0dfTE9HSU4SDQoFUnBjSWQYWiABKAUS",
-            "CwoDS2V5GAEgASgDIksKCEdDX0xPR0lOEg0KBVJwY0lkGFogASgFEg0KBUVy",
-            "cm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSEAoIUGxheWVySWQYASABKAMi",
-            "GwoKUGxheWVySW5mbxINCgVScGNJZBhaIAEoBSIeCg1DR19QbGF5ZXJJbmZv",
-            "Eg0KBVJwY0lkGFogASgFIucBCg1HQ19QbGF5ZXJJbmZvEg0KBVJwY0lkGFog",
-            "ASgFEg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSKQoKUGxheWVy",
-            "SW5mbxgBIAEoCzIVLkdpYW50Lk1zZy5QbGF5ZXJJbmZvEioKC1BsYXllcklu",
-            "Zm9zGAIgAygLMhUuR2lhbnQuTXNnLlBsYXllckluZm8SGgoSVGVzdFJlcGVh",
-            "dGVkU3RyaW5nGAMgAygJEhkKEVRlc3RSZXBlYXRlZEludDMyGAQgAygFEhkK",
-            "EVRlc3RSZXBlYXRlZEludDY0GAUgAygDIhwKC0NHX0VudGVyTWFwEg0KBVJw",
-            "Y0lkGFogASgFInAKC0dDX0VudGVyTWFwEg0KBVJwY0lkGFogASgFEg0KBUVy",
-            "cm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGVW5pdElkGAEgASgDEiIK",
-            "BVVuaXRzGAIgAygLMhMuR2lhbnQuTXNnLlVuaXRJbmZvIjsKCFVuaXRJbmZv",
-            "Eg4KBlVuaXRJZBgBIAEoAxIJCgFYGAIgASgCEgkKAVkYAyABKAISCQoBWhgE",
-            "IAEoAiJ4ChRNQ19QYXRoZmluZGluZ1Jlc3VsdBIPCgdBY3RvcklkGF0gASgD",
-            "EgoKAklkGAEgASgDEgkKAVgYAiABKAISCQoBWRgDIAEoAhIJCgFaGAQgASgC",
-            "EgoKAlhzGAUgAygCEgoKAllzGAYgAygCEgoKAlpzGAcgAygCIhgKB0NSX1Bp",
-            "bmcSDQoFUnBjSWQYWiABKAUiOAoHUkNfUGluZxINCgVScGNJZBhaIAEoBRIN",
-            "CgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJIj0KCUNNX1JlbG9hZBIN",
-            "CgVScGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJEhAKCFBhc3N3b3JkGAIg",
-            "ASgJIjoKCU1DX1JlbG9hZBINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEo",
-            "BRIPCgdNZXNzYWdlGFwgASgJIiAKDVpHQ19Ccm9hZGNhc3QSDwoHbWVzc2Fn",
-            "ZRgBIAEoCWIGcHJvdG8z"));
+            "ChJPdXRlck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyI5CgpDQV9TdG9wQXBw",
+            "Eg0KBVJwY0lkGFogASgFEg0KBUFwcElkGAEgASgFEg0KBVN1YklkGAIgASgF",
+            "IjwKCENSX0xPR0lOEg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkS",
+            "EAoIUGFzc3dvcmQYAiABKAkiVwoIUkNfTE9HSU4SDQoFUnBjSWQYWiABKAUS",
+            "DQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIPCgdBZGRyZXNzGAEg",
+            "ASgJEgsKA0tleRgCIAEoAyImCghDR19MT0dJThINCgVScGNJZBhaIAEoBRIL",
+            "CgNLZXkYASABKAMiSwoIR0NfTE9HSU4SDQoFUnBjSWQYWiABKAUSDQoFRXJy",
+            "b3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIQCghQbGF5ZXJJZBgBIAEoAyIb",
+            "CgpQbGF5ZXJJbmZvEg0KBVJwY0lkGFogASgFIh4KDUNHX1BsYXllckluZm8S",
+            "DQoFUnBjSWQYWiABKAUi5wEKDUdDX1BsYXllckluZm8SDQoFUnBjSWQYWiAB",
+            "KAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIpCgpQbGF5ZXJJ",
+            "bmZvGAEgASgLMhUuR2lhbnQuTXNnLlBsYXllckluZm8SKgoLUGxheWVySW5m",
+            "b3MYAiADKAsyFS5HaWFudC5Nc2cuUGxheWVySW5mbxIaChJUZXN0UmVwZWF0",
+            "ZWRTdHJpbmcYAyADKAkSGQoRVGVzdFJlcGVhdGVkSW50MzIYBCADKAUSGQoR",
+            "VGVzdFJlcGVhdGVkSW50NjQYBSADKAMiHAoLQ0dfRW50ZXJNYXASDQoFUnBj",
+            "SWQYWiABKAUicAoLR0NfRW50ZXJNYXASDQoFUnBjSWQYWiABKAUSDQoFRXJy",
+            "b3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIOCgZVbml0SWQYASABKAMSIgoF",
+            "VW5pdHMYAiADKAsyEy5HaWFudC5Nc2cuVW5pdEluZm8iOwoIVW5pdEluZm8S",
+            "DgoGVW5pdElkGAEgASgDEgkKAVgYAiABKAISCQoBWRgDIAEoAhIJCgFaGAQg",
+            "ASgCIngKFE1DX1BhdGhmaW5kaW5nUmVzdWx0Eg8KB0FjdG9ySWQYXSABKAMS",
+            "CgoCSWQYASABKAMSCQoBWBgCIAEoAhIJCgFZGAMgASgCEgkKAVoYBCABKAIS",
+            "CgoCWHMYBSADKAISCgoCWXMYBiADKAISCgoCWnMYByADKAIiGAoHQ1JfUGlu",
+            "ZxINCgVScGNJZBhaIAEoBSI4CgdSQ19QaW5nEg0KBVJwY0lkGFogASgFEg0K",
+            "BUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkiPQoJQ01fUmVsb2FkEg0K",
+            "BVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkSEAoIUGFzc3dvcmQYAiAB",
+            "KAkiOgoJTUNfUmVsb2FkEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgF",
+            "Eg8KB01lc3NhZ2UYXCABKAkiIAoNWkdDX0Jyb2FkY2FzdBIPCgdtZXNzYWdl",
+            "GAEgASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "RpcId", "MainId", "SubId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "RpcId", "AppId", "SubId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CR_LOGIN), global::Giant.Msg.CR_LOGIN.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RC_LOGIN), global::Giant.Msg.RC_LOGIN.Parser, new[]{ "RpcId", "Error", "Message", "Address", "Key" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CG_LOGIN), global::Giant.Msg.CG_LOGIN.Parser, new[]{ "RpcId", "Key" }, null, null, null),
@@ -104,7 +104,7 @@ namespace Giant.Msg {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CA_StopApp(CA_StopApp other) : this() {
       rpcId_ = other.rpcId_;
-      mainId_ = other.mainId_;
+      appId_ = other.appId_;
       subId_ = other.subId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -125,14 +125,14 @@ namespace Giant.Msg {
       }
     }
 
-    /// <summary>Field number for the "MainId" field.</summary>
-    public const int MainIdFieldNumber = 1;
-    private int mainId_;
+    /// <summary>Field number for the "AppId" field.</summary>
+    public const int AppIdFieldNumber = 1;
+    private int appId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int MainId {
-      get { return mainId_; }
+    public int AppId {
+      get { return appId_; }
       set {
-        mainId_ = value;
+        appId_ = value;
       }
     }
 
@@ -161,7 +161,7 @@ namespace Giant.Msg {
         return true;
       }
       if (RpcId != other.RpcId) return false;
-      if (MainId != other.MainId) return false;
+      if (AppId != other.AppId) return false;
       if (SubId != other.SubId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -170,7 +170,7 @@ namespace Giant.Msg {
     public override int GetHashCode() {
       int hash = 1;
       if (RpcId != 0) hash ^= RpcId.GetHashCode();
-      if (MainId != 0) hash ^= MainId.GetHashCode();
+      if (AppId != 0) hash ^= AppId.GetHashCode();
       if (SubId != 0) hash ^= SubId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -185,9 +185,9 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (MainId != 0) {
+      if (AppId != 0) {
         output.WriteRawTag(8);
-        output.WriteInt32(MainId);
+        output.WriteInt32(AppId);
       }
       if (SubId != 0) {
         output.WriteRawTag(16);
@@ -208,8 +208,8 @@ namespace Giant.Msg {
       if (RpcId != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
       }
-      if (MainId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MainId);
+      if (AppId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
       }
       if (SubId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
@@ -228,8 +228,8 @@ namespace Giant.Msg {
       if (other.RpcId != 0) {
         RpcId = other.RpcId;
       }
-      if (other.MainId != 0) {
-        MainId = other.MainId;
+      if (other.AppId != 0) {
+        AppId = other.AppId;
       }
       if (other.SubId != 0) {
         SubId = other.SubId;
@@ -246,7 +246,7 @@ namespace Giant.Msg {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            MainId = input.ReadInt32();
+            AppId = input.ReadInt32();
             break;
           }
           case 16: {
