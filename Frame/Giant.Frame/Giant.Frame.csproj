@@ -17,9 +17,4 @@
     <ProjectReference Include="..\Giant.Share\Giant.Share.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Enum\" />
-    <Folder Include="Handler\" />
-  </ItemGroup>
-
 </Project>

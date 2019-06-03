@@ -56,6 +56,7 @@ namespace Giant.Log
             logAdapter.Warn(message);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void Error(object message)
@@ -63,6 +64,7 @@ namespace Giant.Log
             logAdapter.Error(message);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void Fatal(object message)
@@ -70,6 +72,7 @@ namespace Giant.Log
             logAdapter.Fatal(message);
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void WriteToConsole(object message)

@@ -1,12 +1,11 @@
 ﻿using Giant.Log;
-using Giant.Frame;
-using System.Threading;
-using System;
 using Giant.Share;
+using System;
+using System.Threading;
 
 namespace Server.App
 {
-    class Program : BaseProgram
+    class Program
     {
         static void Main(string[] args)
         {
@@ -16,7 +15,7 @@ namespace Server.App
                 int appId = int.Parse(args[1]);
                 int subId = int.Parse(args[2]);
 
-                App.AppService.Instacne.Init(appType, appId, subId);
+                AppService.Instacne.Init(appType, appId, subId);
 
                 Logger.Info($"server start complete------------- appType {appType} appId {appId} subId {subId}");
             }
