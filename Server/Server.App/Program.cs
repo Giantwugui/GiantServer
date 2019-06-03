@@ -16,7 +16,7 @@ namespace Server.App
                 int appId = int.Parse(args[1]);
                 int subId = int.Parse(args[2]);
 
-                Service.Instacne.Init(appType, appId, subId);
+                App.AppService.Instacne.Init(appType, appId, subId);
 
                 Logger.Info($"server start complete------------- appType {appType} appId {appId} subId {subId}");
             }
@@ -30,7 +30,7 @@ namespace Server.App
                 Thread.Sleep(1);
 
 
-                Service.Instacne.Update();
+                App.AppService.Instacne.Update();
             }
         }
        

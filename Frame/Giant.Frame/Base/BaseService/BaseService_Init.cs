@@ -4,39 +4,23 @@ using Giant.Log;
 using Giant.Net;
 using Giant.Redis;
 using Giant.Share;
-using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Reflection;
 
 namespace Giant.Frame
 {
-    public abstract class BaseService
+    public partial class BaseService
     {
-        public NetTopologyManager NetTopologyManager { get; private set; }
-        public InnerNetworkService InnerNetworkService { get; private set; }
-        public OutterNetworkService OutterNetworkService { get; private set; }
-
-        public AppState AppState { get; set; }
-
-        public AppType AppType { get; private set; }
-        public int AppId { get; private set; }
-        public int SubId { get; private set; }
-
         public virtual void Init(AppType appyType, int appId, int subId)
         {
             this.AppState = AppState.Starting;
             this.AppType = appyType;
             this.AppId = appId;
             this.SubId = subId;
-            this.NetTopologyManager = new NetTopologyManager(this);
-
-            SetConsoleCtrlHandler(cancelHandler, true);
-
-            // 异步方法全部会回掉到主线程
-            SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
             //框架的各种初始化工作
+            this.InitBase();
             this.InitLogConfig();
 
             this.InitData();
@@ -44,44 +28,15 @@ namespace Giant.Frame
             this.InitProtocol();
             this.InitDBService();
             this.InitRedisService();
-
-            //初始化网络拓扑
-            this.NetTopologyManager.Init();
+            this.InitNetworkTopology();
         }
 
-        public virtual void Update()
+        private void InitBase()
         {
-            try
-            {
-                OneThreadSynchronizationContext.Instance.Update();
+            SetConsoleCtrlHandler(cancelHandler, true);
 
-                Timer.Instance.Update();//定时器
-
-                this.InnerNetworkService.Update();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
-        }
-
-        public virtual void InitData()
-        {
-            DataManager.Instance.LoadData();
-
-            AppConfig.Init();
-            DBConfig.Init();
-            NetConfig.Init();
-            NetTopologyConfig.Init();
-        }
-
-        public virtual void InitDone()
-        {
-        }
-
-        public virtual void StopApp()
-        {
-            this.AppState = AppState.Stopping;
+            // 异步方法全部会回掉到主线程
+            SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
         }
 
         //日志配置
@@ -106,7 +61,7 @@ namespace Giant.Frame
         //注册消息响应
         private void InitProtocol()
         {
-            Assembly properMsgAssembly = Assembly.GetEntryAssembly();//特有消息处理程序及(Giant.App)
+            Assembly properMsgAssembly = Assembly.GetEntryAssembly();
             this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
 
             if (this.OutterNetworkService != null)
@@ -133,6 +88,14 @@ namespace Giant.Frame
                 RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);
             }
         }
+
+        //网络拓扑
+        private void InitNetworkTopology()
+        {
+            this.NetTopologyManager = new NetTopologyManager(this);
+            this.NetTopologyManager.Init();
+        }
+
 
         #region 窗口关闭事件
 

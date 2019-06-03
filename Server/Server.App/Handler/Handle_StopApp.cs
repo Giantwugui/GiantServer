@@ -13,9 +13,9 @@ namespace Server.App
         {
             try
             {
-                if (Service.Instacne.AppId == message.AppId && Service.Instacne.SubId == message.SubId)
+                if (AppService.Instacne.AppId == message.AppId && AppService.Instacne.SubId == message.SubId)
                 {
-                    Service.Instacne.StopApp();
+                    AppService.Instacne.StopApp();
                 }
             }
             catch (Exception ex)
