@@ -48,7 +48,7 @@ namespace Server.App
             switch (message)
             {
                 default:
-                    Logger.Info($"read message -> {message}");
+                    Logger.Info($"system call -> {message}");
                     break;
             }
         }
