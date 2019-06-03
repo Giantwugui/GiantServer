@@ -11,7 +11,7 @@ namespace Giant.Net
     {
         Tcp,
         Udp,
-        WebSocket
+        Web
     }
 
     public abstract class NetworkService : IDisposable
@@ -92,7 +92,7 @@ namespace Giant.Net
                 case NetworkType.Udp:
                     service = new UdpService();
                     break;
-                case NetworkType.WebSocket:
+                case NetworkType.Web:
                     service = new WebService();
                     break;
             }
@@ -111,7 +111,7 @@ namespace Giant.Net
                     endPoint = NetworkHelper.ToIPEndPoint(address);
                     service = new UdpService(endPoint.Port, OnAccept);
                     break;
-                case NetworkType.WebSocket:
+                case NetworkType.Web:
                     service = new WebService(address.Split(";").ToList(), OnAccept);
                     break;
             }
