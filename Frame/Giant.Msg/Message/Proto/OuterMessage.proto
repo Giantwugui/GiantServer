@@ -1,6 +1,14 @@
 syntax = "proto3";
 package Giant.Msg;
 
+message CA_StopApp // IMessage
+{
+	int32 RpcId = 90;
+	int32 AppId = 1;
+	int32 SubId = 2;
+}
+
+
 message CR_LOGIN // IRequest
 {
 	int32 RpcId = 90;

@@ -44,7 +44,7 @@ namespace Giant.Redis
 
             this.DataBaseIndex = dbIndex;
 
-            this.TaskPool = new TaskPool(1);
+            this.TaskPool = new TaskPool(taskCount);
             this.TaskPool.Start();
 
             Connect();

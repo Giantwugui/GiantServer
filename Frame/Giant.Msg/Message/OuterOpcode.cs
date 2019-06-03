@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
+	[Message(OuterOpcode.CA_StopApp)]
+	public partial class CA_StopApp : IMessage {}
+
 	[Message(OuterOpcode.CR_LOGIN)]
 	public partial class CR_LOGIN : IRequest {}
 
@@ -55,25 +58,27 @@ namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort CR_LOGIN = 101;
-		 public const ushort RC_LOGIN = 102;
-		 public const ushort CG_LOGIN = 103;
-		 public const ushort GC_LOGIN = 104;
-		 public const ushort PlayerInfo = 105;
-		 public const ushort CG_PlayerInfo = 106;
-		 public const ushort GC_PlayerInfo = 107;
-		 public const ushort CG_EnterMap = 108;
-		 public const ushort GC_EnterMap = 109;
-		 public const ushort UnitInfo = 110;
-		 public const ushort MC_PathfindingResult = 111;
-		 public const ushort CR_Ping = 112;
-		 public const ushort RC_Ping = 113;
-		 public const ushort CM_Reload = 114;
-		 public const ushort MC_Reload = 115;
-		 public const ushort ZGC_Broadcast = 116;
+		 public const ushort CA_StopApp = 101;
+		 public const ushort CR_LOGIN = 102;
+		 public const ushort RC_LOGIN = 103;
+		 public const ushort CG_LOGIN = 104;
+		 public const ushort GC_LOGIN = 105;
+		 public const ushort PlayerInfo = 106;
+		 public const ushort CG_PlayerInfo = 107;
+		 public const ushort GC_PlayerInfo = 108;
+		 public const ushort CG_EnterMap = 109;
+		 public const ushort GC_EnterMap = 110;
+		 public const ushort UnitInfo = 111;
+		 public const ushort MC_PathfindingResult = 112;
+		 public const ushort CR_Ping = 113;
+		 public const ushort RC_Ping = 114;
+		 public const ushort CM_Reload = 115;
+		 public const ushort MC_Reload = 116;
+		 public const ushort ZGC_Broadcast = 117;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
+			{CA_StopApp, typeof(CA_StopApp)},
 			{CR_LOGIN, typeof(CR_LOGIN)},
 			{RC_LOGIN, typeof(RC_LOGIN)},
 			{CG_LOGIN, typeof(CG_LOGIN)},

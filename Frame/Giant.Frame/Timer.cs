@@ -1,25 +1,40 @@
 ﻿using Giant.Share;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Giant.Frame
 {
     public class TimerInfo
     {
-        public long Id;
-        public long Time;
-        public Action CallBack;
+        public long Id { get; private set; }
+        public long Time { get; private set; }
+        public Action Action { get; private set; }
+
+        public TimerInfo(long id, long time, Action action)
+        {
+            this.Id = id;
+            this.Time = time;
+            this.Action = action;
+        }
     }
 
     public class Timer
     {
-        private long timerId = 0;
-        private long MinTime = 0;//最近过期时间
-        private Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
+        private long minTime = 0;//最近过期时间
+        private readonly Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
         private readonly SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
 
-        public Queue<long> outOfTime = new Queue<long>();
-        public Queue<long> outOfTimeIds = new Queue<long>();
+        private readonly Queue<long> outOfTime = new Queue<long>();
+        private readonly Queue<long> outOfTimeIds = new Queue<long>();
+
+        private long timerId = 0;
+        public long TimerId => ++timerId;
+
+        public static Timer Instance { get; } = new Timer();
+
+        private Timer() { }
+
 
 
         public void Update()
@@ -30,7 +45,7 @@ namespace Giant.Frame
             {
                 if (kv.Key > now)
                 {
-                    MinTime = kv.Key;
+                    minTime = kv.Key;
                     break;
                 }
                 else
@@ -51,32 +66,41 @@ namespace Giant.Frame
             {
                 if (timers.TryGetValue(timerId, out TimerInfo timerInfo))
                 {
-                    timerInfo.CallBack();
+                    timerInfo.Action();
                     timers.Remove(timerId);
                 }
             }
         }
 
-        public void Wait(long delay, Action callBack)
+        public void Wait(long delay, Action action)
         {
-            TimerInfo timerInfo = new TimerInfo() { Id = ++timerId, Time = TimeHelper.NowMilliSeconds + delay, CallBack = callBack };
+            TimerInfo timerInfo = new TimerInfo(TimerId, TimeHelper.NowMilliSeconds + delay, action);
 
             Add(timerInfo);
         }
 
         public void WaitTill(long time, Action callBack)
         {
-            TimerInfo timerInfo = new TimerInfo() { Id = ++timerId, Time = time, CallBack = callBack };
+            TimerInfo timerInfo = new TimerInfo(TimerId, time, callBack);
 
             Add(timerInfo);
+        }
+
+        public Task<bool> WaitAsync(int delay)
+        {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+            TimerInfo info = new TimerInfo(TimerId, TimeHelper.NowMilliSeconds + delay, () => tcs.SetResult(true));
+            Add(info);
+
+            return tcs.Task;
         }
 
 
         private void Add(TimerInfo timerInfo)
         {
-            if (timerInfo.Time < MinTime)
+            if (timerInfo.Time < minTime)
             {
-                MinTime = timerInfo.Time;
+                minTime = timerInfo.Time;
             }
 
             timers[timerInfo.Id] = timerInfo;

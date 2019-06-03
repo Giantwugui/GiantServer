@@ -14,16 +14,18 @@ namespace Giant.Frame
     public abstract class BaseService
     {
         public NetTopologyManager NetTopologyManager { get; private set; }
-
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 
+        public AppState AppState { get; set; }
+
+        public AppType AppType { get; private set; }
         public int AppId { get; private set; }
         public int SubId { get; private set; }
-        public AppType AppType { get; private set; }
 
         public virtual void Init(AppType appyType, int appId, int subId)
         {
+            this.AppState = AppState.Starting;
             this.AppType = appyType;
             this.AppId = appId;
             this.SubId = subId;
@@ -53,6 +55,8 @@ namespace Giant.Frame
             {
                 OneThreadSynchronizationContext.Instance.Update();
 
+                Timer.Instance.Update();//定时器
+
                 this.InnerNetworkService.Update();
             }
             catch (Exception ex)
@@ -65,6 +69,7 @@ namespace Giant.Frame
         {
             DataManager.Instance.LoadData();
 
+            AppConfig.Init();
             DBConfig.Init();
             NetConfig.Init();
             NetTopologyConfig.Init();
@@ -72,6 +77,11 @@ namespace Giant.Frame
 
         public virtual void InitDone()
         {
+        }
+
+        public virtual void StopApp()
+        {
+            this.AppState = AppState.Stopping;
         }
 
         //日志配置

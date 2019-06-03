@@ -3,6 +3,7 @@ using System;
 using System.Threading;
 using System.Reflection;
 using Giant.Data;
+using Giant.DB;
 
 namespace Server.Test
 {
@@ -18,6 +19,8 @@ namespace Server.Test
                 //Test_Mongo mongo_test = new Test_Mongo();
                 //mongo_test.Init();
                 //mongo_test.TestMongo();
+
+                Assembly assembly = typeof(DataBaseService).Assembly;
 
                 Test_MySql test_MySql = new Test_MySql();
                 test_MySql.Init();

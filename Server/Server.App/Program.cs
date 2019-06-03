@@ -14,7 +14,7 @@ namespace Server.App
             {
                 AppType appType = (AppType)Enum.Parse(typeof(AppType), args[0]);
                 int appId = int.Parse(args[1]);
-                int subId = args.Length == 3 ? int.Parse(args[2]) : 0;
+                int subId = int.Parse(args[2]);
 
                 Service.Instacne.Init(appType, appId, subId);
 

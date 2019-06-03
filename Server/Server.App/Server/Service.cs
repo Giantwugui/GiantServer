@@ -9,15 +9,14 @@ namespace Server.App
     {
         public static Service Instacne { get; } = new Service();
 
-        private Service()
-        {
-        }
+        private Service() { }
 
         public override void Init(AppType appyType, int appId, int subId)
         {
             //框架的各种初始化工作
             base.Init(appyType, appId, subId);
 
+            this.InitDone();
             ConsoleReader.Instance.Start(DoCmd);
         }
 
@@ -41,6 +40,7 @@ namespace Server.App
         public override void InitDone()
         {
             base.InitDone();
+            this.AppState = AppState.Started;
         }
 
         private void DoCmd(string message)
