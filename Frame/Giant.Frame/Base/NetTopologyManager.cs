@@ -8,7 +8,7 @@ namespace Giant.Frame
     public class NetTopologyManager
     {
         //各app内部连接
-        private ListMap<AppType, Session> appSessions = new ListMap<AppType, Session>();
+        private readonly ListMap<AppType, Session> appSessions = new ListMap<AppType, Session>();
 
         public BaseService Service { get; private set; }
 

@@ -261,7 +261,7 @@ namespace Giant.Net
 
             if (e.BytesTransferred == 0)
             {
-                this.OnError(ErrorCode.ERR_PeerDisconnect);
+                this.OnError(ErrorCode.PeerDisconnect);
                 return;
             }
 
@@ -285,7 +285,7 @@ namespace Giant.Net
                 catch (Exception ee)
                 {
                     Logger.Error(ee);
-                    this.OnError(ErrorCode.ERR_SocketError);
+                    this.OnError(ErrorCode.SocketError);
                     return;
                 }
 
@@ -318,7 +318,7 @@ namespace Giant.Net
 
             if (e.BytesTransferred == 0)
             {
-                this.OnError(ErrorCode.ERR_PeerDisconnect);
+                this.OnError(ErrorCode.PeerDisconnect);
                 return;
             }
 

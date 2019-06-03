@@ -129,14 +129,14 @@ namespace Giant.Net
 
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
                     {
-                        this.OnError(ErrorCode.ERR_WebsocketPeerReset);
+                        this.OnError(ErrorCode.WebsocketPeerReset);
                         return;
                     }
 
                     if (receiveCount > ushort.MaxValue)
                     {
                         await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}",cancellationTokenSource.Token);
-                        this.OnError(ErrorCode.ERR_WebsocketMessageTooBig);
+                        this.OnError(ErrorCode.WebsocketMessageTooBig);
                         return;
                     }
 
@@ -147,7 +147,7 @@ namespace Giant.Net
             catch (Exception e)
             {
                 Logger.Error(e);
-                this.OnError(ErrorCode.ERR_WebsocketRecvError);
+                this.OnError(ErrorCode.WebsocketRecvError);
             }
         }
     }

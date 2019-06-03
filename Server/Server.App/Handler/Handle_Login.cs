@@ -20,19 +20,19 @@ namespace Server.App
                 AccountInfo account = await query.Task();
                 if (account == null)
                 {
-                    response.Error = ErrorCode.ERR_RpcFail;
+                    response.Error = ErrorCode.RpcFail;
                     reply(response);
                     return;
                 }
 
                 Logger.Warn($"player login {request.Account}");
 
-                response.Error = ErrorCode.ERR_Success;
+                response.Error = ErrorCode.Success;
                 reply(response);
             }
             catch (Exception ex)
             {
-                response.Error = ErrorCode.ERR_RpcFail;
+                response.Error = ErrorCode.RpcFail;
                 reply(response);
                 Logger.Error(ex);
             }
