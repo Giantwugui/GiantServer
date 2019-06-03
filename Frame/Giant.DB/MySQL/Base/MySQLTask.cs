@@ -11,7 +11,7 @@ namespace Giant.DB.MySQL
 
         public MySQLService Service
         {
-            get { return DBService as MySQLService; }
+            get { return DBService.DBService as MySQLService; }
         }
 
         public MySqlConnection GetConnection()

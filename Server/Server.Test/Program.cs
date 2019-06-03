@@ -19,9 +19,9 @@ namespace Server.Test
                 //mongo_test.Init();
                 //mongo_test.TestMongo();
 
-                //Test_MySql test_MySql = new Test_MySql();
-                //test_MySql.Init();
-                //test_MySql.Test();
+                Test_MySql test_MySql = new Test_MySql();
+                test_MySql.Init();
+                test_MySql.Test();
 
                 DataManager.Instance.LoadData();
 
