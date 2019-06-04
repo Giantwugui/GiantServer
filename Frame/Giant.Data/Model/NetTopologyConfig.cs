@@ -29,9 +29,7 @@ namespace Giant.Data
             foreach (var kv in topology)
             {
                 data = kv.Value;
-                string name = data.GetString("Name");
-                AppType appType = (AppType)Enum.Parse(typeof(AppType), name);
-
+                AppType appType = EnumHelper.FromString<AppType>(data.GetString("Name"));
 
                 foreach (string v in Enum.GetNames(typeof(AppType)))
                 {
@@ -53,7 +51,7 @@ namespace Giant.Data
 
         private static void BuidTopology(AppType source, string otherStr)
         {
-             AppType other = (AppType)Enum.Parse(typeof(AppType), otherStr);
+            AppType other = EnumHelper.FromString<AppType>(otherStr);
             var topology = NetConfig.GetNetConfig(other);
             foreach (var kv in topology)
             {

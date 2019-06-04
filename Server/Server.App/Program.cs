@@ -11,7 +11,7 @@ namespace Server.App
         {
             try
             {
-                AppType appType = (AppType)Enum.Parse(typeof(AppType), args[0]);
+                AppType appType = EnumHelper.FromString<AppType>(args[0]);
                 int appId = int.Parse(args[1]);
                 int subId = int.Parse(args[2]);
 

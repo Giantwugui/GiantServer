@@ -1,22 +1,14 @@
 syntax = "proto3";
 package Giant.Msg;
 
-message CA_StopApp // IMessage
-{
-	int32 RpcId = 90;
-	int32 AppId = 1;
-	int32 SubId = 2;
-}
-
-
-message CR_LOGIN // IRequest
+message CR_Login // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	string	Password = 2;	// 密码
 }
 
-message RC_LOGIN // IResponse
+message RC_Login // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -25,13 +17,13 @@ message RC_LOGIN // IResponse
 	int64 Key	    = 2;
 }
 
-message CG_LOGIN // IRequest
+message CG_Login // IRequest
 {
 	int32 RpcId = 90;
 	int64 Key = 1;	// 帐号
 }
 
-message GC_LOGIN // IResponse
+message GC_Login // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

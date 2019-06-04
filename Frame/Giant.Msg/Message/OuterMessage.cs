@@ -24,42 +24,39 @@ namespace Giant.Msg {
     static OuterMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJPdXRlck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyI5CgpDQV9TdG9wQXBw",
-            "Eg0KBVJwY0lkGFogASgFEg0KBUFwcElkGAEgASgFEg0KBVN1YklkGAIgASgF",
-            "IjwKCENSX0xPR0lOEg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkS",
-            "EAoIUGFzc3dvcmQYAiABKAkiVwoIUkNfTE9HSU4SDQoFUnBjSWQYWiABKAUS",
-            "DQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIPCgdBZGRyZXNzGAEg",
-            "ASgJEgsKA0tleRgCIAEoAyImCghDR19MT0dJThINCgVScGNJZBhaIAEoBRIL",
-            "CgNLZXkYASABKAMiSwoIR0NfTE9HSU4SDQoFUnBjSWQYWiABKAUSDQoFRXJy",
-            "b3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIQCghQbGF5ZXJJZBgBIAEoAyIb",
-            "CgpQbGF5ZXJJbmZvEg0KBVJwY0lkGFogASgFIh4KDUNHX1BsYXllckluZm8S",
-            "DQoFUnBjSWQYWiABKAUi5wEKDUdDX1BsYXllckluZm8SDQoFUnBjSWQYWiAB",
-            "KAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIpCgpQbGF5ZXJJ",
-            "bmZvGAEgASgLMhUuR2lhbnQuTXNnLlBsYXllckluZm8SKgoLUGxheWVySW5m",
-            "b3MYAiADKAsyFS5HaWFudC5Nc2cuUGxheWVySW5mbxIaChJUZXN0UmVwZWF0",
-            "ZWRTdHJpbmcYAyADKAkSGQoRVGVzdFJlcGVhdGVkSW50MzIYBCADKAUSGQoR",
-            "VGVzdFJlcGVhdGVkSW50NjQYBSADKAMiHAoLQ0dfRW50ZXJNYXASDQoFUnBj",
-            "SWQYWiABKAUicAoLR0NfRW50ZXJNYXASDQoFUnBjSWQYWiABKAUSDQoFRXJy",
-            "b3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIOCgZVbml0SWQYASABKAMSIgoF",
-            "VW5pdHMYAiADKAsyEy5HaWFudC5Nc2cuVW5pdEluZm8iOwoIVW5pdEluZm8S",
-            "DgoGVW5pdElkGAEgASgDEgkKAVgYAiABKAISCQoBWRgDIAEoAhIJCgFaGAQg",
-            "ASgCIngKFE1DX1BhdGhmaW5kaW5nUmVzdWx0Eg8KB0FjdG9ySWQYXSABKAMS",
-            "CgoCSWQYASABKAMSCQoBWBgCIAEoAhIJCgFZGAMgASgCEgkKAVoYBCABKAIS",
-            "CgoCWHMYBSADKAISCgoCWXMYBiADKAISCgoCWnMYByADKAIiGAoHQ1JfUGlu",
-            "ZxINCgVScGNJZBhaIAEoBSI4CgdSQ19QaW5nEg0KBVJwY0lkGFogASgFEg0K",
-            "BUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkiPQoJQ01fUmVsb2FkEg0K",
-            "BVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkSEAoIUGFzc3dvcmQYAiAB",
-            "KAkiOgoJTUNfUmVsb2FkEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgF",
-            "Eg8KB01lc3NhZ2UYXCABKAkiIAoNWkdDX0Jyb2FkY2FzdBIPCgdtZXNzYWdl",
-            "GAEgASgJYgZwcm90bzM="));
+            "ChJPdXRlck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyI8CghDUl9Mb2dpbhIN",
+            "CgVScGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJEhAKCFBhc3N3b3JkGAIg",
+            "ASgJIlcKCFJDX0xvZ2luEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgF",
+            "Eg8KB01lc3NhZ2UYXCABKAkSDwoHQWRkcmVzcxgBIAEoCRILCgNLZXkYAiAB",
+            "KAMiJgoIQ0dfTG9naW4SDQoFUnBjSWQYWiABKAUSCwoDS2V5GAEgASgDIksK",
+            "CEdDX0xvZ2luEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgFEg8KB01l",
+            "c3NhZ2UYXCABKAkSEAoIUGxheWVySWQYASABKAMiGwoKUGxheWVySW5mbxIN",
+            "CgVScGNJZBhaIAEoBSIeCg1DR19QbGF5ZXJJbmZvEg0KBVJwY0lkGFogASgF",
+            "IucBCg1HQ19QbGF5ZXJJbmZvEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsg",
+            "ASgFEg8KB01lc3NhZ2UYXCABKAkSKQoKUGxheWVySW5mbxgBIAEoCzIVLkdp",
+            "YW50Lk1zZy5QbGF5ZXJJbmZvEioKC1BsYXllckluZm9zGAIgAygLMhUuR2lh",
+            "bnQuTXNnLlBsYXllckluZm8SGgoSVGVzdFJlcGVhdGVkU3RyaW5nGAMgAygJ",
+            "EhkKEVRlc3RSZXBlYXRlZEludDMyGAQgAygFEhkKEVRlc3RSZXBlYXRlZElu",
+            "dDY0GAUgAygDIhwKC0NHX0VudGVyTWFwEg0KBVJwY0lkGFogASgFInAKC0dD",
+            "X0VudGVyTWFwEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgFEg8KB01l",
+            "c3NhZ2UYXCABKAkSDgoGVW5pdElkGAEgASgDEiIKBVVuaXRzGAIgAygLMhMu",
+            "R2lhbnQuTXNnLlVuaXRJbmZvIjsKCFVuaXRJbmZvEg4KBlVuaXRJZBgBIAEo",
+            "AxIJCgFYGAIgASgCEgkKAVkYAyABKAISCQoBWhgEIAEoAiJ4ChRNQ19QYXRo",
+            "ZmluZGluZ1Jlc3VsdBIPCgdBY3RvcklkGF0gASgDEgoKAklkGAEgASgDEgkK",
+            "AVgYAiABKAISCQoBWRgDIAEoAhIJCgFaGAQgASgCEgoKAlhzGAUgAygCEgoK",
+            "AllzGAYgAygCEgoKAlpzGAcgAygCIhgKB0NSX1BpbmcSDQoFUnBjSWQYWiAB",
+            "KAUiOAoHUkNfUGluZxINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIP",
+            "CgdNZXNzYWdlGFwgASgJIj0KCUNNX1JlbG9hZBINCgVScGNJZBhaIAEoBRIP",
+            "CgdBY2NvdW50GAEgASgJEhAKCFBhc3N3b3JkGAIgASgJIjoKCU1DX1JlbG9h",
+            "ZBINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwg",
+            "ASgJIiAKDVpHQ19Ccm9hZGNhc3QSDwoHbWVzc2FnZRgBIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "RpcId", "AppId", "SubId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CR_LOGIN), global::Giant.Msg.CR_LOGIN.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RC_LOGIN), global::Giant.Msg.RC_LOGIN.Parser, new[]{ "RpcId", "Error", "Message", "Address", "Key" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CG_LOGIN), global::Giant.Msg.CG_LOGIN.Parser, new[]{ "RpcId", "Key" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.GC_LOGIN), global::Giant.Msg.GC_LOGIN.Parser, new[]{ "RpcId", "Error", "Message", "PlayerId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CR_Login), global::Giant.Msg.CR_Login.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RC_Login), global::Giant.Msg.RC_Login.Parser, new[]{ "RpcId", "Error", "Message", "Address", "Key" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CG_Login), global::Giant.Msg.CG_Login.Parser, new[]{ "RpcId", "Key" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.GC_Login), global::Giant.Msg.GC_Login.Parser, new[]{ "RpcId", "Error", "Message", "PlayerId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.PlayerInfo), global::Giant.Msg.PlayerInfo.Parser, new[]{ "RpcId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CG_PlayerInfo), global::Giant.Msg.CG_PlayerInfo.Parser, new[]{ "RpcId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.GC_PlayerInfo), global::Giant.Msg.GC_PlayerInfo.Parser, new[]{ "RpcId", "Error", "Message", "PlayerInfo", "PlayerInfos", "TestRepeatedString", "TestRepeatedInt32", "TestRepeatedInt64" }, null, null, null),
@@ -78,11 +75,11 @@ namespace Giant.Msg {
 
   }
   #region Messages
-  public sealed partial class CA_StopApp : pb::IMessage<CA_StopApp> {
-    private static readonly pb::MessageParser<CA_StopApp> _parser = new pb::MessageParser<CA_StopApp>(() => new CA_StopApp());
+  public sealed partial class CR_Login : pb::IMessage<CR_Login> {
+    private static readonly pb::MessageParser<CR_Login> _parser = new pb::MessageParser<CR_Login>(() => new CR_Login());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CA_StopApp> Parser { get { return _parser; } }
+    public static pb::MessageParser<CR_Login> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -95,199 +92,14 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CA_StopApp() {
+    public CR_Login() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CA_StopApp(CA_StopApp other) : this() {
-      rpcId_ = other.rpcId_;
-      appId_ = other.appId_;
-      subId_ = other.subId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CA_StopApp Clone() {
-      return new CA_StopApp(this);
-    }
-
-    /// <summary>Field number for the "RpcId" field.</summary>
-    public const int RpcIdFieldNumber = 90;
-    private int rpcId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int RpcId {
-      get { return rpcId_; }
-      set {
-        rpcId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "AppId" field.</summary>
-    public const int AppIdFieldNumber = 1;
-    private int appId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int AppId {
-      get { return appId_; }
-      set {
-        appId_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "SubId" field.</summary>
-    public const int SubIdFieldNumber = 2;
-    private int subId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SubId {
-      get { return subId_; }
-      set {
-        subId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as CA_StopApp);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CA_StopApp other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (RpcId != other.RpcId) return false;
-      if (AppId != other.AppId) return false;
-      if (SubId != other.SubId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (RpcId != 0) hash ^= RpcId.GetHashCode();
-      if (AppId != 0) hash ^= AppId.GetHashCode();
-      if (SubId != 0) hash ^= SubId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (AppId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(AppId);
-      }
-      if (SubId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(SubId);
-      }
-      if (RpcId != 0) {
-        output.WriteRawTag(208, 5);
-        output.WriteInt32(RpcId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (RpcId != 0) {
-        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
-      }
-      if (AppId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
-      }
-      if (SubId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CA_StopApp other) {
-      if (other == null) {
-        return;
-      }
-      if (other.RpcId != 0) {
-        RpcId = other.RpcId;
-      }
-      if (other.AppId != 0) {
-        AppId = other.AppId;
-      }
-      if (other.SubId != 0) {
-        SubId = other.SubId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            AppId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            SubId = input.ReadInt32();
-            break;
-          }
-          case 720: {
-            RpcId = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class CR_LOGIN : pb::IMessage<CR_LOGIN> {
-    private static readonly pb::MessageParser<CR_LOGIN> _parser = new pb::MessageParser<CR_LOGIN>(() => new CR_LOGIN());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CR_LOGIN> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CR_LOGIN() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CR_LOGIN(CR_LOGIN other) : this() {
+    public CR_Login(CR_Login other) : this() {
       rpcId_ = other.rpcId_;
       account_ = other.account_;
       password_ = other.password_;
@@ -295,8 +107,8 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CR_LOGIN Clone() {
-      return new CR_LOGIN(this);
+    public CR_Login Clone() {
+      return new CR_Login(this);
     }
 
     /// <summary>Field number for the "RpcId" field.</summary>
@@ -340,11 +152,11 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CR_LOGIN);
+      return Equals(other as CR_Login);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CR_LOGIN other) {
+    public bool Equals(CR_Login other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -412,7 +224,7 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CR_LOGIN other) {
+    public void MergeFrom(CR_Login other) {
       if (other == null) {
         return;
       }
@@ -454,15 +266,15 @@ namespace Giant.Msg {
 
   }
 
-  public sealed partial class RC_LOGIN : pb::IMessage<RC_LOGIN> {
-    private static readonly pb::MessageParser<RC_LOGIN> _parser = new pb::MessageParser<RC_LOGIN>(() => new RC_LOGIN());
+  public sealed partial class RC_Login : pb::IMessage<RC_Login> {
+    private static readonly pb::MessageParser<RC_Login> _parser = new pb::MessageParser<RC_Login>(() => new RC_Login());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<RC_LOGIN> Parser { get { return _parser; } }
+    public static pb::MessageParser<RC_Login> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -471,14 +283,14 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RC_LOGIN() {
+    public RC_Login() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RC_LOGIN(RC_LOGIN other) : this() {
+    public RC_Login(RC_Login other) : this() {
       rpcId_ = other.rpcId_;
       error_ = other.error_;
       message_ = other.message_;
@@ -488,8 +300,8 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public RC_LOGIN Clone() {
-      return new RC_LOGIN(this);
+    public RC_Login Clone() {
+      return new RC_Login(this);
     }
 
     /// <summary>Field number for the "RpcId" field.</summary>
@@ -549,11 +361,11 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as RC_LOGIN);
+      return Equals(other as RC_Login);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(RC_LOGIN other) {
+    public bool Equals(RC_Login other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -639,7 +451,7 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(RC_LOGIN other) {
+    public void MergeFrom(RC_Login other) {
       if (other == null) {
         return;
       }
@@ -695,15 +507,15 @@ namespace Giant.Msg {
 
   }
 
-  public sealed partial class CG_LOGIN : pb::IMessage<CG_LOGIN> {
-    private static readonly pb::MessageParser<CG_LOGIN> _parser = new pb::MessageParser<CG_LOGIN>(() => new CG_LOGIN());
+  public sealed partial class CG_Login : pb::IMessage<CG_Login> {
+    private static readonly pb::MessageParser<CG_Login> _parser = new pb::MessageParser<CG_Login>(() => new CG_Login());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CG_LOGIN> Parser { get { return _parser; } }
+    public static pb::MessageParser<CG_Login> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -712,22 +524,22 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CG_LOGIN() {
+    public CG_Login() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CG_LOGIN(CG_LOGIN other) : this() {
+    public CG_Login(CG_Login other) : this() {
       rpcId_ = other.rpcId_;
       key_ = other.key_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CG_LOGIN Clone() {
-      return new CG_LOGIN(this);
+    public CG_Login Clone() {
+      return new CG_Login(this);
     }
 
     /// <summary>Field number for the "RpcId" field.</summary>
@@ -757,11 +569,11 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as CG_LOGIN);
+      return Equals(other as CG_Login);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CG_LOGIN other) {
+    public bool Equals(CG_Login other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -820,7 +632,7 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CG_LOGIN other) {
+    public void MergeFrom(CG_Login other) {
       if (other == null) {
         return;
       }
@@ -855,15 +667,15 @@ namespace Giant.Msg {
 
   }
 
-  public sealed partial class GC_LOGIN : pb::IMessage<GC_LOGIN> {
-    private static readonly pb::MessageParser<GC_LOGIN> _parser = new pb::MessageParser<GC_LOGIN>(() => new GC_LOGIN());
+  public sealed partial class GC_Login : pb::IMessage<GC_Login> {
+    private static readonly pb::MessageParser<GC_Login> _parser = new pb::MessageParser<GC_Login>(() => new GC_Login());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GC_LOGIN> Parser { get { return _parser; } }
+    public static pb::MessageParser<GC_Login> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -872,14 +684,14 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GC_LOGIN() {
+    public GC_Login() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GC_LOGIN(GC_LOGIN other) : this() {
+    public GC_Login(GC_Login other) : this() {
       rpcId_ = other.rpcId_;
       error_ = other.error_;
       message_ = other.message_;
@@ -888,8 +700,8 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GC_LOGIN Clone() {
-      return new GC_LOGIN(this);
+    public GC_Login Clone() {
+      return new GC_Login(this);
     }
 
     /// <summary>Field number for the "RpcId" field.</summary>
@@ -938,11 +750,11 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as GC_LOGIN);
+      return Equals(other as GC_Login);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GC_LOGIN other) {
+    public bool Equals(GC_Login other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -1019,7 +831,7 @@ namespace Giant.Msg {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GC_LOGIN other) {
+    public void MergeFrom(GC_Login other) {
       if (other == null) {
         return;
       }
@@ -1076,7 +888,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1205,7 +1017,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1334,7 +1146,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1635,7 +1447,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1764,7 +1576,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2003,7 +1815,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2216,7 +2028,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2520,7 +2332,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2649,7 +2461,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2834,7 +2646,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3019,7 +2831,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3204,7 +3016,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[16]; }
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

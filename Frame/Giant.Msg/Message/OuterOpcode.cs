@@ -2,20 +2,17 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
-	[Message(OuterOpcode.CA_StopApp)]
-	public partial class CA_StopApp : IMessage {}
+	[Message(OuterOpcode.CR_Login)]
+	public partial class CR_Login : IRequest {}
 
-	[Message(OuterOpcode.CR_LOGIN)]
-	public partial class CR_LOGIN : IRequest {}
+	[Message(OuterOpcode.RC_Login)]
+	public partial class RC_Login : IResponse {}
 
-	[Message(OuterOpcode.RC_LOGIN)]
-	public partial class RC_LOGIN : IResponse {}
+	[Message(OuterOpcode.CG_Login)]
+	public partial class CG_Login : IRequest {}
 
-	[Message(OuterOpcode.CG_LOGIN)]
-	public partial class CG_LOGIN : IRequest {}
-
-	[Message(OuterOpcode.GC_LOGIN)]
-	public partial class GC_LOGIN : IResponse {}
+	[Message(OuterOpcode.GC_Login)]
+	public partial class GC_Login : IResponse {}
 
 	[Message(OuterOpcode.PlayerInfo)]
 	public partial class PlayerInfo : IMessage {}
@@ -58,31 +55,29 @@ namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort CA_StopApp = 101;
-		 public const ushort CR_LOGIN = 102;
-		 public const ushort RC_LOGIN = 103;
-		 public const ushort CG_LOGIN = 104;
-		 public const ushort GC_LOGIN = 105;
-		 public const ushort PlayerInfo = 106;
-		 public const ushort CG_PlayerInfo = 107;
-		 public const ushort GC_PlayerInfo = 108;
-		 public const ushort CG_EnterMap = 109;
-		 public const ushort GC_EnterMap = 110;
-		 public const ushort UnitInfo = 111;
-		 public const ushort MC_PathfindingResult = 112;
-		 public const ushort CR_Ping = 113;
-		 public const ushort RC_Ping = 114;
-		 public const ushort CM_Reload = 115;
-		 public const ushort MC_Reload = 116;
-		 public const ushort ZGC_Broadcast = 117;
+		 public const ushort CR_Login = 101;
+		 public const ushort RC_Login = 102;
+		 public const ushort CG_Login = 103;
+		 public const ushort GC_Login = 104;
+		 public const ushort PlayerInfo = 105;
+		 public const ushort CG_PlayerInfo = 106;
+		 public const ushort GC_PlayerInfo = 107;
+		 public const ushort CG_EnterMap = 108;
+		 public const ushort GC_EnterMap = 109;
+		 public const ushort UnitInfo = 110;
+		 public const ushort MC_PathfindingResult = 111;
+		 public const ushort CR_Ping = 112;
+		 public const ushort RC_Ping = 113;
+		 public const ushort CM_Reload = 114;
+		 public const ushort MC_Reload = 115;
+		 public const ushort ZGC_Broadcast = 116;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
-			{CA_StopApp, typeof(CA_StopApp)},
-			{CR_LOGIN, typeof(CR_LOGIN)},
-			{RC_LOGIN, typeof(RC_LOGIN)},
-			{CG_LOGIN, typeof(CG_LOGIN)},
-			{GC_LOGIN, typeof(GC_LOGIN)},
+			{CR_Login, typeof(CR_Login)},
+			{RC_Login, typeof(RC_Login)},
+			{CG_Login, typeof(CG_Login)},
+			{GC_Login, typeof(GC_Login)},
 			{PlayerInfo, typeof(PlayerInfo)},
 			{CG_PlayerInfo, typeof(CG_PlayerInfo)},
 			{GC_PlayerInfo, typeof(GC_PlayerInfo)},

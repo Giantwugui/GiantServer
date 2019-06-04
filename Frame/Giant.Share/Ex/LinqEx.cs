@@ -9,10 +9,5 @@ namespace Giant.Share
         {
             foreach (var kv in self) action(kv);
         }
-
-        //public static void ForEach(this Dictionary<string, string> self, Action<KeyValuePair<string, string>> action)
-        //{
-        //    foreach (var kv in self) action(kv);
-        //}
     }
 }

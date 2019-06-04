@@ -8,11 +8,11 @@ using System;
 namespace Server.App
 {
     [MessageHandler(AppType.Gate)]
-    public class Handle_Login : MRpcHandler<CR_LOGIN, RC_LOGIN>
+    public class Handle_Login : MRpcHandler<CR_Login, RC_Login>
     {
-        public override async void Run(Session session, CR_LOGIN request, Action<RC_LOGIN> reply)
+        public override async void Run(Session session, CR_Login request, Action<RC_Login> reply)
         {
-            RC_LOGIN response = new RC_LOGIN() { RpcId = request.RpcId };
+            RC_Login response = new RC_Login() { RpcId = request.RpcId };
 
             try
             {

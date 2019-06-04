@@ -1,6 +1,20 @@
 syntax = "proto3";
 package Giant.Msg;
 
+message CA_StopApp // IMessage
+{
+	int32 AppId = 1;
+	int32 SubId = 2;
+}
+
+message HeartBeat_Ping //IMessage
+{
+}
+
+message HeartBeat_Pong //IMessage
+{
+}
+
 message RG_GetLoginKey // IRequest
 {
     int32 RpcId = 90;
@@ -14,13 +28,4 @@ message GR_GetLoginKey // IResponse
     string Message = 92;
 
     int64 Key = 1;
-}
-
-message MG_CreateUnit // IResponse
-{
-    int32 RpcId = 90;
-    int32 Error = 91;
-    string Message = 92;
-
-    int64 UnitId = 1;
 }
