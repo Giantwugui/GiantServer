@@ -48,6 +48,7 @@ namespace Giant.Net
 
         public BaseChannel(long id, BaseNetService service, ChannelType type)
         {
+            this.InstanceId = id;
             this.ChannelType = type;
             this.Service = service;
         }

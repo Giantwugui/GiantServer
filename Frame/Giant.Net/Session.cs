@@ -10,15 +10,16 @@ namespace Giant.Net
 {
     public class Session : IDisposable
     {
+        private int rpcId;
         private readonly BaseChannel channel;//通讯对象
-		private readonly byte[] opcodeBytes = new byte[2];
+        private readonly byte[] opcodeBytes = new byte[2];
         private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
         public NetworkService NetworkService { get; private set; }
 
         public long Id { get; private set; }
 
-        private int RpcId { get; set; }
+        public bool IsConnected => this.channel.IsConnected;
 
         public Session(NetworkService networkService, BaseChannel baseChannel)
         {
@@ -58,8 +59,7 @@ namespace Giant.Net
 
         public Task<IResponse> Call(IRequest message)
         {
-            int rpcId = ++RpcId;
-            message.RpcId = rpcId;
+            message.RpcId = ++this.rpcId;
 
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
 
@@ -128,15 +128,10 @@ namespace Giant.Net
             }
         }
 
-        private void OnError(object error)
+        public virtual void OnError(object error)
         {
             switch (error)
             {
-                case Exception ex:
-                    {
-                        Logger.Error(ex);
-                    }
-                    break;
                 case int errorCode:
                     {
                         Logger.Error($"ErrorCode {errorCode}");
@@ -147,7 +142,7 @@ namespace Giant.Net
                     break;
             }
 
-            NetworkService.Remove(this.Id);
+            NetworkService.SessionError(this, error);
         }
 
     }

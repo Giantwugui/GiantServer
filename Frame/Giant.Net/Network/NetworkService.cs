@@ -58,18 +58,18 @@ namespace Giant.Net
             return session;
         }
 
-        public void Remove(long id)
-        {
-            if (sessions.TryGetValue(id, out Session session))
-            {
-                session.Dispose();
-                sessions.Remove(id);
-            }
-        }
-
-        public void Update()
+        public virtual void Update()
         {
             service.Update();
+        }
+
+        public virtual void SessionError(Session session, object error)
+        {
+            this.Remove(session.Id);
+        }
+
+        public void Dispose()
+        {
         }
 
         private void Init(int packetSizeLength = Packet.PacketSizeLength2)
@@ -121,8 +121,13 @@ namespace Giant.Net
             }
         }
 
-        public void Dispose()
+        private void Remove(long id)
         {
+            if (sessions.TryGetValue(id, out Session session))
+            {
+                session.Dispose();
+                sessions.Remove(id);
+            }
         }
     }
 }

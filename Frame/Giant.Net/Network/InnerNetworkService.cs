@@ -1,4 +1,5 @@
 ﻿using Giant.Msg;
+using Giant.Share;
 using System.Collections.Generic;
 
 namespace Giant.Net
@@ -22,6 +23,28 @@ namespace Giant.Net
             }
 
             return session;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+        }
+
+        public override void SessionError(Session session, object error)
+        {
+        }
+
+        public void HeartBeat(IMessage message)
+        {
+            innerSessions.ForEach(kv =>
+            {
+                if (!kv.Value.IsConnected)
+                {
+                    return;
+                }
+
+                kv.Value.Send(message);
+            });
         }
     }
 }

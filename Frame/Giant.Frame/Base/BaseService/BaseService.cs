@@ -1,9 +1,9 @@
 ﻿using Giant.Data;
 using Giant.Log;
+using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
 using System;
-using System.Runtime.InteropServices;
 
 namespace Giant.Frame
 {
@@ -33,11 +33,12 @@ namespace Giant.Frame
         {
             try
             {
-                OneThreadSynchronizationContext.Instance.Update();
+                OneThreadSynchronizationContext.Instance.Update();//异步回调处理
 
                 Timer.Instance.Update();//定时器
 
                 this.InnerNetworkService.Update();
+                this.HeartBeat();
             }
             catch (Exception ex)
             {
@@ -53,6 +54,23 @@ namespace Giant.Frame
         {
             this.AppState = AppState.Stopping;
         }
-       
+
+
+        private long lastHeatBeatTime = TimeHelper.NowSeconds;
+        private void HeartBeat()
+        {
+            if (TimeHelper.NowSeconds - lastHeatBeatTime > 10)
+            {
+                HeartBeat_Ping ping = new HeartBeat_Ping
+                {
+                    AppType = (int)this.AppType,
+                    AppId = this.AppId,
+                    SubId = this.SubId
+                };
+
+                this.InnerNetworkService.HeartBeat(ping);
+                lastHeatBeatTime = TimeHelper.NowSeconds;
+            }
+        }
     }
 }

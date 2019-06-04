@@ -33,6 +33,7 @@ namespace Giant.Frame
 
         private void InitBase()
         {
+            //窗口关闭事件
             SetConsoleCtrlHandler(cancelHandler, true);
 
             // 异步方法全部会回掉到主线程
