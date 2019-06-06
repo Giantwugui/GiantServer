@@ -113,12 +113,6 @@ namespace Giant.Net
             baseChannel.Start();
 
             sessions[session.Id] = session;
-
-            int conns = sessions.Count;
-            if (conns % 10 == 0)
-            {
-                Logger.Info($"conn nun {conns}");
-            }
         }
 
         private void Remove(long id)

@@ -20,15 +20,17 @@ namespace Server.Test
                 //mongo_test.Init();
                 //mongo_test.TestMongo();
 
-                Assembly assembly = typeof(DataBaseService).Assembly;
+                //Assembly assembly = typeof(DataBaseService).Assembly;
 
-                Test_MySql test_MySql = new Test_MySql();
-                test_MySql.Init();
-                test_MySql.Test();
+                //Test_MySql test_MySql = new Test_MySql();
+                //test_MySql.Init();
+                //test_MySql.Test();
 
-                DataManager.Instance.LoadData();
+                //DataManager.Instance.LoadData();
 
                 //Test_Redis.Instance.Init();
+
+                Test_ARSortMap.Test();
 
                 Console.WriteLine("Server.Test start complate");
             }
