@@ -28,6 +28,10 @@ namespace Giant.Frame
             NetTopologyConfig.Init();
         }
 
+        public virtual void InitAppDiffence()
+        {
+        }
+
         public virtual void Update()
         {
             try

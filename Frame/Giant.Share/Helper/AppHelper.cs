@@ -15,7 +15,7 @@
                 case AppType.AllServer:
                 case AppType.Gate:
                 case AppType.Manager:
-                case AppType.Zone:
+                case AppType.Map:
                     return true;
             }
             return false;
@@ -29,7 +29,7 @@
                     return false;
                 case AppType.AllServer:
                 case AppType.Manager:
-                case AppType.Zone:
+                case AppType.Map:
                     return true;
             }
             return false;

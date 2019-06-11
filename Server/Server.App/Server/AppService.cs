@@ -16,7 +16,9 @@ namespace Server.App
             //框架的各种初始化工作
             base.Init(appyType, appId);
 
+            this.InitAppDiffence();
             this.InitDone();
+
             ConsoleReader.Instance.Start(DoCmd);
         }
 
@@ -35,6 +37,30 @@ namespace Server.App
         public override void InitData()
         {
             base.InitData();
+        }
+
+        public override void InitAppDiffence()
+        {
+            base.InitAppDiffence();
+
+            switch (this.AppType)
+            {
+                case AppType.Gate:
+                    this.AppInitGate();
+                    break;
+                case AppType.Manager:
+                        this.AppInitManager();
+                    break;
+                case AppType.Map:
+                        this.AppInitMap();
+                    break;
+                case AppType.Social:
+                        this.AppInitSocial();
+                    break;
+                case AppType.AllServer:
+                        this.AppInitAll();
+                    break;
+            }
         }
 
         public override void InitDone()

@@ -37,6 +37,8 @@ namespace Giant.Frame
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
+
+            IdGenerator.AppId = this.AppId;
         }
 
         //日志配置

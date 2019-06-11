@@ -16,7 +16,7 @@ namespace Giant.Frame
 
         public List<Session> GateSessions { get { return appSessions[AppType.Gate]; } }
         public List<Session> ManagerSessions { get { return appSessions[AppType.Manager]; } }
-        public List<Session> ZoneSessions { get { return appSessions[AppType.Zone]; } }
+        public List<Session> ZoneSessions { get { return appSessions[AppType.Map]; } }
         public List<Session> SocialSessions { get { return appSessions[AppType.Social]; } }
 
 
