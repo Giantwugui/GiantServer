@@ -24,21 +24,20 @@ namespace Giant.Msg {
     static InnerMessageReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJJbm5lck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyIqCgpDQV9TdG9wQXBw",
-            "Eg0KBUFwcElkGAEgASgFEg0KBVN1YklkGAIgASgFIk4KDkhlYXJ0QmVhdF9Q",
-            "aW5nEg0KBVJwY0lkGFogASgFEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQY",
-            "AiABKAUSDQoFU3ViSWQYAyABKAUibgoOSGVhcnRCZWF0X1BvbmcSDQoFUnBj",
-            "SWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIPCgdB",
-            "cHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0KBVN1YklkGAMgASgFIjAK",
+            "ChJJbm5lck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyIbCgpDQV9TdG9wQXBw",
+            "Eg0KBUFwcElkGAEgASgFIj8KDkhlYXJ0QmVhdF9QaW5nEg0KBVJwY0lkGFog",
+            "ASgFEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQYAiABKAUiXwoOSGVhcnRC",
+            "ZWF0X1BvbmcSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVz",
+            "c2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFIjAK",
             "DlJHX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASAB",
             "KAkiTAoOR1JfR2V0TG9naW5LZXkSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IY",
             "WyABKAUSDwoHTWVzc2FnZRhcIAEoCRILCgNLZXkYASABKANiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "AppId", "SubId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Ping), global::Giant.Msg.HeartBeat_Ping.Parser, new[]{ "RpcId", "AppType", "AppId", "SubId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Pong), global::Giant.Msg.HeartBeat_Pong.Parser, new[]{ "RpcId", "Error", "Message", "AppType", "AppId", "SubId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "AppId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Ping), global::Giant.Msg.HeartBeat_Ping.Parser, new[]{ "RpcId", "AppType", "AppId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Pong), global::Giant.Msg.HeartBeat_Pong.Parser, new[]{ "RpcId", "Error", "Message", "AppType", "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RG_GetLoginKey), global::Giant.Msg.RG_GetLoginKey.Parser, new[]{ "RpcId", "Account" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.GR_GetLoginKey), global::Giant.Msg.GR_GetLoginKey.Parser, new[]{ "RpcId", "Error", "Message", "Key" }, null, null, null)
           }));
@@ -73,7 +72,6 @@ namespace Giant.Msg {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public CA_StopApp(CA_StopApp other) : this() {
       appId_ = other.appId_;
-      subId_ = other.subId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -93,17 +91,6 @@ namespace Giant.Msg {
       }
     }
 
-    /// <summary>Field number for the "SubId" field.</summary>
-    public const int SubIdFieldNumber = 2;
-    private int subId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SubId {
-      get { return subId_; }
-      set {
-        subId_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as CA_StopApp);
@@ -118,7 +105,6 @@ namespace Giant.Msg {
         return true;
       }
       if (AppId != other.AppId) return false;
-      if (SubId != other.SubId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -126,7 +112,6 @@ namespace Giant.Msg {
     public override int GetHashCode() {
       int hash = 1;
       if (AppId != 0) hash ^= AppId.GetHashCode();
-      if (SubId != 0) hash ^= SubId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -144,10 +129,6 @@ namespace Giant.Msg {
         output.WriteRawTag(8);
         output.WriteInt32(AppId);
       }
-      if (SubId != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(SubId);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -158,9 +139,6 @@ namespace Giant.Msg {
       int size = 0;
       if (AppId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
-      }
-      if (SubId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -176,9 +154,6 @@ namespace Giant.Msg {
       if (other.AppId != 0) {
         AppId = other.AppId;
       }
-      if (other.SubId != 0) {
-        SubId = other.SubId;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -192,10 +167,6 @@ namespace Giant.Msg {
             break;
           case 8: {
             AppId = input.ReadInt32();
-            break;
-          }
-          case 16: {
-            SubId = input.ReadInt32();
             break;
           }
         }
@@ -232,7 +203,6 @@ namespace Giant.Msg {
       rpcId_ = other.rpcId_;
       appType_ = other.appType_;
       appId_ = other.appId_;
-      subId_ = other.subId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -274,17 +244,6 @@ namespace Giant.Msg {
       }
     }
 
-    /// <summary>Field number for the "SubId" field.</summary>
-    public const int SubIdFieldNumber = 3;
-    private int subId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SubId {
-      get { return subId_; }
-      set {
-        subId_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as HeartBeat_Ping);
@@ -301,7 +260,6 @@ namespace Giant.Msg {
       if (RpcId != other.RpcId) return false;
       if (AppType != other.AppType) return false;
       if (AppId != other.AppId) return false;
-      if (SubId != other.SubId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -311,7 +269,6 @@ namespace Giant.Msg {
       if (RpcId != 0) hash ^= RpcId.GetHashCode();
       if (AppType != 0) hash ^= AppType.GetHashCode();
       if (AppId != 0) hash ^= AppId.GetHashCode();
-      if (SubId != 0) hash ^= SubId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -332,10 +289,6 @@ namespace Giant.Msg {
       if (AppId != 0) {
         output.WriteRawTag(16);
         output.WriteInt32(AppId);
-      }
-      if (SubId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(SubId);
       }
       if (RpcId != 0) {
         output.WriteRawTag(208, 5);
@@ -358,9 +311,6 @@ namespace Giant.Msg {
       if (AppId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
       }
-      if (SubId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -381,9 +331,6 @@ namespace Giant.Msg {
       if (other.AppId != 0) {
         AppId = other.AppId;
       }
-      if (other.SubId != 0) {
-        SubId = other.SubId;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -401,10 +348,6 @@ namespace Giant.Msg {
           }
           case 16: {
             AppId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            SubId = input.ReadInt32();
             break;
           }
           case 720: {
@@ -447,7 +390,6 @@ namespace Giant.Msg {
       message_ = other.message_;
       appType_ = other.appType_;
       appId_ = other.appId_;
-      subId_ = other.subId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -511,17 +453,6 @@ namespace Giant.Msg {
       }
     }
 
-    /// <summary>Field number for the "SubId" field.</summary>
-    public const int SubIdFieldNumber = 3;
-    private int subId_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int SubId {
-      get { return subId_; }
-      set {
-        subId_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as HeartBeat_Pong);
@@ -540,7 +471,6 @@ namespace Giant.Msg {
       if (Message != other.Message) return false;
       if (AppType != other.AppType) return false;
       if (AppId != other.AppId) return false;
-      if (SubId != other.SubId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -552,7 +482,6 @@ namespace Giant.Msg {
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (AppType != 0) hash ^= AppType.GetHashCode();
       if (AppId != 0) hash ^= AppId.GetHashCode();
-      if (SubId != 0) hash ^= SubId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -573,10 +502,6 @@ namespace Giant.Msg {
       if (AppId != 0) {
         output.WriteRawTag(16);
         output.WriteInt32(AppId);
-      }
-      if (SubId != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(SubId);
       }
       if (RpcId != 0) {
         output.WriteRawTag(208, 5);
@@ -613,9 +538,6 @@ namespace Giant.Msg {
       if (AppId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
       }
-      if (SubId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -642,9 +564,6 @@ namespace Giant.Msg {
       if (other.AppId != 0) {
         AppId = other.AppId;
       }
-      if (other.SubId != 0) {
-        SubId = other.SubId;
-      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -662,10 +581,6 @@ namespace Giant.Msg {
           }
           case 16: {
             AppId = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            SubId = input.ReadInt32();
             break;
           }
           case 720: {

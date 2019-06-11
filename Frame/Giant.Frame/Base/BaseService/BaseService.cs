@@ -17,7 +17,6 @@ namespace Giant.Frame
 
         public AppType AppType { get; private set; }
         public int AppId { get; private set; }
-        public int SubId { get; private set; }
 
         public virtual void InitData()
         {
@@ -65,7 +64,6 @@ namespace Giant.Frame
                 {
                     AppType = (int)this.AppType,
                     AppId = this.AppId,
-                    SubId = this.SubId
                 };
 
                 this.InnerNetworkService.HeartBeat(ping);

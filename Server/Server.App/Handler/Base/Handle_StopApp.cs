@@ -13,7 +13,7 @@ namespace Server.App
         {
             try
             {
-                if (AppService.Instacne.AppId == message.AppId && AppService.Instacne.SubId == message.SubId)
+                if (AppService.Instacne.AppId == message.AppId)
                 {
                     AppService.Instacne.StopApp();
                 }

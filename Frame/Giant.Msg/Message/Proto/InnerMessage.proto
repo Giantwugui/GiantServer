@@ -4,7 +4,6 @@ package Giant.Msg;
 message CA_StopApp // IMessage
 {
 	int32 AppId = 1;
-	int32 SubId = 2;
 }
 
 message HeartBeat_Ping //IMessage
@@ -12,7 +11,6 @@ message HeartBeat_Ping //IMessage
     int32 RpcId = 90;
 	int32 AppType = 1;
 	int32 AppId = 2;
-	int32 SubId = 3;
 }
 
 message HeartBeat_Pong //IMessage
@@ -23,7 +21,6 @@ message HeartBeat_Pong //IMessage
 
 	int32 AppType = 1;
 	int32 AppId = 2;
-	int32 SubId = 3;
 }
 
 message RG_GetLoginKey // IRequest

@@ -13,11 +13,10 @@ namespace Server.App
             {
                 AppType appType = EnumHelper.FromString<AppType>(args[0]);
                 int appId = int.Parse(args[1]);
-                int subId = int.Parse(args[2]);
 
-                AppService.Instacne.Init(appType, appId, subId);
+                AppService.Instacne.Init(appType, appId);
 
-                Logger.Info($"server start complete------------- appType {appType} appId {appId} subId {subId}");
+                Logger.Info($"server start complete------------- appType {appType} appId {appId}");
             }
             catch (Exception ex)
             {

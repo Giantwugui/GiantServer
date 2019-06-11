@@ -8,7 +8,6 @@ namespace Giant.Data
     {
         public AppType AppyType { get; set; }
         public int AppId { get; set; }
-        public int SubId { get; set; }
         public string InnerAddress { get; set; }
         public string OutterAddress { get; set; }
     }
@@ -16,12 +15,6 @@ namespace Giant.Data
     public class NetConfig
     {
         private static readonly DepthMap<AppType, int, NetConfigModel> netConfigs= new DepthMap<AppType, int, NetConfigModel>();
-
-        public static NetConfigModel GetNetConfig(AppType appyType, int sunId)
-        {
-            netConfigs.TryGetValue(appyType, sunId, out var config);
-            return config;
-        }
 
         public static void Init()
         {
@@ -35,13 +28,18 @@ namespace Giant.Data
                 {
                     AppyType = (AppType)data.GetInt("AppType"),
                     AppId = data.GetInt("AppId"),
-                    SubId = data.GetInt("SubId"),
                     InnerAddress = data.GetString("InnerAddress"),
                     OutterAddress = data.GetString("OutterAddress"),
                 };
 
-                netConfigs.Add(config.AppyType, config.SubId, config);
+                netConfigs.Add(config.AppyType, config.AppId, config);
             }
+        }
+
+        public static NetConfigModel GetNetConfig(AppType appyType, int appId)
+        {
+            netConfigs.TryGetValue(appyType, appId, out var config);
+            return config;
         }
 
         public static Dictionary<int, NetConfigModel> GetNetConfig(AppType appyType)

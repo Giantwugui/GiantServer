@@ -11,10 +11,10 @@ namespace Server.App
 
         private AppService() { }
 
-        public override void Init(AppType appyType, int appId, int subId)
+        public override void Init(AppType appyType, int appId)
         {
             //框架的各种初始化工作
-            base.Init(appyType, appId, subId);
+            base.Init(appyType, appId);
 
             this.InitDone();
             ConsoleReader.Instance.Start(DoCmd);

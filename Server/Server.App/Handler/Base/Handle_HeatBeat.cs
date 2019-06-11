@@ -11,13 +11,12 @@ namespace Server.App
     {
         public override void Run(Session session, HeartBeat_Ping message)
         {
-            Logger.Info($"heart beat ping from appType {message.AppType} appId {message.AppId} subId {message.SubId}");
+            Logger.Info($"heart beat ping from appType {message.AppType} appId {message.AppId}");
 
             HeartBeat_Pong pong = new HeartBeat_Pong()
             {
                 AppType = (int)AppService.Instacne.AppType,
                 AppId = AppService.Instacne.AppId,
-                SubId = AppService.Instacne.SubId,
             };
 
             session.Send(pong);
@@ -31,7 +30,7 @@ namespace Server.App
         {
             try
             {
-                Logger.Info($"heart beat pong from appType {message.AppType} appId {message.AppId} subId {message.SubId}");
+                Logger.Info($"heart beat pong from appType {message.AppType} appId {message.AppId}");
             }
             catch (Exception ex)
             {

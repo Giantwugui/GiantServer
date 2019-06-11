@@ -12,12 +12,11 @@ namespace Giant.Frame
 {
     public partial class BaseService
     {
-        public virtual void Init(AppType appyType, int appId, int subId)
+        public virtual void Init(AppType appyType, int appId)
         {
             this.AppState = AppState.Starting;
             this.AppType = appyType;
             this.AppId = appId;
-            this.SubId = subId;
 
             //框架的各种初始化工作
             this.InitBase();
@@ -49,7 +48,7 @@ namespace Giant.Frame
         //网络服务
         private void InitNetwork()
         {
-            NetConfigModel config = NetConfig.GetNetConfig(this.AppType, this.SubId);
+            NetConfigModel config = NetConfig.GetNetConfig(this.AppType, this.AppId);
             this.InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, config.InnerAddress);
 
             //部分App只有内部服务，Zone
