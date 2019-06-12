@@ -11,7 +11,7 @@ namespace Server.App
     {
         public override void Run(Session session, HeartBeat_Ping message)
         {
-            Logger.Info($"heart beat ping from appType {message.AppType} appId {message.AppId}");
+            Logger.Info($"heart beat ping from appType {(AppType)message.AppType} appId {message.AppId}");
 
             HeartBeat_Pong pong = new HeartBeat_Pong()
             {
@@ -30,7 +30,7 @@ namespace Server.App
         {
             try
             {
-                Logger.Info($"heart beat pong from appType {message.AppType} appId {message.AppId}");
+                Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
             }
             catch (Exception ex)
             {
