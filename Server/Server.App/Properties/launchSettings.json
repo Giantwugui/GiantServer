@@ -2,7 +2,7 @@
   "profiles": {
     "Server.App": {
       "commandName": "Project",
-      "commandLineArgs": "AllServer 1005"
+      "commandLineArgs": "Gate 1001"
     }
   }
 }
