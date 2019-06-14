@@ -1,5 +1,4 @@
-﻿using Giant.Data;
-using Giant.Log;
+﻿using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
@@ -13,26 +12,11 @@ namespace Giant.Frame
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 
-        public AppState AppState { get; set; }
-
+        public AppState AppState { get; protected set; }
         public AppOption AppOption { get; private set; }
 
         public AppType AppType => AppOption.AppType;
         public int AppId => AppOption.AppId;
-
-        public virtual void InitData()
-        {
-            DataManager.Instance.LoadData();
-
-            AppConfig.Init();
-            DBConfig.Init();
-            NetConfig.Init();
-            NetTopologyConfig.Init();
-        }
-
-        public virtual void InitAppDiffence()
-        {
-        }
 
         public virtual void Update()
         {

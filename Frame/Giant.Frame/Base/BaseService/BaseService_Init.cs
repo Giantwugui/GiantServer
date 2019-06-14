@@ -29,6 +29,20 @@ namespace Giant.Frame
             this.InitNetworkTopology();
         }
 
+        public virtual void InitData()
+        {
+            DataManager.Instance.LoadData();
+
+            AppConfig.Init();
+            DBConfig.Init();
+            NetConfig.Init();
+            NetTopologyConfig.Init();
+        }
+
+        public virtual void InitAppDiffence()
+        {
+        }
+
         private void InitBase()
         {
             //窗口关闭事件
