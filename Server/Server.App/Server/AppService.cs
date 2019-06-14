@@ -11,10 +11,10 @@ namespace Server.App
 
         private AppService() { }
 
-        public override void Init(AppType appyType, int appId)
+        public override void Init(AppOption option)
         {
             //框架的各种初始化工作
-            base.Init(appyType, appId);
+            base.Init(option);
 
             this.InitAppDiffence();
             this.InitDone();

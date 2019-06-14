@@ -12,11 +12,10 @@ namespace Giant.Frame
 {
     public partial class BaseService
     {
-        public virtual void Init(AppType appyType, int appId)
+        public virtual void Init(AppOption option)
         {
+            this.AppOption = option;
             this.AppState = AppState.Starting;
-            this.AppType = appyType;
-            this.AppId = appId;
 
             //框架的各种初始化工作
             this.InitBase();

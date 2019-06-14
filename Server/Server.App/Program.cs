@@ -1,5 +1,6 @@
-﻿using Giant.Log;
-using Giant.Share;
+﻿using CommandLine;
+using Giant.Frame;
+using Giant.Log;
 using System;
 using System.Threading;
 
@@ -11,12 +12,15 @@ namespace Server.App
         {
             try
             {
-                AppType appType = EnumHelper.FromString<AppType>(args[0]);
-                int appId = int.Parse(args[1]);
+                AppOption option = null;
+                Parser.Default.ParseArguments<AppOption>(args)
+                    .WithNotParsed(error => throw new Exception($"命令行格式错误!"))
+                    .WithParsed(options => { option = options; });
 
-                AppService.Instacne.Init(appType, appId);
 
-                Logger.Info($"server start complete------------- appType {appType} appId {appId}");
+                AppService.Instacne.Init(option);
+
+                Logger.Info($"server start complete------------- appType {option.AppType} appId {option.AppId}");
             }
             catch (Exception ex)
             {
@@ -27,8 +31,7 @@ namespace Server.App
             {
                 Thread.Sleep(1);
 
-
-                App.AppService.Instacne.Update();
+                AppService.Instacne.Update();
             }
         }
        

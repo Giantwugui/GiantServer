@@ -15,8 +15,10 @@ namespace Giant.Frame
 
         public AppState AppState { get; set; }
 
-        public AppType AppType { get; private set; }
-        public int AppId { get; private set; }
+        public AppOption AppOption { get; private set; }
+
+        public AppType AppType => AppOption.AppType;
+        public int AppId => AppOption.AppId;
 
         public virtual void InitData()
         {
