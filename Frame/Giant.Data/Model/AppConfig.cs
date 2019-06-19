@@ -6,7 +6,7 @@ namespace Giant.Data
 {
     public class AppConfig
     {
-        public AppType AppyType { get; set; }
+        public AppType ApyType { get; set; }
         public int AppId { get; set; }
         public string InnerAddress { get; set; }
         public string OutterAddress { get; set; }
@@ -27,14 +27,14 @@ namespace Giant.Data
                 data = kv.Value;
                 config = new AppConfig()
                 {
-                    AppyType = (AppType)data.GetInt("AppType"),
+                    ApyType = (AppType)data.GetInt("AppType"),
                     AppId = data.GetInt("AppId"),
                     InnerAddress = data.GetString("InnerAddress"),
                     OutterAddress = data.GetString("OutterAddress"),
                 };
 
                 appConfigs.Add(config.AppId, config);
-                appConfigIndexByAppType.Add(config.AppyType, config.AppId, config);
+                appConfigIndexByAppType.Add(config.ApyType, config.AppId, config);
             }
         }
 

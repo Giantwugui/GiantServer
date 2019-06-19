@@ -4,6 +4,7 @@ using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Giant.Net
@@ -20,6 +21,15 @@ namespace Giant.Net
         public long Id { get; private set; }
 
         public bool IsConnected => this.channel.IsConnected;
+        public IPEndPoint RemoteIPEndPoint => this.channel.IPEndPoint;
+
+        public Action<Session, bool> onConnectCallback;
+        public event Action<Session, bool> OnConnectCallback
+        {
+            add { onConnectCallback += value; }
+            remove { onConnectCallback -= value; }
+        }
+
 
         public Session(NetworkService networkService, BaseChannel baseChannel)
         {
@@ -29,6 +39,7 @@ namespace Giant.Net
 
             this.channel.OnReadCallback += OnRead;
             this.channel.OnErrorCallback += OnError;
+            this.channel.OnConnectCallback += OnConnect;
         }
 
         public void Reply(IMessage message)
@@ -128,7 +139,7 @@ namespace Giant.Net
             }
         }
 
-        public virtual void OnError(object error)
+        public void OnError(object error)
         {
             switch (error)
             {
@@ -143,6 +154,11 @@ namespace Giant.Net
             }
 
             NetworkService.SessionError(this, error);
+        }
+
+        public void OnConnect(bool connState)
+        {
+            this.onConnectCallback?.Invoke(this, connState);
         }
 
     }

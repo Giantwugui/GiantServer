@@ -24,7 +24,7 @@ namespace Server.App
 
                 reply(response);
 
-                AppService.Instacne.NetProxyManager.AppRegist((AppType)request.AppType, request.AppId, session);
+                AppService.Instacne.NetProxyManager.BackendRegist((AppType)request.AppType, request.AppId, session);
             }
             catch (Exception ex)
             {

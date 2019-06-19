@@ -1,6 +1,7 @@
 ﻿using Giant.Share;
 using System;
 using System.IO;
+using System.Net;
 
 namespace Giant.Net
 {
@@ -19,11 +20,20 @@ namespace Giant.Net
 
         public ChannelType ChannelType { get; private set; }
 
+        public IPEndPoint IPEndPoint { get; protected set; }
+
         public BaseNetService Service { get; private set; }
 
         public abstract MemoryStream Stream { get; }
 
         public bool IsConnected { get; protected set; }
+
+        private Action<bool> onConnectCallback;
+        public event Action<bool> OnConnectCallback
+        {
+            add { onConnectCallback += value; }
+            remove { onConnectCallback -= value; }
+        }
 
         private Action<object> onErrorCallback;
         public event Action<object> OnErrorCallback
@@ -72,6 +82,10 @@ namespace Giant.Net
             this.Service.Remove(this.InstanceId);
         }
 
+        protected void OnConnected(bool connect)
+        {
+            onConnectCallback?.Invoke(connect);
+        }
 
         protected void OnRead(MemoryStream memoryStream)
         {

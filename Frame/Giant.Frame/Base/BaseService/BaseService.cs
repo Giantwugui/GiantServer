@@ -37,6 +37,7 @@ namespace Giant.Frame
 
         public virtual void InitDone()
         {
+            this.NetProxyManager.Start();
         }
 
         public virtual void StopApp()

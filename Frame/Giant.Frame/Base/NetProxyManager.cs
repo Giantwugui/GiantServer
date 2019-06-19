@@ -17,19 +17,16 @@ namespace Giant.Frame
 
     public class NetProxyManager
     {
-        private long lastCheck = TimeHelper.NowSeconds;
         private long lastHeatBeatTime = TimeHelper.NowSeconds;
 
-        //需要注册的session
-        private readonly List<AppInfo> waitRegistSessions = new List<AppInfo>();
-
         //各app内部连接
-        private readonly ListMap<AppType, AppInfo> frontSessions = new ListMap<AppType, AppInfo>();
+        private readonly ListMap<AppType, FrontendService> frontendService = new ListMap<AppType, FrontendService>();
         private readonly DepthMap<AppType, int, AppInfo> backendSessions = new DepthMap<AppType, int, AppInfo>();
 
         public BaseService Service { get; private set; }
 
         public AppType AppType { get { return Service.AppType; } }
+        public int AppId { get { return Service.AppId; } }
 
 
         public NetProxyManager(BaseService service)
@@ -39,7 +36,6 @@ namespace Giant.Frame
 
         public void Init()
         {
-            Session session;
             var netPology = NetTopologyConfig.GetTopology(this.AppType);
             if (netPology == null)
             {
@@ -48,85 +44,25 @@ namespace Giant.Frame
 
             netPology.ForEach(pology =>
             {
-                session = this.Service.InnerNetworkService.GetSession(pology.InnerAddress);
-                Add2Regist(new AppInfo() { AppType = pology.AppyType, AppId = pology.AppId, Session = session });
+                frontendService.Add(pology.ApyType, new FrontendService(this, this.AppType, this.AppId, pology));
             });
+        }
+
+        public void Start()
+        {
+            foreach (var kv in frontendService)
+            {
+                kv.Value.ForEach(sevice => sevice.Start());
+            }
         }
 
         public void Update(float delayTime)
         {
             HeartBeat();
-            RegistSession();
         }
 
-        public void AppRegist(AppType appType, int appId, Session session)
+        public void BackendRegist(AppType appType, int appId, Session session)
         { 
-        }
-
-        public void SessionDisconnect(Session session)
-        {
-        }
-
-        private void Add2Regist(AppInfo regist)
-        {
-            waitRegistSessions.Add(regist);
-        }
-
-        private async void RegistSession()
-        {
-            if (TimeHelper.NowSeconds - lastCheck < 2)
-            {
-                return;
-            }
-
-            foreach (var kv in frontSessions)
-            {
-                if (kv.Value.Count == 0)
-                {
-                    continue;
-                }
-
-                //断开连接了的
-                waitRegistSessions.AddRange(kv.Value.Where(app => !app.Session.IsConnected));
-            }
-
-            if (waitRegistSessions.Count <= 0) return;
-            waitRegistSessions.ForEach(app => backendSessions.Remove(app.AppType, app.AppId));
-
-            List<AppInfo> removeList = new List<AppInfo>();
-            foreach (var registInfo in waitRegistSessions)
-            {
-                if (registInfo.Session.IsConnected)
-                {
-                    Msg_RegistService_Req reqyest = new Msg_RegistService_Req()
-                    {
-                        AppId = Service.AppId,
-                        AppType = (int)Service.AppType,
-                    };
-
-                    IResponse response = await registInfo.Session.Call(reqyest);
-                    Msg_RegistService_Rep message = response as Msg_RegistService_Rep;
-
-                    AppType regist2AppType = (AppType)message.AppType;
-
-                    RegistSuccess(registInfo);
-                    removeList.Add(registInfo);
-                    Logger.Info($"app {Service.AppType} {Service.AppId} regist to {regist2AppType} {message.AppId} success !");
-                }
-                else
-                {
-                    registInfo.Session.Start();
-                    Logger.Info($"app {Service.AppType} {Service.AppId} connect to {registInfo.AppType} {registInfo.AppId} !");
-                }
-            }
-
-            removeList.ForEach(session => waitRegistSessions.Remove(session));
-            lastCheck = TimeHelper.NowSeconds;
-        }
-
-        private void RegistSuccess(AppInfo appInfo)
-        {
-            frontSessions.Add(appInfo.AppType, appInfo);
         }
 
         private void HeartBeat()
@@ -142,7 +78,7 @@ namespace Giant.Frame
                 AppId = this.Service.AppId,
             };
 
-            foreach (var kv in frontSessions)
+            foreach (var kv in frontendService)
             {
                 if (kv.Value.Count == 0)
                 {

@@ -10,7 +10,6 @@ namespace Giant.Net
     public class TcpChannel : BaseChannel
     {
         private readonly Socket socket;
-        private readonly IPEndPoint ipEndPoint;
         private readonly byte[] packetSizeCache;
 
         private readonly PacketPacker parser;
@@ -45,7 +44,7 @@ namespace Giant.Net
         {
             this.IsSending = false;
             this.IsConnected = false;
-            this.ipEndPoint = endPoint;
+            this.IPEndPoint = endPoint;
 
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
@@ -147,7 +146,7 @@ namespace Giant.Net
                 return;
             }
 
-            innerArgs.RemoteEndPoint = ipEndPoint;
+            innerArgs.RemoteEndPoint = IPEndPoint;
             if (this.socket.ConnectAsync(innerArgs))
             {
                 return;
@@ -236,10 +235,11 @@ namespace Giant.Net
         {
             if (eventArgs.SocketError != SocketError.Success)
             {
+                this.OnConnected(false);
                 this.OnError(eventArgs.SocketError);
                 return;
             }
-
+            this.OnConnected(true);
             this.IsConnected = true;
             Start();
         }

@@ -53,7 +53,6 @@ namespace Giant.Net
         {
             BaseChannel channel = service.CreateChannel(endPoint);
             Session session = new Session(this, channel);
-            session.Start();
             sessions.Add(session.Id, session);
             return session;
         }
