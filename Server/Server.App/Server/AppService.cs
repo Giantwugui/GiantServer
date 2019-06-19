@@ -22,11 +22,11 @@ namespace Server.App
             ConsoleReader.Instance.Start(DoCmd);
         }
 
-        public override void Update()
+        public override void Update(float dt)
         {
             try
             {
-                base.Update();
+                base.Update(dt);
             }
             catch (Exception ex)
             {

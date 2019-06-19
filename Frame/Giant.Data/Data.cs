@@ -43,5 +43,14 @@ namespace Giant.Data
             }
             return value;
         }
+
+        public bool GetBool(string key)
+        {
+            if (Params.TryGetValue(key, out string strV))
+            {
+                return strV == "1";
+            }
+            return false;
+        }
     }
 }

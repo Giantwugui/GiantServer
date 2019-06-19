@@ -33,18 +33,5 @@ namespace Giant.Net
         public override void SessionError(Session session, object error)
         {
         }
-
-        public void HeartBeat(IMessage message)
-        {
-            innerSessions.ForEach(kv =>
-            {
-                if (!kv.Value.IsConnected)
-                {
-                    return;
-                }
-
-                kv.Value.Send(message);
-            });
-        }
     }
 }

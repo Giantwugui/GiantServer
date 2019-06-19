@@ -33,9 +33,8 @@ namespace Giant.Frame
         {
             DataManager.Instance.LoadData();
 
-            AppConfig.Init();
             DBConfig.Init();
-            NetConfig.Init();
+            AppConfigData.Init();
             NetTopologyConfig.Init();
         }
 
@@ -63,7 +62,7 @@ namespace Giant.Frame
         //网络服务
         private void InitNetwork()
         {
-            NetConfigModel config = NetConfig.GetNetConfig(this.AppType, this.AppId);
+            AppConfig config = AppConfigData.GetNetConfig(this.AppId);
             this.InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, config.InnerAddress);
 
             //部分App只有内部服务，Zone
@@ -107,8 +106,8 @@ namespace Giant.Frame
         //网络拓扑
         private void InitNetworkTopology()
         {
-            this.NetTopologyManager = new NetTopologyManager(this);
-            this.NetTopologyManager.Init();
+            this.NetProxyManager = new NetProxyManager(this);
+            this.NetProxyManager.Init();
         }
 
 

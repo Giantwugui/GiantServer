@@ -28,16 +28,22 @@ namespace Giant.Msg {
             "Eg0KBUFwcElkGAEgASgFIj8KDkhlYXJ0QmVhdF9QaW5nEg0KBVJwY0lkGFog",
             "ASgFEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQYAiABKAUiXwoOSGVhcnRC",
             "ZWF0X1BvbmcSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVz",
-            "c2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFIjAK",
-            "DlJHX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASAB",
-            "KAkiTAoOR1JfR2V0TG9naW5LZXkSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IY",
-            "WyABKAUSDwoHTWVzc2FnZRhcIAEoCRILCgNLZXkYASABKANiBnByb3RvMw=="));
+            "c2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFIkYK",
+            "FU1zZ19SZWdpc3RTZXJ2aWNlX1JlcRINCgVScGNJZBhaIAEoBRIPCgdBcHBU",
+            "eXBlGAEgASgFEg0KBUFwcElkGAIgASgFImYKFU1zZ19SZWdpc3RTZXJ2aWNl",
+            "X1JlcBINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdl",
+            "GFwgASgJEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQYAiABKAUiMAoOUkdf",
+            "R2V0TG9naW5LZXkSDQoFUnBjSWQYWiABKAUSDwoHQWNjb3VudBgBIAEoCSJM",
+            "Cg5HUl9HZXRMb2dpbktleRINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEo",
+            "BRIPCgdNZXNzYWdlGFwgASgJEgsKA0tleRgBIAEoA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CA_StopApp), global::Giant.Msg.CA_StopApp.Parser, new[]{ "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Ping), global::Giant.Msg.HeartBeat_Ping.Parser, new[]{ "RpcId", "AppType", "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.HeartBeat_Pong), global::Giant.Msg.HeartBeat_Pong.Parser, new[]{ "RpcId", "Error", "Message", "AppType", "AppId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_RegistService_Req), global::Giant.Msg.Msg_RegistService_Req.Parser, new[]{ "RpcId", "AppType", "AppId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_RegistService_Rep), global::Giant.Msg.Msg_RegistService_Rep.Parser, new[]{ "RpcId", "Error", "Message", "AppType", "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.RG_GetLoginKey), global::Giant.Msg.RG_GetLoginKey.Parser, new[]{ "RpcId", "Account" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.GR_GetLoginKey), global::Giant.Msg.GR_GetLoginKey.Parser, new[]{ "RpcId", "Error", "Message", "Key" }, null, null, null)
           }));
@@ -601,6 +607,432 @@ namespace Giant.Msg {
 
   }
 
+  public sealed partial class Msg_RegistService_Req : pb::IMessage<Msg_RegistService_Req> {
+    private static readonly pb::MessageParser<Msg_RegistService_Req> _parser = new pb::MessageParser<Msg_RegistService_Req>(() => new Msg_RegistService_Req());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Msg_RegistService_Req> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Req() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Req(Msg_RegistService_Req other) : this() {
+      rpcId_ = other.rpcId_;
+      appType_ = other.appType_;
+      appId_ = other.appId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Req Clone() {
+      return new Msg_RegistService_Req(this);
+    }
+
+    /// <summary>Field number for the "RpcId" field.</summary>
+    public const int RpcIdFieldNumber = 90;
+    private int rpcId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AppType" field.</summary>
+    public const int AppTypeFieldNumber = 1;
+    private int appType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int AppType {
+      get { return appType_; }
+      set {
+        appType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AppId" field.</summary>
+    public const int AppIdFieldNumber = 2;
+    private int appId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int AppId {
+      get { return appId_; }
+      set {
+        appId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Msg_RegistService_Req);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Msg_RegistService_Req other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RpcId != other.RpcId) return false;
+      if (AppType != other.AppType) return false;
+      if (AppId != other.AppId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (AppType != 0) hash ^= AppType.GetHashCode();
+      if (AppId != 0) hash ^= AppId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (AppType != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(AppType);
+      }
+      if (AppId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(AppId);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (AppType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppType);
+      }
+      if (AppId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Msg_RegistService_Req other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RpcId != 0) {
+        RpcId = other.RpcId;
+      }
+      if (other.AppType != 0) {
+        AppType = other.AppType;
+      }
+      if (other.AppId != 0) {
+        AppId = other.AppId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            AppType = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            AppId = input.ReadInt32();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Msg_RegistService_Rep : pb::IMessage<Msg_RegistService_Rep> {
+    private static readonly pb::MessageParser<Msg_RegistService_Rep> _parser = new pb::MessageParser<Msg_RegistService_Rep>(() => new Msg_RegistService_Rep());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Msg_RegistService_Rep> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Rep() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Rep(Msg_RegistService_Rep other) : this() {
+      rpcId_ = other.rpcId_;
+      error_ = other.error_;
+      message_ = other.message_;
+      appType_ = other.appType_;
+      appId_ = other.appId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_RegistService_Rep Clone() {
+      return new Msg_RegistService_Rep(this);
+    }
+
+    /// <summary>Field number for the "RpcId" field.</summary>
+    public const int RpcIdFieldNumber = 90;
+    private int rpcId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Error" field.</summary>
+    public const int ErrorFieldNumber = 91;
+    private int error_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Message" field.</summary>
+    public const int MessageFieldNumber = 92;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "AppType" field.</summary>
+    public const int AppTypeFieldNumber = 1;
+    private int appType_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int AppType {
+      get { return appType_; }
+      set {
+        appType_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AppId" field.</summary>
+    public const int AppIdFieldNumber = 2;
+    private int appId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int AppId {
+      get { return appId_; }
+      set {
+        appId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Msg_RegistService_Rep);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Msg_RegistService_Rep other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RpcId != other.RpcId) return false;
+      if (Error != other.Error) return false;
+      if (Message != other.Message) return false;
+      if (AppType != other.AppType) return false;
+      if (AppId != other.AppId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (Error != 0) hash ^= Error.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (AppType != 0) hash ^= AppType.GetHashCode();
+      if (AppId != 0) hash ^= AppId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (AppType != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(AppType);
+      }
+      if (AppId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(AppId);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (Error != 0) {
+        output.WriteRawTag(216, 5);
+        output.WriteInt32(Error);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(226, 5);
+        output.WriteString(Message);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Error != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Error);
+      }
+      if (Message.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      if (AppType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppType);
+      }
+      if (AppId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AppId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Msg_RegistService_Rep other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RpcId != 0) {
+        RpcId = other.RpcId;
+      }
+      if (other.Error != 0) {
+        Error = other.Error;
+      }
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
+      if (other.AppType != 0) {
+        AppType = other.AppType;
+      }
+      if (other.AppId != 0) {
+        AppId = other.AppId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            AppType = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            AppId = input.ReadInt32();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 728: {
+            Error = input.ReadInt32();
+            break;
+          }
+          case 738: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class RG_GetLoginKey : pb::IMessage<RG_GetLoginKey> {
     private static readonly pb::MessageParser<RG_GetLoginKey> _parser = new pb::MessageParser<RG_GetLoginKey>(() => new RG_GetLoginKey());
     private pb::UnknownFieldSet _unknownFields;
@@ -609,7 +1041,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -766,7 +1198,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

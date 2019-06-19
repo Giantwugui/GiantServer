@@ -31,7 +31,7 @@ namespace Server.App
             {
                 Thread.Sleep(1);
 
-                AppService.Instacne.Update();
+                AppService.Instacne.Update(1*0.01f);
             }
         }
        
