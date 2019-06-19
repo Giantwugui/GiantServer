@@ -3,16 +3,16 @@ using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Giant.Frame
 {
     public class FrontendService
     {
-        private NetProxyManager netProxy;
+        private long lastHeatBeatTime = TimeHelper.NowSeconds;
+
+        public FrontendManager FrontendManager { get; private set; }
+
         private Session session;
         public Session Session => session;
         public AppType AppType { get; private set; }
@@ -21,19 +21,41 @@ namespace Giant.Frame
 
         public bool IsConnected => Session.IsConnected;
 
-        public FrontendService(NetProxyManager netProxy, AppType appType, int appId, AppConfig appConfig)
+        public FrontendService(FrontendManager manager, AppType appType, int appId, AppConfig appConfig)
         {
-            this.netProxy = netProxy;
-            this.AppType = appType;
             this.AppId = appId;
+            this.AppType = appType;
             this.AppConfig = appConfig;
+            this.FrontendManager = manager;
         }
 
         public void Start()
         {
-            session = this.netProxy.Service.InnerNetworkService.GetSession(AppConfig.InnerAddress);
+            session = FrontendManager.NetProxyManager.Service.InnerNetworkService.Create(AppConfig.InnerAddress);
             session.OnConnectCallback += OnConnected;
             session.Start();
+        }
+
+        public void HeartBeat()
+        {
+            if (!IsConnected)
+            {
+                return;
+            }
+
+            if (TimeHelper.NowSeconds - lastHeatBeatTime < 10)
+            {
+                return;
+            }
+
+            HeartBeat_Ping ping = new HeartBeat_Ping
+            {
+                AppType = (int)this.AppType,
+                AppId = this.AppId,
+            };
+
+            session.Send(ping);
+            lastHeatBeatTime = TimeHelper.NowSeconds;
         }
 
         private void OnConnected(Session session, bool connState)
@@ -44,14 +66,15 @@ namespace Giant.Frame
             }
             else
             {
-                ReConnect(2);
+                ReConnect(3000);
             }
         }
 
         private async void ReConnect(int delayTime)
         {
-            Logger.Info($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
             await Task.Delay(delayTime);
+            Logger.Info($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
+
             session.Start();
         }
 
@@ -65,7 +88,7 @@ namespace Giant.Frame
 
             IResponse response = await Session.Call(request);
             Msg_RegistService_Rep message = response as Msg_RegistService_Rep;
-            Logger.Info($"app {AppType} {AppId} regist to {(AppType)message.AppType} {message.AppId} success !");
+            Logger.Info($"app {AppType} {AppId} registed to {(AppType)message.AppType} {message.AppId} success !");
         }
     }
 }

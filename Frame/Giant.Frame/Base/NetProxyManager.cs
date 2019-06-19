@@ -1,29 +1,22 @@
 ﻿using Giant.Data;
-using Giant.Log;
-using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Giant.Frame
 {
     public class AppInfo
     {
-        public AppType AppType{ get; set; }
-        public int AppId{ get; set; }
+        public AppType AppType { get; set; }
+        public int AppId { get; set; }
         public Session Session { get; set; }
+        public long SessionId => Session.Id;
     }
 
     public class NetProxyManager
     {
-        private long lastHeatBeatTime = TimeHelper.NowSeconds;
-
-        //各app内部连接
-        private readonly ListMap<AppType, FrontendService> frontendService = new ListMap<AppType, FrontendService>();
-        private readonly DepthMap<AppType, int, AppInfo> backendSessions = new DepthMap<AppType, int, AppInfo>();
-
         public BaseService Service { get; private set; }
+        public FrontendManager FrontendManager { get; private set; }
+        public BackendManager BackendManager { get; private set; }
 
         public AppType AppType { get { return Service.AppType; } }
         public int AppId { get { return Service.AppId; } }
@@ -32,6 +25,8 @@ namespace Giant.Frame
         public NetProxyManager(BaseService service)
         {
             this.Service = service;
+            this.FrontendManager = new FrontendManager(this);
+            this.BackendManager = new BackendManager(this);
         }
 
         public void Init()
@@ -42,61 +37,22 @@ namespace Giant.Frame
                 return;
             }
 
-            netPology.ForEach(pology =>
-            {
-                frontendService.Add(pology.ApyType, new FrontendService(this, this.AppType, this.AppId, pology));
-            });
+            netPology.ForEach(topology => this.FrontendManager.Add(topology));
         }
 
         public void Start()
         {
-            foreach (var kv in frontendService)
-            {
-                kv.Value.ForEach(sevice => sevice.Start());
-            }
+            FrontendManager.Start();
         }
 
         public void Update(float delayTime)
         {
-            HeartBeat();
+            this.FrontendManager.Update(delayTime);
         }
 
-        public void BackendRegist(AppType appType, int appId, Session session)
-        { 
-        }
-
-        private void HeartBeat()
+        public void RegistBackendService(AppType appType, int appId, Session session)
         {
-            if (TimeHelper.NowSeconds - lastHeatBeatTime < 10)
-            {
-                return;
-            }
-
-            HeartBeat_Ping ping = new HeartBeat_Ping
-            {
-                AppType = (int)this.Service.AppType,
-                AppId = this.Service.AppId,
-            };
-
-            foreach (var kv in frontendService)
-            {
-                if (kv.Value.Count == 0)
-                {
-                    continue;
-                }
-
-                foreach (var app in kv.Value)
-                {
-                    if (!app.Session.IsConnected)
-                    {
-                        continue;
-                    }
-
-                    app.Session.Send(ping);
-                }
-            }
-
-            lastHeatBeatTime = TimeHelper.NowSeconds;
+            this.BackendManager.RegistService(new AppInfo() { AppType = appType, AppId = appId, Session = session });
         }
     }
 }

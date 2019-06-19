@@ -31,6 +31,18 @@ namespace Giant.Share
             }
         }
 
+        public void Remove(SK secondKey)
+        {
+            foreach (var kv in depthMap)
+            {
+                if (kv.Value.ContainsKey(secondKey))
+                {
+                    kv.Value.Remove(secondKey);
+                    break;
+                }
+            }
+        }
+
         public bool TryGetValue(K key, out Dictionary<SK, V> outList)
         {
             return depthMap.TryGetValue(key, out outList);
@@ -41,6 +53,22 @@ namespace Giant.Share
             if (depthMap.TryGetValue(key, out var secondMap))
             {
                 return secondMap.TryGetValue(secondKey, out value);
+            }
+            value = default;
+            return false;
+        }
+
+        public bool TryGetValue(SK secondKey, out V value)
+        {
+            foreach (var kv in depthMap)
+            {
+                if (kv.Value.ContainsKey(secondKey))
+                {
+                    if (kv.Value.TryGetValue(secondKey, out value))
+                    {
+                        return true;
+                    }
+                }
             }
             value = default;
             return false;
