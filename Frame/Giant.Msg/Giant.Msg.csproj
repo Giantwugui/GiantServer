@@ -13,23 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Helper\**" />
+    <Compile Remove="Packer\**" />
     <Compile Remove="Parser\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Packer\**" />
     <EmbeddedResource Remove="Parser\**" />
+    <None Remove="Helper\**" />
+    <None Remove="Packer\**" />
     <None Remove="Parser\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Helper\BsonHelper.cs" />
-    <Compile Remove="Packer\BsonPacker.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Giant.Share\Helper\JsonHelper.cs" Link="Helper\JsonHelper.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.8.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
 </Project>

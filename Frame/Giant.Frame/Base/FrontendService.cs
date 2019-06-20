@@ -54,7 +54,7 @@ namespace Giant.Frame
                 AppId = this.AppId,
             };
 
-            session.Send(ping);
+            session.Notify(ping);
             lastHeatBeatTime = TimeHelper.NowSeconds;
         }
 

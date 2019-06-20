@@ -44,28 +44,13 @@ namespace Giant.Net
 
         public void Reply(IMessage message)
         {
-            this.Send(message);
+            this.Notify(message);
         }
 
-        public void Send(IMessage message)
+        public void Notify(IMessage message)
         {
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
-            this.Send(opcode, message);
-        }
-
-        private void Send(ushort opcode, IMessage message)
-        {
-            var stream = this.channel.Stream;
-            opcodeBytes.WriteTo(0, opcode);
-
-            stream.Seek(0, SeekOrigin.Begin);
-            stream.Write(opcodeBytes, 0, opcodeBytes.Length);
-            stream.SetLength(Packet.MessageIndex);
-
-            ProtoHelper.ToStream(stream, message);
-            stream.Seek(0, SeekOrigin.Begin);
-
-            this.channel.Send(stream);
+            this.Notify(opcode, message);
         }
 
         public Task<IResponse> Call(IRequest message)
@@ -98,7 +83,7 @@ namespace Giant.Net
                 }
             };
 
-            this.Send(opcode, message);
+            this.Notify(opcode, message);
 
             return tcs.Task;
         }
@@ -114,6 +99,21 @@ namespace Giant.Net
 
             //清空所有消息回调
             responseCallback.Clear();
+        }
+
+        private void Notify(ushort opcode, IMessage message)
+        {
+            var stream = this.channel.Stream;
+            opcodeBytes.WriteTo(0, opcode);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            stream.Write(opcodeBytes, 0, opcodeBytes.Length);
+            stream.SetLength(Packet.MessageIndex);
+
+            ProtoHelper.ToStream(stream, message);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            this.channel.Send(stream);
         }
 
         private void OnRead(MemoryStream memoryStream)

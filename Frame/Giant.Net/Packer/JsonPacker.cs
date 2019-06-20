@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using Giant.Share;
 
-namespace Giant.Msg
+namespace Giant.Net
 {
     public class JsonPacker : IMessagePacker
     {

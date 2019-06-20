@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace Giant.Msg
+namespace Giant.Net
 {
     public class ProtoPacker : IMessagePacker
     {
