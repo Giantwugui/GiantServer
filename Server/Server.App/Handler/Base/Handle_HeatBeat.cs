@@ -19,7 +19,7 @@ namespace Server.App
                 AppId = AppService.Instacne.AppId,
             };
 
-            session.Send(pong);
+            session.Notify(pong);
         }
     }
 

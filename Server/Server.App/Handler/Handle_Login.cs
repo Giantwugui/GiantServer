@@ -38,4 +38,25 @@ namespace Server.App
             }
         }
     }
+
+    [MessageHandler(AppType.Gate)]
+    public class Handle_Ping : MRpcHandler<CR_Ping, RC_Ping>
+    {
+        public override void Run(Session session, CR_Ping request, Action<RC_Ping> reply)
+        {
+            RC_Ping response = new RC_Ping() { RpcId = request.RpcId };
+
+            try
+            {
+                response.Error = ErrorCode.Success;
+                reply(response);
+            }
+            catch (Exception ex)
+            {
+                response.Error = ErrorCode.RpcFail;
+                reply(response);
+                Logger.Error(ex);
+            }
+        }
+    }
 }

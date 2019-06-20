@@ -18,7 +18,7 @@ namespace Giant.Frame
 
         public void RegistService(AppInfo appInfo)
         {
-            appInfo.Session.onConnectCallback += OnConnect;
+            appInfo.Session.OnConnectCallback += OnConnect;
             backendSessions.Add(appInfo.AppType, appInfo.SessionId, appInfo);
         }
 

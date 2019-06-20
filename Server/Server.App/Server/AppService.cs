@@ -73,6 +73,9 @@ namespace Server.App
         {
             switch (message)
             {
+                case "Test":
+                    Benchmark.Test();
+                    break;
                 default:
                     Logger.Info($"system call -> {message}");
                     break;

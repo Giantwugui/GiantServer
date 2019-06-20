@@ -23,7 +23,7 @@ namespace Giant.Net
         public bool IsConnected => this.channel.IsConnected;
         public IPEndPoint RemoteIPEndPoint => this.channel.IPEndPoint;
 
-        public Action<Session, bool> onConnectCallback;
+        private Action<Session, bool> onConnectCallback;
         public event Action<Session, bool> OnConnectCallback
         {
             add { onConnectCallback += value; }
