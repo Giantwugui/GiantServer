@@ -37,7 +37,7 @@ namespace Giant.Net
             this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.Socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
             this.Socket.Bind(endPoint);
-            this.Socket.Listen(200);
+            this.Socket.Listen(1000);
 
             this.AcceptAsync();
         }
