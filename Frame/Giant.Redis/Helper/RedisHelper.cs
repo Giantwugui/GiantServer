@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Giant.Share;
+using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StackExchange.Redis;
-using Giant.Share;
 
 namespace Giant.Redis
 {
-
     public abstract class RedisHelper
     {
         protected RedisHelper()
@@ -80,7 +79,7 @@ namespace Giant.Redis
             return DataBase.KeyExpire(key, expiry);
         }
 
-        #endregion
+        #endregion 同步方式
 
         #region 异步方法
 
@@ -145,7 +144,7 @@ namespace Giant.Redis
             return await DataBase.KeyExpireAsync(key, expiry);
         }
 
-        #endregion
+        #endregion 异步方法
 
         /// <summary>
         /// 执行Redis事务
@@ -159,6 +158,7 @@ namespace Giant.Redis
             bool committed = tran.Execute();
             return committed;
         }
+
         /// <summary>
         /// Redis锁
         /// </summary>
@@ -178,7 +178,6 @@ namespace Giant.Redis
                 {
                     throw new Exception("未处理的异常 " + ex);
                 }
-
                 finally
                 {
                     DataBase.LockRelease(lockKey, token);
@@ -209,30 +208,25 @@ namespace Giant.Redis
         /// <typeparam name="T"></typeparam>
         /// <param name="values"></param>
         /// <returns></returns>
-        protected List<T> ConvetList<T>(params RedisValue[] values) => values.Select(x=>((string)x).FromJson<T>()).ToList();
+        protected List<T> ConvetList<T>(params RedisValue[] values) => values.Select(x => ((string)x).FromJson<T>()).ToList();
 
-
-        #endregion
+        #endregion 扩展方法
 
         /// <summary>
         /// 数据库对象
         /// </summary>
         protected IDatabase DataBase { get; private set; }
 
-
         /// <summary>
         /// 数据库连接对象
         /// </summary>
         private ConnectionMultiplexer Connection { get; set; }
-
     }
-
 
     public static class RedisValueHelper
     {
         //public static T ToObject<T>(this RedisValue redisValue)
         //{
-
         //}
     }
 }

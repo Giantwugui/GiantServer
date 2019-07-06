@@ -19,7 +19,7 @@ namespace Giant.Log
 
     public class LogAdapter : ILog
     {
-		private readonly NLog.Logger logger = LogManager.GetLogger("Logger");
+        private readonly NLog.Logger logger = LogManager.GetLogger("Logger");
 
         public void Debug(object message)
         {

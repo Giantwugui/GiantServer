@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Share;
 using StackExchange.Redis;
-using Giant.Share;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,7 +14,8 @@ namespace Giant.Redis
     public class RedisZSetHelper : RedisHelper
     {
         public static RedisZSetHelper Instance { get; } = new RedisZSetHelper();
-        private RedisZSetHelper(): base()
+
+        private RedisZSetHelper() : base()
         {
         }
 
@@ -268,7 +269,6 @@ namespace Giant.Redis
             return _SortedSetCombineAndStore(SetOperation.Intersect, destination, keys);
         }
 
-
         //交集似乎并不支持
         /// <summary>
         /// 获取几个集合的差集,并保存到一个新Key中
@@ -280,8 +280,6 @@ namespace Giant.Redis
         {
             return _SortedSetCombineAndStore(SetOperation.Difference, destination, keys);
         }
-
-
 
         /// <summary>
         /// 修改指定Key和值的Scores在原值上减去scores，并返回最终Scores
@@ -309,9 +307,7 @@ namespace Giant.Redis
             return DataBase.SortedSetIncrement(key, value.ToJson(), scores);
         }
 
-
-
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -599,11 +595,10 @@ namespace Giant.Redis
             return await base.DataBase.SortedSetIncrementAsync(key, value.ToJson(), scores);
         }
 
-
-
-        #endregion
+        #endregion 异步方法
 
         #region 内部辅助方法
+
         /// <summary>
         /// 获取指定Key中最大Score值,
         /// </summary>
@@ -626,6 +621,7 @@ namespace Giant.Redis
         private long _SortedSetCombineAndStore(SetOperation operation, string destination, params string[] keys)
         {
             #region 查看源码，似乎并不支持Difference
+
             //RedisCommand command;
             //if (operation != SetOperation.Union)
             //{
@@ -639,11 +635,11 @@ namespace Giant.Redis
             //{
             //    command = RedisCommand.ZUNIONSTORE;
             //}
-            #endregion
+
+            #endregion 查看源码，似乎并不支持Difference
 
             var rValue = base.DataBase.SortedSetCombineAndStore(operation, destination, ConvertToRedisKeys(keys));
             return rValue;
-
         }
 
         /// <summary>
@@ -659,7 +655,6 @@ namespace Giant.Redis
             return rValue;
         }
 
-        #endregion
-
+        #endregion 内部辅助方法
     }
 }

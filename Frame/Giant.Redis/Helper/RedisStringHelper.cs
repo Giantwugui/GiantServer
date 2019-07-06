@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Share;
 using StackExchange.Redis;
-using Giant.Share;
-using System.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Giant.Redis
@@ -10,7 +10,8 @@ namespace Giant.Redis
     public class RedisStringHelper : RedisHelper
     {
         public static RedisStringHelper Instance { get; } = new RedisStringHelper();
-        private RedisStringHelper(): base()
+
+        private RedisStringHelper() : base()
         {
         }
 
@@ -130,7 +131,6 @@ namespace Giant.Redis
             return oValue.FromJson<T>();
         }
 
-
         /// <summary>
         /// 获取值的长度
         /// </summary>
@@ -162,7 +162,8 @@ namespace Giant.Redis
         {
             return base.DataBase.StringDecrement(key, val);
         }
-        #endregion
+
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -233,7 +234,6 @@ namespace Giant.Redis
             var values = await base.DataBase.StringGetAsync(ConvertToRedisKeys(keys));
             return values.Select(o => o.ToString()).ToList();
         }
-
 
         /// <summary>
         /// 异步方法 获取单个key的value值
@@ -315,7 +315,6 @@ namespace Giant.Redis
             return await base.DataBase.StringDecrementAsync(key, val);
         }
 
-        #endregion
-
+        #endregion 异步方法
     }
 }

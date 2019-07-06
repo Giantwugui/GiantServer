@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Share;
 using StackExchange.Redis;
-using Giant.Share;
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Giant.Redis
@@ -14,11 +13,13 @@ namespace Giant.Redis
     public class RedisSetHelper : RedisHelper
     {
         public static RedisSetHelper Instance { get; } = new RedisSetHelper();
-        private RedisSetHelper(): base()
+
+        private RedisSetHelper() : base()
         {
         }
 
         #region 同步方法
+
         /// <summary>
         /// 在Key集合中添加一个value值
         /// </summary>
@@ -30,6 +31,7 @@ namespace Giant.Redis
         {
             return base.DataBase.SetAdd(key, value.ToJson());
         }
+
         /// <summary>
         /// 在Key集合中添加多个value值
         /// </summary>
@@ -179,9 +181,11 @@ namespace Giant.Redis
         {
             return _SetCombineAndStore(SetOperation.Difference, destination, keys);
         }
-        #endregion
+
+        #endregion 同步方法
 
         #region 异步方法
+
         /// <summary>
         /// 在Key集合中添加一个value值
         /// </summary>
@@ -193,6 +197,7 @@ namespace Giant.Redis
         {
             return await base.DataBase.SetAddAsync(key, value.ToJson());
         }
+
         /// <summary>
         /// 在Key集合中添加多个value值
         /// </summary>
@@ -277,7 +282,6 @@ namespace Giant.Redis
             return rValue.FromJson<T>();
         }
 
-
         /// <summary>
         /// 获取几个集合的并集
         /// </summary>
@@ -288,6 +292,7 @@ namespace Giant.Redis
         {
             return await _SetCombineAsync<T>(SetOperation.Union, keys);
         }
+
         /// <summary>
         /// 获取几个集合的交集
         /// </summary>
@@ -298,6 +303,7 @@ namespace Giant.Redis
         {
             return await _SetCombineAsync<T>(SetOperation.Intersect, keys);
         }
+
         /// <summary>
         /// 获取几个集合的差集
         /// </summary>
@@ -309,8 +315,6 @@ namespace Giant.Redis
             return await _SetCombineAsync<T>(SetOperation.Difference, keys);
         }
 
-
-
         /// <summary>
         /// 获取几个集合的并集,并保存到一个新Key中
         /// </summary>
@@ -321,6 +325,7 @@ namespace Giant.Redis
         {
             return await _SetCombineAndStoreAsync(SetOperation.Union, destination, keys);
         }
+
         /// <summary>
         /// 获取几个集合的交集,并保存到一个新Key中
         /// </summary>
@@ -331,6 +336,7 @@ namespace Giant.Redis
         {
             return await _SetCombineAndStoreAsync(SetOperation.Intersect, destination, keys);
         }
+
         /// <summary>
         /// 获取几个集合的差集,并保存到一个新Key中
         /// </summary>
@@ -342,7 +348,7 @@ namespace Giant.Redis
             return await _SetCombineAndStoreAsync(SetOperation.Difference, destination, keys);
         }
 
-        #endregion
+        #endregion 异步方法
 
         #region 内部辅助方法
 
@@ -396,6 +402,6 @@ namespace Giant.Redis
             return await base.DataBase.SetCombineAndStoreAsync(operation, destination, ConvertToRedisKeys(keys));
         }
 
-        #endregion
+        #endregion 内部辅助方法
     }
 }

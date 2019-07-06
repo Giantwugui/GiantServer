@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Share;
 using StackExchange.Redis;
-using Giant.Share;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,19 +8,19 @@ namespace Giant.Redis
 {
     /// <summary>
     /// Redis list的实现为一个双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销，
-    /// Redis内部的很多实现，包括发送缓冲队列等也都是用的这个数据结构。  
-    /// 一般是左进右出或者右进左出 
+    /// Redis内部的很多实现，包括发送缓冲队列等也都是用的这个数据结构。
+    /// 一般是左进右出或者右进左出
     /// </summary>
     public class RedisListHelper : RedisHelper
     {
         public static RedisListHelper Instance { get; } = new RedisListHelper();
 
-
-        private RedisListHelper(): base()
+        private RedisListHelper() : base()
         {
         }
 
         #region 同步方法
+
         /// <summary>
         /// 从左侧向list中添加一个值，返回集合总数
         /// </summary>
@@ -180,9 +180,11 @@ namespace Giant.Redis
         {
             return base.DataBase.ListRemove(key, value.ToJson());
         }
-        #endregion
+
+        #endregion 同步方法
 
         #region 异步方法
+
         /// <summary>
         /// 从左侧向list中添加一个值，返回集合总数
         /// </summary>
@@ -342,7 +344,7 @@ namespace Giant.Redis
         {
             return await base.DataBase.ListRemoveAsync(key, value.ToJson());
         }
-        #endregion
 
+        #endregion 异步方法
     }
 }
