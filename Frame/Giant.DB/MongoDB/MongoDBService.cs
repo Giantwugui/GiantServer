@@ -27,7 +27,8 @@ namespace Giant.DB
                 Username = account,
                 Password = passWorld,
                 DatabaseName = dbName,
-                Servers = servers
+                Servers = servers,
+                //ReadPreference = ReadPreference.PrimaryPreferred
             };
 
             this.mongoUrl = builder.ToMongoUrl();//mongodb://user:pass@127.0.0.1:27017/db
