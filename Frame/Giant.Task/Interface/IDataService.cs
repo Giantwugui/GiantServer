@@ -6,7 +6,7 @@
         TaskPool TaskPool { get; }
     }
 
-    #region DB 服务
+    #region DB
 
     //数据库服务基础接口(mongodb，mysql)
     public interface IDBService
@@ -22,7 +22,7 @@
 
     #endregion
 
-    #region Redis 服务
+    #region Redis
 
     public interface IRedisService : IDataService
     {

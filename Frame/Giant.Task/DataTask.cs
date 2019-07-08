@@ -4,15 +4,6 @@ using Giant.Log;
 
 namespace Giant.DataTask
 {
-    public interface IDataTask
-    {
-        long TaskId { get; set; }
-
-        IDataService DataService { get; }
-
-        Task Run();
-    }
-
     public abstract class DataTask : IDataTask
     {
         public long TaskId { get; set; }
