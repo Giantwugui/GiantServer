@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.Data;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,7 +16,8 @@ namespace Server.App
         }
 
         private void AppInitMap()
-        { 
+        {
+            MapLibrary.Init();
             MapGridPosManager.Init();
 
             MapMamanger = new MapMamanger();

@@ -21,6 +21,12 @@ namespace Server.App
             }
         }
 
+        public static DynamicGrid GetGrid(string name)
+        {
+            mapGridList.TryGetValue(name, out var grid);
+            return grid;
+        }
+
         private static void LoadMapData(string path)
         {
             if (!File.Exists(path))
@@ -39,7 +45,9 @@ namespace Server.App
                     grid.SetWalkableAt(new GridPos(reader.ReadInt32(), reader.ReadInt32()), reader.ReadBoolean());
                 }
             }
-            mapGridList.Add(fileStream.Name, grid);
+
+            string[] name = fileStream.Name.Split('\\');
+            mapGridList.Add(name[name.Length - 1], grid);
             fileStream.Close();
         }
 

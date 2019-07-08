@@ -2,6 +2,7 @@
 using Giant.Log;
 using Giant.Share;
 using System;
+using EpPathFinding;
 
 namespace Server.App
 {
@@ -73,10 +74,23 @@ namespace Server.App
 
         private void DoCmd(string message)
         {
-            switch (message)
+            string[] param = message.Split(' ');
+            switch (param[0])
             {
                 case "Test":
                     Benchmark.Test();
+                    break;
+                case "PathFind":
+                    string[] SEPos = param[1].Split('|');
+                    string[] start = SEPos[0].Split(':');
+                    string[] end = SEPos[1].Split(':');
+                    GridPos pos1 = new GridPos(int.Parse(start[0]), int.Parse(start[1]));
+                    GridPos pos2 = new GridPos(int.Parse(end[0]), int.Parse(end[1]));
+                    Map map = MapMamanger.GetMap(1);
+                    if (map != null)
+                    {
+                        var path = map.PathFind(pos1, pos2);
+                    }
                     break;
                 default:
                     Logger.Info($"system call -> {message}");

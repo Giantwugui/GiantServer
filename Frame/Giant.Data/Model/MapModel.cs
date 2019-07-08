@@ -12,12 +12,13 @@
         public MapModel(Data data)
         {
             this.Data = data;
+            this.BindData();
         }
 
         private void BindData()
         {
             var data = this.Data;
-            this.MapId = data.GetInt("Id");
+            this.MapId = data.Id;
             this.MapName = data.GetString("MapName");
             this.BianryName = data.GetString("BianryName");
         }
