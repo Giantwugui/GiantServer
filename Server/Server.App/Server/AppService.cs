@@ -9,6 +9,8 @@ namespace Server.App
     {
         public static AppService Instacne { get; } = new AppService();
 
+        public MapMamanger MapMamanger { get; private set; }
+
         private AppService() { }
 
         public override void Init(AppOption option)

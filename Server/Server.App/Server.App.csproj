@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
+    <ProjectReference Include="..\..\Frame\PathFind\Giant.PathFind\Giant.PathFind.csproj" />
   </ItemGroup>
 
 </Project>

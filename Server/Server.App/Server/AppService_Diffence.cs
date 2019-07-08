@@ -16,6 +16,10 @@ namespace Server.App
 
         private void AppInitMap()
         { 
+            MapGridPosManager.Init();
+
+            MapMamanger = new MapMamanger();
+            MapMamanger.Init();
         }
 
         private void AppInitSocial()
@@ -24,6 +28,10 @@ namespace Server.App
 
         private void AppInitAll()
         {
+            AppInitGate();
+            AppInitManager();
+            AppInitMap();
+            AppInitSocial();
         }
 
     }
