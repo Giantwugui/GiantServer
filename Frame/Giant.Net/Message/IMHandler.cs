@@ -1,5 +1,7 @@
 ﻿using Giant.Msg;
 using System;
+using Giant.Log;
+using System.Threading.Tasks;
 
 namespace Giant.Net
 {
@@ -22,33 +24,15 @@ namespace Giant.Net
 
         public void Handle(Session session, object message)
         {
-            Message msg = message as Message;
-
-            this.Run(session, msg);
-        }
-    }
-
-    //请求响应类消息
-    public abstract class MRpcHandler<Request, Response> : IMHandler where Request : class, IRequest where Response : class, IResponse
-    {
-        public abstract void Run(Session session, Request request, Action<Response> reply);
-
-        public Type GetMessageType()
-        {
-            return typeof(Request);
-        }
-
-        public void Handle(Session session, object message)
-        {
-            Request request = message as Request;
-
-            this.Run(session, request, (Response response) =>
+            try
             {
-                response.RpcId = request.RpcId;
-                session.Reply(response);
-            });
+                Message msg = message as Message;
+                this.Run(session, msg);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
         }
     }
-
-
 }

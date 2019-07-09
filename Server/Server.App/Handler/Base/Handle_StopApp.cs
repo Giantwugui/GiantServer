@@ -1,8 +1,6 @@
-﻿using Giant.Log;
-using Giant.Msg;
+﻿using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
-using System;
 
 namespace Server.App
 {
@@ -11,16 +9,9 @@ namespace Server.App
     {
         public override void Run(Session session, CA_StopApp message)
         {
-            try
+            if (AppService.Instacne.AppId == message.AppId)
             {
-                if (AppService.Instacne.AppId == message.AppId)
-                {
-                    AppService.Instacne.StopApp();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
+                AppService.Instacne.StopApp();
             }
         }
     }

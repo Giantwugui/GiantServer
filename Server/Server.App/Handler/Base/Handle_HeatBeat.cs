@@ -2,7 +2,6 @@
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
-using System;
 
 namespace Server.App
 {
@@ -28,14 +27,7 @@ namespace Server.App
     {
         public override void Run(Session session, HeartBeat_Pong message)
         {
-            try
-            {
-                Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ex);
-            }
+            Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
         }
     }
 }
