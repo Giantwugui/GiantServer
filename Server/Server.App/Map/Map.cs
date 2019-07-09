@@ -20,7 +20,7 @@ namespace Server.App
             this.Model = model;
 
             this.dynamicGrid = MapGridPosManager.GetGrid(model.BianryName);
-            this.jumpPointParam = new JumpPointParam(this.dynamicGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Always, HeuristicMode.EUCLIDEAN);
+            this.jumpPointParam = new JumpPointParam(this.dynamicGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Never, HeuristicMode.EUCLIDEAN);
         }
 
         public List<GridPos> PathFind(GridPos startPos, GridPos endPos)

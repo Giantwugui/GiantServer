@@ -81,15 +81,19 @@ namespace Server.App
                     Benchmark.Test();
                     break;
                 case "PathFind":
-                    string[] SEPos = param[1].Split('|');
-                    string[] start = SEPos[0].Split(':');
-                    string[] end = SEPos[1].Split(':');
-                    GridPos pos1 = new GridPos(int.Parse(start[0]), int.Parse(start[1]));
-                    GridPos pos2 = new GridPos(int.Parse(end[0]), int.Parse(end[1]));
-                    Map map = MapMamanger.GetMap(1);
-                    if (map != null)
                     {
-                        var path = map.PathFind(pos1, pos2);
+                        //string[] SEPos = param[1].Split('|');
+                        //string[] start = SEPos[0].Split(':');
+                        //string[] end = SEPos[1].Split(':');
+                        //GridPos pos1 = new GridPos(int.Parse(start[0]), int.Parse(start[1]));
+                        //GridPos pos2 = new GridPos(int.Parse(end[0]), int.Parse(end[1]));
+                        GridPos pos1 = new GridPos(21, 16);
+                        GridPos pos2 = new GridPos(41, 16);
+                        Map map = MapMamanger.GetMap(1);
+                        if (map != null)
+                        {
+                            var path = map.PathFind(pos1, pos2);
+                        }
                     }
                     break;
                 default:
