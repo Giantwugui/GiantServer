@@ -5,7 +5,7 @@ namespace Giant.Frame
 {
     public class AppOption
     {
-        [Option("appType", Required = true, Default = AppType.Manager)]
+        [Option("appType", Required = true, Default = AppType.AllServer)]
         public AppType AppType { get; set; }
 
         [Option("appId", Required = true, Default = 0)]
