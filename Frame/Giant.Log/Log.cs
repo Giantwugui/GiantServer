@@ -78,7 +78,7 @@ namespace Giant.Log
         public static void WriteToConsole(object message)
         {
 #if DEBUG
-            Console.WriteLine($"{DateTime.Now.ToString()} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
 #else
             if (writeToConsole)
             {
