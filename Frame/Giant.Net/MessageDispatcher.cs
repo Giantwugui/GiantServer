@@ -2,7 +2,6 @@
 using Giant.Msg;
 using Giant.Share;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Giant.Net
@@ -10,7 +9,7 @@ namespace Giant.Net
     public class MessageDispatcher
     {
         private readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
-        private readonly Dictionary<ushort, IMHandler> Handlers = new Dictionary<ushort, IMHandler>();
+        private readonly ListMap<ushort, IMHandler> Handlers = new ListMap<ushort, IMHandler>();
 
         public MessageDispatcher()
         {
@@ -20,9 +19,9 @@ namespace Giant.Net
 
         public void Dispatch(Session session, ushort opcode, IMessage message)
         {
-            if (Handlers.TryGetValue(opcode, out IMHandler handler))
+            if (Handlers.TryGetValue(opcode, out var handler))
             {
-                handler.Handle(session, message);
+                handler.ForEach(x => x.Handle(session, message));
             }
             else
             {

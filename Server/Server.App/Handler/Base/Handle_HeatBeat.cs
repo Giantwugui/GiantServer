@@ -20,6 +20,7 @@ namespace Server.App
             };
 
             session.Notify(pong);
+            await Task.FromResult(0);
         }
     }
 
