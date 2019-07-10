@@ -57,7 +57,7 @@ namespace Server.App
                 case AppType.Map:
                         this.AppInitMap();
                     break;
-                case AppType.Social:
+                case AppType.Relation:
                         this.AppInitSocial();
                     break;
                 case AppType.AllServer:

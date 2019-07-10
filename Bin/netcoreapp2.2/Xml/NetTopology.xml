@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
 <Root Config="NetTopology">
-	<content id="1" Type="Gate" Gate="" Manager="1" Map="1" Social=" "/>
-	<content id="2" Type="Manager" Gate="" Manager="" Map="" Social=""/>
-	<content id="3" Type="Map" Gate="" Manager="1" Map="" Social="0"/>
-	<content id="4" Type="Social" Gate="" Manager="1" Map="" Social=""/>
+	<content id="1" Type="Gate" Gate="" Manager="1" Map="1" Relation=" "/>
+	<content id="2" Type="Manager" Gate="" Manager="" Map="" Relation=""/>
+	<content id="3" Type="Map" Gate="" Manager="1" Map="" Relation="1"/>
+	<content id="4" Type="Relation" Gate="" Manager="1" Map="" Relation=""/>
 </Root>
