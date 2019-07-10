@@ -1,6 +1,4 @@
-﻿using Giant.Log;
-using MySql.Data.MySqlClient;
-using System;
+﻿using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
