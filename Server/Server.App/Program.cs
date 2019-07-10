@@ -25,6 +25,7 @@ namespace Server.App
             catch (Exception ex)
             {
                 Logger.Error(ex);
+                Console.ReadLine();
             }
 
             while (true)

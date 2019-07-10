@@ -22,12 +22,10 @@ namespace Giant.Frame
         public int AppId { get { return Service.AppId; } }
 
 
-        public NetProxyManager(BaseService service)
+        public NetProxyManager()
         {
-            this.Service = service;
             this.FrontendManager = new FrontendManager(this);
             this.BackendManager = new BackendManager(this);
-            this.Init();
         }
 
         public void Start()
@@ -45,8 +43,10 @@ namespace Giant.Frame
             this.BackendManager.RegistService(new AppInfo() { AppType = appType, AppId = appId, Session = session });
         }
 
-        private void Init()
+        public void Init(BaseService service)
         {
+            this.Service = service;
+
             var netPology = NetTopologyConfig.GetTopology(this.AppType);
             if (netPology == null)
             {

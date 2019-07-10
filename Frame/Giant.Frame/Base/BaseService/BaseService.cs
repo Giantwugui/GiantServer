@@ -7,7 +7,9 @@ namespace Giant.Frame
 {
     public abstract partial class BaseService
     {
-        public NetProxyManager NetProxyManager { get; private set; }
+        private readonly NetProxyManager netProxyManager = new NetProxyManager();
+
+        public NetProxyManager NetProxyManager => netProxyManager;
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 

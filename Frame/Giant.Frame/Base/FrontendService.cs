@@ -3,6 +3,7 @@ using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
+using System;
 using System.Threading.Tasks;
 
 namespace Giant.Frame
@@ -36,7 +37,19 @@ namespace Giant.Frame
             session.Start();
         }
 
-        public void HeartBeat()
+        public void Update()
+        {
+            try
+            {
+                CheckHeartBeat();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
+        }
+
+        public void CheckHeartBeat()
         {
             if (!IsConnected)
             {
@@ -66,20 +79,23 @@ namespace Giant.Frame
             }
             else
             {
-                ReConnect(3000);
+                CheckConnect();
             }
         }
 
-        private async void ReConnect(int delayTime)
+        private async void CheckConnect()
         {
-            await Task.Delay(delayTime);
-            session.Start();
+            await Task.Delay(3000);
 
-            Logger.Info($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
+            Logger.Warn($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
+
+            session.Start();
         }
 
         private async void RegistService()
         {
+            Logger.Warn($"app {AppType} {AppId} start registe to {AppConfig.ApyType} {AppConfig.AppId} ...");
+
             Msg_RegistService_Req request = new Msg_RegistService_Req()
             {
                 AppId = AppId,
@@ -89,7 +105,7 @@ namespace Giant.Frame
             IResponse response = await Session.Call(request);
             Msg_RegistService_Rep message = response as Msg_RegistService_Rep;
 
-            Logger.Info($"app {AppType} {AppId} registed to {(AppType)message.AppType} {message.AppId} success !");
+            Logger.Warn($"app {AppType} {AppId} registed to {(AppType)message.AppType} {message.AppId} success !");
         }
     }
 }

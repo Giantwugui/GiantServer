@@ -35,7 +35,8 @@ namespace Giant.Frame
             }
 
             backendSessions.Remove(appInfo.AppType, session.Id);
-            Logger.Warn($"appType {NetProxyManager.AppType} {NetProxyManager.AppId} disconnect from {appInfo.AppType} {appInfo.AppId}");
+
+            Logger.Warn($"appType {appInfo.AppType} {appInfo.AppId} disconnect from {NetProxyManager.AppType} {NetProxyManager.AppId}");
         }
 
     }

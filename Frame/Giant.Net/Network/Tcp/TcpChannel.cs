@@ -126,18 +126,19 @@ namespace Giant.Net
 
         public override void Dispose()
         {
-            this.IsConnected = false;
+            SetConnectState(false);
         }
 
         protected override void OnError(object error)
         {
-            if (this.IsConnected)
-            {
-                this.IsConnected = false;
-            }
-
-            base.OnConnected(false);
             base.OnError(error);
+            SetConnectState(false);
+        }
+
+        private void SetConnectState(bool state)
+        {
+            this.IsConnected = state;
+            base.OnConnected(state);
         }
 
         private void ConnectAsync()
@@ -185,17 +186,17 @@ namespace Giant.Net
         {
             try
             {
-                this.outtererArgs.SetBuffer(buffer, offset, count);
+                this.innerArgs.SetBuffer(buffer, offset, count);
             }
             catch (Exception e)
             {
                 throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
             }
-            if (this.socket.SendAsync(this.outtererArgs))
+            if (this.socket.SendAsync(this.innerArgs))
             {
                 return;
             }
-            SendComplete(this.outtererArgs);
+            SendComplete(this.innerArgs);
         }
 
         private void StartRecv()
@@ -207,13 +208,13 @@ namespace Giant.Net
 
         private void ReceiveAsync(byte[] buffer, int offset, int length)
         {
-            innerArgs.SetBuffer(buffer, offset, length);
-            if (socket.ReceiveAsync(innerArgs))
+            outtererArgs.SetBuffer(buffer, offset, length);
+            if (socket.ReceiveAsync(outtererArgs))
             {
                 return;
             }
 
-            ReceiveComplete(innerArgs);
+            ReceiveComplete(outtererArgs);
         }
 
         private void OnComplete(object sender, SocketAsyncEventArgs eventArgs)
@@ -239,9 +240,10 @@ namespace Giant.Net
                 this.OnError(eventArgs.SocketError);
                 return;
             }
-            this.OnConnected(true);
             this.IsConnected = true;
+
             Start();
+            SetConnectState(true);
         }
 
         private void ReceiveComplete(SocketAsyncEventArgs eventArgs)

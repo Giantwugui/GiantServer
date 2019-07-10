@@ -3,6 +3,6 @@
 <Root Config="NetTopology">
 	<content id="1" Type="Gate" Gate="" Manager="1" Map="1" Social=" "/>
 	<content id="2" Type="Manager" Gate="" Manager="" Map="" Social=""/>
-	<content id="3" Type="Map" Gate="" Manager="1" Map="" Social="1"/>
+	<content id="3" Type="Map" Gate="" Manager="1" Map="" Social="0"/>
 	<content id="4" Type="Social" Gate="" Manager="1" Map="" Social=""/>
 </Root>

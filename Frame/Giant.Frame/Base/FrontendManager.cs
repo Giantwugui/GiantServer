@@ -31,7 +31,7 @@ namespace Giant.Frame
             //心跳
             foreach (var kv in services)
             {
-                kv.Value.ForEach(service => service.HeartBeat());
+                kv.Value.ForEach(service => service.Update());
             }
         }
     }

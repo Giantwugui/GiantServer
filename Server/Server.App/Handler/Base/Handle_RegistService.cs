@@ -11,11 +11,26 @@ namespace Server.App
     {
         public override async Task Run(Session session, Msg_RegistService_Req request, Msg_RegistService_Rep response)
         {
-            Logger.Info($"regist service from appType {(AppType)request.AppType} appId {request.AppId}");
+            Logger.Warn($"regist service from appType {(AppType)request.AppType} appId {request.AppId}");
 
             response.Error = ErrorCode.Success;
             response.AppId = AppService.Instacne.AppId;
             response.AppType = (int)AppService.Instacne.AppType;
+
+            if(AppService.Instacne == null)
+            {
+                Logger.Error("AppService.Instacne == null");
+            }
+
+            if (AppService.Instacne.NetProxyManager == null)
+            {
+                Logger.Error("AppService.Instacne.NetProxyManager == null");
+            }
+
+            if (request == null)
+            {
+                Logger.Error("request == null");
+            }
 
             AppService.Instacne.NetProxyManager.RegistBackendService((AppType)request.AppType, request.AppId, session);
             await Task.FromResult(0);

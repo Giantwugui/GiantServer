@@ -106,7 +106,7 @@ namespace Giant.Frame
         //网络拓扑
         private void InitNetworkTopology()
         {
-            this.NetProxyManager = new NetProxyManager(this);
+            this.NetProxyManager.Init(this);
         }
 
 
