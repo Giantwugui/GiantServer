@@ -43,7 +43,7 @@ namespace Giant.Frame
                 return;
             }
 
-            if (TimeHelper.NowSeconds - lastHeatBeatTime < 10)
+            if (TimeHelper.NowSeconds - lastHeatBeatTime < 30)
             {
                 return;
             }
@@ -73,9 +73,9 @@ namespace Giant.Frame
         private async void ReConnect(int delayTime)
         {
             await Task.Delay(delayTime);
-            Logger.Info($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
-
             session.Start();
+
+            Logger.Info($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
         }
 
         private async void RegistService()
@@ -88,6 +88,7 @@ namespace Giant.Frame
 
             IResponse response = await Session.Call(request);
             Msg_RegistService_Rep message = response as Msg_RegistService_Rep;
+
             Logger.Info($"app {AppType} {AppId} registed to {(AppType)message.AppType} {message.AppId} success !");
         }
     }

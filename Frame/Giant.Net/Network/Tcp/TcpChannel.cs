@@ -136,6 +136,7 @@ namespace Giant.Net
                 this.IsConnected = false;
             }
 
+            base.OnConnected(false);
             base.OnError(error);
         }
 
@@ -235,7 +236,6 @@ namespace Giant.Net
         {
             if (eventArgs.SocketError != SocketError.Success)
             {
-                this.OnConnected(false);
                 this.OnError(eventArgs.SocketError);
                 return;
             }

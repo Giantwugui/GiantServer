@@ -20,7 +20,7 @@ namespace Server.App
 
                 AppService.Instacne.Init(option);
 
-                Logger.Info($"server start complete------------- appType {option.AppType} appId {option.AppId}");
+                Logger.Warn($"server start complete------------- appType {option.AppType} appId {option.AppId}");
             }
             catch (Exception ex)
             {

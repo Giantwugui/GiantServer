@@ -27,17 +27,7 @@ namespace Giant.Frame
             this.Service = service;
             this.FrontendManager = new FrontendManager(this);
             this.BackendManager = new BackendManager(this);
-        }
-
-        public void Init()
-        {
-            var netPology = NetTopologyConfig.GetTopology(this.AppType);
-            if (netPology == null)
-            {
-                return;
-            }
-
-            netPology.ForEach(topology => this.FrontendManager.Add(topology));
+            this.Init();
         }
 
         public void Start()
@@ -53,6 +43,17 @@ namespace Giant.Frame
         public void RegistBackendService(AppType appType, int appId, Session session)
         {
             this.BackendManager.RegistService(new AppInfo() { AppType = appType, AppId = appId, Session = session });
+        }
+
+        private void Init()
+        {
+            var netPology = NetTopologyConfig.GetTopology(this.AppType);
+            if (netPology == null)
+            {
+                return;
+            }
+
+            netPology.ForEach(topology => this.FrontendManager.Add(topology));
         }
     }
 }
