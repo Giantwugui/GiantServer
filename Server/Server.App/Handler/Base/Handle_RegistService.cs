@@ -18,6 +18,7 @@ namespace Server.App
             response.AppType = (int)AppService.Instacne.AppType;
 
             AppService.Instacne.NetProxyManager.RegistBackendService((AppType)request.AppType, request.AppId, session);
+            await Task.FromResult(0);
         }
     }
 }

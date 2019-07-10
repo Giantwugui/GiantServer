@@ -32,6 +32,7 @@ namespace Server.App
         public override async Task Run(Session session, CR_Ping request, RC_Ping response)
         {
             response.Error = ErrorCode.Success;
+            await Task.FromResult(0);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Giant.Net
             try
             {
                 Request request = message as Request;
-                Response response = Activator.CreateInstance(typeof(Response)) as Response;
+                Response response = Activator.CreateInstance<Response>();
                 response.RpcId = request.RpcId; 
 
                 try

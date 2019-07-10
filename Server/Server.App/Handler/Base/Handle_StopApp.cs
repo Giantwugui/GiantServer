@@ -14,6 +14,7 @@ namespace Server.App
             {
                 AppService.Instacne.StopApp();
             }
+            await Task.FromResult(0);
         }
     }
 }

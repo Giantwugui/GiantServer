@@ -30,6 +30,7 @@ namespace Server.App
         public override async Task Run(Session session, HeartBeat_Pong message)
         {
             Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
+            await Task.FromResult(0);
         }
     }
 }
