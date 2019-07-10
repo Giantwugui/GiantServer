@@ -29,13 +29,13 @@ namespace Server.Test
 
         public void GenerateData()
         {
-            Player player;
+            PlayerInfo player;
             MySqlInsertPlayerBatch query;
-            List<Player> players = new List<Player>();
+            List<PlayerInfo> players = new List<PlayerInfo>();
             for (int i = 0; i < 500; ++i)
             {
                 ++uid;
-                player = new Player()
+                player = new PlayerInfo()
                 {
                     Account = $"wg_{uid}",
                     Level = 10,
@@ -49,7 +49,7 @@ namespace Server.Test
                     query = new MySqlInsertPlayerBatch(players);
                     playerQueue.Enqueue(query);
 
-                    players = new List<Player>();
+                    players = new List<PlayerInfo>();
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace Server.Test
         public async void Test_Load()
         {
             MySqlQueryPlayer query = new MySqlQueryPlayer(10001);
-            Player player = await query.Task();
+            PlayerInfo player = await query.Task();
         }
 
         public async void GetMaxUid()

@@ -20,18 +20,10 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
-                var result = await collection.FindSync<T>(this.definition).FirstOrDefaultAsync();
+            var collection = this.GetCollection<T>(this.CollectionName);
+            var result = await collection.FindSync<T>(this.definition).FirstOrDefaultAsync();
 
-                SetResult(result);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(result);
         }
     }
 
@@ -71,24 +63,16 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
-                var cursor = collection.FindSync<T>(this.definition, this.options);
+            var collection = this.GetCollection<T>(this.CollectionName);
+            var cursor = collection.FindSync<T>(this.definition, this.options);
 
-                List<T> resultList = new List<T>();
-                while (await cursor.MoveNextAsync())
-                {
-                    resultList.AddRange(cursor.Current);
-                }
-
-                SetResult(resultList);
-            }
-            catch (Exception ex)
+            List<T> resultList = new List<T>();
+            while (await cursor.MoveNextAsync())
             {
-                SetException(ex);
-                Logger.Error(ex);
+                resultList.AddRange(cursor.Current);
             }
+
+            SetResult(resultList);
         }
     }
 }

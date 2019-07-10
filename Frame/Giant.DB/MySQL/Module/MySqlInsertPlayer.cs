@@ -8,9 +8,9 @@ namespace Giant.DB.MySQL
 {
     public class MySqlInsertPlayer : MySqlNonQueryTask
     {
-        private readonly Player player;
+        private readonly PlayerInfo player;
 
-        public MySqlInsertPlayer(Player player)
+        public MySqlInsertPlayer(PlayerInfo player)
         {
             this.player = player;
         }
@@ -50,9 +50,9 @@ namespace Giant.DB.MySQL
 
     public class MySqlInsertPlayerBatch : MySqlNonQueryTask
     {
-        private readonly List<Player> players;
+        private readonly List<PlayerInfo> players;
 
-        public MySqlInsertPlayerBatch(List<Player> players)
+        public MySqlInsertPlayerBatch(List<PlayerInfo> players)
         {
             this.players = players;
         }

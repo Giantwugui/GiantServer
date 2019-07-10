@@ -27,25 +27,25 @@ namespace Server.Test
 
         public async Task TestFindBatch(int num)
         {
-            List<Player> players = await FindPlayerBySort(num);
+            List<PlayerInfo> players = await FindPlayerBySort(num);
 
             Console.WriteLine($"player count {players.Count}");
         }
 
-        public async Task<List<Player>> FindPlayerBySort(int limit = 99999)
+        public async Task<List<PlayerInfo>> FindPlayerBySort(int limit = 99999)
         {
             BsonDocument bsons = new BsonDocument()
             {
                 new BsonElement("Level", 1),
             };
 
-            FindOptions<Player> options = new FindOptions<Player>
+            FindOptions<PlayerInfo> options = new FindOptions<PlayerInfo>
             {
                 Limit = limit,
                 Sort = bsons
             };
 
-            var query = new MongoDBQueryBatch<Player>("Player", x => x.Uid > 1, options);
+            var query = new MongoDBQueryBatch<PlayerInfo>("Player", x => x.Uid > 1, options);
             var player = await query.Task();
 
             return player;
@@ -54,23 +54,23 @@ namespace Server.Test
 
         private Task<DeleteResult> TestDelete()
         {
-            var task = new MongoDBDeleteBatch<Player>("Player", x => x.Uid > 0);
+            var task = new MongoDBDeleteBatch<PlayerInfo>("Player", x => x.Uid > 0);
             return task.Task();
         }
 
         private async void TestInsert()
         {
             long uid = 10000 * 10;
-            Player player;
+            PlayerInfo player;
             for (int i = 0; i < 10; i++)
             {
-                player = new Player
+                player = new PlayerInfo
                 {
                     Uid = ++uid,
                     Account = $"Account&{uid}"
                 };
 
-                var task = new MongoDBInsert<Player>("Player", player);
+                var task = new MongoDBInsert<PlayerInfo>("Player", player);
                 await task.Task();
             }
         }
@@ -78,10 +78,10 @@ namespace Server.Test
         private async Task TestInsertBatch()
         {
             long uid = 20000 * 10;
-            List<Player> player = new List<Player>();
+            List<PlayerInfo> player = new List<PlayerInfo>();
             for (int i = 0; i < 20; i++)
             {
-                player.Add(new Player
+                player.Add(new PlayerInfo
                 {
                     Uid = ++uid,
                     Account = $"Account&{uid}",
@@ -89,7 +89,7 @@ namespace Server.Test
                 });
             }
 
-            var task = new MongoDBInsertBatch<Player>("Player", player);
+            var task = new MongoDBInsertBatch<PlayerInfo>("Player", player);
             await task.Task();
         }
     }

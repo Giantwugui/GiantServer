@@ -3,7 +3,7 @@
 namespace Giant.DB
 {
     [BsonIgnoreExtraElements]
-    public class Player
+    public class PlayerInfo
     {
         [BsonId]
         public long Uid { get; set; }

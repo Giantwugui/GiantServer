@@ -18,18 +18,10 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
-                var result = await collection.DeleteOneAsync<T>(this.filter);
+            var collection = this.GetCollection<T>(this.CollectionName);
+            var result = await collection.DeleteOneAsync<T>(this.filter);
 
-                SetResult(result);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(result);
         }
     }
 
@@ -45,18 +37,10 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
-                var result = await collection.DeleteManyAsync<T>(this.filter);
+            var collection = this.GetCollection<T>(this.CollectionName);
+            var result = await collection.DeleteManyAsync<T>(this.filter);
 
-                SetResult(result);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(result);
         }
     }
 }

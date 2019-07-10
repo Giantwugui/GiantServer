@@ -10,17 +10,9 @@ namespace Giant.DB.MySQL
     {
         public async Task Run(MySqlCommand command)
         {
-            try
-            {
-                var result = await command.ExecuteNonQueryAsync();
+            var result = await command.ExecuteNonQueryAsync();
 
-                SetResult(result);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(result);
         }
     }
 }

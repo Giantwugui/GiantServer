@@ -26,6 +26,7 @@ namespace Giant.DB
         {
             this.dbType = dbType;
             this.TaskPool = new TaskPool(taskCount);
+            this.TaskPool.Start();
 
             switch (dbType)
             {
@@ -36,8 +37,6 @@ namespace Giant.DB
                     this.DBService = new MySQLService(host, dbName, account, passWorld);
                     break;
             }
-
-            this.TaskPool.Start();
         }
     }
 }

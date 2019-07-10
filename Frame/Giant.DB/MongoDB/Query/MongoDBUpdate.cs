@@ -21,18 +21,10 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
-                await collection.FindOneAndReplaceAsync(this.definition, this.item);
+            var collection = this.GetCollection<T>(this.CollectionName);
+            await collection.FindOneAndReplaceAsync(this.definition, this.item);
 
-                SetResult(true);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(true);
         }
     }
 }

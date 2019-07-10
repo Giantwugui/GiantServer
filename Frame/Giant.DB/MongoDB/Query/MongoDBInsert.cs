@@ -17,19 +17,11 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
+            var collection = this.GetCollection<T>(this.CollectionName);
 
-                await collection.InsertOneAsync(this.item);
+            await collection.InsertOneAsync(this.item);
 
-                SetResult(true);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(true);
         }
     }
 
@@ -45,19 +37,11 @@ namespace Giant.DB.MongoDB
 
         public override async Task Run()
         {
-            try
-            {
-                var collection = this.GetCollection<T>(this.CollectionName);
+            var collection = this.GetCollection<T>(this.CollectionName);
 
-                await collection.InsertManyAsync(this.items);
+            await collection.InsertManyAsync(this.items);
 
-                SetResult(true);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
+            SetResult(true);
         }
     }
 }

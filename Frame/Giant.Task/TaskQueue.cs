@@ -16,16 +16,25 @@ namespace Giant.DataTask
         {
             while (true)
             {
-                DataTask task = await Get();
-
                 try
                 {
-                    await task.Run();
+                    DataTask task = await Get();
+
+                    try
+                    {
+                        await task.Run();
+                    }
+                    catch (Exception ex)
+                    {
+                        task.SetException(ex);
+                        Logger.Error(ex);
+                    }
                 }
                 catch (Exception ex)
                 {
                     Logger.Error(ex);
                 }
+
             }
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-
 namespace Giant.DB.MySQL
 {
     public abstract class MySqlQueryTask<TResult> : MySQLTask<TResult>

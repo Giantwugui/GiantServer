@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
 {
-    public class MySqlQueryPlayer : MySqlQueryTask<Player>
+    public class MySqlQueryPlayer : MySqlQueryTask<PlayerInfo>
     {
         private readonly int uid;
 
@@ -29,7 +29,7 @@ namespace Giant.DB.MySQL
                     command.Parameters.AddWithValue("@uid", this.uid);
 
                     Dictionary<string, object> datas = await base.Run(command);
-                    Player player = MySqlHelper.BuildInstance<Player>(datas);
+                    PlayerInfo player = MySqlHelper.BuildInstance<PlayerInfo>(datas);
 
                     //其他属性的初始化
 
