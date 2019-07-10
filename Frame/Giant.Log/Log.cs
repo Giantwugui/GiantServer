@@ -55,7 +55,7 @@ namespace Giant.Log
         {
             logAdapter.Warn(message);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{DateTime.Now.ToString()} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -63,7 +63,7 @@ namespace Giant.Log
         {
             logAdapter.Error(message);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{DateTime.Now.ToString()} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -71,7 +71,7 @@ namespace Giant.Log
         {
             logAdapter.Fatal(message);
             Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($"{DateTime.Now.ToString()} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
 
@@ -82,7 +82,7 @@ namespace Giant.Log
 #else
             if (writeToConsole)
             {
-                Console.WriteLine(message);
+                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
             }
 #endif
         }
