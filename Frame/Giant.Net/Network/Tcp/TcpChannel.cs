@@ -148,7 +148,6 @@ namespace Giant.Net
             }
 
             this.IsConnecting = true;
-            innerArgs.SocketError = SocketError.Disconnecting;
             innerArgs.RemoteEndPoint = IPEndPoint;
             if (this.socket.ConnectAsync(innerArgs))
             {
@@ -288,9 +287,9 @@ namespace Giant.Net
                         break;
                     }
                 }
-                catch (Exception ee)
+                catch (Exception ex)
                 {
-                    Logger.Error(ee);
+                    Logger.Error(ex);
                     this.OnError(ErrorCode.SocketError);
                     return;
                 }
@@ -299,9 +298,9 @@ namespace Giant.Net
                 {
                     this.OnRead(this.parser.GetPacket());
                 }
-                catch (Exception ee)
+                catch (Exception ex)
                 {
-                    Logger.Error(ee);
+                    Logger.Error(ex);
                 }
             }
 

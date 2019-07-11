@@ -1,6 +1,4 @@
-﻿using Giant.Log;
-using Giant.Msg;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -62,9 +60,9 @@ namespace Giant.Net
             service.Update();
         }
 
-        public virtual void SessionError(Session session, object error)
+        public virtual void Remove(Session session)
         {
-            this.Remove(session.Id);
+            sessions.Remove(session.Id);
         }
 
         public void Dispose()
@@ -112,15 +110,6 @@ namespace Giant.Net
             baseChannel.Start();
 
             sessions[session.Id] = session;
-        }
-
-        private void Remove(long id)
-        {
-            if (sessions.TryGetValue(id, out Session session))
-            {
-                session.Dispose();
-                sessions.Remove(id);
-            }
         }
     }
 }

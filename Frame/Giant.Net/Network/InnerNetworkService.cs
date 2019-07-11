@@ -1,6 +1,4 @@
-﻿using Giant.Msg;
-using Giant.Share;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Giant.Net
 {
@@ -30,7 +28,7 @@ namespace Giant.Net
             base.Update();
         }
 
-        public override void SessionError(Session session, object error)
+        public override void Remove(Session session)
         {
         }
     }

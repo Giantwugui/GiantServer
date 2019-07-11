@@ -157,7 +157,9 @@ namespace Giant.Net
                     break;
             }
 
-            NetworkService.SessionError(this, error);
+            NetworkService.Remove(this);
+
+            this.Dispose();
         }
 
         public void OnConnect(bool connState)
