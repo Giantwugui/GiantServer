@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 
 namespace Giant.Net
@@ -147,6 +148,9 @@ namespace Giant.Net
                     {
                         Logger.Error($"ErrorCode {errorCode}");
                     }
+                    break;
+                case SocketError socketError:
+                        Logger.Error($"SocketError {socketError}");
                     break;
                 default:
                     Logger.Error(error);

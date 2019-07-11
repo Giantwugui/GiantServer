@@ -45,10 +45,6 @@ namespace Giant.Net
 
         public override void Update()
         {
-            foreach (var kv in channels)
-            {
-                kv.Value.Update();
-            }
         }
 
         public override BaseChannel GetChannel(uint id)
@@ -66,7 +62,6 @@ namespace Giant.Net
             if (channels.TryGetValue(id, out var channel))
             {
                 channel.Dispose();
-
                 channels.Remove(id);
             }
         }

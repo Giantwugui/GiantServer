@@ -21,15 +21,15 @@ namespace Giant.Net
         private readonly SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
 
 
-        public bool IsSending { get; set; }
-        public bool IsRecving { get; set; }
+        public bool IsSending { get; private set; }
+        public bool IsConnecting { get; private set; }
+        public bool IsRecving { get; private set; }
 
         public override MemoryStream Stream => this.memoryStream;
 
         public TcpChannel(int packetSize, Socket socket, TcpService service):base(service, ChannelType.Accepter)
         {
             this.socket = socket;
-            this.IsSending = false;
             this.IsConnected = true;
 
             innerArgs.Completed += OnComplete;
@@ -42,7 +42,6 @@ namespace Giant.Net
 
         public TcpChannel(int packetSize, IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
         {
-            this.IsSending = false;
             this.IsConnected = false;
             this.IPEndPoint = endPoint;
 
@@ -126,7 +125,7 @@ namespace Giant.Net
 
         public override void Dispose()
         {
-            SetConnectState(false);
+            this.socket.Close();
         }
 
         protected override void OnError(object error)
@@ -143,11 +142,13 @@ namespace Giant.Net
 
         private void ConnectAsync()
         {
-            if (socket == null)
+            if (socket == null || this.IsConnecting)
             {
                 return;
             }
 
+            this.IsConnecting = true;
+            innerArgs.SocketError = SocketError.Disconnecting;
             innerArgs.RemoteEndPoint = IPEndPoint;
             if (this.socket.ConnectAsync(innerArgs))
             {
@@ -235,15 +236,18 @@ namespace Giant.Net
 
         private void ConnectComplete(SocketAsyncEventArgs eventArgs)
         {
-            if (eventArgs.SocketError != SocketError.Success)
+            if (eventArgs.SocketError == SocketError.Success)
+            {
+                this.IsConnected = true;
+
+                Start();
+                SetConnectState(true);
+            }
+            else
             {
                 this.OnError(eventArgs.SocketError);
-                return;
             }
-            this.IsConnected = true;
-
-            Start();
-            SetConnectState(true);
+            this.IsConnecting = false;
         }
 
         private void ReceiveComplete(SocketAsyncEventArgs eventArgs)
@@ -257,7 +261,7 @@ namespace Giant.Net
 
             if (e.SocketError != SocketError.Success)
             {
-                this.OnError((int)e.SocketError);
+                this.OnError(e.SocketError);
                 return;
             }
 
@@ -314,7 +318,7 @@ namespace Giant.Net
 
             if (e.SocketError != SocketError.Success)
             {
-                this.OnError((int)e.SocketError);
+                this.OnError(e.SocketError);
                 return;
             }
 

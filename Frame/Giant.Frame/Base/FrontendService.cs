@@ -49,7 +49,7 @@ namespace Giant.Frame
             }
         }
 
-        public void CheckHeartBeat()
+        private void CheckHeartBeat()
         {
             if (!IsConnected)
             {
@@ -85,11 +85,11 @@ namespace Giant.Frame
 
         private async void CheckConnect()
         {
-            await Task.Delay(3000);
-
+            await Task.Delay(3000);//3后重新连接
             Logger.Warn($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
 
-            session.Start();
+            this.session.Dispose();
+            this.Start();
         }
 
         private async void RegistService()
