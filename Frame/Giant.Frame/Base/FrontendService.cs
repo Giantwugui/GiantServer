@@ -88,9 +88,7 @@ namespace Giant.Frame
             await Task.Delay(3000);//3后重新连接
             Logger.Warn($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
 
-            //this.session.Dispose();
-            //this.Start();
-            this.session.Start();
+            this.Start();
         }
 
         private async void RegistService()
