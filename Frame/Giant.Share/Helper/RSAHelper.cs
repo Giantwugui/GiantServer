@@ -4,26 +4,11 @@ using System.Security.Cryptography;
 
 namespace Giant.Share
 {
-    class RSAProvider
-    {
-        private readonly int KeySize = 1024;
-        private readonly RSACryptoServiceProvider SACryptoServiceProvider;
-
-        public byte[] PublicKey { get; private set; }
-        public byte[] PrivateKey { get; private set; }
-
-        public RSAProvider()
-        {
-            SACryptoServiceProvider = new RSACryptoServiceProvider(KeySize);
-            PrivateKey = SACryptoServiceProvider.ExportCspBlob(true);
-            PublicKey = SACryptoServiceProvider.ExportCspBlob(false);
-        }
-    }
-
-
     public class RSAHelper
     {
-        private static RSA RSA;
+        private static int KeySize = 1024;
+        private static RSACryptoServiceProvider RSA;
+
         private static byte[] privateKey;
         private static byte[] publicKey;
 
@@ -33,7 +18,8 @@ namespace Giant.Share
         static RSAHelper()
         {
             LoadKey();
-            RSA = RSA.Create();
+            RSA = new RSACryptoServiceProvider();
+            RSA.ImportCspBlob(privateKey);//导入私钥，私钥已经包含公钥信息
         }
 
         public static byte[] Encrypt(byte[] data)
@@ -54,12 +40,14 @@ namespace Giant.Share
 
             if (!File.Exists(publicKeyPath) || !File.Exists(privateKeyPath))
             {
-                RSAProvider provider = new RSAProvider();
-                privateKey = provider.PrivateKey;
-                publicKey = provider.PublicKey;
+                RSACryptoServiceProvider SACryptoServiceProvider = new RSACryptoServiceProvider(KeySize);
+                privateKey = SACryptoServiceProvider.ExportCspBlob(true);
+                publicKey = SACryptoServiceProvider.ExportCspBlob(false);
 
                 PublicKey = Convert.ToBase64String(publicKey);
                 PrivateKey = Convert.ToBase64String(privateKey);
+
+                var param = SACryptoServiceProvider.ExportParameters(false);
 
                 File.WriteAllText(publicKeyPath, PublicKey);
                 File.WriteAllText(privateKeyPath, PrivateKey);

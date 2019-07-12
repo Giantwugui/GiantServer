@@ -5,14 +5,29 @@ namespace Giant.Share
 {
     public static class ByteEx
     {
-        public static string ToUtf8String(this byte[] content, int offset, int count)
+        public static string ToUTF8String(this byte[] content)
+        {
+            return Encoding.UTF8.GetString(content);
+        }
+
+        public static string ToUTF8String(this byte[] content, int offset, int count)
         {
             return Encoding.UTF8.GetString(content, offset, count);
+        }
+
+        public static string ToBase64String(this byte[] content)
+        {
+            return Convert.ToBase64String(content);
         }
 
         public static byte[] ToUtf8Bytes(this string content)
         {
             return Encoding.UTF8.GetBytes(content);
+        }
+
+        public static byte[] FromBase64String(this string content)
+        {
+            return Convert.FromBase64String(content);
         }
 
 
