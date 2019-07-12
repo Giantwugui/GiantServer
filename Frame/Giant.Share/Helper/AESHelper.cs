@@ -21,7 +21,7 @@ namespace Giant.Share
             try
             {
                 byte[] keyArray = encryptKey.FromBase64String();
-                byte[] toEncryptArray = content.ToUtf8Bytes();
+                byte[] toEncryptArray = content.FromUTF8String();
 
                 RijndaelManaged rDel = new RijndaelManaged()
                 {

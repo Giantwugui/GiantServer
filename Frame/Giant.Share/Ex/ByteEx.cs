@@ -10,17 +10,12 @@ namespace Giant.Share
             return Encoding.UTF8.GetString(content);
         }
 
-        public static string ToUTF8String(this byte[] content, int offset, int count)
-        {
-            return Encoding.UTF8.GetString(content, offset, count);
-        }
-
         public static string ToBase64String(this byte[] content)
         {
             return Convert.ToBase64String(content);
         }
 
-        public static byte[] ToUtf8Bytes(this string content)
+        public static byte[] FromUTF8String(this string content)
         {
             return Encoding.UTF8.GetBytes(content);
         }
