@@ -5,14 +5,12 @@ namespace Giant.Share
     public class AESCrypt
     {
         private readonly byte[] encryptKey;
-        static readonly int KeyLength128 = 16;
-        //static readonly int KeyLength256 = 32;
 
         public string EncryptKey { get; private set; }
 
         public AESCrypt()
         {
-            this.encryptKey = new byte[KeyLength128];
+            this.encryptKey = new byte[AESHelper.KeyLength128];
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
             provider.GetBytes(encryptKey);
 
