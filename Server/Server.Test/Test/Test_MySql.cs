@@ -54,6 +54,7 @@ namespace Server.Test
                     players = new List<PlayerInfo>();
                 }
             }
+            playerQueue.Enqueue(query);
         }
 
         public static async void Test_Insert()
@@ -61,19 +62,21 @@ namespace Server.Test
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
+            int insertCount = 0;
             while (playerQueue.TryDequeue(out var task))
             {
-                int insertCount = await task.Task();
+                insertCount += await task.Task();
             }
 
             watch.Stop();
-            Console.WriteLine($"cost time {watch.ElapsedMilliseconds}");
+            Console.WriteLine($"cost time {watch.ElapsedMilliseconds} insert count {insertCount}");
         }
 
         public static async void Test_Load()
         {
             MySqlQueryPlayer query = new MySqlQueryPlayer(100001);
             PlayerInfo player = await query.Task();
+            Console.WriteLine($"player info {player.Account} {player.Uid}");
         }
 
         public static async void GetMaxUid()
