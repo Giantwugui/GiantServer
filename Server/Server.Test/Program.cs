@@ -22,15 +22,13 @@ namespace Server.Test
 
                 //Assembly assembly = typeof(DataBaseService).Assembly;
 
-                //Test_MySql test_MySql = new Test_MySql();
-                //test_MySql.Init();
-                //test_MySql.Test();
+                Test_MySql.Test();
 
                 //DataManager.Instance.LoadData();
 
                 //Test_Redis.Instance.Init();
 
-                Test_ARSortMap.Test();
+                //Test_ARSortMap.Test();
 
                 Console.WriteLine("Server.Test start complate");
             }

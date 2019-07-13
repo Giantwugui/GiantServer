@@ -25,7 +25,7 @@ namespace Giant.DB.MySQL
                     connection.Open();
                     var command = connection.CreateCommand();
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT Account,Uid,Level FROM Player WHERE Uid = @uid";
+                    command.CommandText = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
                     command.Parameters.AddWithValue("@uid", this.uid);
 
                     Dictionary<string, object> datas = await base.Run(command);
@@ -69,7 +69,7 @@ namespace Giant.DB.MySQL
                     connection.Open();
                     var command = connection.CreateCommand();
                     command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT Max(Uid) AS maxUid FROM Player";
+                    command.CommandText = "SELECT Max(Uid) AS maxUid FROM player";
 
                     var datas = await base.Run(command);
 

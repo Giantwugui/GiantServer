@@ -8,16 +8,18 @@ namespace Server.Test
 {
     public class Test_MySql
     {
-        private int uid = 10000 * 10;
-        private readonly Queue<MySqlInsertPlayerBatch> playerQueue = new Queue<MySqlInsertPlayerBatch>();
+        private static int uid = 10000 * 10;
+        private static  readonly Queue<MySqlInsertPlayerBatch> playerQueue = new Queue<MySqlInsertPlayerBatch>();
 
-        public void Init()
+        public static void Init()
         {
-            DataBaseService.Instance.Init(DataBaseType.MySQL, "127.0.0.1", "wg_test", "root", "root", 1);
+            DataBaseService.Instance.Init(DataBaseType.MySQL, "39.97.243.209", "test", "wg", "giantwugui", 1);
         }
 
-        public void Test()
+        public static void Test()
         {
+            Init();
+
             GenerateData();
 
             GetMaxUid();
@@ -27,7 +29,7 @@ namespace Server.Test
             Test_Load();
         }
 
-        public void GenerateData()
+        public static void GenerateData()
         {
             PlayerInfo player;
             MySqlInsertPlayerBatch query;
@@ -54,7 +56,7 @@ namespace Server.Test
             }
         }
 
-        public async void Test_Insert()
+        public static async void Test_Insert()
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -68,20 +70,20 @@ namespace Server.Test
             Console.WriteLine($"cost time {watch.ElapsedMilliseconds}");
         }
 
-        public async void Test_Load()
+        public static async void Test_Load()
         {
-            MySqlQueryPlayer query = new MySqlQueryPlayer(10001);
+            MySqlQueryPlayer query = new MySqlQueryPlayer(100001);
             PlayerInfo player = await query.Task();
         }
 
-        public async void GetMaxUid()
+        public static async void GetMaxUid()
         {
-            MySqlDeleteTable deleteTab = new MySqlDeleteTable("Player");
+            MySqlDeleteTable deleteTab = new MySqlDeleteTable("player");
             await deleteTab.Task();
 
             MySqlQueryMaxPlayerUid query = new MySqlQueryMaxPlayerUid();
             var max = await query.Task();
-            this.uid = Math.Max(max, uid);
+            uid = Math.Max(max, uid);
         }
     }
 }

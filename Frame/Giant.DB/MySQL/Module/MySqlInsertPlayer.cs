@@ -71,7 +71,7 @@ namespace Giant.DB.MySQL
                     List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
                     string valueStr = string.Join(",", playerStrList);
 
-                    command.CommandText = $"INSERT INTO Player (Account,Uid,Level) VALUES {valueStr};";
+                    command.CommandText = $"INSERT INTO player (Account,Uid,Level) VALUES {valueStr};";
 
                     await base.Run(command);
                 }
