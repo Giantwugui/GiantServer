@@ -16,11 +16,13 @@ namespace UdpReceiver
         {
             try
             {
-                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9091);
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
                 networkService = new NetworkService(NetworkType.Tcp);
+                networkService.MessageParser = new ProtoPacker();
+                networkService.MessageDispatcher = new MessageDispatcher();
 
                 session = networkService.Create(endPoint);
-                networkService.MessageDispatcher = new MessageDispatcher();
+                session.Start();
 
                 ConsoleReader.Instance.Start(DoCmd);
             }
@@ -34,7 +36,6 @@ namespace UdpReceiver
                 try
                 { 
                     Thread.Sleep(1);
-                    networkService.Update();
                 }
                 catch (Exception ex)
                 {
@@ -46,11 +47,17 @@ namespace UdpReceiver
 
         private static void DoCmd(string content)
         {
-            switch (content)
+            string[] param = content.Split(' ');
+            if (param.Length <= 0)
+            {
+                Console.WriteLine("Param error !");
+            }
+
+            switch (param[0])
             {
                 case "Login":
                     {
-                        DoLogin();
+                        DoLogin(param[1]);
                     }
                     break;
                 default:
@@ -59,16 +66,15 @@ namespace UdpReceiver
             }
         }
 
-        private static async void DoLogin()
+        private static async void DoLogin(string account)
         {
-            CR_LOGIN login = new CR_LOGIN
+            Msg_CG_Login login = new Msg_CG_Login
             {
-                Account = "1000001",
-                Password = "000000",
+                Account = account,
             };
 
-            RC_LOGIN result = await session.Call(login) as RC_LOGIN;
-            if (result.Error == ErrorCode.ERR_Success)
+            Msg_GC_Login result = await session.Call(login) as Msg_GC_Login;
+            if (result.Error == ErrorCode.Success)
             {
                 Console.WriteLine($"Client login success {login.Account}");
             }

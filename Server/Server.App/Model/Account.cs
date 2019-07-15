@@ -6,8 +6,6 @@ namespace Server.App
     public class AccountInfo
     {
         [BsonId]
-        public long Id { get; set; }
-
         public string Account { get; set; }
 
         public string Password { get; set; }

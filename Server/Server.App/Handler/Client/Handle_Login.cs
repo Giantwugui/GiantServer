@@ -16,8 +16,13 @@ namespace Server.App
             AccountInfo account = await query.Task();
             if (account == null)
             {
-                response.Error = ErrorCode.RpcFail;
-                return;
+                account = new AccountInfo()
+                {
+                    Account = request.Account,
+                };
+
+                var insertQuery = new MongoDBInsert<AccountInfo>("Account", account);
+                bool result = await insertQuery.Task();
             }
 
             Logger.Warn($"player login {request.Account}");

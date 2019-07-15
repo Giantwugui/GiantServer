@@ -12,7 +12,7 @@ namespace Giant.Net
         Web
     }
 
-    public abstract class NetworkService : IDisposable
+    public class NetworkService : IDisposable
     {
         private BaseNetService service;
         private readonly NetworkType networkType;
