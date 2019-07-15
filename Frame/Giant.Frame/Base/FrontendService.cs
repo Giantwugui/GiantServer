@@ -61,7 +61,7 @@ namespace Giant.Frame
                 return;
             }
 
-            HeartBeat_Ping ping = new HeartBeat_Ping
+            Msg_HeartBeat_Ping ping = new Msg_HeartBeat_Ping
             {
                 AppType = (int)this.AppType,
                 AppId = this.AppId,

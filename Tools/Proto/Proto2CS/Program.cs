@@ -15,9 +15,9 @@ namespace ETTools
 
     public static class Program
     {
-        private const string protoPath = "../Frame/Giant.Msg/Message/Proto";
-        private const string clientMessagePath = "../Frame/Giant.Msg/Message/";
-        private const string hotfixMessagePath = "../Frame/Giant.Msg/Message/";
+        private const string protoPath = "../Frame/Giant.Msg/Proto";
+        private const string clientMessagePath = "../Frame/Giant.Msg/";
+        private const string hotfixMessagePath = "../Frame/Giant.Msg/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
@@ -33,8 +33,8 @@ namespace ETTools
                 protoc = "protoc";
             }
 
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Message/Proto/\" OuterMessage.proto", waitExit: true);
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/Message/\" --proto_path=\"../Frame/Giant.Msg/Message/Proto/\" InnerMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" OuterMessage.proto", waitExit: true);
+            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" InnerMessage.proto", waitExit: true);
 
             Proto2CS("Giant.Msg", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
             Proto2CS("Giant.Msg", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
@@ -147,8 +147,8 @@ namespace ETTools
 
     public static class InnerProto2CS
     {
-        private const string protoPath = "../Frame/Giant.Msg/Message/Proto/";
-        private const string serverMessagePath = "../Frame/Giant.Msg/Message/";
+        private const string protoPath = "../Frame/Giant.Msg/Proto/";
+        private const string serverMessagePath = "../Frame/Giant.Msg/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 

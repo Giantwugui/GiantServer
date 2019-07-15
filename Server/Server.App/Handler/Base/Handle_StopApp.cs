@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler(AppType.AllServer)]
-    public class Handle_StopApp : MHandler<CA_StopApp>
+    public class Handle_StopApp : MHandler<Msg_GM_StopApp>
     {
-        public override async Task Run(Session session, CA_StopApp message)
+        public override async Task Run(Session session, Msg_GM_StopApp message)
         {
             if (AppService.Instacne.AppId == message.AppId)
             {
                 AppService.Instacne.StopApp();
             }
-            await Task.FromResult(0);
+            await Task.CompletedTask;
         }
     }
 }

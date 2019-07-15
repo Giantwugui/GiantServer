@@ -1,14 +1,16 @@
 syntax = "proto3";
 package Giant.Msg;
 
-message CR_Login // IRequest
+/*********************** Client => Trade ****************************/
+
+message Msg_CT_Login // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	string	Password = 2;	// 密码
 }
 
-message RC_Login // IResponse
+message Msg_TC_Login // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -17,13 +19,27 @@ message RC_Login // IResponse
 	int64 Key	    = 2;
 }
 
-message CG_Login // IRequest
+/*********************** Client => Gate ****************************/
+
+message Msg_CG_HeartBeat_Ping // IRequest
 {
 	int32 RpcId = 90;
-	int64 Key = 1;	// 帐号
 }
 
-message GC_Login // IResponse
+message Msg_GC_HeartBeat_Pong // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+
+message Msg_CG_Login // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;	// 帐号
+}
+
+message Msg_GC_Login // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -31,17 +47,12 @@ message GC_Login // IResponse
 	int64 PlayerId = 1;
 }
 
-message PlayerInfo // IMessage
+message Msg_CG_PlayerInfo // IRequest
 {
 	int32 RpcId = 90;
 }
 
-message CG_PlayerInfo // IRequest
-{
-	int32 RpcId = 90;
-}
-
-message GC_PlayerInfo // IResponse
+message Msg_GC_PlayerInfo // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -53,22 +64,27 @@ message GC_PlayerInfo // IResponse
     repeated int64 TestRepeatedInt64 = 5;
 }
 
-message CG_EnterMap // IRequest
+message PlayerInfo // IMessage
 {
 	int32 RpcId = 90;
 }
 
-message GC_EnterMap // IResponse
+message Msg_CG_EnterMap // IRequest
+{
+	int32 RpcId = 90;
+}
+
+message Msg_GC_EnterMap // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 	
 	int64 UnitId = 1;// 自己的unit id
-	repeated UnitInfo Units = 2;// 所有的unit
+	repeated Msg_UnitInfo Units = 2;// 所有的unit
 }
 
-message UnitInfo
+message Msg_UnitInfo
 {
 	int64 UnitId  = 1;
 
@@ -77,9 +93,9 @@ message UnitInfo
 	float Z = 4;
 }
 
-message MC_PathfindingResult // IActorMessage
+message Msg_MC_PathfindingResult // IRequest
 {
-	int64 ActorId = 93;
+	int32 RpcId = 90;
 	
 	int64 Id = 1;
 
@@ -90,19 +106,6 @@ message MC_PathfindingResult // IActorMessage
 	repeated float Xs = 5;
 	repeated float Ys = 6;
 	repeated float Zs = 7;
-}
-
-
-message CR_Ping // IRequest
-{
-	int32 RpcId = 90;
-}
-
-message RC_Ping // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
 }
 
 message CM_Reload // IRequest

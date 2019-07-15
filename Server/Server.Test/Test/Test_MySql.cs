@@ -32,7 +32,7 @@ namespace Server.Test
         public static void GenerateData()
         {
             PlayerInfo player;
-            MySqlInsertPlayerBatch query;
+            MySqlInsertPlayerBatch query = null;
             List<PlayerInfo> players = new List<PlayerInfo>();
             for (int i = 0; i < 500; ++i)
             {

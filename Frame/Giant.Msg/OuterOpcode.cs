@@ -2,44 +2,44 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
-	[Message(OuterOpcode.CR_Login)]
-	public partial class CR_Login : IRequest {}
+	[Message(OuterOpcode.Msg_CT_Login)]
+	public partial class Msg_CT_Login : IRequest {}
 
-	[Message(OuterOpcode.RC_Login)]
-	public partial class RC_Login : IResponse {}
+	[Message(OuterOpcode.Msg_TC_Login)]
+	public partial class Msg_TC_Login : IResponse {}
 
-	[Message(OuterOpcode.CG_Login)]
-	public partial class CG_Login : IRequest {}
+	[Message(OuterOpcode.Msg_CG_HeartBeat_Ping)]
+	public partial class Msg_CG_HeartBeat_Ping : IRequest {}
 
-	[Message(OuterOpcode.GC_Login)]
-	public partial class GC_Login : IResponse {}
+	[Message(OuterOpcode.Msg_GC_HeartBeat_Pong)]
+	public partial class Msg_GC_HeartBeat_Pong : IResponse {}
+
+	[Message(OuterOpcode.Msg_CG_Login)]
+	public partial class Msg_CG_Login : IRequest {}
+
+	[Message(OuterOpcode.Msg_GC_Login)]
+	public partial class Msg_GC_Login : IResponse {}
+
+	[Message(OuterOpcode.Msg_CG_PlayerInfo)]
+	public partial class Msg_CG_PlayerInfo : IRequest {}
+
+	[Message(OuterOpcode.Msg_GC_PlayerInfo)]
+	public partial class Msg_GC_PlayerInfo : IResponse {}
 
 	[Message(OuterOpcode.PlayerInfo)]
 	public partial class PlayerInfo : IMessage {}
 
-	[Message(OuterOpcode.CG_PlayerInfo)]
-	public partial class CG_PlayerInfo : IRequest {}
+	[Message(OuterOpcode.Msg_CG_EnterMap)]
+	public partial class Msg_CG_EnterMap : IRequest {}
 
-	[Message(OuterOpcode.GC_PlayerInfo)]
-	public partial class GC_PlayerInfo : IResponse {}
+	[Message(OuterOpcode.Msg_GC_EnterMap)]
+	public partial class Msg_GC_EnterMap : IResponse {}
 
-	[Message(OuterOpcode.CG_EnterMap)]
-	public partial class CG_EnterMap : IRequest {}
+	[Message(OuterOpcode.Msg_UnitInfo)]
+	public partial class Msg_UnitInfo {}
 
-	[Message(OuterOpcode.GC_EnterMap)]
-	public partial class GC_EnterMap : IResponse {}
-
-	[Message(OuterOpcode.UnitInfo)]
-	public partial class UnitInfo {}
-
-	[Message(OuterOpcode.MC_PathfindingResult)]
-	public partial class MC_PathfindingResult : IActorMessage {}
-
-	[Message(OuterOpcode.CR_Ping)]
-	public partial class CR_Ping : IRequest {}
-
-	[Message(OuterOpcode.RC_Ping)]
-	public partial class RC_Ping : IResponse {}
+	[Message(OuterOpcode.Msg_MC_PathfindingResult)]
+	public partial class Msg_MC_PathfindingResult : IRequest {}
 
 	[Message(OuterOpcode.CM_Reload)]
 	public partial class CM_Reload : IRequest {}
@@ -55,38 +55,38 @@ namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort CR_Login = 101;
-		 public const ushort RC_Login = 102;
-		 public const ushort CG_Login = 103;
-		 public const ushort GC_Login = 104;
-		 public const ushort PlayerInfo = 105;
-		 public const ushort CG_PlayerInfo = 106;
-		 public const ushort GC_PlayerInfo = 107;
-		 public const ushort CG_EnterMap = 108;
-		 public const ushort GC_EnterMap = 109;
-		 public const ushort UnitInfo = 110;
-		 public const ushort MC_PathfindingResult = 111;
-		 public const ushort CR_Ping = 112;
-		 public const ushort RC_Ping = 113;
+		 public const ushort Msg_CT_Login = 101;
+		 public const ushort Msg_TC_Login = 102;
+		 public const ushort Msg_CG_HeartBeat_Ping = 103;
+		 public const ushort Msg_GC_HeartBeat_Pong = 104;
+		 public const ushort Msg_CG_Login = 105;
+		 public const ushort Msg_GC_Login = 106;
+		 public const ushort Msg_CG_PlayerInfo = 107;
+		 public const ushort Msg_GC_PlayerInfo = 108;
+		 public const ushort PlayerInfo = 109;
+		 public const ushort Msg_CG_EnterMap = 110;
+		 public const ushort Msg_GC_EnterMap = 111;
+		 public const ushort Msg_UnitInfo = 112;
+		 public const ushort Msg_MC_PathfindingResult = 113;
 		 public const ushort CM_Reload = 114;
 		 public const ushort MC_Reload = 115;
 		 public const ushort ZGC_Broadcast = 116;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
-			{CR_Login, typeof(CR_Login)},
-			{RC_Login, typeof(RC_Login)},
-			{CG_Login, typeof(CG_Login)},
-			{GC_Login, typeof(GC_Login)},
+			{Msg_CT_Login, typeof(Msg_CT_Login)},
+			{Msg_TC_Login, typeof(Msg_TC_Login)},
+			{Msg_CG_HeartBeat_Ping, typeof(Msg_CG_HeartBeat_Ping)},
+			{Msg_GC_HeartBeat_Pong, typeof(Msg_GC_HeartBeat_Pong)},
+			{Msg_CG_Login, typeof(Msg_CG_Login)},
+			{Msg_GC_Login, typeof(Msg_GC_Login)},
+			{Msg_CG_PlayerInfo, typeof(Msg_CG_PlayerInfo)},
+			{Msg_GC_PlayerInfo, typeof(Msg_GC_PlayerInfo)},
 			{PlayerInfo, typeof(PlayerInfo)},
-			{CG_PlayerInfo, typeof(CG_PlayerInfo)},
-			{GC_PlayerInfo, typeof(GC_PlayerInfo)},
-			{CG_EnterMap, typeof(CG_EnterMap)},
-			{GC_EnterMap, typeof(GC_EnterMap)},
-			{UnitInfo, typeof(UnitInfo)},
-			{MC_PathfindingResult, typeof(MC_PathfindingResult)},
-			{CR_Ping, typeof(CR_Ping)},
-			{RC_Ping, typeof(RC_Ping)},
+			{Msg_CG_EnterMap, typeof(Msg_CG_EnterMap)},
+			{Msg_GC_EnterMap, typeof(Msg_GC_EnterMap)},
+			{Msg_UnitInfo, typeof(Msg_UnitInfo)},
+			{Msg_MC_PathfindingResult, typeof(Msg_MC_PathfindingResult)},
 			{CM_Reload, typeof(CM_Reload)},
 			{MC_Reload, typeof(MC_Reload)},
 			{ZGC_Broadcast, typeof(ZGC_Broadcast)},

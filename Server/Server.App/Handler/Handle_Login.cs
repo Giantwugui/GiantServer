@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler(AppType.Gate)]
-    public class Handle_Login : MRpcHandler<CR_Login, RC_Login>
+    public class Handle_Login : MRpcHandler<Msg_CG_Login, Msg_GC_Login>
     {
-        public override async Task Run(Session session, CR_Login request, RC_Login response)
+        public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
             var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -27,12 +27,12 @@ namespace Server.App
     }
 
     [MessageHandler(AppType.Gate)]
-    public class Handle_Ping : MRpcHandler<CR_Ping, RC_Ping>
+    public class Handle_Ping : MRpcHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
     {
-        public override async Task Run(Session session, CR_Ping request, RC_Ping response)
+        public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
         {
             response.Error = ErrorCode.Success;
-            await Task.FromResult(0);
+            await Task.CompletedTask;
         }
     }
 }

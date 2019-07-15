@@ -1,19 +1,23 @@
 syntax = "proto3";
 package Giant.Msg;
 
-message CA_StopApp // IMessage
+/*********************** GM ****************************/
+
+message Msg_GM_StopApp // IMessage
 {
 	int32 AppId = 1;
 }
 
-message HeartBeat_Ping //IMessage
+/*********************** Global ****************************/
+
+message Msg_HeartBeat_Ping //IMessage
 {
     int32 RpcId = 90;
 	int32 AppType = 1;
 	int32 AppId = 2;
 }
 
-message HeartBeat_Pong //IMessage
+message Msg_HeartBeat_Pong //IMessage
 {
     int32 RpcId = 90;
 	int32 Error = 91;
@@ -40,13 +44,13 @@ message Msg_RegistService_Rep // IResponse
     int32 AppId = 2;
 }
 
-message RG_GetLoginKey // IRequest
+message Msg_RG_GetLoginKey // IRequest
 {
     int32 RpcId = 90;
     string Account = 1;
 }
 
-message GR_GetLoginKey // IResponse
+message Msg_GetLoginKey // IResponse
 {
     int32 RpcId = 90;
     int32 Error = 91;

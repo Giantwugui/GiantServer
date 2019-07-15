@@ -56,7 +56,7 @@ namespace Server.App
         {
             try
             {
-                await session.Call(new CR_Ping());
+                await session.Call(new Msg_CG_HeartBeat_Ping());
                 ++num;
 
                 if (num % 100000 != 0)

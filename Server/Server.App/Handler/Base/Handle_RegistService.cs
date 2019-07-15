@@ -33,7 +33,7 @@ namespace Server.App
             }
 
             AppService.Instacne.NetProxyManager.RegistBackendService((AppType)request.AppType, request.AppId, session);
-            await Task.FromResult(0);
+            await Task.CompletedTask;
         }
     }
 }
