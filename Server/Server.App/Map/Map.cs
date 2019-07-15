@@ -12,9 +12,9 @@ namespace Server.App
         public MapModel Model { get; private set; }
         public int MapId => Model.MapId;
 
-        public MapMamanger MapMamanger { get; private set; }
+        public MapMananger MapMamanger { get; private set; }
 
-        public Map(MapMamanger mamanger, MapModel model)
+        public Map(MapMananger mamanger, MapModel model)
         {
             this.MapMamanger = mamanger;
             this.Model = model;

@@ -1,13 +1,13 @@
-﻿using Giant.Msg;
-
-namespace Giant.Net
+﻿namespace Giant.Net
 {
     public class OutterNetworkService : NetworkService
     {
+        public OutterNetworkService(NetworkType network) : base(network)
+        {
+        }
+
         public OutterNetworkService(NetworkType network, string address) : base(network, address)
         {
-            this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new MessageDispatcher();
         }
 
     }

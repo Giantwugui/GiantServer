@@ -20,8 +20,8 @@ namespace Server.App
             MapLibrary.Init();
             MapGridPosManager.Init();
 
-            MapMamanger = new MapMamanger();
-            MapMamanger.Init();
+            MapMananger = new MapMananger();
+            MapMananger.Init();
         }
 
         private void AppInitSocial()

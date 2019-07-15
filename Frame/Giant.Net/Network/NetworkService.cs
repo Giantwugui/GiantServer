@@ -12,28 +12,25 @@ namespace Giant.Net
         Web
     }
 
-    public class NetworkService : IDisposable
+    public abstract class NetworkService : IDisposable
     {
         private BaseNetService service;
-        private readonly NetworkType networkType;
 
         private readonly Dictionary<long, Session> sessions = new Dictionary<long, Session>();
         public Dictionary<long, Session> Sessions => sessions;
 
+        public IMessagePacker MessageParser { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
 
-        public IMessagePacker MessageParser { get; set; }
 
         public NetworkService(NetworkType network)
         {
-            this.networkType = network;
-            Init();
+            Init(network);
         }
 
         public NetworkService(NetworkType network, string address)
         {
-            this.networkType = network;
-            Init(address);
+            Init(network, address);
         }
 
         public Session GetSession(long id)
@@ -69,12 +66,12 @@ namespace Giant.Net
         {
         }
 
-        private void Init(int packetSizeLength = Packet.PacketSizeLength2)
+        private void Init(NetworkType network)
         {
-            switch (this.networkType)
+            switch (network)
             {
                 case NetworkType.Tcp:
-                    service = new TcpService(packetSizeLength);
+                    service = new TcpService(Packet.PacketSizeLength2);
                     break;
                 case NetworkType.Udp:
                     service = new UdpService();
@@ -83,16 +80,19 @@ namespace Giant.Net
                     service = new WebService();
                     break;
             }
+
+            this.MessageParser = new ProtoPacker();
+            this.MessageDispatcher = new MessageDispatcher();
         }
 
-        private void Init(string address, int packetSizeLength = Packet.PacketSizeLength2)
+        private void Init(NetworkType network, string address)
         {
             IPEndPoint endPoint;
-            switch (this.networkType)
+            switch (network)
             {
                 case NetworkType.Tcp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new TcpService(packetSizeLength, endPoint, OnAccept);
+                    service = new TcpService(Packet.PacketSizeLength2, endPoint, OnAccept);
                     break;
                 case NetworkType.Udp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
@@ -102,6 +102,9 @@ namespace Giant.Net
                     service = new WebService(address.Split(";").ToList(), OnAccept);
                     break;
             }
+
+            this.MessageParser = new ProtoPacker();
+            this.MessageDispatcher = new MessageDispatcher();
         }
 
         private void OnAccept(BaseChannel baseChannel)

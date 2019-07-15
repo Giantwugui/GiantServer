@@ -17,7 +17,7 @@ namespace UdpReceiver
             try
             {
                 IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8001);
-                networkService = new NetworkService(NetworkType.Tcp);
+                networkService = new OutterNetworkService(NetworkType.Tcp);
                 networkService.MessageParser = new ProtoPacker();
                 networkService.MessageDispatcher = new MessageDispatcher();
 

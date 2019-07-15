@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Server.App
 {
-    public class MapMamanger
+    public class MapMananger
     {
         private Dictionary<int, Map> maps = new Dictionary<int, Map>();
 

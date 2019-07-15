@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Giant.Net
 {
-	public enum PackerState
+	enum PackerState
 	{
 		PacketSize,
 		PacketBody

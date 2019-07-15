@@ -10,7 +10,7 @@ namespace Server.App
     {
         public static AppService Instacne { get; } = new AppService();
 
-        public MapMamanger MapMamanger { get; private set; }
+        public MapMananger MapMananger { get; private set; }
 
         private AppService() { }
 
@@ -89,7 +89,7 @@ namespace Server.App
                         //GridPos pos2 = new GridPos(int.Parse(end[0]), int.Parse(end[1]));
                         GridPos pos1 = new GridPos(21, 16);
                         GridPos pos2 = new GridPos(41, 16);
-                        Map map = MapMamanger.GetMap(1);
+                        Map map = MapMananger.GetMap(1);
                         if (map != null)
                         {
                             var path = map.PathFind(pos1, pos2);
