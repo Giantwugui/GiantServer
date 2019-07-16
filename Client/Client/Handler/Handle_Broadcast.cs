@@ -12,6 +12,7 @@ namespace Client
         public override async Task Run(Session session, ZGC_Broadcast message)
         {
             Console.WriteLine(message.Message);
+            await Task.CompletedTask;
         }
     }
 }
