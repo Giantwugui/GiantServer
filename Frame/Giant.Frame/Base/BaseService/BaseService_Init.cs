@@ -31,7 +31,7 @@ namespace Giant.Frame
 
         public virtual void InitData()
         {
-            DataManager.Instance.LoadData();
+            DataManager.Instance.Init();
 
             DBConfig.Init();
             AppConfigLibrary.Init();

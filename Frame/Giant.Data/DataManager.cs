@@ -18,7 +18,7 @@ namespace Giant.Data
             xmlPath = $"{Directory.GetCurrentDirectory()}\\Xml";
         }
 
-        public void LoadData()
+        public void Init()
         {
             string[] files = Directory.GetFiles(this.xmlPath, "*.xml", SearchOption.AllDirectories);
             foreach (var file in files)

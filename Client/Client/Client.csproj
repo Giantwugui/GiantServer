@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
   </ItemGroup>
 

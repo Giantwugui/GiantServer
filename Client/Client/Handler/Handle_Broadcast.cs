@@ -4,7 +4,7 @@ using Giant.Share;
 using System;
 using System.Threading.Tasks;
 
-namespace UdpSender.Handler
+namespace Client
 {
     [MessageHandler(AppType.AllServer)]
     class Handle_Broadcast : MHandler<ZGC_Broadcast>
