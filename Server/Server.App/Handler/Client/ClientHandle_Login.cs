@@ -8,7 +8,17 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler(AppType.Gate)]
-    public class Handle_Login : MRpcHandler<Msg_CG_Login, Msg_GC_Login>
+    public class ClientHandle_Ping : MRpcHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
+    {
+        public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
+        {
+            response.Error = ErrorCode.Success;
+            await Task.CompletedTask;
+        }
+    }
+
+    [MessageHandler(AppType.Gate)]
+    public class ClientHandle_Login : MRpcHandler<Msg_CG_Login, Msg_GC_Login>
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
@@ -25,19 +35,9 @@ namespace Server.App
                 bool result = await insertQuery.Task();
             }
 
-            Logger.Warn($"player login {request.Account}");
+            Logger.Warn($"user login {request.Account}");
 
             response.Error = ErrorCode.Success;
-        }
-    }
-
-    [MessageHandler(AppType.Gate)]
-    public class Handle_Ping : MRpcHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
-    {
-        public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
-        {
-            response.Error = ErrorCode.Success;
-            await Task.CompletedTask;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Client
         {
             try
             {
-                DataManager.Instance.Init();
+                //DataManager.Instance.Init();
                 NET.Init();
 
                 ConsoleReader.Instance.Start(DoCmd);

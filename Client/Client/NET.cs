@@ -1,5 +1,6 @@
 ﻿using Giant.Net;
 using Giant.Share;
+using Giant.Msg;
 using System;
 using System.Reflection;
 
@@ -7,6 +8,7 @@ namespace Client
 {
     public partial class NET
     {
+        static long heartBeatLastTime = TimeHelper.NowSeconds; 
         static NetworkService networkService;
 
         static Session session;
@@ -30,6 +32,7 @@ namespace Client
 
         public static void Update()
         {
+            CheckHeartBeat();
         }
 
         private static void RegistHandler()
@@ -44,5 +47,21 @@ namespace Client
                 Console.WriteLine($"Disconnected {session.Id}");
             }
         }
+
+        private static async void CheckHeartBeat()
+        {
+            if (session == null || !IsConnected)
+            {
+                return;
+            }
+
+            if ((TimeHelper.NowSeconds - heartBeatLastTime) > 30)
+            {
+                Msg_CG_HeartBeat_Ping msg = new Msg_CG_HeartBeat_Ping();
+                await session.Call(msg);
+                heartBeatLastTime = TimeHelper.NowSeconds;
+            }
+        }
+             
     }
 }
