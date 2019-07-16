@@ -51,7 +51,12 @@ namespace Giant.Msg {
             "PQoJQ01fUmVsb2FkEg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkS",
             "EAoIUGFzc3dvcmQYAiABKAkiOgoJTUNfUmVsb2FkEg0KBVJwY0lkGFogASgF",
             "Eg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkiIAoNWkdDX0Jyb2Fk",
-            "Y2FzdBIPCgdtZXNzYWdlGAEgASgJYgZwcm90bzM="));
+            "Y2FzdBIPCgdtZXNzYWdlGAEgASgJIuoBCg5Nc2dfQ0dfVGVzdE1hcBIxCgRN",
+            "YXAxGAEgAygLMiMuR2lhbnQuTXNnLk1zZ19DR19UZXN0TWFwLk1hcDFFbnRy",
+            "eRIxCgRNYXAyGAIgAygLMiMuR2lhbnQuTXNnLk1zZ19DR19UZXN0TWFwLk1h",
+            "cDJFbnRyeRorCglNYXAxRW50cnkSCwoDa2V5GAEgASgFEg0KBXZhbHVlGAIg",
+            "ASgFOgI4ARpFCglNYXAyRW50cnkSCwoDa2V5GAEgASgFEicKBXZhbHVlGAIg",
+            "ASgLMhguR2lhbnQuTXNnLlpHQ19Ccm9hZGNhc3Q6AjgBYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -70,7 +75,8 @@ namespace Giant.Msg {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_MC_PathfindingResult), global::Giant.Msg.Msg_MC_PathfindingResult.Parser, new[]{ "RpcId", "Id", "X", "Y", "Z", "Xs", "Ys", "Zs" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.CM_Reload), global::Giant.Msg.CM_Reload.Parser, new[]{ "RpcId", "Account", "Password" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.MC_Reload), global::Giant.Msg.MC_Reload.Parser, new[]{ "RpcId", "Error", "Message" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.ZGC_Broadcast), global::Giant.Msg.ZGC_Broadcast.Parser, new[]{ "Message" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.ZGC_Broadcast), global::Giant.Msg.ZGC_Broadcast.Parser, new[]{ "Message" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_TestMap), global::Giant.Msg.Msg_CG_TestMap.Parser, new[]{ "Map1", "Map2" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, })
           }));
     }
     #endregion
@@ -3131,6 +3137,147 @@ namespace Giant.Msg {
             break;
           case 10: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Msg_CG_TestMap : pb::IMessage<Msg_CG_TestMap> {
+    private static readonly pb::MessageParser<Msg_CG_TestMap> _parser = new pb::MessageParser<Msg_CG_TestMap>(() => new Msg_CG_TestMap());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Msg_CG_TestMap> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[16]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_CG_TestMap() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_CG_TestMap(Msg_CG_TestMap other) : this() {
+      map1_ = other.map1_.Clone();
+      map2_ = other.map2_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_CG_TestMap Clone() {
+      return new Msg_CG_TestMap(this);
+    }
+
+    /// <summary>Field number for the "Map1" field.</summary>
+    public const int Map1FieldNumber = 1;
+    private static readonly pbc::MapField<int, int>.Codec _map_map1_codec
+        = new pbc::MapField<int, int>.Codec(pb::FieldCodec.ForInt32(8), pb::FieldCodec.ForInt32(16), 10);
+    private readonly pbc::MapField<int, int> map1_ = new pbc::MapField<int, int>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<int, int> Map1 {
+      get { return map1_; }
+    }
+
+    /// <summary>Field number for the "Map2" field.</summary>
+    public const int Map2FieldNumber = 2;
+    private static readonly pbc::MapField<int, global::Giant.Msg.ZGC_Broadcast>.Codec _map_map2_codec
+        = new pbc::MapField<int, global::Giant.Msg.ZGC_Broadcast>.Codec(pb::FieldCodec.ForInt32(8), pb::FieldCodec.ForMessage(18, global::Giant.Msg.ZGC_Broadcast.Parser), 18);
+    private readonly pbc::MapField<int, global::Giant.Msg.ZGC_Broadcast> map2_ = new pbc::MapField<int, global::Giant.Msg.ZGC_Broadcast>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<int, global::Giant.Msg.ZGC_Broadcast> Map2 {
+      get { return map2_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Msg_CG_TestMap);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Msg_CG_TestMap other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!Map1.Equals(other.Map1)) return false;
+      if (!Map2.Equals(other.Map2)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= Map1.GetHashCode();
+      hash ^= Map2.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      map1_.WriteTo(output, _map_map1_codec);
+      map2_.WriteTo(output, _map_map2_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += map1_.CalculateSize(_map_map1_codec);
+      size += map2_.CalculateSize(_map_map2_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Msg_CG_TestMap other) {
+      if (other == null) {
+        return;
+      }
+      map1_.Add(other.map1_);
+      map2_.Add(other.map2_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            map1_.AddEntriesFrom(input, _map_map1_codec);
+            break;
+          }
+          case 18: {
+            map2_.AddEntriesFrom(input, _map_map2_codec);
             break;
           }
         }

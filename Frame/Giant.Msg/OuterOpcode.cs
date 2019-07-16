@@ -50,6 +50,9 @@ namespace Giant.Msg
 	[Message(OuterOpcode.ZGC_Broadcast)]
 	public partial class ZGC_Broadcast : IMessage {}
 
+	[Message(OuterOpcode.Msg_CG_TestMap)]
+	public partial class Msg_CG_TestMap : IMessage {}
+
 }
 namespace Giant.Msg
 {
@@ -71,6 +74,7 @@ namespace Giant.Msg
 		 public const ushort CM_Reload = 114;
 		 public const ushort MC_Reload = 115;
 		 public const ushort ZGC_Broadcast = 116;
+		 public const ushort Msg_CG_TestMap = 117;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
@@ -90,6 +94,7 @@ namespace Giant.Msg
 			{CM_Reload, typeof(CM_Reload)},
 			{MC_Reload, typeof(MC_Reload)},
 			{ZGC_Broadcast, typeof(ZGC_Broadcast)},
+			{Msg_CG_TestMap, typeof(Msg_CG_TestMap)},
 		};
 	}
 }

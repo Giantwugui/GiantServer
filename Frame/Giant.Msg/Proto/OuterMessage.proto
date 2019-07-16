@@ -126,3 +126,9 @@ message ZGC_Broadcast // IMessage
 {
 	string message = 1;
 }
+
+message Msg_CG_TestMap // IMessage
+{
+	map<int32,int32> Map1 = 1;
+	map<int32,ZGC_Broadcast> Map2 = 2;
+}
