@@ -13,6 +13,7 @@ namespace Server.App
         public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
         {
             response.Error = ErrorCode.Success;
+            Logger.Debug($"client heart beat !");
             await Task.CompletedTask;
         }
     }

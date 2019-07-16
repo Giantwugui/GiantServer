@@ -7,15 +7,15 @@
             return (appyType & otherApp) > 0;
         }
 
-
         public static bool NeedDBService(this AppType appyType)
         {
             switch (appyType)
             {
-                case AppType.AllServer:
-                case AppType.Gate:
-                case AppType.Manager:
                 case AppType.Map:
+                case AppType.Gate:
+                case AppType.AllServer:
+                case AppType.Manager:
+                case AppType.Relation:
                     return true;
             }
             return false;
@@ -27,9 +27,10 @@
             {
                 case AppType.Gate:
                     return false;
+                case AppType.Map:
                 case AppType.AllServer:
                 case AppType.Manager:
-                case AppType.Map:
+                case AppType.Relation:
                     return true;
             }
             return false;

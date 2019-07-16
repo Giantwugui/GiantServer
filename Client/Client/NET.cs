@@ -44,7 +44,11 @@ namespace Client
         {
             if (!state)
             {
-                Console.WriteLine($"Disconnected {session.Id}");
+                Console.WriteLine($"Disconnected from {session.RemoteIPEndPoint.ToString()}");
+            }
+            else
+            {
+                Console.WriteLine($"Connected to {session.RemoteIPEndPoint.ToString()} success");
             }
         }
 

@@ -10,6 +10,7 @@ namespace Giant.Log
     public static class Logger
     {
         private static bool writeToConsole = false;
+        public static string nowStringWithSeconds = "yyyy-MM-dd HH:mm:ss.fff";
         private static readonly LogAdapter logAdapter = new LogAdapter();
 
         public static void Init(bool write2Console, Dictionary<string, string> param)
@@ -42,49 +43,42 @@ namespace Giant.Log
         public static void Info(object message)
         {
             logAdapter.Info(message);
+#if DEBUG
             WriteToConsole(message);
+#endif
         }
 
         public static void Trace(object message)
         {
             logAdapter.Trace(message);
+#if DEBUG
             WriteToConsole(message);
+#endif
         }
 
         public static void Warn(object message)
         {
             logAdapter.Warn(message);
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
-            Console.ForegroundColor = ConsoleColor.White;
+            WriteToConsole(message, ConsoleColor.Yellow);
         }
 
         public static void Error(object message)
         {
             logAdapter.Error(message);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
-            Console.ForegroundColor = ConsoleColor.White;
+            WriteToConsole(message, ConsoleColor.Red);
         }
 
         public static void Fatal(object message)
         {
             logAdapter.Fatal(message);
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
-            Console.ForegroundColor = ConsoleColor.White;
+            WriteToConsole(message, ConsoleColor.DarkRed);
         }
 
-        public static void WriteToConsole(object message)
+        public static void WriteToConsole(object message, ConsoleColor consoleColor = ConsoleColor.White)
         {
-#if DEBUG
-            Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
-#else
-            if (writeToConsole)
-            {
-                Console.WriteLine($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff")} {message}");
-            }
-#endif
+            Console.ForegroundColor = consoleColor;
+            Console.WriteLine($"{nowStringWithSeconds} {message}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
