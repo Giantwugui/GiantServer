@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,19 +6,18 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>F:\GiantFrame\Bin\</OutputPath>
+    <OutputPath>obj\Debug\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="Test\Test_AES.cs" />
+    <Compile Remove="Test\Test_Memory.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Frame\Giant.Frame.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Msg\Giant.Msg.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
+    <ProjectReference Include="..\..\Frame\Giant.Share\Giant.Share.csproj" />
   </ItemGroup>
 
 </Project>

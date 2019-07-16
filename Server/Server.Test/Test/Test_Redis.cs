@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Giant.Redis;
+﻿using Giant.Redis;
+using System;
 
 namespace Server.Test
 {

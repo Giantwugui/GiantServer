@@ -1,9 +1,5 @@
-﻿using Giant.Frame;
-using System;
+﻿using System;
 using System.Threading;
-using System.Reflection;
-using Giant.Data;
-using Giant.DB;
 
 namespace Server.Test
 {
@@ -14,7 +10,7 @@ namespace Server.Test
             try
             {
                 //所有异步回调到主线程
-                SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
+                //SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
                 //Test_Mongo mongo_test = new Test_Mongo();
                 //mongo_test.Init();
@@ -41,7 +37,7 @@ namespace Server.Test
             {
                 Thread.Sleep(1);
 
-                OneThreadSynchronizationContext.Instance.Update();
+                //OneThreadSynchronizationContext.Instance.Update();
 
                 //Console.ReadLine();
 
