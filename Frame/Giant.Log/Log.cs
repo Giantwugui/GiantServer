@@ -77,7 +77,7 @@ namespace Giant.Log
         public static void WriteToConsole(object message, ConsoleColor consoleColor = ConsoleColor.White)
         {
             Console.ForegroundColor = consoleColor;
-            Console.WriteLine($"{nowStringWithSeconds} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString(nowStringWithSeconds)} {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

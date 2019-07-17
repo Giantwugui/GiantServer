@@ -24,9 +24,8 @@ namespace Client
             while (true)
             {
                 try
-                { 
-                    NET.Update();
-
+                {
+                    PlayerManager.Instance.Update();
                     Thread.Sleep(1);
                 }
                 catch (Exception ex)
@@ -49,7 +48,7 @@ namespace Client
             {
                 case "Login":
                     {
-                        NET.DoLogin(param[1]);
+                        NET.DoLogin(param[1], "");
                     }
                     break;
                 default:

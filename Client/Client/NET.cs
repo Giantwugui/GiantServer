@@ -3,18 +3,26 @@ using Giant.Share;
 using Giant.Msg;
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace Client
 {
+    class AccountInfo
+    {
+        public string Account { get; private set; }
+        public string Passward { get;  private set; }
+
+        public AccountInfo(string account, string passward)
+        {
+            this.Account = account;
+            this.Passward = passward;
+        }
+    }
+
     public partial class NET
     {
-        static long heartBeatLastTime = TimeHelper.NowSeconds; 
         static NetworkService networkService;
-
-        static Session session;
-        public static Session Session => session;
-
-        public static bool IsConnected => session != null && session.IsConnected;
+        private static readonly Dictionary<long, AccountInfo> waittingLoginList = new Dictionary<long, AccountInfo>();
 
         public static void Init()
         {
@@ -24,15 +32,28 @@ namespace Client
                 MessageDispatcher = new MessageDispatcher()
             };
             RegistHandler();
-
-            session = networkService.Create("127.0.0.1:8001");
-            session.OnConnectCallback += OnConnect;
-            session.Start();
         }
 
-        public static void Update()
+        public static void DoLogin(string account, string passward)
         {
-            CheckHeartBeat();
+            Session session = networkService.Create("127.0.0.1:8001");
+            AddToWatting(session.Id, new AccountInfo(account, passward));
+
+            session.OnConnectCallback += (aimSession, state)=>
+            {
+                if (state)
+                {
+                    Login(aimSession);
+                }
+                else
+                {
+                    Console.WriteLine($"Session {aimSession.Id} disconnected from {aimSession.RemoteIPEndPoint.ToString()}");
+
+                    PlayerOffline(aimSession);
+                }
+            };
+
+            session.Start();
         }
 
         private static void RegistHandler()
@@ -40,31 +61,45 @@ namespace Client
             networkService.MessageDispatcher.RegisterHandler(AppType.AllServer, Assembly.GetEntryAssembly());
         }
 
-        private static void OnConnect(Session session, bool state)
+        private static void AddToWatting(long sessionId, AccountInfo info)
         {
-            if (!state)
-            {
-                Console.WriteLine($"Disconnected from {session.RemoteIPEndPoint.ToString()}");
-            }
-            else
-            {
-                Console.WriteLine($"Connected to {session.RemoteIPEndPoint.ToString()} success");
-            }
+            waittingLoginList.Add(sessionId, info);
         }
 
-        private static async void CheckHeartBeat()
+        private static AccountInfo GetWattingInfo(long sessionId)
         {
-            if (session == null || !IsConnected)
+            waittingLoginList.TryGetValue(sessionId, out var info);
+            return info;
+        }
+
+        private static async void Login(Session session)
+        {
+            var accountInfo = GetWattingInfo(session.Id);
+            if (accountInfo == null)
             {
                 return;
             }
 
-            if ((TimeHelper.NowSeconds - heartBeatLastTime) > 30)
+            Msg_CG_Login msg = new Msg_CG_Login()
             {
-                Msg_CG_HeartBeat_Ping msg = new Msg_CG_HeartBeat_Ping();
-                await session.Call(msg);
-                heartBeatLastTime = TimeHelper.NowSeconds;
+                Account = accountInfo.Account,
+            };
+
+            Msg_GC_Login result = await session.Call(msg) as Msg_GC_Login;
+            if (result.Error == ErrorCode.Success)
+            {
+                Console.WriteLine($"Client login success {accountInfo.Account}");
+
+                Player player = new Player(accountInfo.Account, 1001, session);
+                PlayerManager.Instance.AddPlayer(player);
             }
+        }
+
+        private static void PlayerOffline(Session session)
+        {
+            var player = PlayerManager.Instance.GetPlayer(session);
+            player?.OnDisconnected();
+            session.Dispose();
         }
              
     }
