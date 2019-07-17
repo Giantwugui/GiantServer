@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Giant.Frame
+namespace Server.Frame
 {
 	public class OneThreadSynchronizationContext : SynchronizationContext
 	{

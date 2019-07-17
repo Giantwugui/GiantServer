@@ -1,7 +1,7 @@
 ﻿using Giant.Data;
 using Giant.Share;
 
-namespace Giant.Frame
+namespace Server.Frame
 {
     public class FrontendManager
     {

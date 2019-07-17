@@ -1,5 +1,5 @@
 ﻿using CommandLine;
-using Giant.Frame;
+using Server.Frame;
 using Giant.Log;
 using System;
 using System.Threading;
@@ -12,15 +12,9 @@ namespace Server.App
         {
             try
             {
-                AppOption option = null;
-                Parser.Default.ParseArguments<AppOption>(args)
-                    .WithNotParsed(error => throw new Exception($"命令行格式错误!"))
-                    .WithParsed(options => { option = options; });
+                AppService.Instacne.Init(args);
 
-
-                AppService.Instacne.Init(option);
-
-                Logger.Warn($"server start complete------------- appType {option.AppType} appId {option.AppId}");
+                Logger.Warn($"server start complete------------- appType {Framework.AppType} appId {Framework.AppId}");
             }
             catch (Exception ex)
             {

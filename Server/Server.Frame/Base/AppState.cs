@@ -1,4 +1,4 @@
-﻿namespace Giant.Frame
+﻿namespace Server.Frame
 {
     public enum AppState
     {

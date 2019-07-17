@@ -6,7 +6,7 @@ using Giant.Share;
 using System;
 using System.Threading.Tasks;
 
-namespace Giant.Frame
+namespace Server.Frame
 {
     public class FrontendService
     {

@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frame", "Frame", "{04646BC4-06AB-44C9-9112-19A442F41B42}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{04646BC4-06AB-44C9-9112-19A442F41B42}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.DB", "..\Frame\Giant.DB\Giant.DB.csproj", "{CEEBA94A-E286-4A2B-B643-E7D128420C37}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Frame", "..\Frame\Giant.Frame\Giant.Frame.csproj", "{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Log", "..\Frame\Giant.Log\Giant.Log.csproj", "{9B943EF0-AAAD-4475-A5F4-0ED5EDFBB87E}"
 EndProject
@@ -27,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.DataTask", "..\Frame\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Data", "..\Frame\Giant.Data\Giant.Data.csproj", "{9A861E58-564F-45CB-89AA-E7DA48B0D537}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Frame", "Server.Frame\Server.Frame.csproj", "{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,10 +37,6 @@ Global
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9B943EF0-AAAD-4475-A5F4-0ED5EDFBB87E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9B943EF0-AAAD-4475-A5F4-0ED5EDFBB87E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B943EF0-AAAD-4475-A5F4-0ED5EDFBB87E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -77,13 +73,16 @@ Global
 		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A861E58-564F-45CB-89AA-E7DA48B0D537}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CEEBA94A-E286-4A2B-B643-E7D128420C37} = {04646BC4-06AB-44C9-9112-19A442F41B42}
-		{DD6D0D62-9E4C-4F53-AAC5-8E01BB8EFF10} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{9B943EF0-AAAD-4475-A5F4-0ED5EDFBB87E} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{1D611DCD-40A3-4EB1-B061-C8D5501FC8A0} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{BC9F3B55-E5BD-4197-A390-FE15907D467B} = {04646BC4-06AB-44C9-9112-19A442F41B42}

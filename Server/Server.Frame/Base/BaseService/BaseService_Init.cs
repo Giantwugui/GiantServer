@@ -8,17 +8,14 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace Giant.Frame
+namespace Server.Frame
 {
     public partial class BaseService
     {
-        public virtual void Init(AppOption option)
+        public virtual void Init(string[] args)
         {
-            this.AppOption = option;
-            this.AppState = AppState.Starting;
-
-            //框架的各种初始化工作
-            this.InitBase();
+            //框架的各种初始化
+            this.InitBase(args);
             this.InitLogConfig();
 
             this.InitData();
@@ -42,8 +39,11 @@ namespace Giant.Frame
         {
         }
 
-        private void InitBase()
+        private void InitBase(string[] args)
         {
+            Framework.Init(this, args);
+            Framework.AppState = AppState.Starting;
+
             //窗口关闭事件
             SetConsoleCtrlHandler(cancelHandler, true);
 

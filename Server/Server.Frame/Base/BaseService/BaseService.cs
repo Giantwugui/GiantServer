@@ -3,7 +3,7 @@ using Giant.Net;
 using Giant.Share;
 using System;
 
-namespace Giant.Frame
+namespace Server.Frame
 {
     public abstract partial class BaseService
     {
@@ -13,11 +13,8 @@ namespace Giant.Frame
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 
-        public AppState AppState { get; protected set; }
-        public AppOption AppOption { get; private set; }
-
-        public AppType AppType => AppOption.AppType;
-        public int AppId => AppOption.AppId;
+        public AppType AppType => Framework.AppType;
+        public int AppId => Framework.AppId;
 
         public virtual void Update(float dt)
         {
@@ -39,11 +36,13 @@ namespace Giant.Frame
         public virtual void InitDone()
         {
             this.NetProxyManager.Start();
+
+            Framework.AppState = AppState.Started;
         }
 
         public virtual void StopApp()
         {
-            this.AppState = AppState.Stopping;
+            Framework.AppState = AppState.Stopping;
         }
     }
 }

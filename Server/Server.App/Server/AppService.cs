@@ -1,4 +1,4 @@
-﻿using Giant.Frame;
+﻿using Server.Frame;
 using Giant.Log;
 using Giant.Share;
 using System;
@@ -14,10 +14,10 @@ namespace Server.App
 
         private AppService() { }
 
-        public override void Init(AppOption option)
+        public override void Init(string[] args)
         {
             //框架的各种初始化工作
-            base.Init(option);
+            base.Init(args);
 
             this.InitAppDiffence();
             this.InitDone();
@@ -69,7 +69,6 @@ namespace Server.App
         public override void InitDone()
         {
             base.InitDone();
-            this.AppState = AppState.Started;
         }
 
         private void DoCmd(string message)
