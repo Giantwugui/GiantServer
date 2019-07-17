@@ -15,7 +15,7 @@ namespace Server.Frame
         public static AppType AppType => AppOption.AppType;
         public static int AppId => AppOption.AppId;
 
-        public static void Init(BaseService service, string[] args)
+        internal static void Init(BaseService service, string[] args)
         {
             Parser.Default.ParseArguments<AppOption>(args)
                 .WithNotParsed(error => throw new Exception("CommandLine param error !"))
