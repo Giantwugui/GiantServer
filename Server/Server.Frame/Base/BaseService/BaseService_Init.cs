@@ -75,12 +75,15 @@ namespace Server.Frame
         //注册消息响应
         private void InitProtocol()
         {
-            Assembly properMsgAssembly = Assembly.GetEntryAssembly();
-            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
+            Assembly entryAssembly = Assembly.GetEntryAssembly();
+            Assembly currendAssembly = Assembly.GetExecutingAssembly();
+            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, entryAssembly);
+            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, currendAssembly);
 
             if (this.OutterNetworkService != null)
             {
-                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, properMsgAssembly);
+                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, entryAssembly);
+                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, currendAssembly);
             }
         }
 
