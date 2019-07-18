@@ -25,7 +25,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\Proto\Proto\InnerMessage.proto" Link="Proto\InnerMessage.proto" />
+    <None Include="..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.8.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Proto\" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="$(SolutionDir)..\Proto\protoc --csharp_out=$(SolutionDir)../Frame/Giant.Msg/ --proto_path=$(SolutionDir)../Proto/Proto/ InnerMessage.proto&#xD;&#xA;$(SolutionDir)..\Proto\protoc --csharp_out=$(SolutionDir)../Frame/Giant.Msg/ --proto_path=$(SolutionDir)../Proto/Proto/ OuterMessage.proto&#xD;&#xA;start dotnet $(SolutionDir)..\Proto\Proto2CS.dll $(SolutionDir)" />
+  </Target>
 
 </Project>

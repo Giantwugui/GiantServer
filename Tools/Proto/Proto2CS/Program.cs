@@ -15,29 +15,35 @@ namespace ETTools
 
     public static class Program
     {
-        private const string protoPath = "../Frame/Giant.Msg/Proto";
-        private const string clientMessagePath = "../Frame/Giant.Msg/";
-        private const string hotfixMessagePath = "../Frame/Giant.Msg/";
+        private static string protoPath = "./Proto";
+        private static string csharpPath = "../Frame/Giant.Msg/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
-        public static void Main()
+        public static void Main(string[] args)
         {
-            string protoc = "";
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //string protoc = "";
+            //if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            //{
+            //    protoc = "protoc.exe";
+            //}
+            //else
+            //{
+            //    protoc = "protoc";
+            //}
+
+            if (args.Length != 0)
             {
-                protoc = "protoc.exe";
-            }
-            else
-            {
-                protoc = "protoc";
+                protoPath = $"{args[0]}../Proto/Proto";
+                csharpPath = $"{args[0]}../Frame/Giant.Msg/";
             }
 
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" OuterMessage.proto", waitExit: true);
-            ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" InnerMessage.proto", waitExit: true);
+            //直接使用命令行 在项目编译之前会重新生成
+            //ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" OuterMessage.proto", waitExit: true);
+            //ProcessHelper.Run(protoc, "--csharp_out=\"../Frame/Giant.Msg/\" --proto_path=\"../Frame/Giant.Msg/Proto/\" InnerMessage.proto", waitExit: true);
 
-            Proto2CS("Giant.Msg", "OuterMessage.proto", clientMessagePath, "OuterOpcode", 100);
-            Proto2CS("Giant.Msg", "InnerMessage.proto", clientMessagePath, "InnerOpcode", 1000);
+            Proto2CS("Giant.Msg", "OuterMessage.proto", csharpPath, "OuterOpcode", 100);
+            Proto2CS("Giant.Msg", "InnerMessage.proto", csharpPath, "InnerOpcode", 1000);
 
             // InnerMessage.proto生成cs代码 
             //原ET框架内部通讯是使用的json格式的 适用于mongodb等文档型数据库
