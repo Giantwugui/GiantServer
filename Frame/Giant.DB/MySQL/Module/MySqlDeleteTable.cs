@@ -16,31 +16,24 @@ namespace Giant.DB.MySQL
 
         public override async Task Run()
         {
+            var connection = this.GetConnection();
             try
             {
-                var connection = this.GetConnection();
-                try
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = $"DELETE FROM {this.tableName}";
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
+                command.CommandText = $"DELETE FROM {this.tableName}";
 
-                    await base.Run(command);
-                }
-                catch (Exception ex)
-                {
-                    SetException(ex);
-                    Logger.Error(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                await base.Run(command);
             }
             catch (Exception ex)
             {
+                SetException(ex);
                 Logger.Error(ex);
+            }
+            finally
+            {
+                connection.Dispose();
             }
         }
     }

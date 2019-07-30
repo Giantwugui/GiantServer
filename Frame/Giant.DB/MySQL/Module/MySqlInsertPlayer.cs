@@ -17,33 +17,26 @@ namespace Giant.DB.MySQL
 
         public override async Task Run()
         {
+            var connection = this.GetConnection();
             try
             {
-                var connection = this.GetConnection();
-                try
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "INSERT INTO Player (Account,Uid,Level) VALUES(@account,@uid,@level)";
-                    command.Parameters.AddWithValue("@account", this.player.Account);
-                    command.Parameters.AddWithValue("@uid", this.player.Uid);
-                    command.Parameters.AddWithValue("@level", this.player.Level);
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
+                command.CommandText = "INSERT INTO Player (Account,Uid,Level) VALUES(@account,@uid,@level)";
+                command.Parameters.AddWithValue("@account", this.player.Account);
+                command.Parameters.AddWithValue("@uid", this.player.Uid);
+                command.Parameters.AddWithValue("@level", this.player.Level);
 
-                    await base.Run(command);
-                }
-                catch (Exception ex)
-                {
-                    SetException(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                await base.Run(command);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                SetException(ex);
+            }
+            finally
+            {
+                connection.Dispose();
             }
         }
     }
@@ -59,35 +52,28 @@ namespace Giant.DB.MySQL
 
         public override async Task Run()
         {
+            var connection = this.GetConnection();
             try
             {
-                var connection = this.GetConnection();
-                try
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
 
-                    List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
-                    string valueStr = string.Join(",", playerStrList);
+                List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
+                string valueStr = string.Join(",", playerStrList);
 
-                    command.CommandText = $"INSERT INTO player (Account,Uid,Level) VALUES {valueStr};";
+                command.CommandText = $"INSERT INTO player (Account,Uid,Level) VALUES {valueStr};";
 
-                    await base.Run(command);
-                }
-                catch (Exception ex)
-                {
-                    SetException(ex);
-                    Logger.Error(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                await base.Run(command);
             }
             catch (Exception ex)
             {
+                SetException(ex);
                 Logger.Error(ex);
+            }
+            finally
+            {
+                connection.Dispose();
             }
         }
     }

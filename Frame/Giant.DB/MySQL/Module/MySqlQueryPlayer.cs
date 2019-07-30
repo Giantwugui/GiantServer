@@ -17,37 +17,30 @@ namespace Giant.DB.MySQL
 
         public override async Task Run()
         {
+            var connection = this.GetConnection();
             try
             {
-                var connection = this.GetConnection();
-                try
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
-                    command.Parameters.AddWithValue("@uid", this.uid);
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
+                command.Parameters.AddWithValue("@uid", this.uid);
 
-                    Dictionary<string, object> datas = await base.Run(command);
-                    PlayerInfo player = MySqlHelper.BuildInstance<PlayerInfo>(datas);
+                Dictionary<string, object> datas = await base.Run(command);
+                PlayerInfo player = MySqlHelper.BuildInstance<PlayerInfo>(datas);
 
-                    //其他属性的初始化
+                //其他属性的初始化
 
-                    SetResult(player);
-                }
-                catch (Exception ex)
-                {
-                    SetException(ex);
-                    Logger.Error(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                SetResult(player);
             }
             catch (Exception ex)
             {
+                SetException(ex);
                 Logger.Error(ex);
+            }
+            finally
+            {
+                connection.Dispose();
             }
         }
     }
@@ -61,34 +54,27 @@ namespace Giant.DB.MySQL
 
         public override async Task Run()
         {
+            var connection = this.GetConnection();
             try
             {
-                var connection = this.GetConnection();
-                try
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT Max(Uid) AS maxUid FROM player";
+                connection.Open();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.Text;
+                command.CommandText = "SELECT Max(Uid) AS maxUid FROM player";
 
-                    var datas = await base.Run(command);
+                var datas = await base.Run(command);
 
-                    var max = datas["maxUid"];
+                var max = datas["maxUid"];
 
-                    SetResult(max == System.DBNull.Value ? 0 : (int)max);
-                }
-                catch (Exception ex)
-                {
-                    SetException(ex);
-                }
-                finally
-                {
-                    connection.Close();
-                }
+                SetResult(max == System.DBNull.Value ? 0 : (int)max);
             }
             catch (Exception ex)
             {
-                Logger.Error(ex);
+                SetException(ex);
+            }
+            finally
+            {
+                connection.Dispose();
             }
         }
     }
