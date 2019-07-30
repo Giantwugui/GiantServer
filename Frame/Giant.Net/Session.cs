@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Giant.Net
@@ -54,11 +55,11 @@ namespace Giant.Net
             this.Notify(opcode, message);
         }
 
-        public Task<IResponse> Call(IRequest message)
+        public Task<IResponse> Call(IRequest request)
         {
-            message.RpcId = ++this.rpcId;
+            request.RpcId = ++this.rpcId;
 
-            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
+            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(request.GetType());
 
             TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
 
@@ -84,7 +85,44 @@ namespace Giant.Net
                 }
             };
 
-            this.Notify(opcode, message);
+            this.Notify(opcode, request);
+
+            return tcs.Task;
+        }
+
+        public Task<IResponse> Call(IRequest request, CancellationToken cancellation)
+        {
+            request.RpcId = ++this.rpcId;
+
+            ushort opcode = NetworkService.MessageDispatcher.GetOpcode(request.GetType());
+
+            TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
+
+            this.responseCallback[rpcId] = (response) =>
+            {
+                try
+                {
+                    tcs.SetResult(response);
+
+                    //不能以异常的形式返回，客户端需要更具具体的错误码来做相应的操作
+                    //if (response.Error == ErrorCode.ERR_Success)
+                    //{
+                    //    tcs.SetResult(response);
+                    //}
+                    //else
+                    //{
+                    //    tcs.SetException(new Exception($"ErrorCode {response.Error} Message {response.Message}"));
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+            };
+
+            cancellation.Register(() => this.responseCallback.Remove(this.rpcId));
+
+            this.Notify(opcode, request);
 
             return tcs.Task;
         }

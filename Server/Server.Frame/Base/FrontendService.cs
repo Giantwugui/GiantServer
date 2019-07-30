@@ -4,12 +4,14 @@ using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Server.Frame
 {
     public class FrontendService
     {
+        private CancellationTokenSource cancellation;
         private long lastHeatBeatTime = TimeHelper.NowSeconds;
 
         public FrontendManager FrontendManager { get; private set; }
@@ -61,14 +63,28 @@ namespace Server.Frame
                 return;
             }
 
+            HeartBeat();
+            lastHeatBeatTime = TimeHelper.NowSeconds;
+        }
+
+        private async void HeartBeat()
+        {
             Msg_HeartBeat_Ping ping = new Msg_HeartBeat_Ping
             {
                 AppType = (int)this.AppType,
                 AppId = this.AppId,
             };
 
-            session.Notify(ping);
-            lastHeatBeatTime = TimeHelper.NowSeconds;
+            cancellation?.Cancel();
+            cancellation = new CancellationTokenSource(3000);
+
+            if (await session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
+            {
+                Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
+            }
+
+            cancellation.Dispose();
+            cancellation = null;
         }
 
         private void OnConnected(Session session, bool connState)

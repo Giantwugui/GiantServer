@@ -6,10 +6,10 @@ namespace Giant.Msg
 	public partial class Msg_GM_StopApp : IMessage {}
 
 	[Message(InnerOpcode.Msg_HeartBeat_Ping)]
-	public partial class Msg_HeartBeat_Ping : IMessage {}
+	public partial class Msg_HeartBeat_Ping : IRequest {}
 
 	[Message(InnerOpcode.Msg_HeartBeat_Pong)]
-	public partial class Msg_HeartBeat_Pong : IMessage {}
+	public partial class Msg_HeartBeat_Pong : IResponse {}
 
 	[Message(InnerOpcode.Msg_RegistService_Req)]
 	public partial class Msg_RegistService_Req : IRequest {}

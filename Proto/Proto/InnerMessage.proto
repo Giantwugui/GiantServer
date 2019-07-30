@@ -10,14 +10,14 @@ message Msg_GM_StopApp // IMessage
 
 /*********************** Global ****************************/
 
-message Msg_HeartBeat_Ping //IMessage
+message Msg_HeartBeat_Ping //IRequest
 {
     int32 RpcId = 90;
 	int32 AppType = 1;
 	int32 AppId = 2;
 }
 
-message Msg_HeartBeat_Pong //IMessage
+message Msg_HeartBeat_Pong //IResponse
 {
     int32 RpcId = 90;
 	int32 Error = 91;

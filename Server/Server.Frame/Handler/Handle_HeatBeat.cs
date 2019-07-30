@@ -7,30 +7,16 @@ using System.Threading.Tasks;
 namespace Server.Frame
 {
     [MessageHandler(AppType.AllServer)]
-    public class Handle_HeatBeat_Ping : MHandler<Msg_HeartBeat_Ping>
+    public class Handle_HeatBeat_Ping : MRpcHandler<Msg_HeartBeat_Ping, Msg_HeartBeat_Pong>
     {
-        public override async Task Run(Session session, Msg_HeartBeat_Ping message)
+        public override Task Run(Session session, Msg_HeartBeat_Ping request, Msg_HeartBeat_Pong response)
         {
-            Logger.Info($"heart beat ping from appType {(AppType)message.AppType} appId {message.AppId}");
+            Logger.Info($"heart beat ping from appType {(AppType)request.AppType} appId {request.AppId}");
 
-            Msg_HeartBeat_Pong pong = new Msg_HeartBeat_Pong()
-            {
-                AppType = (int)Framework.AppType,
-                AppId = Framework.AppId,
-            };
+            response.AppType = (int)Framework.AppType;
+            response.AppId = Framework.AppId;
 
-            session.Notify(pong);
-            await Task.CompletedTask;
-        }
-    }
-
-    [MessageHandler(AppType.AllServer)]
-    public class Handle_HeatBeat_Pong : MHandler<Msg_HeartBeat_Pong>
-    {
-        public override async Task Run(Session session, Msg_HeartBeat_Pong message)
-        {
-            Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
-            await Task.CompletedTask;
+            return Task.CompletedTask;
         }
     }
 }

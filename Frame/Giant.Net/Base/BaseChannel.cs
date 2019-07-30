@@ -17,16 +17,12 @@ namespace Giant.Net
     public abstract class BaseChannel: IDisposable
     {
         public long InstanceId { get; private set; }
-
         public ChannelType ChannelType { get; private set; }
-
+        public bool IsConnected { get; protected set; }
         public IPEndPoint IPEndPoint { get; protected set; }
-
         public BaseNetService Service { get; private set; }
 
         public abstract MemoryStream Stream { get; }
-
-        public bool IsConnected { get; protected set; }
 
         private Action<bool> onConnectCallback;
         public event Action<bool> OnConnectCallback
