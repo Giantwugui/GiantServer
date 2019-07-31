@@ -6,8 +6,8 @@ namespace Giant.Share
 {
     public class RSAHelper
     {
-        private static int KeySize = 1024;
-        private static RSACryptoServiceProvider RSA;
+        private static readonly int KeySize = 1024;
+        private static readonly RSACryptoServiceProvider RSA;
 
         private static byte[] privateKey;
         private static byte[] publicKey;
@@ -43,11 +43,10 @@ namespace Giant.Share
                 RSACryptoServiceProvider SACryptoServiceProvider = new RSACryptoServiceProvider(KeySize);
                 privateKey = SACryptoServiceProvider.ExportCspBlob(true);
                 publicKey = SACryptoServiceProvider.ExportCspBlob(false);
+                SACryptoServiceProvider.Dispose();
 
                 PublicKey = Convert.ToBase64String(publicKey);
                 PrivateKey = Convert.ToBase64String(privateKey);
-
-                var param = SACryptoServiceProvider.ExportParameters(false);
 
                 File.WriteAllText(publicKeyPath, PublicKey);
                 File.WriteAllText(privateKeyPath, PrivateKey);

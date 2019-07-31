@@ -4,8 +4,7 @@ namespace Giant.Share
 {
     public class RandomHelper
     {
-        private static System.Random random = new System.Random();
-
+        private static readonly Random random = new Random();
 
         public static int Next(int min, int max)
         {
