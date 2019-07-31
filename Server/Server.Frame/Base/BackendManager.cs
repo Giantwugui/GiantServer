@@ -1,13 +1,10 @@
-﻿using Giant.Log;
-using Giant.Net;
-using Giant.Share;
+﻿using Giant.Share;
 
 namespace Server.Frame
 {
     public class BackendManager
     {
-        //各app内部连接
-        private readonly DepthMap<AppType, long, AppInfo> backendSessions = new DepthMap<AppType, long, AppInfo>();
+        private readonly DepthMap<int, int, BackendService> backendServices = new DepthMap<int, int, BackendService>();
 
         public NetProxyManager NetProxyManager { get; private set; }
 
@@ -16,28 +13,14 @@ namespace Server.Frame
             this.NetProxyManager = netProxy;
         }
 
-        public void RegistService(AppInfo appInfo)
+        public void RegistService(BackendService service)
         {
-            appInfo.Session.OnConnectCallback += OnConnect;
-            backendSessions.Add(appInfo.AppType, appInfo.SessionId, appInfo);
+            backendServices.Add(service.AppId, service.SubId, service);
         }
 
-        private void OnConnect(Session session, bool connectState)
+        public void Remove(int appId, int subId)
         {
-            if (connectState)
-            {
-                return;
-            }
-
-            if (!backendSessions.TryGetValue(session.Id, out AppInfo appInfo))
-            {
-                return;
-            }
-
-            backendSessions.Remove(appInfo.AppType, session.Id);
-
-            Logger.Warn($"appType {appInfo.AppType} {appInfo.AppId} disconnect from {NetProxyManager.AppType} {NetProxyManager.AppId}");
+            backendServices.Remove(appId, subId);
         }
-
     }
 }

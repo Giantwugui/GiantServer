@@ -1,51 +1,49 @@
 ﻿using Giant.Data;
 using Giant.Net;
 using Giant.Share;
+using System.Collections.Generic;
 
 namespace Server.Frame
 {
-    public class AppInfo
-    {
-        public AppType AppType { get; set; }
-        public int AppId { get; set; }
-        public Session Session { get; set; }
-        public long SessionId => Session.Id;
-    }
-
     public class NetProxyManager
     {
-        public BaseService Service { get; private set; }
-        public FrontendManager FrontendManager { get; private set; }
-        public BackendManager BackendManager { get; private set; }
+        private readonly Dictionary<AppType, FrontendManager> frontendServices = new Dictionary<AppType, FrontendManager>();
+        private readonly Dictionary<AppType, BackendManager> backendServices = new Dictionary<AppType, BackendManager>();
 
-        public AppType AppType { get { return Service.AppType; } }
-        public int AppId { get { return Service.AppId; } }
+        public BaseAppService Service { get; private set; }
 
-
-        public NetProxyManager()
-        {
-            this.FrontendManager = new FrontendManager(this);
-            this.BackendManager = new BackendManager(this);
-        }
+        public AppType AppType => Framework.AppType;
+        public int AppId => Framework.AppId;
+        public int SubId => Framework.SubId;
 
         public void Start()
         {
-            FrontendManager.Start();
+            StartFrontend();
         }
 
         public void Update(float delayTime)
         {
-            this.FrontendManager.Update(delayTime);
+            UpdateFrontend();
         }
 
-        public void RegistBackendService(AppType appType, int appId, Session session)
+        public void RegistBackendService(AppType appType, int appId, int subId, Session session)
         {
-            this.BackendManager.RegistService(new AppInfo() { AppType = appType, AppId = appId, Session = session });
+            if (!backendServices.TryGetValue(appType, out var manager))
+            {
+                manager = new BackendManager(this);
+                backendServices.Add(AppType, manager);
+            }
+            manager.RegistService(new BackendService(manager) { AppType = appType, AppId = appId, SubId = subId, Session = session });
         }
 
-        public void Init(BaseService service)
+        public void Init(BaseAppService service)
         {
             this.Service = service;
+
+            if (AppType != AppType.Global)
+            {
+                return;
+            }
 
             var netPology = NetTopologyConfig.GetTopology(this.AppType);
             if (netPology == null)
@@ -53,7 +51,31 @@ namespace Server.Frame
                 return;
             }
 
-            netPology.ForEach(topology => this.FrontendManager.Add(topology));
+            AddFrontend(netPology);
+        }
+
+        private void StartFrontend()
+        {
+            frontendServices.ForEach(x => x.Value.Start());
+        }
+
+        private void UpdateFrontend()
+        {
+            frontendServices.ForEach(x => x.Value.Update());
+        }
+
+        private void AddFrontend(List<AppConfig> appConfigs)
+        {
+            appConfigs.ForEach(config =>
+            {
+                if (!frontendServices.TryGetValue(config.ApyType, out var frontendManager))
+                {
+                    frontendManager = new FrontendManager(this);
+                    frontendServices.Add(config.ApyType, frontendManager);
+                }
+
+                frontendManager.Add(new FrontendService(frontendManager, config));
+            });
         }
     }
 }

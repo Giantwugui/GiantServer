@@ -15,6 +15,7 @@ namespace Server.Frame
 
             response.Error = ErrorCode.Success;
             response.AppId = Framework.AppId;
+            response.SubId = Framework.SubId;
             response.AppType = (int)Framework.AppType;
 
             if (request == null)
@@ -22,7 +23,7 @@ namespace Server.Frame
                 Logger.Error("request == null");
             }
 
-            Framework.BaseService.NetProxyManager.RegistBackendService((AppType)request.AppType, request.AppId, session);
+            Framework.BaseService.NetProxyManager.RegistBackendService((AppType)request.AppType, request.AppId, request.SubId, session);
             await Task.CompletedTask;
         }
     }

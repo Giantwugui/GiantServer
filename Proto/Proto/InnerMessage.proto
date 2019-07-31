@@ -15,6 +15,7 @@ message Msg_HeartBeat_Ping //IRequest
     int32 RpcId = 90;
 	int32 AppType = 1;
 	int32 AppId = 2;
+    int32 SubId = 3;
 }
 
 message Msg_HeartBeat_Pong //IResponse
@@ -25,6 +26,7 @@ message Msg_HeartBeat_Pong //IResponse
 
 	int32 AppType = 1;
 	int32 AppId = 2;
+    int32 SubId = 3;
 }
 
 message Msg_RegistService_Req // IRequest
@@ -32,6 +34,7 @@ message Msg_RegistService_Req // IRequest
     int32 RpcId = 90;
     int32 AppType = 1;
     int32 AppId = 2;
+    int32 SubId = 3;
 }
 
 message Msg_RegistService_Rep // IResponse
@@ -42,6 +45,7 @@ message Msg_RegistService_Rep // IResponse
 
     int32 AppType = 1;
     int32 AppId = 2;
+    int32 SubId = 3;
 }
 
 message Msg_RG_GetLoginKey // IRequest

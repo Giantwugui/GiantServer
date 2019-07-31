@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Server.Frame
 {
-    public partial class BaseService
+    public partial class BaseAppService
     {
         public virtual void Init(string[] args)
         {

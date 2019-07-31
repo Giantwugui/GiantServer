@@ -18,16 +18,12 @@ namespace Server.Frame
 
         private Session session;
         public Session Session => session;
-        public AppType AppType { get; private set; }
-        public int AppId { get; private set; }
         public AppConfig AppConfig { get; private set; }
 
         public bool IsConnected => Session.IsConnected;
 
-        public FrontendService(FrontendManager manager, AppType appType, int appId, AppConfig appConfig)
+        public FrontendService(FrontendManager manager, AppConfig appConfig)
         {
-            this.AppId = appId;
-            this.AppType = appType;
             this.AppConfig = appConfig;
             this.FrontendManager = manager;
         }
@@ -71,8 +67,9 @@ namespace Server.Frame
         {
             Msg_HeartBeat_Ping ping = new Msg_HeartBeat_Ping
             {
-                AppType = (int)this.AppType,
-                AppId = this.AppId,
+                AppType = (int)Framework.AppType,
+                AppId = Framework.AppId,
+                SubId = Framework.SubId,
             };
 
             cancellation?.Cancel();
@@ -80,7 +77,7 @@ namespace Server.Frame
 
             if (await session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
             {
-                Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId}");
+                Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId} subId {message.SubId}");
             }
 
             cancellation.Dispose();
@@ -102,25 +99,26 @@ namespace Server.Frame
         private async void CheckConnect()
         {
             await Task.Delay(3000);//3后重新连接
-            Logger.Warn($"app {AppType} {AppId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
+            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
 
             this.Start();
         }
 
         private async void RegistService()
         {
-            Logger.Warn($"app {AppType} {AppId} start registe to {AppConfig.ApyType} {AppConfig.AppId} ...");
+            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} start registe to {AppConfig.ApyType} {AppConfig.AppId} ...");
 
             Msg_RegistService_Req request = new Msg_RegistService_Req()
             {
-                AppId = AppId,
-                AppType = (int)AppType,
+                AppId = Framework.AppId,
+                SubId = Framework.SubId,
+                AppType = (int)Framework.AppType,
             };
 
             IResponse response = await Session.Call(request);
             Msg_RegistService_Rep message = response as Msg_RegistService_Rep;
 
-            Logger.Warn($"app {AppType} {AppId} registed to {(AppType)message.AppType} {message.AppId} success !");
+            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} registed to {(AppType)message.AppType} {message.AppId} success !");
         }
     }
 }

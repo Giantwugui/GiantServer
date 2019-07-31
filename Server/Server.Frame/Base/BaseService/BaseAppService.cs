@@ -5,7 +5,7 @@ using System;
 
 namespace Server.Frame
 {
-    public abstract partial class BaseService
+    public abstract partial class BaseAppService
     {
         private readonly NetProxyManager netProxyManager = new NetProxyManager();
 

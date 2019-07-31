@@ -1,12 +1,13 @@
 ﻿using Giant.Log;
 using Giant.Share;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Giant.Data
 {
     public class AppConfigLibrary
     {
-        private static readonly DepthMap<AppType, int, AppConfig> appConfigs = new DepthMap<AppType, int, AppConfig>();
+        private static readonly ListMap<AppType, AppConfig> appConfigs = new ListMap<AppType, AppConfig>();
 
         public static void Init()
         {
@@ -18,23 +19,24 @@ namespace Giant.Data
                 data = kv.Value;
                 config = new AppConfig()
                 {
-                    ApyType = (AppType)data.GetInt("AppType"),
+                    ApyType = EnumHelper.FromString<AppType>(data.GetString("Name")),
                     AppId = data.GetInt("AppId"),
+                    SubId = data.GetInt("SubId"),
                     InnerAddress = data.GetString("InnerAddress"),
                     OutterAddress = data.GetString("OutterAddress"),
                 };
 
-                appConfigs .Add(config.ApyType, config.AppId, config);
+                appConfigs.Add(config.ApyType, config);
             }
         }
 
-        public static AppConfig GetNetConfig(AppType appType, int appId)
+        public static AppConfig GetNetConfig(AppType appType, int appId, int subId = 0)
         {
-            appConfigs .TryGetValue(appType, appId, out var config);
-            return config;
+            appConfigs.TryGetValue(appType, out var config);
+            return config?.Where(x => x.AppId == appId && x.SubId == subId).FirstOrDefault();
         }
 
-        public static Dictionary<int, AppConfig> GetNetConfig(AppType appyType)
+        public static List<AppConfig> GetNetConfig(AppType appyType)
         {
             if (!appConfigs .TryGetValue(appyType, out var topology))
             {

@@ -1,11 +1,10 @@
-﻿using Giant.Data;
-using Giant.Share;
+﻿using Giant.Share;
 
 namespace Server.Frame
 {
     public class FrontendManager
     {
-        private readonly ListMap<AppType, FrontendService> services = new ListMap<AppType, FrontendService>();
+        private readonly DepthMap<int, int, FrontendService> services = new DepthMap<int, int, FrontendService>();
         public NetProxyManager NetProxyManager { get; private set; }
 
         public FrontendManager(NetProxyManager netProxy)
@@ -13,25 +12,34 @@ namespace Server.Frame
             this.NetProxyManager = netProxy;
         }
 
-        public void Add(AppConfig appConfig)
+        public void Add(FrontendService frontend)
         {
-            services.Add(NetProxyManager.AppType, new FrontendService(this, NetProxyManager.AppType, NetProxyManager.AppId, appConfig));
+            services.Add(NetProxyManager.AppId, NetProxyManager.SubId, frontend);
         }
 
         public void Start()
         {
             foreach (var kv in services)
             {
-                kv.Value.ForEach(sevice => sevice.Start());
+                if (kv.Value.Count == 0)
+                {
+                    continue;
+                }
+
+                kv.Value.ForEach(x => x.Value.Start());
             }
         }
 
-        public void Update(float delayTime)
+        public void Update()
         {
-            //心跳
             foreach (var kv in services)
             {
-                kv.Value.ForEach(service => service.Update());
+                if (kv.Value.Count == 0)
+                {
+                    continue;
+                }
+
+                kv.Value.ForEach(x => x.Value.Update());
             }
         }
     }

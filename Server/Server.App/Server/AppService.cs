@@ -6,7 +6,7 @@ using EpPathFinding;
 
 namespace Server.App
 {
-    public partial class AppService : BaseService
+    public partial class AppService : BaseAppService
     {
         public static AppService Instacne { get; } = new AppService();
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
 <Root Config="AppConfig">
-	<content id="1" Name="Gate" AppType="1" AppId="1001" InnerAddress="127.0.0.1:8001" OutterAddress="127.0.0.1:9001"/>
-	<content id="2" Name="Manager" AppType="2" AppId="1001" InnerAddress="127.0.0.1:8002" OutterAddress=""/>
-	<content id="3" Name="Map" AppType="4" AppId="1001" InnerAddress="127.0.0.1:8003" OutterAddress=""/>
-	<content id="4" Name="Relation" AppType="8" AppId="1001" InnerAddress="127.0.0.1:8004" OutterAddress=""/>
-	<content id="5" Name="AllServer" AppType="15" AppId="1001" InnerAddress="127.0.0.1:6000" OutterAddress="127.0.0.1:6001"/>
+	<content id="1" Name="Gate" AppId="1001" InnerAddress="127.0.0.1:8001" OutterAddress="127.0.0.1:9001"/>
+	<content id="2" Name="Manager" AppId="1001" InnerAddress="127.0.0.1:8002" OutterAddress=""/>
+	<content id="3" Name="Map" AppId="1001" InnerAddress="127.0.0.1:8003" OutterAddress=""/>
+	<content id="4" Name="Relation" AppId="1001" InnerAddress="127.0.0.1:8004" OutterAddress=""/>
+	<content id="5" Name="AllServer" AppId="1001" InnerAddress="127.0.0.1:6000" OutterAddress="127.0.0.1:6001"/>
 </Root>
