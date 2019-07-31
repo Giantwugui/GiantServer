@@ -12,8 +12,10 @@ namespace Giant.Share
         static AESHelper()
         {
             AESIV = new byte[KeyLength128];
-            RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
-            provider.GetBytes(AESIV);
+            using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider())
+            {
+                provider.GetBytes(AESIV);
+            }
         }
 
         public static string Encrypt(string encryptKey, string content, CipherMode mode)
@@ -23,18 +25,18 @@ namespace Giant.Share
                 byte[] keyArray = encryptKey.FromBase64String();
                 byte[] toEncryptArray = content.FromUTF8String();
 
-                RijndaelManaged rDel = new RijndaelManaged()
+                using (RijndaelManaged rDel = new RijndaelManaged()
                 {
                     Key = keyArray,
                     Mode = mode,
                     Padding = PaddingMode.PKCS7,
                     IV = AESIV
-                };
-
-                ICryptoTransform cTransform = rDel.CreateEncryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-
-                return resultArray.ToBase64String();
+                })
+                {
+                    ICryptoTransform cTransform = rDel.CreateEncryptor();
+                    byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                    return resultArray.ToBase64String();
+                }
             }
             catch (Exception ex)
             {
@@ -46,18 +48,18 @@ namespace Giant.Share
         {
             try
             {
-                RijndaelManaged rDel = new RijndaelManaged()
+                using (RijndaelManaged rDel = new RijndaelManaged()
                 {
                     Key = encryptKey,
                     Mode = mode,
                     Padding = PaddingMode.PKCS7,
                     IV = AESIV
-                };
-
-                ICryptoTransform cTransform = rDel.CreateEncryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
-
-                return resultArray;
+                })
+                {
+                    ICryptoTransform cTransform = rDel.CreateEncryptor();
+                    byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
+                    return resultArray;
+                }
             }
             catch (Exception ex)
             {
@@ -72,18 +74,18 @@ namespace Giant.Share
                 Byte[] keyArray = encryptKey.FromBase64String();
                 Byte[] toEncryptArray = content.FromBase64String();
 
-                RijndaelManaged rDel = new RijndaelManaged
+                using (RijndaelManaged rDel = new RijndaelManaged
                 {
                     Key = keyArray,
                     Mode = mode,
                     Padding = PaddingMode.PKCS7,
                     IV = AESIV
-                };
-
-                ICryptoTransform cTransform = rDel.CreateDecryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-
-                return resultArray.ToUTF8String();
+                })
+                {
+                    ICryptoTransform cTransform = rDel.CreateDecryptor();
+                    byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                    return resultArray.ToUTF8String();
+                }
             }
             catch (Exception ex)
             {
@@ -94,19 +96,19 @@ namespace Giant.Share
         public static byte[] Dencrypt(byte[] encryptKey, byte[] content, CipherMode mode)
         {
             try
-            {           
-                RijndaelManaged managed = new RijndaelManaged
+            {
+                using (RijndaelManaged managed = new RijndaelManaged
                 {
                     Key = encryptKey,
                     Mode = mode,
                     Padding = PaddingMode.PKCS7,
                     IV = AESIV
-                };
-
-                ICryptoTransform cTransform = managed.CreateDecryptor();
-                byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
-
-                return resultArray;
+                })
+                {
+                    ICryptoTransform cTransform = managed.CreateDecryptor();
+                    byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
+                    return resultArray;
+                }
             }
             catch (Exception ex)
             {

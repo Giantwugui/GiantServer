@@ -13,6 +13,7 @@ namespace Giant.Share
             this.encryptKey = new byte[AESHelper.KeyLength128];
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
             provider.GetBytes(encryptKey);
+            provider.Dispose();
 
             this.EncryptKey = encryptKey.ToBase64String();
         }
