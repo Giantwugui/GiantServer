@@ -25,11 +25,12 @@ namespace Giant.Log
             }
         }
 
-        public static void Init(bool write2Console, string appType, int appId)
+        public static void Init(bool write2Console, string appType, int appId, int subId)
         {
             writeToConsole = write2Console;
             LogManager.Configuration.Variables["appType"] = appType;
             LogManager.Configuration.Variables["appId"] = appId.ToString();
+            LogManager.Configuration.Variables["subId"] = subId.ToString();
         }
 
         public static void Debug(object message)

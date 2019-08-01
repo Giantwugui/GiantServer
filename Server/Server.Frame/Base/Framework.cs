@@ -11,7 +11,6 @@ namespace Server.Frame
 
         public static AppState AppState { get; set; }
 
-
         public static AppType AppType => AppOption.AppType;
         public static int AppId => AppOption.AppId;
         public static int SubId => AppOption.SubId;

@@ -2,7 +2,7 @@
   "profiles": {
     "Server.App": {
       "commandName": "Project",
-      "commandLineArgs": "--appType=Gate --appId=1001"
+      "commandLineArgs": "--appType=Gate --appId=1001 --subId=1"
     }
   }
 }

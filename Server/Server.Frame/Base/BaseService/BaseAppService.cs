@@ -15,6 +15,7 @@ namespace Server.Frame
 
         public AppType AppType => Framework.AppType;
         public int AppId => Framework.AppId;
+        public int SubId => Framework.SubId;
 
         public virtual void Update(float dt)
         {

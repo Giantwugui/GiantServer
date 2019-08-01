@@ -11,7 +11,7 @@ namespace Server.Frame
         [Option("appId", Required = true, Default = 0)]
         public int AppId { get; set; }
 
-        [Option("subId", Required = true, Default = 0)]
+        [Option("subId", Required = false, Default = 0)]
         public int SubId { get; set; }
     }
 }

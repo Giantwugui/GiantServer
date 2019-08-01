@@ -56,7 +56,7 @@ namespace Server.Frame
         //日志配置
         private void InitLogConfig()
         {
-            Logger.Init(false, this.AppType.ToString(), this.AppId);
+            Logger.Init(false, this.AppType.ToString(), this.AppId, this.SubId);
         }
 
         //网络服务
