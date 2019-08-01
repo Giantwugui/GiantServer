@@ -112,6 +112,12 @@ namespace Server.Frame
 
         private void NotifyServices(BackendService backend)
         {
+            //只允许global通知
+            if (AppType != AppType.Global)
+            {
+                return;
+            }
+
             frontendServices.ForEach(x => x.Value.NotifyServiceInfo(backend));
             backendServices.ForEach(x => x.Value.NotifyServiceInfo(backend));
         }

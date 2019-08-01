@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using Giant.Log;
+using Giant.Share;
 
 namespace Giant.Net
 {
@@ -109,13 +110,16 @@ namespace Giant.Net
             switch (eventArgs.LastOperation)
             {
                 case SocketAsyncOperation.Accept:
-                    AcceptComplete(eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(this.AcceptComplete, eventArgs);
+                    //AcceptComplete(eventArgs);
                     break;
             }
         }
 
-        private void AcceptComplete(SocketAsyncEventArgs eventArgs)
+        private void AcceptComplete(object args)
         {
+            SocketAsyncEventArgs eventArgs = (SocketAsyncEventArgs)args;
+
             if (eventArgs.SocketError != SocketError.Success)
             {
                 Logger.Error(eventArgs.SocketError);

@@ -58,13 +58,6 @@ namespace Server.Frame
 
         public override void NotifyServiceInfo(BackendService backend)
         {
-            Msg_Service_Info msg = new Msg_Service_Info
-            {
-                AppType = (int)backend.AppType,
-                AppId = backend.AppId,
-                SubId = backend.SubId,
-            };
-
             AppConfig config;
             foreach (var app in services)
             {
@@ -73,11 +66,23 @@ namespace Server.Frame
                     config = service.Value.AppConfig;
                     if (NetTopologyLibrary.NeeConnect(config.AppType, config.AppId, backend.AppType, backend.AppId))
                     {
+                        Msg_Service_Info msg = new Msg_Service_Info
+                        {
+                            AppType = (int)backend.AppType,
+                            AppId = backend.AppId,
+                            SubId = backend.SubId,
+                        };
                         service.Value.Write(msg);
                     }
 
                     if (NetTopologyLibrary.NeeAccept(config.AppType, config.AppId, backend.AppType, backend.AppId))
                     {
+                        Msg_Service_Info msg = new Msg_Service_Info
+                        {
+                            AppType = (int)config.AppType,
+                            AppId = config.AppId,
+                            SubId = config.SubId,
+                        };
                         backend.Write(msg);
                     }
                 }

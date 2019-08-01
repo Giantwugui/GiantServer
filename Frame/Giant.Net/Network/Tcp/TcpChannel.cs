@@ -222,20 +222,24 @@ namespace Giant.Net
             switch (eventArgs.LastOperation)
             {
                 case SocketAsyncOperation.Connect:
-                    ConnectComplete(eventArgs);
+                    //ConnectComplete(eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(this.ConnectComplete, eventArgs);
                     break;
                 case SocketAsyncOperation.Receive:
-                    ReceiveComplete(eventArgs);
+                    //ReceiveComplete(eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(this.ReceiveComplete, eventArgs);
                     break;
                 case SocketAsyncOperation.Send:
-                    SendComplete(eventArgs);
+                    //SendComplete(eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(this.SendComplete, eventArgs);
                     break;
             }
         }
 
-        private void ConnectComplete(SocketAsyncEventArgs eventArgs)
+        private void ConnectComplete(object eventArgs)
         {
-            if (eventArgs.SocketError == SocketError.Success)
+            SocketAsyncEventArgs e = (SocketAsyncEventArgs)eventArgs;
+            if (e.SocketError == SocketError.Success)
             {
                 this.IsConnected = true;
 
@@ -244,12 +248,12 @@ namespace Giant.Net
             }
             else
             {
-                this.OnError(eventArgs.SocketError);
+                this.OnError(e.SocketError);
             }
             this.IsConnecting = false;
         }
 
-        private void ReceiveComplete(SocketAsyncEventArgs eventArgs)
+        private void ReceiveComplete(object eventArgs)
         {
             if (this.socket == null)
             {
@@ -307,7 +311,7 @@ namespace Giant.Net
             StartRecv();
         }
 
-        private void SendComplete(SocketAsyncEventArgs eventArgs)
+        private void SendComplete(object eventArgs)
         {
             if (this.socket == null)
             {

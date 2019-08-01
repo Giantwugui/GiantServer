@@ -33,26 +33,31 @@ namespace Server.Frame
 
         public override void NotifyServiceInfo(BackendService backend)
         {
-            Msg_Service_Info msg = new Msg_Service_Info
-            {
-                AppType = (int)backend.AppType,
-                AppId = backend.AppId,
-                SubId = backend.SubId,
-            };
-
-            BackendService config;
+            BackendService server;
             foreach (var app in services)
             {
                 foreach (var service in app.Value)
                 {
-                    config = service.Value;
-                    if (NetTopologyLibrary.NeeConnect(config.AppType, config.AppId, backend.AppType, backend.AppId))
+                    server = service.Value;
+                    if (NetTopologyLibrary.NeeConnect(server.AppType, server.AppId, backend.AppType, backend.AppId))
                     {
+                        Msg_Service_Info msg = new Msg_Service_Info
+                        {
+                            AppType = (int)backend.AppType,
+                            AppId = backend.AppId,
+                            SubId = backend.SubId,
+                        };
                         service.Value.Write(msg);
                     }
 
-                    if (NetTopologyLibrary.NeeAccept(config.AppType, config.AppId, backend.AppType, backend.AppId))
+                    if (NetTopologyLibrary.NeeAccept(server.AppType, server.AppId, backend.AppType, backend.AppId))
                     {
+                        Msg_Service_Info msg = new Msg_Service_Info
+                        {
+                            AppType = (int)server.AppType,
+                            AppId = server.AppId,
+                            SubId = server.SubId,
+                        };
                         backend.Write(msg);
                     }
                 }
