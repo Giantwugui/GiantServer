@@ -4,22 +4,23 @@ using System.Collections.Generic;
 
 namespace Giant.Data
 {
-    public class NetTopologyConfig
+    public enum NetTopologyType
     {
-        private static readonly ListMap<AppType, AppConfig> needConnList = new ListMap<AppType, AppConfig>();
-        private static readonly ListMap<AppType, AppConfig> needAcceptList = new ListMap<AppType, AppConfig>();
+        None = 0,
+        ConnectAll = 1,
+        AcceptAll = 2,
+        ConnectByApp = 3,
+        AcceptByApp = 4,
+    }
+
+    public class NetTopologyLibrary
+    {
+        private static readonly DepthMap<AppType, AppType, NetTopologyType> netTopology = new DepthMap<AppType, AppType, NetTopologyType>();
 
         public static void Init()
         {
             var datas = DataManager.Instance.GetDatas("NetTopology");
             InitTopology(datas);
-        }
-
-
-        public static List<AppConfig> GetTopology(AppType appType)
-        {
-            needConnList.TryGetValue(appType, out var configs);
-            return configs;
         }
 
         private static void InitTopology(Dictionary<int, Data> topology)
@@ -34,21 +35,45 @@ namespace Giant.Data
 
                 foreach (string v in Enum.GetNames(typeof(AppType)))
                 {
-                    if (v == allApp || !data.GetBool(v))
+                    if (v == allApp)
                     {
                         continue;
                     }
 
-                    BuidTopology(appType, v);
+                    AppType other = EnumHelper.FromString<AppType>(v);
+                    NetTopologyType topologyType = EnumHelper.FromString<NetTopologyType>(data.GetString(v));
+                    netTopology.Add(appType, other, topologyType);
                 }
             }
         }
 
-        private static void BuidTopology(AppType source, string otherStr)
+        public static bool NeeConnect(AppType appType, int appId, AppType otherAppType, int otherAppId)
         {
-            AppType other = EnumHelper.FromString<AppType>(otherStr);
-            var topology = AppConfigLibrary.GetNetConfig(other);
-            topology?.ForEach(x => needConnList.Add(source, x));
+            if (!netTopology.TryGetValue(appType, otherAppType, out var topologyType))
+            {
+                return false;
+            }
+            switch (topologyType)
+            {
+                case NetTopologyType.ConnectAll: return true;
+                case NetTopologyType.ConnectByApp: return appId == otherAppId;
+                default: return false;
+            }
         }
+
+        public static bool NeeAccept(AppType appType, int appId, AppType otherAppType, int otherAppId)
+        {
+            if (!netTopology.TryGetValue(appType, otherAppType, out var topologyType))
+            {
+                return false;
+            }
+            switch (topologyType)
+            {
+                case NetTopologyType.AcceptAll: return true;
+                case NetTopologyType.AcceptByApp: return appId == otherAppId;
+                default: return false;
+            }
+        }
+
     }
 }

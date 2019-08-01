@@ -19,15 +19,21 @@ namespace Giant.Data
                 data = kv.Value;
                 config = new AppConfig()
                 {
-                    ApyType = EnumHelper.FromString<AppType>(data.GetString("Name")),
+                    AppType = EnumHelper.FromString<AppType>(data.GetString("Name")),
                     AppId = data.GetInt("AppId"),
                     SubId = data.GetInt("SubId"),
                     InnerAddress = data.GetString("InnerAddress"),
                     OutterAddress = data.GetString("OutterAddress"),
                 };
 
-                appConfigs.Add(config.ApyType, config);
+                appConfigs.Add(config.AppType, config);
             }
+        }
+
+        public static AppConfig GetNetConfig(AppType appType)
+        {
+            appConfigs.TryGetValue(appType, out var config);
+            return config?.FirstOrDefault();
         }
 
         public static AppConfig GetNetConfig(AppType appType, int appId, int subId = 0)
@@ -36,14 +42,14 @@ namespace Giant.Data
             return config?.Where(x => x.AppId == appId && x.SubId == subId).FirstOrDefault();
         }
 
-        public static List<AppConfig> GetNetConfig(AppType appyType)
-        {
-            if (!appConfigs .TryGetValue(appyType, out var topology))
-            {
-                Logger.Error($"Xml error, have no this AppType {appyType.ToString()}'s Netconfig");
-            }
-            return topology;
-        }
+        //public static List<AppConfig> GetNetConfig(AppType appyType)
+        //{
+        //    if (!appConfigs .TryGetValue(appyType, out var topology))
+        //    {
+        //        Logger.Error($"Xml error, have no this AppType {appyType.ToString()}'s Netconfig");
+        //    }
+        //    return topology;
+        //}
 
     }
 }

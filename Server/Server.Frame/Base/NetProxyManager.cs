@@ -1,4 +1,5 @@
 ﻿using Giant.Data;
+using Giant.Log;
 using Giant.Net;
 using Giant.Share;
 using System.Collections.Generic;
@@ -7,8 +8,8 @@ namespace Server.Frame
 {
     public class NetProxyManager
     {
-        private readonly Dictionary<AppType, FrontendManager> frontendServices = new Dictionary<AppType, FrontendManager>();
-        private readonly Dictionary<AppType, BackendManager> backendServices = new Dictionary<AppType, BackendManager>();
+        private readonly Dictionary<AppType, FrontendServiceManager> frontendServices = new Dictionary<AppType, FrontendServiceManager>();
+        private readonly Dictionary<AppType, BackendServiceManager> backendServices = new Dictionary<AppType, BackendServiceManager>();
 
         public BaseAppService Service { get; private set; }
 
@@ -16,42 +17,59 @@ namespace Server.Frame
         public int AppId => Framework.AppId;
         public int SubId => Framework.SubId;
 
+        public void Init(BaseAppService service)
+        {
+            this.Service = service;
+            if (AppType == AppType.Global)
+            {
+                return;
+            }
+            var config = AppConfigLibrary.GetNetConfig(AppType.Global);
+            if (config == null)
+            {
+                return;
+            }
+            AddFrontend(config);
+        }
+
         public void Start()
         {
             StartFrontend();
         }
 
-        public void Update(float delayTime)
+        public void Update()
         {
             UpdateFrontend();
         }
 
-        public void RegistBackendService(AppType appType, int appId, int subId, Session session)
+        #region Frontend
+
+        public FrontendServiceManager GetFrontendServiceManager(AppType appType)
         {
-            if (!backendServices.TryGetValue(appType, out var manager))
+            if (!frontendServices.TryGetValue(appType, out var manager))
             {
-                manager = new BackendManager(this);
-                backendServices.Add(AppType, manager);
+                manager = new FrontendServiceManager(this);
+                frontendServices.Add(appType, manager);
             }
-            manager.RegistService(new BackendService(manager) { AppType = appType, AppId = appId, SubId = subId, Session = session });
+            return manager;
         }
 
-        public void Init(BaseAppService service)
+        public FrontendService GetFrontend(AppType appType, int appId, int subId)
         {
-            this.Service = service;
+            var manager = GetFrontendServiceManager(appType);
+            return manager.GetService(appId, subId);
+        }
 
-            if (AppType != AppType.Global)
-            {
-                return;
-            }
+        public void AddFrontend(AppConfig config)
+        {
+            var manager = GetFrontendServiceManager(config.AppType);
+            manager.Add(config);
+        }
 
-            var netPology = NetTopologyConfig.GetTopology(this.AppType);
-            if (netPology == null)
-            {
-                return;
-            }
-
-            AddFrontend(netPology);
+        public void AddFrontend(FrontendService frontend)
+        {
+            var manager = GetFrontendServiceManager(frontend.AppConfig.AppType);
+            manager.Add(frontend);
         }
 
         private void StartFrontend()
@@ -64,18 +82,38 @@ namespace Server.Frame
             frontendServices.ForEach(x => x.Value.Update());
         }
 
-        private void AddFrontend(List<AppConfig> appConfigs)
-        {
-            appConfigs.ForEach(config =>
-            {
-                if (!frontendServices.TryGetValue(config.ApyType, out var frontendManager))
-                {
-                    frontendManager = new FrontendManager(this);
-                    frontendServices.Add(config.ApyType, frontendManager);
-                }
+        #endregion
 
-                frontendManager.Add(new FrontendService(frontendManager, config));
-            });
+        #region Backend
+
+        public void RegistBackendService(AppType appType, int appId, int subId, Session session)
+        {
+            if (!backendServices.TryGetValue(appType, out var manager))
+            {
+                manager = new BackendServiceManager(this);
+                backendServices.Add(appType, manager);
+            }
+            else
+            {
+                if (manager.GetService(appId, subId) != null)
+                {
+                    Logger.Error($"{appType} {appId} {subId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
+                    return;
+                }
+            }
+
+            BackendService backend = new BackendService(manager, appType, appId, subId, session);
+            manager.RegistService(backend);
+            NotifyServices(backend);
+        }
+
+        #endregion
+
+
+        private void NotifyServices(BackendService backend)
+        {
+            frontendServices.ForEach(x => x.Value.NotifyServiceInfo(backend));
+            backendServices.ForEach(x => x.Value.NotifyServiceInfo(backend));
         }
     }
 }

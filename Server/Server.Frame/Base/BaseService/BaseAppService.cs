@@ -26,7 +26,7 @@ namespace Server.Frame
                 Timer.Instance.Update();//定时器
 
                 this.InnerNetworkService.Update();
-                this.NetProxyManager.Update(dt);
+                this.NetProxyManager.Update();
             }
             catch (Exception ex)
             {

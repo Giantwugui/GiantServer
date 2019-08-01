@@ -4,7 +4,7 @@ namespace Giant.Data
 {
     public class AppConfig
     {
-        public AppType ApyType { get; set; }
+        public AppType AppType { get; set; }
         public int AppId { get; set; }
         public int SubId { get; set; }
         public string InnerAddress { get; set; }

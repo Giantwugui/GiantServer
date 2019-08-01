@@ -10,6 +10,13 @@ message Msg_GM_StopApp // IMessage
 
 /*********************** Global ****************************/
 
+message Msg_Service_Info //IMessage
+{
+	int32 AppType = 1;
+	int32 AppId = 2;
+    int32 SubId = 3;
+}
+
 message Msg_HeartBeat_Ping //IRequest
 {
     int32 RpcId = 90;

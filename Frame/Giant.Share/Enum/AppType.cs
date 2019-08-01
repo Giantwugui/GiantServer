@@ -7,6 +7,6 @@
         Manager = 1<<2,
         Map = 1<<3,
         Relation = 1<<4,
-        AllServer = Gate | Manager | Map | Relation
+        AllServer = Global | Gate | Manager | Map | Relation
     }
 }

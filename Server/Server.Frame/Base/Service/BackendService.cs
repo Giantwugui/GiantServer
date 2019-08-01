@@ -4,16 +4,19 @@ using Giant.Share;
 
 namespace Server.Frame
 {
-    public class BackendService
+    public class BackendService : BaseService
     {
-        public AppType AppType { get; set; }
-        public int AppId { get; set; }
-        public int SubId { get; set; }
-        public Session Session { get; set; }
-        public BackendManager BackendManager { get; private set; }
+        public AppType AppType { get; private set; }
+        public int AppId { get; private set; }
+        public int SubId { get; private set; }
+        public BackendServiceManager BackendManager { get; private set; }
 
-        public BackendService(BackendManager manager)
+        public BackendService(BackendServiceManager manager, AppType appType, int appId, int subId, Session session)
         {
+            this.SubId = subId;
+            this.AppId = appId;
+            this.Session = session;
+            this.AppType = appType;
             BackendManager = manager;
             Session.OnConnectCallback += OnConnect;
         }

@@ -9,20 +9,16 @@ using System.Threading.Tasks;
 
 namespace Server.Frame
 {
-    public class FrontendService
+    public class FrontendService : BaseService
     {
         private CancellationTokenSource cancellation;
         private long lastHeatBeatTime = TimeHelper.NowSeconds;
 
-        public FrontendManager FrontendManager { get; private set; }
-
-        private Session session;
-        public Session Session => session;
         public AppConfig AppConfig { get; private set; }
-
+        public FrontendServiceManager FrontendManager { get; private set; }
         public bool IsConnected => Session.IsConnected;
 
-        public FrontendService(FrontendManager manager, AppConfig appConfig)
+        public FrontendService(FrontendServiceManager manager, AppConfig appConfig)
         {
             this.AppConfig = appConfig;
             this.FrontendManager = manager;
@@ -30,9 +26,9 @@ namespace Server.Frame
 
         public void Start()
         {
-            session = FrontendManager.NetProxyManager.Service.InnerNetworkService.Create(AppConfig.InnerAddress);
-            session.OnConnectCallback += OnConnected;
-            session.Start();
+            Session = FrontendManager.NetProxyManager.Service.InnerNetworkService.Create(AppConfig.InnerAddress);
+            Session.OnConnectCallback += OnConnected;
+            Session.Start();
         }
 
         public void Update()
@@ -75,7 +71,7 @@ namespace Server.Frame
             cancellation?.Cancel();
             cancellation = new CancellationTokenSource(3000);
 
-            if (await session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
+            if (await Session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
             {
                 Logger.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId} subId {message.SubId}");
             }
@@ -99,14 +95,14 @@ namespace Server.Frame
         private async void CheckConnect()
         {
             await Task.Delay(3000);//3后重新连接
-            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} connect to {AppConfig.ApyType} {AppConfig.AppId} {session.RemoteIPEndPoint}");
+            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} connect to {AppConfig.AppType} {AppConfig.AppId} {Session.RemoteIPEndPoint}");
 
             this.Start();
         }
 
         private async void RegistService()
         {
-            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} start registe to {AppConfig.ApyType} {AppConfig.AppId} ...");
+            Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} start registe to {AppConfig.AppType} {AppConfig.AppId} ...");
 
             Msg_RegistService_Req request = new Msg_RegistService_Req()
             {

@@ -32,7 +32,7 @@ namespace Server.Frame
 
             DBConfig.Init();
             AppConfigLibrary.Init();
-            NetTopologyConfig.Init();
+            NetTopologyLibrary.Init();
         }
 
         public virtual void InitAppDiffence()
@@ -62,7 +62,7 @@ namespace Server.Frame
         //网络服务
         private void InitNetwork()
         {
-            AppConfig config = AppConfigLibrary.GetNetConfig(this.AppType, this.AppId);
+            AppConfig config = AppConfigLibrary.GetNetConfig(this.AppType, this.AppId, this.SubId);
             this.InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, config.InnerAddress);
 
             //部分App只有内部服务，Zone
