@@ -8,11 +8,8 @@ namespace Server.Frame
     {
         private readonly DepthMap<int, int, BackendService> services = new DepthMap<int, int, BackendService>();
 
-        public NetProxyManager NetProxyManager { get; private set; }
-
-        public BackendServiceManager(NetProxyManager netProxy)
+        public BackendServiceManager(NetProxyManager manager) : base(manager)
         {
-            this.NetProxyManager = netProxy;
         }
 
         public void RegistService(BackendService service)
@@ -20,7 +17,7 @@ namespace Server.Frame
             services.Add(service.AppId, service.SubId, service);
         }
 
-        public void Remove(int appId, int subId)
+        public void RemoveService(int appId, int subId)
         {
             services.Remove(appId, subId);
         }

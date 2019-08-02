@@ -109,6 +109,7 @@ namespace Server.Frame
         //网络拓扑
         private void InitNetworkTopology()
         {
+            this.NetProxyManager = new NetProxyManager();
             this.NetProxyManager.Init(this);
         }
 

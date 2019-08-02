@@ -27,9 +27,8 @@ namespace Server.Frame
                 var manager = Framework.BaseService.NetProxyManager.GetFrontendServiceManager(appType);
                 FrontendService frontend = new FrontendService(manager, config);
                 frontend.Start();
-                manager.Add(frontend);
+                manager.AddService(frontend);
             }
-
             await Task.CompletedTask;
         }
     }

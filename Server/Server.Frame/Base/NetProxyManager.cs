@@ -12,10 +12,9 @@ namespace Server.Frame
         private readonly Dictionary<AppType, BackendServiceManager> backendServices = new Dictionary<AppType, BackendServiceManager>();
 
         public BaseAppService Service { get; private set; }
-
-        public AppType AppType => Framework.AppType;
-        public int AppId => Framework.AppId;
-        public int SubId => Framework.SubId;
+        public AppType AppType => Service.AppType;
+        public int AppId => Service.AppId;
+        public int SubId => Service.SubId;
 
         public void Init(BaseAppService service)
         {
@@ -63,13 +62,13 @@ namespace Server.Frame
         public void AddFrontend(AppConfig config)
         {
             var manager = GetFrontendServiceManager(config.AppType);
-            manager.Add(config);
+            manager.AddService(config);
         }
 
         public void AddFrontend(FrontendService frontend)
         {
             var manager = GetFrontendServiceManager(frontend.AppConfig.AppType);
-            manager.Add(frontend);
+            manager.AddService(frontend);
         }
 
         private void StartFrontend()
@@ -97,7 +96,7 @@ namespace Server.Frame
             {
                 if (manager.GetService(appId, subId) != null)
                 {
-                    Logger.Error($"{appType} {appId} {subId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
+                    Logger.Warn($"{appType} {appId} {subId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
                     return;
                 }
             }

@@ -7,19 +7,17 @@ namespace Server.Frame
     public class FrontendServiceManager : BaseServiceManager
     {
         private readonly DepthMap<int, int, FrontendService> services = new DepthMap<int, int, FrontendService>();
-        public NetProxyManager NetProxyManager { get; private set; }
 
-        public FrontendServiceManager(NetProxyManager netProxy)
+        public FrontendServiceManager(NetProxyManager manager) : base(manager)
         {
-            this.NetProxyManager = netProxy;
         }
 
-        public void Add(AppConfig config)
+        public void AddService(AppConfig config)
         {
-            services.Add(NetProxyManager.AppId, NetProxyManager.SubId, new FrontendService(this, config));
+            AddService(new FrontendService(this, config));
         }
 
-        public void Add(FrontendService frontend)
+        public void AddService(FrontendService frontend)
         {
             services.Add(NetProxyManager.AppId, NetProxyManager.SubId, frontend);
         }

@@ -7,9 +7,7 @@ namespace Server.Frame
 {
     public abstract partial class BaseAppService
     {
-        private readonly NetProxyManager netProxyManager = new NetProxyManager();
-
-        public NetProxyManager NetProxyManager => netProxyManager;
+        public NetProxyManager NetProxyManager { get; private set; }
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
 

@@ -28,7 +28,7 @@ namespace Server.Frame
                 return;
             }
 
-            BackendManager.Remove(AppId, SubId);
+            BackendManager.RemoveService(AppId, SubId);
 
             Logger.Warn($"appType {AppType} {AppId} disconnect from {Framework.AppType} {Framework.AppId} {Framework.SubId}");
         }
