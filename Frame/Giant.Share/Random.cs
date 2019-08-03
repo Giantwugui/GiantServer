@@ -4,16 +4,16 @@ namespace Giant.Share
 {
     public class RANDOM
     {
-        readonly SRandom m_render;
+        readonly SRandom random;
         public RANDOM(int seed)
         {
-            m_render = new SRandom(seed);
+            random = new SRandom(seed);
         }
 
 
         public int Rand(int min, int max)
         {
-            return min + m_render.Next(max) % (max - min + 1);
+            return min + random.Next(max) % (max - min + 1);
         }
     }
 

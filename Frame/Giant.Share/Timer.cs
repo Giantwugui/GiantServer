@@ -1,9 +1,8 @@
-﻿using Giant.Share;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Server.Frame
+namespace Giant.Share
 {
     public class TimerInfo
     {
@@ -34,8 +33,6 @@ namespace Server.Frame
         public static Timer Instance { get; } = new Timer();
 
         private Timer() { }
-
-
 
         public void Update()
         {

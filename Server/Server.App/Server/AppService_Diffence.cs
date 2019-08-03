@@ -1,12 +1,13 @@
 ﻿using Giant.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Server.App
 {
     public partial class AppService
     {
+        public void AppInitGlobal()
+        {
+        }
+
         public void AppInitGate()
         {
         }
@@ -24,16 +25,13 @@ namespace Server.App
             MapMananger.Init();
         }
 
-        private void AppInitSocial()
+        private void AppInitRelation()
         {
         }
 
         private void AppInitAll()
         {
-            AppInitGate();
-            AppInitManager();
             AppInitMap();
-            AppInitSocial();
         }
 
     }

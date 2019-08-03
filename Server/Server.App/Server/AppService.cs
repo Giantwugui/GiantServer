@@ -44,10 +44,11 @@ namespace Server.App
 
         public override void InitAppDiffence()
         {
-            base.InitAppDiffence();
-
             switch (this.AppType)
             {
+                case AppType.Global:
+                    this.AppInitGlobal();
+                    break;
                 case AppType.Gate:
                     this.AppInitGate();
                     break;
@@ -58,7 +59,7 @@ namespace Server.App
                         this.AppInitMap();
                     break;
                 case AppType.Relation:
-                        this.AppInitSocial();
+                        this.AppInitRelation();
                     break;
                 case AppType.AllServer:
                         this.AppInitAll();
