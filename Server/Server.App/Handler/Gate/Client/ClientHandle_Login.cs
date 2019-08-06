@@ -19,6 +19,15 @@ namespace Server.App
     }
 
     [MessageHandler(AppType.Gate)]
+    public class ClientHandle_GetSecretKey : MRpcHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
+    {
+        public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response)
+        {
+            await Task.CompletedTask;
+        }
+    }
+
+    [MessageHandler(AppType.Gate)]
     public class ClientHandle_Login : MRpcHandler<Msg_CG_Login, Msg_GC_Login>
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)

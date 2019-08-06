@@ -26,17 +26,28 @@ message Msg_CG_HeartBeat_Ping // IRequest
 	int32 RpcId = 90;
 }
 
+message Msg_CG_Login // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;	// 帐号
+}
+
+message Msg_CG_Get_SecretKey //IRequest
+{
+	int32 RpcId = 90;
+}
+
+message Msg_CG_PlayerInfo // IRequest
+{
+	int32 RpcId = 90;
+}
+
+/*********************** Gate => Client ****************************/
 message Msg_GC_HeartBeat_Pong // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-}
-
-message Msg_CG_Login // IRequest
-{
-	int32 RpcId = 90;
-	string Account = 1;	// 帐号
 }
 
 message Msg_GC_Login // IResponse
@@ -47,9 +58,13 @@ message Msg_GC_Login // IResponse
 	int64 PlayerId = 1;
 }
 
-message Msg_CG_PlayerInfo // IRequest
+message Msg_GC_Get_SecretKey // IResponse
 {
 	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string SecretKey = 1;
 }
 
 message Msg_GC_PlayerInfo // IResponse

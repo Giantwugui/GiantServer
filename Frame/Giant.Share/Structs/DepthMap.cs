@@ -14,7 +14,7 @@ namespace Giant.Share
                 depthMap.Add(key, valueDic);
             }
 
-            depthMap[key][secondKey] = value;
+            valueDic.Add(secondKey, value);
         }
 
         public void Remove(K key, SK secondKey)
