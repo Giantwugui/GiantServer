@@ -18,7 +18,7 @@ namespace Server.App
 
         public void Remove(int uid)
         {
-            clients.Remove(client.Uid);
+            clients.Remove(uid);
         }
     }
 }
