@@ -5,6 +5,7 @@ using Math = MathMethod.Math;
 
 namespace Grpc.Test.Server
 {
+    //身份验证 https://grpc.io/docs/guides/auth/
     class Program
     {
         const string Host = "0.0.0.0";
