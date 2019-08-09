@@ -20,9 +20,9 @@ namespace Giant.Net
                     httpListener.Prefixes.Add($"http://*:{port}/");
                     Logger.Debug("Http listen port" + port);
                 });
-                httpListener.Start();
 
-                RecvAsync();
+                httpListener.Start();
+                AcceptAsync();
             }
             catch (HttpListenerException e)
             {
@@ -37,12 +37,11 @@ namespace Giant.Net
             }
         }
 
-        private async void RecvAsync()
+        private async void AcceptAsync()
         {
             while (true)
             {
                 var context = await httpListener.GetContextAsync();
-
                 DoContext(context);
             }
         }
@@ -62,21 +61,21 @@ namespace Giant.Net
 
                 Dictionary<string, string> param = new Dictionary<string, string>();
 
-                if (context.Request.HttpMethod == "GET")
+                switch (context.Request.HttpMethod)
                 {
-                    foreach (string key in context.Request.Headers)
-                    {
-                        param.Add(key, context.Request.Headers[key]);
-                    }
-                }
-                else //"POST"
-                {
-                    using (StreamReader reader = new StreamReader(context.Request.InputStream))
-                    {
-                        string content = await reader.ReadToEndAsync();
-
-                        param = HttpHelper.ParaseContent(content);
-                    }
+                    case ("GET"):
+                        foreach (string key in context.Request.QueryString)
+                        {
+                            param.Add(key, context.Request.QueryString[key]);
+                        }
+                        break;
+                    case "POST":
+                        using (StreamReader reader = new StreamReader(context.Request.InputStream))
+                        {
+                            string content = await reader.ReadToEndAsync();
+                            param = HttpHelper.ParaseContent(content);
+                        }
+                        break;
                 }
 
                 using (StreamWriter stream = new StreamWriter(context.Response.OutputStream))

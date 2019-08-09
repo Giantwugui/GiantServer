@@ -41,29 +41,6 @@ namespace Giant.Net
         /// 使用post方法异步请求
         /// </summary>
         /// <param name="url">目标链接</param>
-        /// <param name="message">发送的参数字符串</param>
-        /// <param name="head">http头</param>
-        /// <returns>返回的字符串</returns>
-        public static async Task<string> PostAsync(string url, string message, Dictionary<string, string> head = null)
-        {
-            HttpClient client = new HttpClient();
-            HttpContent content = new StringContent(message);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            if (head != null)
-            {
-                head.ForEach(kv => client.DefaultRequestHeaders.Add(kv.Key, kv.Value));
-            }
-
-            HttpResponseMessage response = await client.PostAsync(url, content);
-            string result = await response.Content.ReadAsStringAsync();
-            return result;
-        }
-
-        /// <summary>
-        /// 使用post方法异步请求
-        /// </summary>
-        /// <param name="url">目标链接</param>
         /// <param name="json">发送的参数字符串，只能用json</param>
         /// <returns>返回的字符串</returns>
         public static async Task<string> PostAsyncJson(string url, string json)
@@ -75,6 +52,27 @@ namespace Giant.Net
             HttpResponseMessage response = await client.PostAsync(url, content);
             response.EnsureSuccessStatusCode();
             string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+            client.Dispose();
+            return result;
+        }
+
+        /// <summary>
+        /// 使用post方法异步请求
+        /// </summary>
+        /// <param name="url">目标链接</param>
+        /// <param name="message">发送的参数字符串</param>
+        /// <returns>返回的字符串</returns>
+        public static async Task<string> PostAsync(string url, string message)
+        {
+            HttpClient client = new HttpClient();
+            HttpContent content = new StringContent(message);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+            client.Dispose();
             return result;
         }
 
@@ -92,21 +90,25 @@ namespace Giant.Net
 
             HttpResponseMessage response = await client.PostAsync(url, content);
             string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+            client.Dispose();
             return result;
         }
 
         public static async Task<string> GetAsync(string url, Dictionary<string, string> head)
         {
             HttpClient client = new HttpClient();
-            head.ForEach(kv => client.DefaultRequestHeaders.Add(kv.Key, kv.Value));
+            url = BuildUrl(url, head);
 
             HttpResponseMessage response = await client.GetAsync(url);
             string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+            client.Dispose();
             return result;
         }
 
 
-        public static Dictionary<string, string> ParaseParmas(string url)
+        public static Dictionary<string, string> ParaseParams(string url)
         {
             Dictionary<string, string> param = new Dictionary<string, string>();
 
@@ -145,7 +147,6 @@ namespace Giant.Net
                 foreach (var curr in message.Split(splitParam, StringSplitOptions.RemoveEmptyEntries))
                 {
                     string[] kv = curr.Split(splitKV);
-
                     if (kv.Length != 2) continue;
 
                     param[kv[0]] = kv[1];
@@ -164,7 +165,6 @@ namespace Giant.Net
         public static string BuildUrl(string url, Dictionary<string, string> pairs)
         {
             string paramStr = BuildParams(pairs);
-
             return $"{url}?{paramStr}";
         }
 
@@ -176,11 +176,8 @@ namespace Giant.Net
         public static string BuildParams(Dictionary<string, string> param)
         {
             List<string> kvs = new List<string>();
-
             param.ForEach(kv => kvs.Add($"{kv.Key}={kv.Value}"));
-
             string paramStr = string.Join("&", kvs);
-
             return paramStr;
         }
     }
