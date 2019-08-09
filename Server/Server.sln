@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Data", "..\Frame\Gian
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Frame", "Server.Frame\Server.Frame.csproj", "{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Grpc", "..\Frame\Giant.Grpc\Giant.Grpc.csproj", "{67854FC3-124F-4D02-8949-1F146ED51B6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C11A40F4-BD9B-40EF-8E76-4FB0C004FDB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67854FC3-124F-4D02-8949-1F146ED51B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67854FC3-124F-4D02-8949-1F146ED51B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67854FC3-124F-4D02-8949-1F146ED51B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67854FC3-124F-4D02-8949-1F146ED51B6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +96,7 @@ Global
 		{6001C596-F2AC-446E-AA9A-60F1AF0E2E64} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{C9D17A8D-B9AA-47AA-BAEB-A3FD9C6C9924} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 		{9A861E58-564F-45CB-89AA-E7DA48B0D537} = {04646BC4-06AB-44C9-9112-19A442F41B42}
+		{67854FC3-124F-4D02-8949-1F146ED51B6F} = {04646BC4-06AB-44C9-9112-19A442F41B42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6848430-138E-45F6-B81B-350B8222A883}
