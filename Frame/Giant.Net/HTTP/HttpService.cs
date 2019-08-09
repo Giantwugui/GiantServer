@@ -3,12 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 
 namespace Giant.Net
 {
     public class HttpService
     {
         private HttpListener httpListener;
+
+        private Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
+        private Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
 
         public void Start(List<int> ports)
         {
@@ -34,6 +38,37 @@ namespace Giant.Net
             catch (Exception e)
             {
                 Console.WriteLine(e);
+            }
+        }
+
+        private void Load()
+        {
+            Attribute attribute;
+            Assembly assembly = Assembly.GetEntryAssembly();
+            var types = assembly.GetTypes();
+            foreach (var type in types)
+            {
+                attribute = type.GetCustomAttribute(typeof(HttpHandlerAttribute));
+                if (attribute == null)
+                {
+                    continue;
+                }
+                if (!type.IsSubclassOf(typeof(BaseHttpHandler)))
+                {
+                    continue;
+                }
+                var handler = Activator.CreateInstance(type) as BaseHttpHandler;
+                var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
+                foreach(var method in methods)
+                {
+                    IHttpAttribute httpAttribute = method.GetCustomAttribute<IHttpAttribute>();
+                    if (attribute == null)
+                    {
+                        continue;
+                    }
+
+                    getMethodes.Add(httpAttribute.Name, method);
+                }
             }
         }
 
