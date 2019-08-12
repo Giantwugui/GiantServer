@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using Giant.Share;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Giant.Net
 {
     public class HttpService
     {
         private HttpListener httpListener;
-
-        private Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
-        private Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
+        private readonly Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
+        private readonly Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
+        private readonly Dictionary<MethodInfo, BaseHttpHandler> methodClassMap = new Dictionary<MethodInfo, BaseHttpHandler>();
 
         public void Start(List<int> ports)
         {
@@ -41,14 +43,23 @@ namespace Giant.Net
             }
         }
 
-        private void Load()
+        private async void AcceptAsync()
         {
-            Attribute attribute;
-            Assembly assembly = Assembly.GetEntryAssembly();
+            while (true)
+            {
+                var context = await httpListener.GetContextAsync();
+                await DoContext(context);
+                context.Response.Close();
+            }
+        }
+
+        public void Load(Assembly assembly)
+        {
+            HttpHandlerAttribute attribute;
             var types = assembly.GetTypes();
             foreach (var type in types)
             {
-                attribute = type.GetCustomAttribute(typeof(HttpHandlerAttribute));
+                attribute = type.GetCustomAttribute<HttpHandlerAttribute>();
                 if (attribute == null)
                 {
                     continue;
@@ -57,71 +68,160 @@ namespace Giant.Net
                 {
                     continue;
                 }
+                if (string.IsNullOrEmpty(attribute.Path))
+                {
+                    continue;
+                }
+
                 var handler = Activator.CreateInstance(type) as BaseHttpHandler;
                 var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
                 foreach(var method in methods)
                 {
-                    IHttpAttribute httpAttribute = method.GetCustomAttribute<IHttpAttribute>();
-                    if (attribute == null)
+                    GetAttribute getAttribute = method.GetCustomAttribute<GetAttribute>();
+                    if (getAttribute != null)
                     {
-                        continue;
+                        getMethodes.Add(attribute.Path + method.Name, method);
                     }
 
-                    getMethodes.Add(httpAttribute.Name, method);
+                    PostAttribute postAttribute = method.GetCustomAttribute<PostAttribute>();
+                    if (postAttribute != null)
+                    {
+                        postMethodes.Add(attribute.Path + method.Name, method);
+                    }
+
+                    methodClassMap.Add(method, handler);
                 }
             }
         }
 
-        private async void AcceptAsync()
-        {
-            while (true)
-            {
-                var context = await httpListener.GetContextAsync();
-                DoContext(context);
-            }
-        }
-
-        private async void DoContext(HttpListenerContext context)
+        private async Task DoContext(HttpListenerContext context)
         {
             try
             {
-                //网页请求
-                //if (context.Request.RawUrl.Contains("favicon.ico"))
-                //{
-                //    context.Response.Close();
-                //    context.Response.Abort();
-                //    return;
-                //}
-
-
-                Dictionary<string, string> param = new Dictionary<string, string>();
-
+                string content = "";
+                MethodInfo method = null;
                 switch (context.Request.HttpMethod)
                 {
                     case ("GET"):
-                        foreach (string key in context.Request.QueryString)
-                        {
-                            param.Add(key, context.Request.QueryString[key]);
-                        }
+                        getMethodes.TryGetValue(context.Request.Url.AbsolutePath, out method);
                         break;
                     case "POST":
+                        postMethodes.TryGetValue(context.Request.Url.AbsolutePath, out method);
                         using (StreamReader reader = new StreamReader(context.Request.InputStream))
                         {
-                            string content = await reader.ReadToEndAsync();
-                            param = HttpHelper.ParaseContent(content);
+                            content = await reader.ReadToEndAsync();
                         }
                         break;
                 }
 
-                using (StreamWriter stream = new StreamWriter(context.Response.OutputStream))
+                if (method == null)
                 {
-                    await stream.WriteAsync(DateTime.Now.ToString());
+                    Logger.Error($"have not got method {context.Request.Url} path {context.Request.Url.AbsolutePath}");
+                    return;
+                }
+
+                methodClassMap.TryGetValue(method, out var httpHandler);
+                if (httpHandler == null)
+                {
+                    Logger.Error($"have not got class {method.Name}");
+                    return;
+                }
+
+                object[] args = InjectParameters(context, method, content);
+                object result = method.Invoke(httpHandler, args);
+                if (result is Task<object> task)
+                {
+                    result = await task;
+                }
+
+                string message = "";
+                if (result != null)
+                {
+                    if (result is string)
+                    {
+                        message = result as string;
+                    }
+                    else
+                    {
+                        message = result.ToJson();
+                    }
+                }
+
+                using (StreamWriter writer = new StreamWriter(context.Response.OutputStream))
+                {
+                    writer.Write(message);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+        }
+
+        /// <summary>
+        /// 注入参数
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="methodInfo"></param>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        private static object[] InjectParameters(HttpListenerContext context, MethodInfo methodInfo, string content)
+        {
+            context.Response.StatusCode = 200;
+            ParameterInfo[] parameterInfos = methodInfo.GetParameters();
+            object[] args = new object[parameterInfos.Length];
+            for (int i = 0; i < parameterInfos.Length; i++)
+            {
+                ParameterInfo item = parameterInfos[i];
+
+                if (item.ParameterType == typeof(HttpListenerRequest))
+                {
+                    args[i] = context.Request;
+                    continue;
+                }
+
+                if (item.ParameterType == typeof(HttpListenerResponse))
+                {
+                    args[i] = context.Response;
+                    continue;
+                }
+
+                try
+                {
+                    switch (context.Request.HttpMethod)
+                    {
+                        case "POST":
+                            if (item.Name == "content") // 约定参数名称为content,只传string类型。也可以是byte[]，有需求可以改。
+                            {
+                                args[i] = content;
+                            }
+                            else if (item.ParameterType.IsClass && item.ParameterType != typeof(string) && !string.IsNullOrEmpty(content))
+                            {
+                                object entity = JsonHelper.FromJson(content, item.ParameterType);
+                                args[i] = entity;
+                            }
+                            break;
+                        case "GET":
+                            string query = context.Request.QueryString[item.Name];
+                            if (query != null)
+                            {
+                                object value = Convert.ChangeType(query, item.ParameterType);
+                                args[i] = value;
+                            }
+                            break;
+                        default:
+                            args[i] = null;
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Logger.Error(e);
+                    args[i] = null;
+                }
+            }
+
+            return args;
         }
 
     }

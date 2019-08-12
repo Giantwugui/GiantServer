@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
+    <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Share\Giant.Share.csproj" />
   </ItemGroup>

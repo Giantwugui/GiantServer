@@ -7,33 +7,22 @@ namespace Giant.Net
     public class HttpHandlerAttribute : Attribute
     {
         public AppType AppType { get; private set; }
+        public string Path { get; private set; }
 
-        public HttpHandlerAttribute(AppType serverType)
+        public HttpHandlerAttribute(AppType serverType, string path)
         {
             this.AppType = serverType;
-        }
-    }
-
-    public abstract class IHttpAttribute : Attribute
-    {
-        public string Name { get; protected set; }
-    }
-
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class GetAttribute : IHttpAttribute
-    {
-        public GetAttribute(string name)
-        {
-            this.Name = name;
+            this.Path = path;
         }
     }
 
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class PostAttribute : IHttpAttribute
+    public class GetAttribute : Attribute
     {
-        public PostAttribute(string name)
-        {
-            this.Name = name;
-        }
+    }
+
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    public class PostAttribute : Attribute
+    {
     }
 }
