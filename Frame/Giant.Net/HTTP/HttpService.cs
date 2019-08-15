@@ -102,7 +102,7 @@ namespace Giant.Net
                 MethodInfo method = null;
                 switch (context.Request.HttpMethod)
                 {
-                    case ("GET"):
+                    case "GET":
                         getMethodes.TryGetValue(context.Request.Url.AbsolutePath, out method);
                         break;
                     case "POST":
@@ -197,7 +197,7 @@ namespace Giant.Net
                             }
                             else if (item.ParameterType.IsClass && item.ParameterType != typeof(string) && !string.IsNullOrEmpty(content))
                             {
-                                object entity = JsonHelper.FromJson(content, item.ParameterType);
+                                object entity = content.FromJson(item.ParameterType);
                                 args[i] = entity;
                             }
                             break;
