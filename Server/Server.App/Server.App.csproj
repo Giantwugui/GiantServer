@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Server.Frame\Server.Frame.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handler\Http\" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,8 @@
 ﻿using Giant.Share;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -12,30 +14,80 @@ namespace Giant.Net
         static readonly char[] splitParam = new char[] { '&' };
         static readonly char[] splitKV = new char[] { '=' };
 
-        //public static async Task<string> PostAsync(string url, Dictionary<string, string> pairs)
-        //{
-        //    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-        //    request.Method = "POST";
-        //    request.ContentType = "application/x-www-form-urlencoded";
-        //    request.Timeout = 5000;
+        public static async Task<string> HttpWebPostAsync(string url, Dictionary<string, string> pairs)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Timeout = 5000;
 
-        //    string sendData = BuildParams(pairs);
-        //    request.ContentLength = sendData.Length;
+            string sendData = BuildParams(pairs);
+            request.ContentLength = sendData.Length;
 
-        //    using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-        //    {
-        //        await writer.WriteAsync(sendData);
-        //    }
+            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
+            {
+                await writer.WriteAsync(sendData);
+            }
 
-        //    HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
+            HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                string content = await reader.ReadToEndAsync();
+                return content;
+            }
+        }
 
-        //    using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-        //    {
-        //        string content = await reader.ReadToEndAsync();
+        /// <summary>
+        /// 使用post方法异步请求
+        /// </summary>
+        /// <param name="url">目标链接</param>
+        /// <param name="message">发送的参数字符串</param>
+        /// <returns>返回的字符串</returns>
+        public static async Task<string> PostAsync(string url, string message)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                return await PostAsync(client, url, message);
+            }
+        }
 
-        //        return content;
-        //    }
-        //}
+        public static async Task<string> PostAsync(HttpClient client, string url, string message)
+        {
+            HttpContent content = new StringContent(message);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+
+            return result;
+        }
+
+        /// <summary>
+        /// 使用post方法异步请求
+        /// </summary>
+        /// <param name="url">目标链接</param>
+        /// <param name="message">http头</param>
+        /// <returns></returns>
+        public static async Task<string> PostAsync(string url, Dictionary<string, string> message)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                return await PostAsync(client, url, message);
+            }
+        }
+
+        public static async Task<string> PostAsync(HttpClient client, string url, Dictionary<string, string> message)
+        {
+            HttpContent content = new FormUrlEncodedContent(message);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+
+            HttpResponseMessage response = await client.PostAsync(url, content);
+            string result = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+
+            return result;
+        }
 
         /// <summary>
         /// 使用post方法异步请求
@@ -57,56 +109,23 @@ namespace Giant.Net
             return result;
         }
 
-        /// <summary>
-        /// 使用post方法异步请求
-        /// </summary>
-        /// <param name="url">目标链接</param>
-        /// <param name="message">发送的参数字符串</param>
-        /// <returns>返回的字符串</returns>
-        public static async Task<string> PostAsync(string url, string message)
+        public static async Task<string> GetAsync(string url, Dictionary<string, string> head = null)
         {
-            HttpClient client = new HttpClient();
-            HttpContent content = new StringContent(message);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            HttpResponseMessage response = await client.PostAsync(url, content);
-            string result = await response.Content.ReadAsStringAsync();
-            response.Dispose();
-            client.Dispose();
-            return result;
+            using (HttpClient client = new HttpClient())
+            {
+                return await GetAsync(client, url, head);
+            }
         }
 
-        /// <summary>
-        /// 使用post方法异步请求
-        /// </summary>
-        /// <param name="url">目标链接</param>
-        /// <param name="message">http头</param>
-        /// <returns></returns>
-        public static async Task<string> PostAsync(string url, Dictionary<string, string> message)
+        public static async Task<string> GetAsync(HttpClient client, string url, Dictionary<string, string> head = null)
         {
-            HttpClient client = new HttpClient();
-            HttpContent content = new FormUrlEncodedContent(message);
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-
-            HttpResponseMessage response = await client.PostAsync(url, content);
-            string result = await response.Content.ReadAsStringAsync();
-            response.Dispose();
-            client.Dispose();
-            return result;
-        }
-
-        public static async Task<string> GetAsync(string url, Dictionary<string, string> head)
-        {
-            HttpClient client = new HttpClient();
             url = BuildUrl(url, head);
-
             HttpResponseMessage response = await client.GetAsync(url);
             string result = await response.Content.ReadAsStringAsync();
             response.Dispose();
-            client.Dispose();
+
             return result;
         }
-
 
         public static Dictionary<string, string> ParaseParams(string url)
         {
@@ -164,6 +183,11 @@ namespace Giant.Net
         /// <returns></returns>
         public static string BuildUrl(string url, Dictionary<string, string> pairs)
         {
+            if (pairs == null)
+            {
+                return url;
+            }
+
             string paramStr = BuildParams(pairs);
             return $"{url}?{paramStr}";
         }
@@ -177,8 +201,7 @@ namespace Giant.Net
         {
             List<string> kvs = new List<string>();
             param.ForEach(kv => kvs.Add($"{kv.Key}={kv.Value}"));
-            string paramStr = string.Join("&", kvs);
-            return paramStr;
+            return string.Join("&", kvs);
         }
     }
 }

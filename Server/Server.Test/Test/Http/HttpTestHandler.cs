@@ -1,6 +1,7 @@
-﻿using Giant.Net;
+﻿using Giant.Log;
+using Giant.Net;
 using Giant.Share;
-using System.Collections.Generic;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Test
@@ -20,11 +21,19 @@ namespace Server.Test
             return 1;
         }
 
-        [Get]
-        public async Task<int> GetVAsync()
+        [Post]
+        public static string TestPostTime(string content)
         {
-            await Task.Delay(5000);
-            return 5000;
+            DateTime sendT = DateTime.Parse(content);
+            Logger.Debug($"sendTime {content} costTime{(DateTime.Now - sendT).TotalMilliseconds}");
+            return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+
+        [Get]
+        public async Task<HttpResult> GetVAsync()
+        {
+            await Task.Delay(1);
+            return Success(DateTime.Now);
         }
     }
 }

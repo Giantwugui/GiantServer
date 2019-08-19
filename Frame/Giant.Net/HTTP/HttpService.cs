@@ -120,7 +120,7 @@ namespace Giant.Net
                     return;
                 }
 
-                methodClassMap.TryGetValue(method, out var httpHandler);
+                methodClassMap.TryGetValue(method, out BaseHttpHandler httpHandler);
                 if (httpHandler == null)
                 {
                     Logger.Error($"have not got class {method.Name}");
@@ -129,27 +129,18 @@ namespace Giant.Net
 
                 object[] args = InjectParameters(context, method, content);
                 object result = method.Invoke(httpHandler, args);
-                if (result is Task<object> task)
+                if (result is Task<HttpResult> task)
                 {
-                    result = await task;
+                    await task;
+                    result = task.Result;
                 }
 
-                string message = "";
                 if (result != null)
                 {
-                    if (result is string)
+                    using (StreamWriter writer = new StreamWriter(context.Response.OutputStream))
                     {
-                        message = result as string;
+                        writer.Write(result.ToJson());
                     }
-                    else
-                    {
-                        message = result.ToJson();
-                    }
-                }
-
-                using (StreamWriter writer = new StreamWriter(context.Response.OutputStream))
-                {
-                    writer.Write(message);
                 }
             }
             catch (Exception ex)
