@@ -6,7 +6,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Server.App
+namespace Server.Map
 {
     public class Benchmark
     {

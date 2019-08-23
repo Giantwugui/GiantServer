@@ -1,11 +1,8 @@
 ﻿using Giant.Data;
 using Giant.Share;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 
-namespace Server.App
+namespace Server.Map
 {
     public class MapMananger
     {

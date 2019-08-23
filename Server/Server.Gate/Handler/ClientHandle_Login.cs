@@ -5,7 +5,7 @@ using Giant.Net;
 using Giant.Share;
 using System.Threading.Tasks;
 
-namespace Server.App
+namespace Server.Gate
 {
     [MessageHandler(AppType.Gate)]
     public class ClientHandle_Ping : RpcMHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>

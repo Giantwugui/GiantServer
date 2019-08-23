@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Server.App
+namespace Server.Gate
 {
     [BsonIgnoreExtraElements]
     public class AccountInfo

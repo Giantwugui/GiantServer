@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handler\Http\" />
+    <Folder Include="Handler\" />
+    <Folder Include="Server\" />
   </ItemGroup>
 
 </Project>

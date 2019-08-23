@@ -4,7 +4,7 @@ using System.Text;
 using Giant.Net;
 using Giant.Share;
 
-namespace Server.App
+namespace Server.Gate
 {
     public class ClientManager
     {

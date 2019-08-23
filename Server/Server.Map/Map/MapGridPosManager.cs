@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Server.App
+namespace Server.Map
 {
     public class MapGridPosManager
     {

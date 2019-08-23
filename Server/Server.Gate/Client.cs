@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Server.App
+namespace Server.Gate
 {
     public class Client
     {

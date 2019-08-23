@@ -12,6 +12,8 @@ namespace Server.Frame
 {
     public partial class BaseAppService
     {
+        public abstract void Start(string[] args);
+
         public virtual void Init(string[] args)
         {
             //框架的各种初始化
@@ -33,10 +35,6 @@ namespace Server.Frame
             DBConfig.Init();
             AppConfigLibrary.Init();
             NetTopologyLibrary.Init();
-        }
-
-        public virtual void InitAppDiffence()
-        {
         }
 
         private void InitBase(string[] args)

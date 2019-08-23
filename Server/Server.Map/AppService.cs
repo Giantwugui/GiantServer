@@ -3,26 +3,46 @@ using Giant.Log;
 using Giant.Share;
 using System;
 using EpPathFinding;
+using System.Threading;
+using Giant.Data;
 
-namespace Server.App
+namespace Server.Map
 {
-    public partial class AppService : BaseAppService
+    public class AppService : BaseAppService
     {
         public static AppService Instacne { get; } = new AppService();
 
-        public MapMananger MapMananger { get; private set; }
+        private readonly MapMananger mapMananger = new MapMananger();
+        public MapMananger MapMananger => mapMananger;
 
-        private AppService() { }
+        public override void Start(string[] args)
+        {
+            this.Init(args);
+
+            Logger.Warn($"server start complete------------- appType {Framework.AppType} appId {Framework.AppId}");
+
+            this.DoUpdate();
+        }
 
         public override void Init(string[] args)
         {
             //框架的各种初始化工作
             base.Init(args);
 
-            this.InitAppDiffence();
-            this.InitDone();
+            mapMananger.Init();
 
+            this.InitDone();
             ConsoleReader.Instance.Start(DoCmd);
+        }
+
+        private void DoUpdate()
+        {
+            while (true)
+            {
+                Thread.Sleep(1);
+
+                this.Update(1 * 0.01f);
+            }
         }
 
         public override void Update(float dt)
@@ -40,31 +60,8 @@ namespace Server.App
         public override void InitData()
         {
             base.InitData();
-        }
-
-        public override void InitAppDiffence()
-        {
-            switch (this.AppType)
-            {
-                case AppType.Global:
-                    this.AppInitGlobal();
-                    break;
-                case AppType.Gate:
-                    this.AppInitGate();
-                    break;
-                case AppType.Manager:
-                        this.AppInitManager();
-                    break;
-                case AppType.Map:
-                        this.AppInitMap();
-                    break;
-                case AppType.Relation:
-                        this.AppInitRelation();
-                    break;
-                case AppType.AllServer:
-                        this.AppInitAll();
-                    break;
-            }
+            MapLibrary.Init();
+            MapGridPosManager.Init();
         }
 
         public override void InitDone()
