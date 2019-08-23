@@ -89,7 +89,10 @@ namespace Giant.Net
                         postMethodes.Add(attribute.Path + method.Name, method);
                     }
 
-                    methodClassMap.Add(method, handler);
+                    if (getAttribute != null || postAttribute != null)
+                    {
+                        methodClassMap.Add(method, handler);
+                    }
                 }
             }
         }

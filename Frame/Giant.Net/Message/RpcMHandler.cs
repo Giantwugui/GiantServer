@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Giant.Net
 {
     //请求响应类消息
-    public abstract class MRpcHandler<Request, Response> : IMHandler where Request : class, IRequest where Response : class, IResponse
+    public abstract class RpcMHandler<Request, Response> : IMHandler where Request : class, IRequest where Response : class, IResponse
     {
         public abstract Task Run(Session session, Request request, Response response);
 
