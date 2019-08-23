@@ -14,6 +14,7 @@ namespace Server.Gate
         {
             response.Error = ErrorCode.Success;
             Logger.Debug($"client heart beat !");
+
             await Task.CompletedTask;
         }
     }
@@ -32,22 +33,20 @@ namespace Server.Gate
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
-            var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
-            AccountInfo account = await query.Task();
-            if (account == null)
+            ClientEntry entry = ClientManager.Instance.GetClientEntry(request.Account);
+            if (entry == null)
             {
-                account = new AccountInfo()
-                {
-                    Account = request.Account,
-                };
-
-                var insertQuery = new MongoDBInsert<AccountInfo>("Account", account);
-                bool result = await insertQuery.Task();
+                response.Error = ErrorCode.Fail;
+                return;
             }
 
-            Logger.Warn($"user login {request.Account}");
-
-            response.Error = ErrorCode.Success;
+            var query = new MongoDBQuery<PlayerInfo>("Player", x => x.Uid == request.Uid);
+            PlayerInfo playerInfo = await query.Task();
+            if (playerInfo == null)
+            {
+                response.Error = ErrorCode.HaveNotFindCharacer;
+                return;
+            }
         }
     }
 }

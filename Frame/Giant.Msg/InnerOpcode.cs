@@ -5,6 +5,9 @@ namespace Giant.Msg
 	[Message(InnerOpcode.Msg_GM_StopApp)]
 	public partial class Msg_GM_StopApp : IMessage {}
 
+	[Message(InnerOpcode.Msg_AG_ClientLogin)]
+	public partial class Msg_AG_ClientLogin : IMessage {}
+
 	[Message(InnerOpcode.Msg_Service_Info)]
 	public partial class Msg_Service_Info : IMessage {}
 
@@ -32,17 +35,19 @@ namespace Giant.Msg
 	public static partial class InnerOpcode
 	{
 		 public const ushort Msg_GM_StopApp = 1001;
-		 public const ushort Msg_Service_Info = 1002;
-		 public const ushort Msg_HeartBeat_Ping = 1003;
-		 public const ushort Msg_HeartBeat_Pong = 1004;
-		 public const ushort Msg_RegistService_Req = 1005;
-		 public const ushort Msg_RegistService_Rep = 1006;
-		 public const ushort Msg_RG_GetLoginKey = 1007;
-		 public const ushort Msg_GetLoginKey = 1008;
+		 public const ushort Msg_AG_ClientLogin = 1002;
+		 public const ushort Msg_Service_Info = 1003;
+		 public const ushort Msg_HeartBeat_Ping = 1004;
+		 public const ushort Msg_HeartBeat_Pong = 1005;
+		 public const ushort Msg_RegistService_Req = 1006;
+		 public const ushort Msg_RegistService_Rep = 1007;
+		 public const ushort Msg_RG_GetLoginKey = 1008;
+		 public const ushort Msg_GetLoginKey = 1009;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
 			{Msg_GM_StopApp, typeof(Msg_GM_StopApp)},
+			{Msg_AG_ClientLogin, typeof(Msg_AG_ClientLogin)},
 			{Msg_Service_Info, typeof(Msg_Service_Info)},
 			{Msg_HeartBeat_Ping, typeof(Msg_HeartBeat_Ping)},
 			{Msg_HeartBeat_Pong, typeof(Msg_HeartBeat_Pong)},

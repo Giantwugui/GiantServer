@@ -8,6 +8,14 @@ message Msg_GM_StopApp // IMessage
 	int32 AppId = 1;
 }
 
+/*********************** Account ==> Gate ****************************/
+
+message Msg_AG_ClientLogin // IMessage
+{
+	string Account = 1;
+	int32 Token = 2;
+}
+
 /*********************** Global ****************************/
 
 message Msg_Service_Info //IMessage

@@ -3,11 +3,12 @@ namespace Giant.Net
 	public static class ErrorCode
 	{
 		public const int Success = 0;
-		
-		// 1-11004 是SocketError请看SocketError定义
-		//-----------------------------------
-		// 100000 以上，避免跟SocketError冲突
-		public const int MyErrorCode = 100000;
+		public const int Fail = 0;
+
+        // 1-11004 是SocketError请看SocketError定义
+        //-----------------------------------
+        // 100000 以上，避免跟SocketError冲突
+        public const int MyErrorCode = 100000;
 		
 		public const int ActorNoMailBoxComponent = 100003;
 		public const int ActorRemove = 100004;
@@ -41,9 +42,10 @@ namespace Giant.Net
 		public const int NotFoundActor = 200002;
 		
 		public const int AccountOrPasswordError = 200102;
+        public const int HaveNotFindCharacer = 200105;
 
-		//-----------------------------------
-		public static bool IsRpcNeedThrowException(int error)
+        //-----------------------------------
+        public static bool IsRpcNeedThrowException(int error)
 		{
 			if (error == 0)
 			{
