@@ -22,11 +22,8 @@ namespace Giant.DataTask
 
         public void AddTask(DataTask task)
         {
-            ++this.taskId;
-            task.TaskId = this.taskId;
+            task.TaskId = ++this.taskId;
             taskList[(int)(this.taskId % this.taskList.Count)].Add(task);
         }
-
-
     }
 }

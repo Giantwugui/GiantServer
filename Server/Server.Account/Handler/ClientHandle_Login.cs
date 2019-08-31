@@ -63,12 +63,11 @@ namespace Server.Account
                     account.Zones.Add(request.Zone);
                     await account.UpdateTask();
                 }
-
             }
 
             response.Error = ErrorCode.Success;
 
-            Logger.Debug($"user login {request.Account}");
+            Logger.Debug($"user login {session.RemoteIPEndPoint} {request.Account}");
         }
     }
 }
