@@ -106,6 +106,15 @@ namespace Server.Frame
             NotifyServices(backend);
         }
 
+        public BackendService GetBackendWithCharge(AppType appType, int appId)
+        {
+            if (backendServices.TryGetValue(appType, out var manager))
+            {
+
+            }
+            return null;
+        }
+
         #endregion
 
 

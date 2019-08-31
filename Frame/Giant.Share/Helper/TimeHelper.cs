@@ -15,8 +15,20 @@ namespace Giant.Share
         public static long NowMilliSeconds => (Now.Ticks - startTimeTicks) / 10000;
         public static long NowSeconds => (Now.Ticks - startTimeTicks) / 10000000;
 
-        public static string NowString { get { return Now.ToString(TimeStr); } }
-        public static string NowString1 { get { return Now.ToString(TimeStr1); } }
+
+        /// <summary>
+        /// yyyy-MM-dd HH:mm:ss
+        /// </summary>
+        public static string NowString { get { return Now.ToString(TimeStr1); } }
+
+        /// <summary>
+        /// yyMMddHHmmss
+        /// </summary>
+        public static string NowString1 { get { return Now.ToString(TimeStr); } }
+
+        /// <summary>
+        /// yyyy-MM-dd HH:mm:ss.fff
+        /// </summary>
         public static string NowStringWithSeconds { get { return Now.ToString(TimeStrWithSeconds); } }
 
         public static int GetTimeStamp(DateTime time)

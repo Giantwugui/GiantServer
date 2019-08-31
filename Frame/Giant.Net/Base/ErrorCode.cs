@@ -42,6 +42,7 @@ namespace Giant.Net
 		public const int NotFoundActor = 200002;
 		
 		public const int AccountOrPasswordError = 200102;
+		public const int HaveNotFindAccount = 200103;
         public const int HaveNotFindCharacer = 200105;
 
         //-----------------------------------

@@ -2,11 +2,17 @@ using System;
 using System.Collections.Generic;
 namespace Giant.Msg
 {
-	[Message(OuterOpcode.Msg_CA_Login)]
-	public partial class Msg_CA_Login : IRequest {}
+	[Message(OuterOpcode.Msg_CA_Login_Account)]
+	public partial class Msg_CA_Login_Account : IRequest {}
 
-	[Message(OuterOpcode.Msg_AC_Login)]
-	public partial class Msg_AC_Login : IResponse {}
+	[Message(OuterOpcode.Msg_AC_Login_Account)]
+	public partial class Msg_AC_Login_Account : IResponse {}
+
+	[Message(OuterOpcode.Msg_CA_Login_Zone)]
+	public partial class Msg_CA_Login_Zone : IRequest {}
+
+	[Message(OuterOpcode.Msg_AC_Login_Zone)]
+	public partial class Msg_AC_Login_Zone : IResponse {}
 
 	[Message(OuterOpcode.Msg_CG_HeartBeat_Ping)]
 	public partial class Msg_CG_HeartBeat_Ping : IRequest {}
@@ -64,30 +70,34 @@ namespace Giant.Msg
 {
 	public static partial class OuterOpcode
 	{
-		 public const ushort Msg_CA_Login = 101;
-		 public const ushort Msg_AC_Login = 102;
-		 public const ushort Msg_CG_HeartBeat_Ping = 103;
-		 public const ushort Msg_CG_Login = 104;
-		 public const ushort Msg_CG_Get_SecretKey = 105;
-		 public const ushort Msg_CG_PlayerInfo = 106;
-		 public const ushort Msg_GC_HeartBeat_Pong = 107;
-		 public const ushort Msg_GC_Login = 108;
-		 public const ushort Msg_GC_Get_SecretKey = 109;
-		 public const ushort Msg_GC_PlayerInfo = 110;
-		 public const ushort PlayerInfo = 111;
-		 public const ushort Msg_CG_EnterMap = 112;
-		 public const ushort Msg_GC_EnterMap = 113;
-		 public const ushort Msg_UnitInfo = 114;
-		 public const ushort Msg_MC_PathfindingResult = 115;
-		 public const ushort CM_Reload = 116;
-		 public const ushort MC_Reload = 117;
-		 public const ushort ZGC_Broadcast = 118;
-		 public const ushort Msg_CG_TestMap = 119;
+		 public const ushort Msg_CA_Login_Account = 101;
+		 public const ushort Msg_AC_Login_Account = 102;
+		 public const ushort Msg_CA_Login_Zone = 103;
+		 public const ushort Msg_AC_Login_Zone = 104;
+		 public const ushort Msg_CG_HeartBeat_Ping = 105;
+		 public const ushort Msg_CG_Login = 106;
+		 public const ushort Msg_CG_Get_SecretKey = 107;
+		 public const ushort Msg_CG_PlayerInfo = 108;
+		 public const ushort Msg_GC_HeartBeat_Pong = 109;
+		 public const ushort Msg_GC_Login = 110;
+		 public const ushort Msg_GC_Get_SecretKey = 111;
+		 public const ushort Msg_GC_PlayerInfo = 112;
+		 public const ushort PlayerInfo = 113;
+		 public const ushort Msg_CG_EnterMap = 114;
+		 public const ushort Msg_GC_EnterMap = 115;
+		 public const ushort Msg_UnitInfo = 116;
+		 public const ushort Msg_MC_PathfindingResult = 117;
+		 public const ushort CM_Reload = 118;
+		 public const ushort MC_Reload = 119;
+		 public const ushort ZGC_Broadcast = 120;
+		 public const ushort Msg_CG_TestMap = 121;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
-			{Msg_CA_Login, typeof(Msg_CA_Login)},
-			{Msg_AC_Login, typeof(Msg_AC_Login)},
+			{Msg_CA_Login_Account, typeof(Msg_CA_Login_Account)},
+			{Msg_AC_Login_Account, typeof(Msg_AC_Login_Account)},
+			{Msg_CA_Login_Zone, typeof(Msg_CA_Login_Zone)},
+			{Msg_AC_Login_Zone, typeof(Msg_AC_Login_Zone)},
 			{Msg_CG_HeartBeat_Ping, typeof(Msg_CG_HeartBeat_Ping)},
 			{Msg_CG_Login, typeof(Msg_CG_Login)},
 			{Msg_CG_Get_SecretKey, typeof(Msg_CG_Get_SecretKey)},

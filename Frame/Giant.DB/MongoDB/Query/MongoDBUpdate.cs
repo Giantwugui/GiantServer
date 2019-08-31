@@ -2,7 +2,6 @@
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Giant.Log;
 
 namespace Giant.DB.MongoDB
 {

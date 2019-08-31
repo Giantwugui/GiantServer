@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Giant.Share;
 
 namespace Server.Test
 {
@@ -24,6 +25,10 @@ namespace Server.Test
 
                 //Test_Redis.Instance.Init();
                 //Test_ARSortMap.Test();
+
+
+                string pwd = "123456";
+                string security = MD5Helper.Encrypt(pwd);
 
                 Http_Test.Test();
 

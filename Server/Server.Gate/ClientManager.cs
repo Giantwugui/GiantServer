@@ -29,9 +29,6 @@ namespace Server.Gate
 
         public void WillEnter(ClientEntry client)
         {
-            ClientEntry entry = GetClientEntry(client.Account);
-            entry?.Session.Dispose();
-
             waittingList[client.Account] = client;
         }
 

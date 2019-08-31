@@ -3,20 +3,34 @@ package Giant.Msg;
 
 /*********************** Client => Account ****************************/
 
-message Msg_CA_Login // IRequest
+message Msg_CA_Login_Account // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	string	Password = 2;	// 密码
 }
 
-message Msg_AC_Login // IResponse
+message Msg_AC_Login_Account // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	string Address = 1;
-	int64 Key	    = 2;
+	repeated int32 Zones = 1;
+}
+
+message Msg_CA_Login_Zone // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	int32 Zone = 2;	
+}
+
+message Msg_AC_Login_Zone // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int64 Key = 1;
 }
 
 /*********************** Client => Gate ****************************/
