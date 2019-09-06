@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Task\Giant.DataTask.csproj" />
+    <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
   </ItemGroup>
 
 </Project>

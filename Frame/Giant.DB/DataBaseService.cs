@@ -1,4 +1,4 @@
-﻿using Giant.DataTask;
+﻿using Giant.Core;
 
 namespace Giant.DB
 {

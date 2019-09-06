@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using Giant.DataTask;
+using Giant.Core;
 
 namespace Giant.DB
 {

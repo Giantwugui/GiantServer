@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Giant.DataTask
+namespace Giant.Core
 {
     public abstract class DataTask : IDataTask
     {

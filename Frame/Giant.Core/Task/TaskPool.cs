@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.DataTask
+namespace Giant.Core
 {
     public class TaskPool
     {

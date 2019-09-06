@@ -1,4 +1,4 @@
-﻿using Giant.DataTask;
+﻿using Giant.Core;
 using Giant.Log;
 using StackExchange.Redis;
 using System;

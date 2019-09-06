@@ -1,4 +1,4 @@
-﻿using Giant.DataTask;
+﻿using Giant.Core;
 using StackExchange.Redis;
 
 namespace Giant.Redis

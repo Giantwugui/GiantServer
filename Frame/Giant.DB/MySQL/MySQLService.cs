@@ -1,4 +1,4 @@
-﻿using Giant.DataTask;
+﻿using Giant.Core;
 using MySql.Data.MySqlClient;
 
 namespace Giant.DB
