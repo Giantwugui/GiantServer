@@ -10,6 +10,12 @@ namespace Server.Gate
     {
         public static AppService Instacne { get; } = new AppService();
 
+        public BaseService GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId);
+        public BaseService AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId);
+        public BaseService MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
+        public BaseService ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
+
+
         public override void Start(string[] args)
         {
             this.Init(args);

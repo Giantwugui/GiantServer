@@ -56,19 +56,24 @@ namespace Server.Frame
         public FrontendService GetFrontend(AppType appType, int appId, int subId)
         {
             var manager = GetFrontendServiceManager(appType);
-            return manager.GetService(appId, subId);
+            return manager?.GetService(appId, subId);
+        }
+
+        public FrontendService GetFrontendSinglePoint(AppType appType, int appId)
+        {
+            return GetFrontend(appType, appId, 0);
         }
 
         public void AddFrontend(AppConfig config)
         {
             var manager = GetFrontendServiceManager(config.AppType);
-            manager.AddService(config);
+            manager?.AddService(config);
         }
 
         public void AddFrontend(FrontendService frontend)
         {
             var manager = GetFrontendServiceManager(frontend.AppConfig.AppType);
-            manager.AddService(frontend);
+            manager?.AddService(frontend);
         }
 
         private void StartFrontend()
@@ -110,9 +115,30 @@ namespace Server.Frame
         {
             if (backendServices.TryGetValue(appType, out var manager))
             {
-
+                return manager.GetService(appId, 0);
             }
             return null;
+        }
+
+        public BackendService GetBackend(AppType appType, int appId, int subId)
+        {
+            var manager = GetBackendServiceManager(appType);
+            return manager?.GetService(appId, subId);
+        }
+
+        public FrontendService GetBackendSinglePoint(AppType appType, int appId)
+        {
+            return GetFrontend(appType, appId, 0);
+        }
+
+        public BackendServiceManager GetBackendServiceManager(AppType appType)
+        {
+            if (!backendServices.TryGetValue(appType, out var manager))
+            {
+                manager = new BackendServiceManager(this);
+                backendServices.Add(appType, manager);
+            }
+            return manager;
         }
 
         #endregion

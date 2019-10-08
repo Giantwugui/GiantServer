@@ -16,6 +16,7 @@
                 case AppType.AllServer:
                 case AppType.Manager:
                 case AppType.Relation:
+                case AppType.Account:
                     return true;
             }
             return false;
