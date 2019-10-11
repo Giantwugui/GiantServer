@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.Share
+namespace Giant.Core
 {
     public class DepthMap<K, SK, V>
     {

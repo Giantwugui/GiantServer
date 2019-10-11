@@ -1,6 +1,7 @@
 ﻿using Giant.Share;
 using Giant.Data;
 using Giant.Msg;
+using Giant.Core;
 
 namespace Server.Frame
 {

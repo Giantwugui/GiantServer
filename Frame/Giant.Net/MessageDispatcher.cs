@@ -1,4 +1,5 @@
-﻿using Giant.Log;
+﻿using Giant.Core;
+using Giant.Log;
 using Giant.Msg;
 using Giant.Share;
 using System;

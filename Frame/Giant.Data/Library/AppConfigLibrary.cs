@@ -1,6 +1,5 @@
-﻿using Giant.Log;
+﻿using Giant.Core;
 using Giant.Share;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Giant.Data

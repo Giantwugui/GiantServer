@@ -1,8 +1,8 @@
-﻿using Giant.Log;
+﻿using Giant.Core;
+using Giant.Log;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
-using Giant.Share;
 
 namespace Giant.Data
 {

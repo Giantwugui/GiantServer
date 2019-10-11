@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.Share
+namespace Giant.Core
 {
     public class ListMap<K, V>
     {

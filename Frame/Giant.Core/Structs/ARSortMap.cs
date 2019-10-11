@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.Share
+namespace Giant.Core
 {
     /// <summary>
     /// 一种保证按照删除添加的先后顺序排列的map

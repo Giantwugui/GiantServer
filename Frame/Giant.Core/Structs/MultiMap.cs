@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.Net
+namespace Giant.Core
 {
     public class MultiMap<K,V>
     {
