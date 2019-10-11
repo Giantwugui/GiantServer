@@ -12,8 +12,4 @@
     <OutputPath>F:\GiantFrame\Bin</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Helper\JsonHelper.cs" />
-  </ItemGroup>
-
 </Project>

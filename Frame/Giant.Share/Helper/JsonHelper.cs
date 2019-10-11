@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace Giant.Share
 {
@@ -14,7 +14,7 @@ namespace Giant.Share
                 return string.Empty;
             }
 
-            return message is string ? message as string : JsonConvert.SerializeObject(message);
+            return message is string ? message as string : JsonSerializer.Serialize(message);
         }
 
         public static byte[] ToBytes(object message)
@@ -49,7 +49,7 @@ namespace Giant.Share
                 return default;
             }
 
-            return JsonConvert.DeserializeObject(json, type);
+            return JsonSerializer.Deserialize(json, type);
         }
 
         public static T FromJson<T>(this string json)
@@ -59,7 +59,7 @@ namespace Giant.Share
                 return default;
             }
 
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonSerializer.Deserialize<T>(json);
         }
     }
 }
