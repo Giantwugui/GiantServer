@@ -1,8 +1,6 @@
 ﻿using Giant.Share;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -14,29 +12,6 @@ namespace Giant.Net
         static readonly char[] splitParam = new char[] { '&' };
         static readonly char[] splitKV = new char[] { '=' };
 
-        public static async Task<string> HttpWebPostAsync(string url, Dictionary<string, string> pairs)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Timeout = 5000;
-
-            string sendData = BuildParams(pairs);
-            request.ContentLength = sendData.Length;
-
-            using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
-            {
-                await writer.WriteAsync(sendData);
-            }
-
-            HttpWebResponse response = await request.GetResponseAsync() as HttpWebResponse;
-            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
-            {
-                string content = await reader.ReadToEndAsync();
-                return content;
-            }
-        }
-
         /// <summary>
         /// 使用post方法异步请求
         /// </summary>
@@ -45,10 +20,8 @@ namespace Giant.Net
         /// <returns>返回的字符串</returns>
         public static async Task<string> PostAsync(string url, string message)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                return await PostAsync(client, url, message);
-            }
+            using HttpClient client = new HttpClient();
+            return await PostAsync(client, url, message);
         }
 
         public static async Task<string> PostAsync(HttpClient client, string url, string message)
@@ -71,10 +44,8 @@ namespace Giant.Net
         /// <returns></returns>
         public static async Task<string> PostAsync(string url, Dictionary<string, string> message)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                return await PostAsync(client, url, message);
-            }
+            using HttpClient client = new HttpClient();
+            return await PostAsync(client, url, message);
         }
 
         public static async Task<string> PostAsync(HttpClient client, string url, Dictionary<string, string> message)
@@ -111,10 +82,8 @@ namespace Giant.Net
 
         public static async Task<string> GetAsync(string url, Dictionary<string, string> head = null)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                return await GetAsync(client, url, head);
-            }
+            using HttpClient client = new HttpClient();
+            return await GetAsync(client, url, head);
         }
 
         public static async Task<string> GetAsync(HttpClient client, string url, Dictionary<string, string> head = null)

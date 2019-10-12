@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\Proto\Proto\InnerMessage.proto" Link="Proto\InnerMessage.proto" />
+    <None Include="..\..\Proto\Proto\*.proto" Link="Proto\InnerMessage.proto" />
     <None Include="..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
   </ItemGroup>
 
