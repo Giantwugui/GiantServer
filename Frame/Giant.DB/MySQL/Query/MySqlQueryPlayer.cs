@@ -1,7 +1,8 @@
-﻿using Giant.Log;
+﻿using Dapper;
+using Giant.Log;
 using System;
-using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
@@ -21,17 +22,9 @@ namespace Giant.DB.MySQL
             try
             {
                 connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.Text;
-                command.CommandText = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
-                command.Parameters.AddWithValue("@uid", this.uid);
-
-                Dictionary<string, object> datas = await base.Run(command);
-                PlayerInfo player = MySqlHelper.BuildInstance<PlayerInfo>(datas);
-
-                //其他属性的初始化
-
-                SetResult(player);
+                string sql = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
+                var result = await connection.QueryAsync<PlayerInfo>(sql, new { this.uid });
+                SetResult(result.FirstOrDefault());
             }
             catch (Exception ex)
             {

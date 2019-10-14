@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
+using Dapper;
 
 namespace Giant.DB.MySQL
 {
@@ -21,14 +22,19 @@ namespace Giant.DB.MySQL
             try
             {
                 connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.Text;
-                command.CommandText = "INSERT INTO Player (Account,Uid,Level) VALUES(@account,@uid,@level)";
-                command.Parameters.AddWithValue("@account", this.player.Account);
-                command.Parameters.AddWithValue("@uid", this.player.Uid);
-                command.Parameters.AddWithValue("@level", this.player.Level);
+                string sql = "INSERT INTO Player (Account,Uid,Level) VALUES(@account,@uid,@level)";
 
-                await base.Run(command);
+                // 方法1
+                //var command = connection.CreateCommand();
+                //command.CommandType = CommandType.Text;
+                //command.CommandText = sql;
+                //command.Parameters.AddWithValue("@account", this.player.Account);
+                //command.Parameters.AddWithValue("@uid", this.player.Uid);
+                //command.Parameters.AddWithValue("@level", this.player.Level);
+                //await base.Run(command);
+
+                //方法2
+                await connection.QueryAsync(sql, this.player);
             }
             catch (Exception ex)
             {
@@ -56,15 +62,20 @@ namespace Giant.DB.MySQL
             try
             {
                 connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.Text;
 
-                List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
-                string valueStr = string.Join(",", playerStrList);
+                //方法1
+                //var command = connection.CreateCommand();
+                //command.CommandType = CommandType.Text;
 
-                command.CommandText = $"INSERT INTO player (Account,Uid,Level) VALUES {valueStr};";
+                //List<string> playerStrList = players.ConvertAll<string>(player => $"('{player.Account}','{player.Uid}','{player.Level}')");
+                //string valueStr = string.Join(",", playerStrList);
 
-                await base.Run(command);
+                //command.CommandText = $"INSERT INTO player (Account,Uid,Level) VALUES {valueStr};";
+                //await base.Run(command);
+
+                //方法2
+                string sql = "INSERT INTO player (account,uid,level) VALUES {@account, @uid, @level};";
+                await connection.QueryAsync<int>(sql, players);
             }
             catch (Exception ex)
             {
