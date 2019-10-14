@@ -46,7 +46,7 @@ namespace Server.Test
 
                 players.Add(player);
 
-                if (i % 20 == 0)
+                if (i % 20 == 0 && i != 0)
                 {
                     query = new MySqlInsertPlayerBatch(players);
                     playerQueue.Enqueue(query);
@@ -59,8 +59,8 @@ namespace Server.Test
 
         public static async void Test_Insert()
         {
-            MySqlInsertPlayer insertPlayer = new MySqlInsertPlayer(new PlayerInfo() { Uid = 111, Account = "111", Level = 0 });
-            await insertPlayer.Run();
+            //MySqlInsertPlayer insertPlayer = new MySqlInsertPlayer(new PlayerInfo() { Uid = 111, Account = "111", Level = 0 });
+            //await insertPlayer.Run();
 
             Stopwatch watch = new Stopwatch();
             watch.Start();

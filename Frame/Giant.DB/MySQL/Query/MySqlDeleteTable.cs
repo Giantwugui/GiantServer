@@ -1,6 +1,4 @@
-﻿using Giant.Log;
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MySQL
@@ -17,24 +15,12 @@ namespace Giant.DB.MySQL
         public override async Task Run()
         {
             var connection = this.GetConnection();
-            try
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandType = CommandType.Text;
-                command.CommandText = $"DELETE FROM {this.tableName}";
+            connection.Open();
+            var command = connection.CreateCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = $"DELETE FROM {this.tableName}";
 
-                await base.Run(command);
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
-            finally
-            {
-                connection.Dispose();
-            }
+            await base.Run(command);
         }
     }
 }

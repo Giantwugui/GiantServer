@@ -1,10 +1,13 @@
-﻿using Giant.Core;
+﻿using System;
+using Giant.Core;
 using MySql.Data.MySqlClient;
 
 namespace Giant.DB.MySQL
 {
     public abstract class MySQLTask<TResult> : DataTask<TResult>
     {
+        private MySqlConnection connection;
+
         public override IDataService DataService => this.DBService;
 
         public IMultDBService DBService => DataBaseService.Instance;
@@ -16,7 +19,14 @@ namespace Giant.DB.MySQL
 
         public MySqlConnection GetConnection()
         {
-            return this.Service.GetConnection();
+            this.connection = this.Service.GetConnection();
+            return connection;
+        }
+
+        public override void SetException(Exception ex)
+        {
+            base.SetException(ex);
+            this.connection?.Dispose();
         }
     }
 }

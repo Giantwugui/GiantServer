@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Giant.Log;
 using System;
 using System.Data;
 using System.Linq;
@@ -19,22 +18,9 @@ namespace Giant.DB.MySQL
         public override async Task Run()
         {
             var connection = this.GetConnection();
-            try
-            {
-                connection.Open();
-                string sql = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
-                var result = await connection.QueryAsync<PlayerInfo>(sql, new { this.uid });
-                SetResult(result.FirstOrDefault());
-            }
-            catch (Exception ex)
-            {
-                SetException(ex);
-                Logger.Error(ex);
-            }
-            finally
-            {
-                connection.Dispose();
-            }
+            string sql = "SELECT Account,Uid,Level FROM player WHERE Uid = @uid";
+            var result = await connection.QueryAsync<PlayerInfo>(sql, new { this.uid });
+            SetResult(result.FirstOrDefault());
         }
     }
 
