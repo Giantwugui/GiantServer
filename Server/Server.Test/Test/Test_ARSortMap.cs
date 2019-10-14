@@ -1,4 +1,4 @@
-﻿using Giant.Share;
+﻿using Giant.Core;
 using System;
 
 namespace Server.Test
