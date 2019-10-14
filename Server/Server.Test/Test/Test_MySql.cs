@@ -13,7 +13,7 @@ namespace Server.Test
 
         public static void Init()
         {
-            DataBaseService.Instance.Init(DataBaseType.MySQL, "39.97.243.209", "test", "wg", "giantwugui", 1);
+            DataBaseService.Instance.Init(DataBaseType.MySQL, "127.0.0.1", "wg_test", "root", "root", 1);
         }
 
         public static void Test()
@@ -59,6 +59,9 @@ namespace Server.Test
 
         public static async void Test_Insert()
         {
+            MySqlInsertPlayer insertPlayer = new MySqlInsertPlayer(new PlayerInfo() { Uid = 111, Account = "111", Level = 0 });
+            await insertPlayer.Run();
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
 

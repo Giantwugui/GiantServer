@@ -19,7 +19,7 @@ namespace Server.Test
 
                 //Assembly assembly = typeof(DataBaseService).Assembly;
 
-                //Test_MySql.Test();
+                Test_MySql.Test();
 
                 //DataManager.Instance.LoadData();
 
