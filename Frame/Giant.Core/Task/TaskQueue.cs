@@ -1,5 +1,4 @@
-﻿using Giant.Log;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,25 +15,16 @@ namespace Giant.Core
         {
             while (true)
             {
+                DataTask task = await Get();
+
                 try
                 {
-                    DataTask task = await Get();
-
-                    try
-                    {
-                        await task.Run();
-                    }
-                    catch (Exception ex)
-                    {
-                        task.SetException(ex);
-                        Logger.Error(ex);
-                    }
+                    await task.Run();
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex);
+                    task.SetException(ex);
                 }
-
             }
         }
 

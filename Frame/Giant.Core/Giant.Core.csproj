@@ -8,8 +8,4 @@
     <OutputPath>F:\GiantFrame\Bin\</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
-  </ItemGroup>
-
 </Project>
