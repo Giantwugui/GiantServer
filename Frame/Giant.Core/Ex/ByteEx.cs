@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Giant.Share
+namespace Giant.Core
 {
     public static class ByteEx
     {

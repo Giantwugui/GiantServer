@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Giant.Share
+namespace Giant.Core
 {
     public class AESHelper
     {
