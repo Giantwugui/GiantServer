@@ -23,14 +23,7 @@ namespace Giant.Test
             }
 
             ITest test = GetTest(param[0]);
-            if (param.Length == 1)
-            {
-                test?.DoTest();
-            }
-            else
-            {
-                test?.DoTest(param[1]);
-            }
+            test?.DoTest(param);
         }
 
         public static void LoadTestes(Assembly assembly)
