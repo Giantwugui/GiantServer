@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Giant.Core;
 using Giant.Share;
 
 namespace Server.Test

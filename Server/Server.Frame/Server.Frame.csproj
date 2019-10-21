@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frame\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />

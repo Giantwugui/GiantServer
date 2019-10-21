@@ -1,5 +1,5 @@
-﻿using Giant.Data;
-using Giant.Share;
+﻿using Giant.Core;
+using Giant.Data;
 using System.Collections.Generic;
 
 namespace Server.Map

@@ -1,4 +1,5 @@
-﻿using Giant.Net;
+﻿using Giant.Core;
+using Giant.Net;
 using Giant.Share;
 using System;
 using System.Collections.Generic;

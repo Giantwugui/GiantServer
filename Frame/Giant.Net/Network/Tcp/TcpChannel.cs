@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using Giant.Share;
 using Giant.Log;
+using Giant.Core;
 
 namespace Giant.Net
 {
