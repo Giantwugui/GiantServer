@@ -1,5 +1,4 @@
-﻿using Giant.Log;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;

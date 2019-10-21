@@ -1,6 +1,6 @@
-﻿using Giant.Log;
+﻿using Giant.Core;
+using Giant.Log;
 using Giant.Msg;
-using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.IO;

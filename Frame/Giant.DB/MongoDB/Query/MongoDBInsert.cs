@@ -1,6 +1,4 @@
-﻿using Giant.Log;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Giant.DB.MongoDB

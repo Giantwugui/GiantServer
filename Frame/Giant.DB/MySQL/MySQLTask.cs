@@ -25,8 +25,8 @@ namespace Giant.DB.MySQL
 
         public override void SetException(Exception ex)
         {
-            base.SetException(ex);
             this.connection?.Dispose();
+            base.SetException(ex);
         }
     }
 }

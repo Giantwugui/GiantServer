@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
+    <ProjectReference Include="..\Giant.Log\Giant.Log.csproj" />
   </ItemGroup>
 
 </Project>

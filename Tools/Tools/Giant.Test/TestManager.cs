@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Giant.Test
 {
     public class TestManager
     {
-        private static Dictionary<string, ITest> activedTestes = new Dictionary<string, ITest>();
+        private static readonly Dictionary<string, ITest> activedTestes = new Dictionary<string, ITest>();
 
         public static ITest GetTest(string identity)
         {
@@ -28,7 +29,7 @@ namespace Giant.Test
 
         public static void LoadTestes(Assembly assembly)
         {
-            Type[] types = assembly.GetTypes();
+            var types = assembly.GetTypes().Where(type => typeof(ITest).IsAssignableFrom(type));
             foreach (var type in types)
             {
                 var attribute = type.GetCustomAttribute<ActivedTestAttribute>();
