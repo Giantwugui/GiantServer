@@ -13,11 +13,6 @@ namespace Server.Frame
         {
         }
 
-        public void AddService(AppConfig config)
-        {
-            AddService(new FrontendService(this, config));
-        }
-
         public void AddService(FrontendService frontend)
         {
             services.Add(NetProxyManager.AppId, NetProxyManager.SubId, frontend);

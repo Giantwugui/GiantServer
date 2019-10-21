@@ -12,6 +12,7 @@ namespace Server.Frame
         private readonly Dictionary<AppType, FrontendServiceManager> frontendServices = new Dictionary<AppType, FrontendServiceManager>();
         private readonly Dictionary<AppType, BackendServiceManager> backendServices = new Dictionary<AppType, BackendServiceManager>();
 
+        public BaseServerCreater ServerCreater { get; private set; }
         public BaseAppService Service { get; private set; }
         public AppType AppType => Service.AppType;
         public int AppId => Service.AppId;
@@ -29,12 +30,19 @@ namespace Server.Frame
             {
                 return;
             }
-            AddFrontend(config);
+
+            FrontendService frontend = ServerCreater.CreateFrontendServer(config);
+            AddFrontend(frontend);
         }
 
         public void Start()
         {
             StartFrontend();
+        }
+
+        public void SetServerCreater(BaseServerCreater creater)
+        {
+            this.ServerCreater = creater;
         }
 
         public void Update()
@@ -65,12 +73,6 @@ namespace Server.Frame
             return GetFrontend(appType, appId, 0);
         }
 
-        public void AddFrontend(AppConfig config)
-        {
-            var manager = GetFrontendServiceManager(config.AppType);
-            manager?.AddService(config);
-        }
-
         public void AddFrontend(FrontendService frontend)
         {
             var manager = GetFrontendServiceManager(frontend.AppConfig.AppType);
@@ -91,25 +93,18 @@ namespace Server.Frame
 
         #region Backend
 
-        public void RegistBackendService(AppType appType, int appId, int subId, Session session)
+        public void RegistBackendService(BackendService service)
         {
-            if (!backendServices.TryGetValue(appType, out var manager))
+            BackendServiceManager manager = GetBackendServiceManager(service.AppType);
+            BackendService oldService = manager.GetService(service.AppId, service.SubId);
+            if (oldService != null)
             {
-                manager = new BackendServiceManager(this);
-                backendServices.Add(appType, manager);
-            }
-            else
-            {
-                if (manager.GetService(appId, subId) != null)
-                {
-                    Logger.Warn($"{appType} {appId} {subId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
-                    return;
-                }
+                Logger.Warn($"{service.AppType} {service.AppId} {service.SubId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
+                return;
             }
 
-            BackendService backend = new BackendService(manager, appType, appId, subId, session);
-            manager.RegistService(backend);
-            NotifyServices(backend);
+            manager.RegistService(service);
+            NotifyServices(service);
         }
 
         public BackendService GetBackendWithCharge(AppType appType, int appId)
@@ -145,7 +140,7 @@ namespace Server.Frame
         #endregion
 
 
-        private void NotifyServices(BackendService backend)
+        public void NotifyServices(BackendService backend)
         {
             //只允许global通知
             if (AppType != AppType.Global)

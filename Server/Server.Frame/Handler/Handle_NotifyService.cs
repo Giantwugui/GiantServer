@@ -24,10 +24,8 @@ namespace Server.Frame
                     return;
                 }
 
-                var manager = Framework.BaseService.NetProxyManager.GetFrontendServiceManager(appType);
-                FrontendService frontend = new FrontendService(manager, config);
-                frontend.Start();
-                manager.AddService(frontend);
+                FrontendService frontend = Framework.ServerCreater.CreateFrontendServer(config);
+                Framework.ServerCreater.NetProxyManager.GetFrontendServiceManager(appType).AddService(frontend);
             }
             await Task.CompletedTask;
         }

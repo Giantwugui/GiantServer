@@ -15,6 +15,8 @@ namespace Server.Frame
         public static int AppId => AppOption.AppId;
         public static int SubId => AppOption.SubId;
 
+        public static BaseServerCreater ServerCreater => BaseService.ServerCreater;
+
         internal static void Init(BaseAppService service, string[] args)
         {
             Parser.Default.ParseArguments<AppOption>(args)
