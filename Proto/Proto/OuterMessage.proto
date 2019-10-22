@@ -40,6 +40,7 @@ message Msg_AC_LoginZone // IResponse
 message Msg_CG_HeartBeat_Ping // IRequest
 {
 	int32 RpcId = 90;
+	int32 Uid = 1;
 }
 
 message Msg_CG_Login // IRequest

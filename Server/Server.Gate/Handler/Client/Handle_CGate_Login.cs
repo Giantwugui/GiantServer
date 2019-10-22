@@ -15,6 +15,8 @@ namespace Server.Gate
         {
             response.Error = ErrorCode.Success;
             Logger.Debug($"client heart beat !");
+            Client client = ClientManager.Instance.GetClient(session.Id);
+            client?.HeartBeat();
 
             await Task.CompletedTask;
         }
@@ -34,7 +36,7 @@ namespace Server.Gate
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
-            ClientEntry entry = ClientManager.Instance.GetClientEntry(request.Account);
+            ClientEnter entry = ClientManager.Instance.GetClientEntry(request.Account);
             if (entry == null)
             {
                 response.Error = ErrorCode.Fail;

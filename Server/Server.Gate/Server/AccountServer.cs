@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Giant.Data;
+﻿using Giant.Data;
 using Giant.Msg;
 using Giant.Share;
 using Server.Frame;
+using System;
 
 namespace Server.Gate
 {

@@ -1,14 +1,13 @@
-﻿namespace Giant.Net
+﻿using Giant.Log;
+using System;
+
+namespace Giant.Net
 {
     public class OutterNetworkService : NetworkService
     {
-        public OutterNetworkService(NetworkType network) : base(network)
+        public OutterNetworkService(NetworkType network, string address, Action<Session, bool> acceptCallback) : base(network, address)
         {
+            base.OnConnect = acceptCallback;
         }
-
-        public OutterNetworkService(NetworkType network, string address) : base(network, address)
-        {
-        }
-
     }
 }

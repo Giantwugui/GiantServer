@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace Server.Gate
 {
-    public class AppService : BaseAppService
+    public partial class AppService : BaseAppService
     {
         public static AppService Instacne { get; } = new AppService();
 
@@ -51,6 +51,7 @@ namespace Server.Gate
             try
             {
                 base.Update(dt);
+                ClientManager.Instance.Update();
             }
             catch (Exception ex)
             {

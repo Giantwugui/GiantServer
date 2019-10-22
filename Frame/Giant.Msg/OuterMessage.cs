@@ -31,39 +31,40 @@ namespace Giant.Msg {
             "EE1zZ19DQV9Mb2dpblpvbmUSDQoFUnBjSWQYWiABKAUSDwoHQWNjb3VudBgB",
             "IAEoCRIMCgRab25lGAIgASgFImgKEE1zZ19BQ19Mb2dpblpvbmUSDQoFUnBj",
             "SWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRILCgNL",
-            "ZXkYASABKAMSCgoCSVAYAiABKAkSDAoEcG9ydBgDIAEoBSImChVNc2dfQ0df",
-            "SGVhcnRCZWF0X1BpbmcSDQoFUnBjSWQYWiABKAUiOwoMTXNnX0NHX0xvZ2lu",
-            "Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkSCwoDVWlkGAIgASgF",
-            "IiUKFE1zZ19DR19HZXRfU2VjcmV0S2V5Eg0KBVJwY0lkGFogASgFIiIKEU1z",
-            "Z19DR19QbGF5ZXJJbmZvEg0KBVJwY0lkGFogASgFIkYKFU1zZ19HQ19IZWFy",
-            "dEJlYXRfUG9uZxINCgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdN",
-            "ZXNzYWdlGFwgASgJIk8KDE1zZ19HQ19Mb2dpbhINCgVScGNJZBhaIAEoBRIN",
-            "CgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEhAKCFBsYXllcklkGAEg",
-            "ASgDIlgKFE1zZ19HQ19HZXRfU2VjcmV0S2V5Eg0KBVJwY0lkGFogASgFEg0K",
-            "BUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSEQoJU2VjcmV0S2V5GAEg",
-            "ASgJIvMBChFNc2dfR0NfUGxheWVySW5mbxINCgVScGNJZBhaIAEoBRINCgVF",
-            "cnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEi0KClBsYXllckluZm8YASAB",
-            "KAsyGS5HaWFudC5Nc2cuTXNnX1BsYXllckluZm8SLgoLUGxheWVySW5mb3MY",
-            "AiADKAsyGS5HaWFudC5Nc2cuTXNnX1BsYXllckluZm8SGgoSVGVzdFJlcGVh",
-            "dGVkU3RyaW5nGAMgAygJEhkKEVRlc3RSZXBlYXRlZEludDMyGAQgAygFEhkK",
-            "EVRlc3RSZXBlYXRlZEludDY0GAUgAygDIh8KDk1zZ19QbGF5ZXJJbmZvEg0K",
-            "BVJwY0lkGFogASgFIiAKD01zZ19DR19FbnRlck1hcBINCgVScGNJZBhaIAEo",
-            "BSJ4Cg9Nc2dfR0NfRW50ZXJNYXASDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IY",
-            "WyABKAUSDwoHTWVzc2FnZRhcIAEoCRIOCgZVbml0SWQYASABKAMSJgoFVW5p",
-            "dHMYAiADKAsyFy5HaWFudC5Nc2cuTXNnX1VuaXRJbmZvIj8KDE1zZ19Vbml0",
-            "SW5mbxIOCgZVbml0SWQYASABKAMSCQoBWBgCIAEoAhIJCgFZGAMgASgCEgkK",
-            "AVoYBCABKAIiegoYTXNnX01DX1BhdGhmaW5kaW5nUmVzdWx0Eg0KBVJwY0lk",
-            "GFogASgFEgoKAklkGAEgASgDEgkKAVgYAiABKAISCQoBWRgDIAEoAhIJCgFa",
-            "GAQgASgCEgoKAlhzGAUgAygCEgoKAllzGAYgAygCEgoKAlpzGAcgAygCIj0K",
-            "CUNNX1JlbG9hZBINCgVScGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJEhAK",
-            "CFBhc3N3b3JkGAIgASgJIjoKCU1DX1JlbG9hZBINCgVScGNJZBhaIAEoBRIN",
-            "CgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJIiAKDVpHQ19Ccm9hZGNh",
-            "c3QSDwoHbWVzc2FnZRgBIAEoCSLqAQoOTXNnX0NHX1Rlc3RNYXASMQoETWFw",
-            "MRgBIAMoCzIjLkdpYW50Lk1zZy5Nc2dfQ0dfVGVzdE1hcC5NYXAxRW50cnkS",
-            "MQoETWFwMhgCIAMoCzIjLkdpYW50Lk1zZy5Nc2dfQ0dfVGVzdE1hcC5NYXAy",
-            "RW50cnkaKwoJTWFwMUVudHJ5EgsKA2tleRgBIAEoBRINCgV2YWx1ZRgCIAEo",
-            "BToCOAEaRQoJTWFwMkVudHJ5EgsKA2tleRgBIAEoBRInCgV2YWx1ZRgCIAEo",
-            "CzIYLkdpYW50Lk1zZy5aR0NfQnJvYWRjYXN0OgI4AWIGcHJvdG8z"));
+            "ZXkYASABKAMSCgoCSVAYAiABKAkSDAoEcG9ydBgDIAEoBSIzChVNc2dfQ0df",
+            "SGVhcnRCZWF0X1BpbmcSDQoFUnBjSWQYWiABKAUSCwoDVWlkGAEgASgFIjsK",
+            "DE1zZ19DR19Mb2dpbhINCgVScGNJZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJ",
+            "EgsKA1VpZBgCIAEoBSIlChRNc2dfQ0dfR2V0X1NlY3JldEtleRINCgVScGNJ",
+            "ZBhaIAEoBSIiChFNc2dfQ0dfUGxheWVySW5mbxINCgVScGNJZBhaIAEoBSJG",
+            "ChVNc2dfR0NfSGVhcnRCZWF0X1BvbmcSDQoFUnBjSWQYWiABKAUSDQoFRXJy",
+            "b3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCSJPCgxNc2dfR0NfTG9naW4SDQoF",
+            "UnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRIQ",
+            "CghQbGF5ZXJJZBgBIAEoAyJYChRNc2dfR0NfR2V0X1NlY3JldEtleRINCgVS",
+            "cGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEhEK",
+            "CVNlY3JldEtleRgBIAEoCSLzAQoRTXNnX0dDX1BsYXllckluZm8SDQoFUnBj",
+            "SWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCRItCgpQ",
+            "bGF5ZXJJbmZvGAEgASgLMhkuR2lhbnQuTXNnLk1zZ19QbGF5ZXJJbmZvEi4K",
+            "C1BsYXllckluZm9zGAIgAygLMhkuR2lhbnQuTXNnLk1zZ19QbGF5ZXJJbmZv",
+            "EhoKElRlc3RSZXBlYXRlZFN0cmluZxgDIAMoCRIZChFUZXN0UmVwZWF0ZWRJ",
+            "bnQzMhgEIAMoBRIZChFUZXN0UmVwZWF0ZWRJbnQ2NBgFIAMoAyIfCg5Nc2df",
+            "UGxheWVySW5mbxINCgVScGNJZBhaIAEoBSIgCg9Nc2dfQ0dfRW50ZXJNYXAS",
+            "DQoFUnBjSWQYWiABKAUieAoPTXNnX0dDX0VudGVyTWFwEg0KBVJwY0lkGFog",
+            "ASgFEg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGVW5pdElk",
+            "GAEgASgDEiYKBVVuaXRzGAIgAygLMhcuR2lhbnQuTXNnLk1zZ19Vbml0SW5m",
+            "byI/CgxNc2dfVW5pdEluZm8SDgoGVW5pdElkGAEgASgDEgkKAVgYAiABKAIS",
+            "CQoBWRgDIAEoAhIJCgFaGAQgASgCInoKGE1zZ19NQ19QYXRoZmluZGluZ1Jl",
+            "c3VsdBINCgVScGNJZBhaIAEoBRIKCgJJZBgBIAEoAxIJCgFYGAIgASgCEgkK",
+            "AVkYAyABKAISCQoBWhgEIAEoAhIKCgJYcxgFIAMoAhIKCgJZcxgGIAMoAhIK",
+            "CgJacxgHIAMoAiI9CglDTV9SZWxvYWQSDQoFUnBjSWQYWiABKAUSDwoHQWNj",
+            "b3VudBgBIAEoCRIQCghQYXNzd29yZBgCIAEoCSI6CglNQ19SZWxvYWQSDQoF",
+            "UnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEoCSIg",
+            "Cg1aR0NfQnJvYWRjYXN0Eg8KB21lc3NhZ2UYASABKAki6gEKDk1zZ19DR19U",
+            "ZXN0TWFwEjEKBE1hcDEYASADKAsyIy5HaWFudC5Nc2cuTXNnX0NHX1Rlc3RN",
+            "YXAuTWFwMUVudHJ5EjEKBE1hcDIYAiADKAsyIy5HaWFudC5Nc2cuTXNnX0NH",
+            "X1Rlc3RNYXAuTWFwMkVudHJ5GisKCU1hcDFFbnRyeRILCgNrZXkYASABKAUS",
+            "DQoFdmFsdWUYAiABKAU6AjgBGkUKCU1hcDJFbnRyeRILCgNrZXkYASABKAUS",
+            "JwoFdmFsdWUYAiABKAsyGC5HaWFudC5Nc2cuWkdDX0Jyb2FkY2FzdDoCOAFi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -71,7 +72,7 @@ namespace Giant.Msg {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_AC_Login), global::Giant.Msg.Msg_AC_Login.Parser, new[]{ "RpcId", "Error", "Message", "Servers" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CA_LoginZone), global::Giant.Msg.Msg_CA_LoginZone.Parser, new[]{ "RpcId", "Account", "Zone" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_AC_LoginZone), global::Giant.Msg.Msg_AC_LoginZone.Parser, new[]{ "RpcId", "Error", "Message", "Key", "IP", "Port" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_HeartBeat_Ping), global::Giant.Msg.Msg_CG_HeartBeat_Ping.Parser, new[]{ "RpcId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_HeartBeat_Ping), global::Giant.Msg.Msg_CG_HeartBeat_Ping.Parser, new[]{ "RpcId", "Uid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_Login), global::Giant.Msg.Msg_CG_Login.Parser, new[]{ "RpcId", "Account", "Uid" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_Get_SecretKey), global::Giant.Msg.Msg_CG_Get_SecretKey.Parser, new[]{ "RpcId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_PlayerInfo), global::Giant.Msg.Msg_CG_PlayerInfo.Parser, new[]{ "RpcId" }, null, null, null),
@@ -974,6 +975,7 @@ namespace Giant.Msg {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public Msg_CG_HeartBeat_Ping(Msg_CG_HeartBeat_Ping other) : this() {
       rpcId_ = other.rpcId_;
+      uid_ = other.uid_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -993,6 +995,17 @@ namespace Giant.Msg {
       }
     }
 
+    /// <summary>Field number for the "Uid" field.</summary>
+    public const int UidFieldNumber = 1;
+    private int uid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Uid {
+      get { return uid_; }
+      set {
+        uid_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Msg_CG_HeartBeat_Ping);
@@ -1007,6 +1020,7 @@ namespace Giant.Msg {
         return true;
       }
       if (RpcId != other.RpcId) return false;
+      if (Uid != other.Uid) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1014,6 +1028,7 @@ namespace Giant.Msg {
     public override int GetHashCode() {
       int hash = 1;
       if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (Uid != 0) hash ^= Uid.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1027,6 +1042,10 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
+      if (Uid != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Uid);
+      }
       if (RpcId != 0) {
         output.WriteRawTag(208, 5);
         output.WriteInt32(RpcId);
@@ -1042,6 +1061,9 @@ namespace Giant.Msg {
       if (RpcId != 0) {
         size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
       }
+      if (Uid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Uid);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1056,6 +1078,9 @@ namespace Giant.Msg {
       if (other.RpcId != 0) {
         RpcId = other.RpcId;
       }
+      if (other.Uid != 0) {
+        Uid = other.Uid;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1067,6 +1092,10 @@ namespace Giant.Msg {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            Uid = input.ReadInt32();
+            break;
+          }
           case 720: {
             RpcId = input.ReadInt32();
             break;

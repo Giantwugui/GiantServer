@@ -37,6 +37,9 @@ namespace Server.Frame
             NetTopologyLibrary.Init();
         }
 
+        public virtual void OnConnect(Session session, bool isConnect) { }
+
+
         private void InitBase(string[] args)
         {
             Framework.Init(this, args);
@@ -66,7 +69,7 @@ namespace Server.Frame
             //部分App只有内部服务，Zone
             if (!string.IsNullOrEmpty(config.OutterAddress))
             {
-                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress);
+                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress, OnConnect);
             }
         }
 

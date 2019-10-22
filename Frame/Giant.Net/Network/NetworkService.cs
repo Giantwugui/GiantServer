@@ -22,6 +22,8 @@ namespace Giant.Net
         public IMessagePacker MessageParser { get; set; }
         public MessageDispatcher MessageDispatcher { get; set; }
 
+        public Action<Session, bool> OnConnect;
+
 
         public NetworkService(NetworkType network)
         {
@@ -60,10 +62,12 @@ namespace Giant.Net
         public virtual void Remove(Session session)
         {
             sessions.Remove(session.Id);
+            OnConnect?.Invoke(session, false);
         }
 
         public void Dispose()
         {
+            OnConnect = null;
         }
 
         private void Init(NetworkType network)
@@ -113,6 +117,8 @@ namespace Giant.Net
             baseChannel.Start();
 
             sessions[session.Id] = session;
+
+            OnConnect?.Invoke(session, true);
         }
     }
 }

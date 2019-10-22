@@ -10,7 +10,7 @@ namespace Server.Gate
     {
         public override Task Run(Session session, Msg_AG_ClientLogin message)
         {
-            ClientManager.Instance.WillEnter(new ClientEntry(message.Account, message.Token));
+            ClientManager.Instance.WillEnter(new ClientEnter(message.Account, message.Token));
             return Task.CompletedTask;
         }
     }
