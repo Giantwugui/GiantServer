@@ -43,10 +43,6 @@ namespace Server.Gate
             clients.Add(client.Uid, client);
         }
 
-        public void Get(Session session)
-        {
-        }
-
         public void Remove(int uid)
         {
             clients.Remove(uid);
