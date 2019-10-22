@@ -10,10 +10,10 @@ namespace Server.Gate
     {
         public static AppService Instacne { get; } = new AppService();
 
-        public BaseService GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId);
-        public BaseService AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId);
-        public BaseService MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
-        public BaseService ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
+        public BaseServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId);
+        public BaseServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId);
+        public BaseServer MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
+        public BaseServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
 
 
         public override void Start(string[] args)
@@ -29,8 +29,7 @@ namespace Server.Gate
         {
             //框架的各种初始化工作
             base.Init(args);
-            this.ServerCreater = new BaseServerCreater(this.NetProxyManager);
-
+            this.NetProxyManager.Init(this, new ServerCreater());
 
             this.InitDone();
 

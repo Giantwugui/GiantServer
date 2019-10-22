@@ -23,7 +23,7 @@ namespace Server.Frame
                 Logger.Error("request == null");
             }
 
-            BackendService service = Framework.ServerCreater.CreateBackendServer(session, (AppType)request.AppType, request.AppId, request.SubId);
+            BackendServer service = Framework.ServerCreater.CreateBackendServer(session, (AppType)request.AppType, request.AppId, request.SubId);
             Framework.BaseService.NetProxyManager.RegistBackendService(service);
             await Task.CompletedTask;
         }

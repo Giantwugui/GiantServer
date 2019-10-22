@@ -23,6 +23,7 @@ namespace Server.Global
         {
             //框架的各种初始化工作
             base.Init(args);
+            this.NetProxyManager.Init(this, new BaseServerCreater());
 
             this.InitDone();
 

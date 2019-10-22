@@ -5,20 +5,20 @@ using Giant.Core;
 
 namespace Server.Frame
 {
-    public class FrontendServiceManager : BaseServiceManager
+    public class FrontendServerManager : BaseServerManager
     {
-        private readonly DepthMap<int, int, FrontendService> services = new DepthMap<int, int, FrontendService>();
+        private readonly DepthMap<int, int, FrontendServer> services = new DepthMap<int, int, FrontendServer>();
 
-        public FrontendServiceManager(NetProxyManager manager) : base(manager)
+        public FrontendServerManager(NetProxyManager manager) : base(manager)
         {
         }
 
-        public void AddService(FrontendService frontend)
+        public void AddService(FrontendServer frontend)
         {
             services.Add(NetProxyManager.AppId, NetProxyManager.SubId, frontend);
         }
 
-        public FrontendService GetService(int appId, int subId)
+        public FrontendServer GetService(int appId, int subId)
         {
             services.TryGetValue(appId, subId, out var backend);
             return backend;
@@ -50,7 +50,7 @@ namespace Server.Frame
             }
         }
 
-        public override void NotifyServiceInfo(BackendService backend)
+        public override void NotifyServiceInfo(BackendServer backend)
         {
             AppConfig config;
             foreach (var app in services)
@@ -58,7 +58,7 @@ namespace Server.Frame
                 foreach (var service in app.Value)
                 {
                     config = service.Value.AppConfig;
-                    if (NetTopologyLibrary.NeeConnect(config.AppType, config.AppId, backend.AppType, backend.AppId))
+                    if (NetTopologyLibrary.NeedConnect(config.AppType, config.AppId, backend.AppType, backend.AppId))
                     {
                         Msg_Service_Info msg = new Msg_Service_Info
                         {

@@ -3,7 +3,7 @@ using Giant.Net;
 
 namespace Server.Frame
 {
-    public abstract class BaseService
+    public abstract class BaseServer
     {
         public Session Session { get; set; }
 

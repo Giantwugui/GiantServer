@@ -30,6 +30,7 @@ namespace Server.Map
             base.Init(args);
 
             mapMananger.Init();
+            this.NetProxyManager.Init(this, new BaseServerCreater());
 
             this.InitDone();
             ConsoleReader.Instance.Start(DoCmd);

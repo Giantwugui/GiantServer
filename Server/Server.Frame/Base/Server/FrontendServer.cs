@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Server.Frame
 {
-    public class FrontendService : BaseService
+    public class FrontendServer : BaseServer
     {
         private CancellationTokenSource cancellation;
         private long lastHeatBeatTime = TimeHelper.NowSeconds;
 
         public AppConfig AppConfig { get; private set; }
-        public FrontendServiceManager FrontendManager { get; private set; }
-        public bool IsConnected => Session.IsConnected;
+        public FrontendServerManager FrontendManager { get; private set; }
+        public bool IsConnected => Session != null && Session.IsConnected;
 
-        public FrontendService(FrontendServiceManager manager, AppConfig appConfig)
+        public FrontendServer(FrontendServerManager manager, AppConfig appConfig)
         {
             this.AppConfig = appConfig;
             this.FrontendManager = manager;

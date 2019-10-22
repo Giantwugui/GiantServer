@@ -15,7 +15,7 @@ namespace Server.Frame
             AppType appType = (AppType)message.AppType;
             Logger.Debug($"service notify from appType {appType} appId {message.AppId} subId {message.SubId}");
 
-            if (NetTopologyLibrary.NeeConnect(Framework.AppType, Framework.AppId, appType, message.AppId))
+            if (NetTopologyLibrary.NeedConnect(Framework.AppType, Framework.AppId, appType, message.AppId))
             {
                 AppConfig config = AppConfigLibrary.GetNetConfig(appType, message.AppId, message.SubId);
                 if (config == null)
@@ -24,8 +24,9 @@ namespace Server.Frame
                     return;
                 }
 
-                FrontendService frontend = Framework.ServerCreater.CreateFrontendServer(config);
-                Framework.ServerCreater.NetProxyManager.GetFrontendServiceManager(appType).AddService(frontend);
+                FrontendServer frontend = Framework.ServerCreater.CreateFrontendServer(config);
+                Framework.NetProxyManager.GetFrontendServiceManager(appType).AddService(frontend);
+                frontend.Start();
             }
             await Task.CompletedTask;
         }

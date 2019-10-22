@@ -6,25 +6,23 @@ namespace Server.Frame
 {
     public class BaseServerCreater
     {
-        public NetProxyManager NetProxyManager { get; private set; }
+        public NetProxyManager NetProxyManager => Framework.NetProxyManager;
 
-        public BaseServerCreater(NetProxyManager manager)
+        public BaseServerCreater()
         {
-            NetProxyManager = manager;
         }
 
-        public virtual BackendService CreateBackendServer(Session session, AppType appType, int appId, int subId)
+        public virtual BackendServer CreateBackendServer(Session session, AppType appType, int appId, int subId)
         {
-            BackendServiceManager manager = NetProxyManager.GetBackendServiceManager(appType);
-            BackendService backend = new BackendService(manager, appType, appId, subId, session);
+            BackendServerManager manager = NetProxyManager.GetBackendServiceManager(appType);
+            BackendServer backend = new BackendServer(manager, appType, appId, subId, session);
             return backend;
         }
 
-        public virtual FrontendService CreateFrontendServer(AppConfig config)
+        public virtual FrontendServer CreateFrontendServer(AppConfig config)
         {
             var manager = NetProxyManager.GetFrontendServiceManager(config.AppType);
-            FrontendService frontend = new FrontendService(manager, config);
-            manager.AddService(frontend);
+            FrontendServer frontend = new FrontendServer(manager, config);
             return frontend;
         }
     }

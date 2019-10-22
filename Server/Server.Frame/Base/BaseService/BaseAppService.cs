@@ -7,7 +7,6 @@ namespace Server.Frame
 {
     public abstract partial class BaseAppService
     {
-        public BaseServerCreater ServerCreater { get; protected set; }
         public NetProxyManager NetProxyManager { get; private set; }
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }

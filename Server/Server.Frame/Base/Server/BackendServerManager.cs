@@ -4,15 +4,15 @@ using Giant.Msg;
 
 namespace Server.Frame
 {
-    public class BackendServiceManager : BaseServiceManager
+    public class BackendServerManager : BaseServerManager
     {
-        private readonly DepthMap<int, int, BackendService> services = new DepthMap<int, int, BackendService>();
+        private readonly DepthMap<int, int, BackendServer> services = new DepthMap<int, int, BackendServer>();
 
-        public BackendServiceManager(NetProxyManager manager) : base(manager)
+        public BackendServerManager(NetProxyManager manager) : base(manager)
         {
         }
 
-        public void RegistService(BackendService service)
+        public void RegistService(BackendServer service)
         {
             services.Add(service.AppId, service.SubId, service);
         }
@@ -22,21 +22,21 @@ namespace Server.Frame
             services.Remove(appId, subId);
         }
 
-        public BackendService GetService(int appId, int subId)
+        public BackendServer GetService(int appId, int subId)
         {
             services.TryGetValue(appId, subId, out var backend);
             return backend;
         }
 
-        public override void NotifyServiceInfo(BackendService backend)
+        public override void NotifyServiceInfo(BackendServer backend)
         {
-            BackendService server;
+            BackendServer server;
             foreach (var app in services)
             {
                 foreach (var service in app.Value)
                 {
                     server = service.Value;
-                    if (NetTopologyLibrary.NeeConnect(server.AppType, server.AppId, backend.AppType, backend.AppId))
+                    if (NetTopologyLibrary.NeedConnect(server.AppType, server.AppId, backend.AppType, backend.AppId))
                     {
                         Msg_Service_Info msg = new Msg_Service_Info
                         {

@@ -48,7 +48,7 @@ namespace Giant.Data
             }
         }
 
-        public static bool NeeConnect(AppType appType, int appId, AppType otherAppType, int otherAppId)
+        public static bool NeedConnect(AppType appType, int appId, AppType otherAppType, int otherAppId)
         {
             if (!netTopology.TryGetValue(appType, otherAppType, out var topologyType))
             {
