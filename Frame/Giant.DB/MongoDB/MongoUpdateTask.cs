@@ -2,7 +2,7 @@
 
 namespace Giant.DB.MongoDB
 {
-    public abstract class MongoUpdate
+    public abstract class MongoUpdateTask
     {
         public abstract Task UpdateTask();
     }

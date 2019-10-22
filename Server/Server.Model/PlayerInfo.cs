@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace Server.Gate
+namespace Server.Model
 {
     [BsonIgnoreExtraElements]
     public class PlayerInfo
@@ -14,7 +14,7 @@ namespace Server.Gate
 
         public int Year = 0;
 
-        public static int MM;
+        public int MapId;
 
         private string PrivateStr = string.Empty;
     }

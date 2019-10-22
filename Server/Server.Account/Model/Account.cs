@@ -6,7 +6,7 @@ using Giant.DB.MongoDB;
 namespace Server.Account
 {
     [BsonIgnoreExtraElements]
-    public class AccountInfo : MongoUpdate
+    public class AccountInfo : MongoUpdateTask
     {
         [BsonId]
         public string Account { get; set; }
@@ -15,7 +15,7 @@ namespace Server.Account
         public string LastLoginTime { get; set; }
 
         [BsonIgnoreIfNull]
-        public List<int> Zones { get; set; }
+        public List<int> Servers { get; set; }
 
         public override Task UpdateTask()
         {

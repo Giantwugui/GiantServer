@@ -3,14 +3,14 @@ package Giant.Msg;
 
 /*********************** Client => Account ****************************/
 
-message Msg_CA_Login_Account // IRequest
+message Msg_CA_Login // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	string	Password = 2;	// 密码
 }
 
-message Msg_AC_Login_Account // IResponse
+message Msg_AC_Login // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -18,14 +18,14 @@ message Msg_AC_Login_Account // IResponse
 	repeated int32 Zones = 1;
 }
 
-message Msg_CA_Login_Zone // IRequest
+message Msg_CA_LoginServers // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	int32 Zone = 2;	
 }
 
-message Msg_AC_Login_Zone // IResponse
+message Msg_AC_LoginServers // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
@@ -87,14 +87,14 @@ message Msg_GC_PlayerInfo // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	PlayerInfo PlayerInfo = 1;
-	repeated PlayerInfo PlayerInfos = 2;
+	Msg_PlayerInfo PlayerInfo = 1;
+	repeated Msg_PlayerInfo PlayerInfos = 2;
     repeated string TestRepeatedString = 3;
     repeated int32 TestRepeatedInt32 = 4;
     repeated int64 TestRepeatedInt64 = 5;
 }
 
-message PlayerInfo // IMessage
+message Msg_PlayerInfo // IMessage
 {
 	int32 RpcId = 90;
 }

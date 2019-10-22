@@ -10,10 +10,10 @@ namespace Server.Gate
     {
         public static AppService Instacne { get; } = new AppService();
 
-        public BaseServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId);
-        public BaseServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId);
-        public BaseServer MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
-        public BaseServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId);
+        public GlobalServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId) as GlobalServer;
+        public AccountServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId) as AccountServer;
+        public ZoneServer MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ZoneServer;
+        public ManagerServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ManagerServer;
 
 
         public override void Start(string[] args)

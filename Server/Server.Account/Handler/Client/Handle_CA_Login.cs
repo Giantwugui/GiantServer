@@ -10,9 +10,9 @@ using Giant.Core;
 namespace Server.Account
 {
     [MessageHandler(AppType.Account)]
-    class ClientHandle_Login_Account : RpcMHandler<Msg_CA_Login_Account, Msg_AC_Login_Account>
+    class Handle_CA_Login : RpcMHandler<Msg_CA_Login, Msg_AC_Login>
     {
-        public override async Task Run(Session session, Msg_CA_Login_Account request, Msg_AC_Login_Account response)
+        public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response)
         {
             var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -25,9 +25,9 @@ namespace Server.Account
             }
             else
             {
-                if (account.Zones != null && account.Zones.Count > 0)
+                if (account.Servers != null && account.Servers.Count > 0)
                 {
-                    response.Zones.AddRange(account.Zones);
+                    response.Zones.AddRange(account.Servers);
                 }
             }
 
@@ -42,9 +42,9 @@ namespace Server.Account
     }
 
     [MessageHandler(AppType.Account)]
-    class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_Login_Zone, Msg_AC_Login_Zone>
+    class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_LoginServers, Msg_AC_LoginServers>
     {
-        public override async Task Run(Session session, Msg_CA_Login_Zone request, Msg_AC_Login_Zone response)
+        public override async Task Run(Session session, Msg_CA_LoginServers request, Msg_AC_LoginServers response)
         {
             var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -55,13 +55,13 @@ namespace Server.Account
             }
             else
             {
-                if (account.Zones == null)
+                if (account.Servers == null)
                 {
-                    account.Zones = new List<int>() { request.Zone };
+                    account.Servers = new List<int>() { request.Zone };
                 }
-                if(account.Zones.Contains(request.Zone))
+                if(account.Servers.Contains(request.Zone))
                 {
-                    account.Zones.Add(request.Zone);
+                    account.Servers.Add(request.Zone);
                     await account.UpdateTask();
                 }
             }

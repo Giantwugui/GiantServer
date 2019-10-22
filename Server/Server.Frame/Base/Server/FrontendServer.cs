@@ -43,6 +43,11 @@ namespace Server.Frame
             }
         }
 
+        public void Send(IMessage message)
+        {
+            Session.Notify(message);
+        }
+
         private void CheckHeartBeat()
         {
             if (!IsConnected)

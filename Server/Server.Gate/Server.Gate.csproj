@@ -13,11 +13,13 @@
     <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
     <ProjectReference Include="..\..\Frame\Giant.Share\Giant.Share.csproj" />
     <ProjectReference Include="..\Server.Frame\Server.Frame.csproj" />
+    <ProjectReference Include="..\Server.Model\Server.Model.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handler\Zone\" />
+    <Folder Include="Handler\Server\Zone\" />
     <Folder Include="Handler\Manager\" />
+    <Folder Include="Model\" />
   </ItemGroup>
 
 </Project>
