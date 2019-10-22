@@ -8,11 +8,11 @@ namespace Giant.Msg
 	[Message(OuterOpcode.Msg_AC_Login)]
 	public partial class Msg_AC_Login : IResponse {}
 
-	[Message(OuterOpcode.Msg_CA_LoginServers)]
-	public partial class Msg_CA_LoginServers : IRequest {}
+	[Message(OuterOpcode.Msg_CA_LoginZone)]
+	public partial class Msg_CA_LoginZone : IRequest {}
 
-	[Message(OuterOpcode.Msg_AC_LoginServers)]
-	public partial class Msg_AC_LoginServers : IResponse {}
+	[Message(OuterOpcode.Msg_AC_LoginZone)]
+	public partial class Msg_AC_LoginZone : IResponse {}
 
 	[Message(OuterOpcode.Msg_CG_HeartBeat_Ping)]
 	public partial class Msg_CG_HeartBeat_Ping : IRequest {}
@@ -72,8 +72,8 @@ namespace Giant.Msg
 	{
 		 public const ushort Msg_CA_Login = 101;
 		 public const ushort Msg_AC_Login = 102;
-		 public const ushort Msg_CA_LoginServers = 103;
-		 public const ushort Msg_AC_LoginServers = 104;
+		 public const ushort Msg_CA_LoginZone = 103;
+		 public const ushort Msg_AC_LoginZone = 104;
 		 public const ushort Msg_CG_HeartBeat_Ping = 105;
 		 public const ushort Msg_CG_Login = 106;
 		 public const ushort Msg_CG_Get_SecretKey = 107;
@@ -96,8 +96,8 @@ namespace Giant.Msg
 		{
 			{Msg_CA_Login, typeof(Msg_CA_Login)},
 			{Msg_AC_Login, typeof(Msg_AC_Login)},
-			{Msg_CA_LoginServers, typeof(Msg_CA_LoginServers)},
-			{Msg_AC_LoginServers, typeof(Msg_AC_LoginServers)},
+			{Msg_CA_LoginZone, typeof(Msg_CA_LoginZone)},
+			{Msg_AC_LoginZone, typeof(Msg_AC_LoginZone)},
 			{Msg_CG_HeartBeat_Ping, typeof(Msg_CG_HeartBeat_Ping)},
 			{Msg_CG_Login, typeof(Msg_CG_Login)},
 			{Msg_CG_Get_SecretKey, typeof(Msg_CG_Get_SecretKey)},

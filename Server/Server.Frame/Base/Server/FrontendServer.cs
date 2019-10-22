@@ -31,7 +31,7 @@ namespace Server.Frame
             Session.Start();
         }
 
-        public void Update()
+        public virtual void Update()
         {
             try
             {

@@ -51,5 +51,10 @@ namespace Server.Gate
         {
             clients.Remove(uid);
         }
+
+        public int ClientCount()
+        {
+            return clients.Count + waittingList.Count;
+        }
     }
 }

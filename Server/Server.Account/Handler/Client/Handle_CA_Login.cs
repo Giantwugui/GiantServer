@@ -27,7 +27,7 @@ namespace Server.Account
             {
                 if (account.Servers != null && account.Servers.Count > 0)
                 {
-                    response.Zones.AddRange(account.Servers);
+                    response.Servers.AddRange(account.Servers);
                 }
             }
 
@@ -42,9 +42,9 @@ namespace Server.Account
     }
 
     [MessageHandler(AppType.Account)]
-    class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_LoginServers, Msg_AC_LoginServers>
+    class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
     {
-        public override async Task Run(Session session, Msg_CA_LoginServers request, Msg_AC_LoginServers response)
+        public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)
         {
             var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -66,7 +66,17 @@ namespace Server.Account
                 }
             }
 
-            response.Error = ErrorCode.Success;
+            GateInfo gateInfo = GateInfoManager.Instance.GetGateWithBalance(request.Zone);
+            if (gateInfo == null)
+            {
+                Logger.Error($"User {request.Account} request server {request.Zone}, have not exist !");
+                response.Error = ErrorCode.HaveNotFindServer;
+                return;
+            }
+
+            response.IP = gateInfo.IP;
+            response.Port = gateInfo.Port;
+            response.Key = gateInfo.ClientCount + 1;
 
             Logger.Debug($"user login {session.RemoteIPEndPoint} {request.Account}");
         }

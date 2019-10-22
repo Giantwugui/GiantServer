@@ -3,7 +3,7 @@ namespace Giant.Net
 	public static class ErrorCode
 	{
 		public const int Success = 0;
-		public const int Fail = 0;
+		public const int Fail = 1;
 
         // 1-11004 是SocketError请看SocketError定义
         //-----------------------------------
@@ -43,6 +43,7 @@ namespace Giant.Net
 		
 		public const int AccountOrPasswordError = 200102;
 		public const int HaveNotFindAccount = 200103;
+		public const int HaveNotFindServer = 200104;
         public const int HaveNotFindCharacer = 200105;
 
         //-----------------------------------

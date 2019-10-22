@@ -21,7 +21,8 @@ namespace Giant.Net
             {
                 Request request = message as Request;
                 Response response = Activator.CreateInstance<Response>();
-                response.RpcId = request.RpcId; 
+                response.RpcId = request.RpcId;
+                response.Error = ErrorCode.Success;
 
                 try
                 {

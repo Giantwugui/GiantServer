@@ -15,22 +15,24 @@ message Msg_AC_Login // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	repeated int32 Zones = 1;
+	repeated int32 Servers = 1;
 }
 
-message Msg_CA_LoginServers // IRequest
+message Msg_CA_LoginZone // IRequest
 {
 	int32 RpcId = 90;
 	string	Account	 = 1;	// 帐号
 	int32 Zone = 2;	
 }
 
-message Msg_AC_LoginServers // IResponse
+message Msg_AC_LoginZone // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
 	int64 Key = 1;
+	string IP = 2;
+	int32 port = 3;
 }
 
 /*********************** Client => Gate ****************************/
