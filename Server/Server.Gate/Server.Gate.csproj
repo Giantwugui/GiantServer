@@ -20,6 +20,7 @@
     <Folder Include="Handler\Server\Zone\" />
     <Folder Include="Handler\Manager\" />
     <Folder Include="Model\" />
+    <Folder Include="Server\BackendServer\" />
   </ItemGroup>
 
 </Project>
