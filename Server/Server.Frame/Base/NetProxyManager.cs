@@ -1,7 +1,6 @@
 ﻿using Giant.Core;
 using Giant.Data;
 using Giant.Log;
-using Giant.Net;
 using Giant.Share;
 using System.Collections.Generic;
 
@@ -12,16 +11,18 @@ namespace Server.Frame
         private readonly Dictionary<AppType, FrontendServerManager> frontendServices = new Dictionary<AppType, FrontendServerManager>();
         private readonly Dictionary<AppType, BackendServerManager> backendServices = new Dictionary<AppType, BackendServerManager>();
 
-        public BaseServerCreater ServerCreater { get; protected set; }
-        public BaseAppService Service { get; private set; }
-        public AppType AppType => Service.AppType;
-        public int AppId => Service.AppId;
-        public int SubId => Service.SubId;
+        public BaseAppService AppService { get; private set; }
+        public AppType AppType => AppService.AppType;
+        public int AppId => AppService.AppId;
+        public int SubId => AppService.SubId;
 
-        public void Init(BaseAppService service, BaseServerCreater creater)
+        public NetProxyManager(BaseAppService service)
         {
-            this.Service = service;
-            this.ServerCreater = creater;
+            this.AppService = service;
+        }
+
+        public void Init()
+        {
             if (AppType == AppType.Global)
             {
                 return;
@@ -32,7 +33,7 @@ namespace Server.Frame
                 return;
             }
 
-            FrontendServer frontend = ServerCreater.CreateFrontendServer(config);
+            FrontendServer frontend = AppService.ServerCreater.CreateFrontendServer(config);
             AddFrontend(frontend);
         }
 

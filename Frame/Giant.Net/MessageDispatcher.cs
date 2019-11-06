@@ -60,16 +60,10 @@ namespace Giant.Net
                 {
                     continue;
                 }
-
-                //只注册该App需要处理的消息处理
-                if (!attribute.AppType.IsSame(appyType))
+                if (Activator.CreateInstance(type) is IMHandler handler)
                 {
-                    continue;
+                    this.RegisterHandler(handler);
                 }
-
-                IMHandler handler = Activator.CreateInstance(type) as IMHandler;
-
-                this.RegisterHandler(handler);
             }
         }
 

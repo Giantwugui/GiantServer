@@ -6,13 +6,13 @@ namespace Server.Gate
 {
     public class ServerCreater : BaseServerCreater
     {
-        public ServerCreater() : base()
+        public ServerCreater(BaseAppService service) : base(service)
         { 
         }
 
         public override FrontendServer CreateFrontendServer(AppConfig config)
         {
-            FrontendServerManager manager = NetProxyManager.GetFrontendServiceManager(config.AppType);
+            FrontendServerManager manager = AppService.NetProxyManager.GetFrontendServiceManager(config.AppType);
             switch (config.AppType)
             {
                 case AppType.Account:

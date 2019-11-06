@@ -15,7 +15,7 @@ namespace Giant.Data
 
         private DataManager()
         {
-            xmlPath = $"{Directory.GetCurrentDirectory()}\\Xml";
+            xmlPath = $"{Directory.GetCurrentDirectory()}\\Xml\\";
         }
 
         public void Init()

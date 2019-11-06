@@ -9,7 +9,7 @@ using Giant.Core;
 
 namespace Server.Account
 {
-    [MessageHandler(AppType.Account)]
+    [MessageHandler]
     class Handle_CA_Login : RpcMHandler<Msg_CA_Login, Msg_AC_Login>
     {
         public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response)
@@ -41,7 +41,7 @@ namespace Server.Account
         }
     }
 
-    [MessageHandler(AppType.Account)]
+    [MessageHandler]
     class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
     {
         public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)

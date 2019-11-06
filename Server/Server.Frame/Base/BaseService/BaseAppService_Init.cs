@@ -25,6 +25,7 @@ namespace Server.Frame
             this.InitProtocol();
             this.InitDBService();
             this.InitRedisService();
+            this.InitServerCreater();
             this.InitNetworkTopology();
         }
 
@@ -38,6 +39,11 @@ namespace Server.Frame
         }
 
         public virtual void OnConnect(Session session, bool isConnect) { }
+
+        protected virtual void InitServerCreater()
+        {
+            ServerCreater = new BaseServerCreater(this);
+        }
 
 
         private void InitBase(string[] args)
@@ -110,7 +116,8 @@ namespace Server.Frame
         //网络拓扑
         private void InitNetworkTopology()
         {
-            this.NetProxyManager = new NetProxyManager();
+            this.NetProxyManager = new NetProxyManager(this);
+            this.NetProxyManager.Init();
         }
 
 

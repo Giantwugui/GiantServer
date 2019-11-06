@@ -29,11 +29,15 @@ namespace Server.Gate
         {
             //框架的各种初始化工作
             base.Init(args);
-            this.NetProxyManager.Init(this, new ServerCreater());
 
             this.InitDone();
 
             ConsoleReader.Instance.Start(DoCmd);
+        }
+
+        protected override void InitServerCreater()
+        {
+            this.ServerCreater = new ServerCreater(this);
         }
 
         private void DoUpdate()

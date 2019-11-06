@@ -26,7 +26,7 @@ namespace Client
 
         public static void Init()
         {
-            networkService = new OutterNetworkService(NetworkType.Tcp)
+            networkService = new NetworkService(NetworkType.Tcp)
             {
                 MessageParser = new ProtoPacker(),
                 MessageDispatcher = new MessageDispatcher()

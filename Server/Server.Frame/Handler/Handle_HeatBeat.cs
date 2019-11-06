@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Frame
 {
-    [MessageHandler(AppType.AllServer)]
+    [MessageHandler]
     public class Handle_HeatBeat_Ping : RpcMHandler<Msg_HeartBeat_Ping, Msg_HeartBeat_Pong>
     {
         public override Task Run(Session session, Msg_HeartBeat_Ping request, Msg_HeartBeat_Pong response)

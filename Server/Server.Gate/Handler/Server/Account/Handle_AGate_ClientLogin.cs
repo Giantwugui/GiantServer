@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Gate
 {
-    [MessageHandler(AppType.Gate)]
+    [MessageHandler]
     public class Handle_AGate_ClientLogin : MHandler<Msg_AG_ClientLogin>
     {
         public override Task Run(Session session, Msg_AG_ClientLogin message)

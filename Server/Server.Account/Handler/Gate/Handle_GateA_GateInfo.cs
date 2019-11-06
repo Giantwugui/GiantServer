@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Account
 {
-    [MessageHandler(AppType.Account)]
+    [MessageHandler]
     public class Handle_GateA_GateInfo : MHandler<Msg_GateA_GateInfo>
     {
         public override Task Run(Session session, Msg_GateA_GateInfo message)

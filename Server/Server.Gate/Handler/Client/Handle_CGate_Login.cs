@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Server.Gate
 {
-    [MessageHandler(AppType.Gate)]
+    [MessageHandler]
     public class ClientHandle_Ping : RpcMHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
     {
         public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
@@ -22,7 +22,7 @@ namespace Server.Gate
         }
     }
 
-    [MessageHandler(AppType.Gate)]
+    [MessageHandler]
     public class ClientHandle_GetSecretKey : RpcMHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
     {
         public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response)
@@ -31,7 +31,7 @@ namespace Server.Gate
         }
     }
 
-    [MessageHandler(AppType.Gate)]
+    [MessageHandler]
     public class ClientHandle_Login : RpcMHandler<Msg_CG_Login, Msg_GC_Login>
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)

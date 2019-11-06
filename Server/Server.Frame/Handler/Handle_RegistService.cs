@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.Frame
 {
-    [MessageHandler(AppType.AllServer)]
+    [MessageHandler]
     public class Handle_RegistService : RpcMHandler<Msg_RegistService_Req, Msg_RegistService_Rep>
     {
         public override async Task Run(Session session, Msg_RegistService_Req request, Msg_RegistService_Rep response)
@@ -24,7 +24,7 @@ namespace Server.Frame
             }
 
             BackendServer service = Framework.ServerCreater.CreateBackendServer(session, (AppType)request.AppType, request.AppId, request.SubId);
-            Framework.BaseService.NetProxyManager.RegistBackendService(service);
+            Framework.NetProxyManager.RegistBackendService(service);
             await Task.CompletedTask;
         }
     }

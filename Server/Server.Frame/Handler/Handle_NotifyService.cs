@@ -7,7 +7,7 @@ using Giant.Data;
 
 namespace Server.Frame
 {
-    [MessageHandler(AppType.AllServer)]
+    [MessageHandler]
     public class Handle_NotifyService : MHandler<Msg_Service_Info>
     {
         public override async Task Run(Session session, Msg_Service_Info message)

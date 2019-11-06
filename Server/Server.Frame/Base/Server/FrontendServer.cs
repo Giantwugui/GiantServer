@@ -26,7 +26,7 @@ namespace Server.Frame
 
         public void Start()
         {
-            Session = FrontendManager.NetProxyManager.Service.InnerNetworkService.Create(AppConfig.InnerAddress);
+            Session = Framework.InnerNetworkService.Create(AppConfig.InnerAddress);
             Session.OnConnectCallback += OnConnected;
             Session.Start();
         }
