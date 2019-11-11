@@ -17,7 +17,7 @@ namespace Giant.Share
             return message is string ? message as string : JsonSerializer.Serialize(message);
         }
 
-        public static byte[] ToBytes(object message)
+        public static byte[] ToJsonBytes(this object message)
         {
             string jsonStr = ToJson(message);
             return Encoding.UTF8.GetBytes(jsonStr);
@@ -25,21 +25,21 @@ namespace Giant.Share
 
         public static void ToStream(MemoryStream stream, object message)
         {
-            byte[] content = ToBytes(message);
+            byte[] content = ToJsonBytes(message);
             stream.Write(content);
         }
 
-        public static object FromBytes(byte[] content, Type type)
+        public static object FromJsonBytes(this byte[] content, Type type)
         {
             string jsonStr = Encoding.UTF8.GetString(content);
             return FromJson(jsonStr, type);
         }
 
-        public static object FromStream(MemoryStream stream, Type type)
+        public static object FromJsonStream(MemoryStream stream, Type type)
         {
             byte[] buffer = new byte[stream.Length - stream.Position];
             stream.Read(buffer);
-            return FromBytes(buffer, type);
+            return FromJsonBytes(buffer, type);
         }
 
         public static object FromJson(this string json, Type type)
@@ -60,6 +60,12 @@ namespace Giant.Share
             }
 
             return JsonSerializer.Deserialize<T>(json);
+        }
+
+        public static T FromJsonBytes<T>(this byte[] content)
+        {
+            string jsonStr = Encoding.UTF8.GetString(content);
+            return FromJson<T>(jsonStr);
         }
     }
 }
