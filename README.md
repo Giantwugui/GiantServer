@@ -5,13 +5,13 @@
 支持服务的自动注册与发现。
 
 ### 1. 配置表
-    配置表采用通用的xml配置
+    配置表采用通用的 xml 配置
 
 ### 2. 数据库
-	数据库支持MongoDB、MySQL
+	数据库支持 MongoDB、MySQL
 
 ### 3. 缓存
-	缓存支持Redis
+	缓存支持 Redis
 
 ### 4. 通讯协议
-	支持TCP Socket通讯，使用 Google Protobuf 通讯协议。
+	支持 TCP Socket通讯，使用 Google Protobuf 通讯协议。
