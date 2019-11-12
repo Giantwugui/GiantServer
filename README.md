@@ -1,2 +1,2 @@
-# GiantServer
+#  Game Server Framework
 
