@@ -16,14 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.Core\Giant.Core.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Msg\Giant.Msg.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Share\Giant.Share.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Core\Giant.Core.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Data\Giant.Data.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.DB\Giant.DB.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Log\Giant.Log.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Msg\Giant.Msg.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Net\Giant.Net.csproj" />
+    <ProjectReference Include="..\..\..\GiantPlugins\GiantPlugins\Giant.Redis\Giant.Redis.csproj" />
   </ItemGroup>
 
 </Project>

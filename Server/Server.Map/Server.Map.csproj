@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.DB\Giant.DB.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Log\Giant.Log.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Redis\Giant.Redis.csproj" />
     <ProjectReference Include="..\Server.Frame\Server.Frame.csproj" />
   </ItemGroup>
 
