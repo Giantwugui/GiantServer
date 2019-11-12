@@ -6,28 +6,31 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Giant.Zookeeper
+namespace Giant.Utils.ZK
 {
     /// <summary>
     /// ZooKeeper客户端。
     /// </summary>
     public class ZookeeperClient : Watcher, IZookeeperClient
     {
-        #region Field
+        private bool isDisposed;
+        private Event.KeeperState currentState;
+        private ConnectionStateChangeHandler connectionStateChangeHandler;
 
-        private readonly ConcurrentDictionary<string, NodeEntry> _nodeEntries =
-            new ConcurrentDictionary<string, NodeEntry>();
+        private readonly object zkEventLock = new object();
+        private readonly AutoResetEvent stateChangedCondition = new AutoResetEvent(false);
+        private readonly ConcurrentDictionary<string, NodeEntry> nodeEntries = new ConcurrentDictionary<string, NodeEntry>();
 
-        private ConnectionStateChangeHandler _connectionStateChangeHandler;
 
-        private Event.KeeperState _currentState;
-        private readonly AutoResetEvent _stateChangedCondition = new AutoResetEvent(false);
+        /// <summary>
+        /// 具体的ZooKeeper连接。
+        /// </summary>
+        public ZooKeeper ZooKeeper { get; private set; }
 
-        private readonly object _zkEventLock = new object();
-
-        private bool _isDispose;
-
-        #endregion Field
+        /// <summary>
+        /// 客户端选项。
+        /// </summary>
+        public ZookeeperClientOptions Options { get; }
 
         #region Constructor
 
@@ -36,8 +39,7 @@ namespace Giant.Zookeeper
         /// </summary>
         /// <param name="connectionString">连接字符串。</param>
         /// <exception cref="ArgumentNullException"><paramref name="connectionString"/> 为空。</exception>
-        public ZookeeperClient(string connectionString)
-            : this(new ZookeeperClientOptions(connectionString))
+        public ZookeeperClient(string connectionString) : this(new ZookeeperClientOptions(connectionString))
         {
         }
 
@@ -56,16 +58,6 @@ namespace Giant.Zookeeper
         #region Public Method
 
         /// <summary>
-        /// 具体的ZooKeeper连接。
-        /// </summary>
-        public ZooKeeper ZooKeeper { get; private set; }
-
-        /// <summary>
-        /// 客户端选项。
-        /// </summary>
-        public ZookeeperClientOptions Options { get; }
-
-        /// <summary>
         /// 等待zk连接到具体的某一个状态。
         /// </summary>
         /// <param name="states">希望达到的状态。</param>
@@ -74,14 +66,14 @@ namespace Giant.Zookeeper
         public bool WaitForKeeperState(Event.KeeperState states, TimeSpan timeout)
         {
             var stillWaiting = true;
-            while (_currentState != states)
+            while (currentState != states)
             {
                 if (!stillWaiting)
                 {
                     return false;
                 }
 
-                stillWaiting = _stateChangedCondition.WaitOne(timeout);
+                stillWaiting = stateChangedCondition.WaitOne(timeout);
             }
             return true;
         }
@@ -103,20 +95,12 @@ namespace Giant.Zookeeper
                 }
                 catch (KeeperException.ConnectionLossException)
                 {
-#if NET40
-                    await TaskEx.Yield();
-#else
                     await Task.Yield();
-#endif
                     this.WaitForRetry();
                 }
                 catch (KeeperException.SessionExpiredException)
                 {
-#if NET40
-                    await TaskEx.Yield();
-#else
                     await Task.Yield();
-#endif
                     this.WaitForRetry();
                 }
                 if (DateTime.Now - operationStartTime > Options.OperatingTimeout)
@@ -131,10 +115,9 @@ namespace Giant.Zookeeper
         /// </summary>
         /// <param name="path">节点路径。</param>
         /// <returns>节点数据。</returns>
-        public async Task<IEnumerable<byte>> GetDataAsync(string path)
+        public async Task<byte[]> GetDataAsync(string path)
         {
             path = GetZooKeeperPath(path);
-
             var nodeEntry = GetOrAddNodeEntry(path);
             return await RetryUntilConnected(async () => await nodeEntry.GetDataAsync());
         }
@@ -147,7 +130,6 @@ namespace Giant.Zookeeper
         public async Task<IEnumerable<string>> GetChildrenAsync(string path)
         {
             path = GetZooKeeperPath(path);
-
             var nodeEntry = GetOrAddNodeEntry(path);
             return await RetryUntilConnected(async () => await nodeEntry.GetChildrenAsync());
         }
@@ -160,7 +142,6 @@ namespace Giant.Zookeeper
         public async Task<bool> ExistsAsync(string path)
         {
             path = GetZooKeeperPath(path);
-
             var nodeEntry = GetOrAddNodeEntry(path);
             return await RetryUntilConnected(async () => await nodeEntry.ExistsAsync());
         }
@@ -248,7 +229,7 @@ namespace Giant.Zookeeper
         /// <param name="listener">监听者。</param>
         public void SubscribeStatusChange(ConnectionStateChangeHandler listener)
         {
-            _connectionStateChangeHandler += listener;
+            connectionStateChangeHandler += listener;
         }
 
         /// <summary>
@@ -257,7 +238,7 @@ namespace Giant.Zookeeper
         /// <param name="listener">监听者。</param>
         public void UnSubscribeStatusChange(ConnectionStateChangeHandler listener)
         {
-            _connectionStateChangeHandler -= listener;
+            connectionStateChangeHandler -= listener;
         }
 
         /// <summary>
@@ -295,7 +276,7 @@ namespace Giant.Zookeeper
         /// <returns></returns>
         public override async Task process(WatchedEvent watchedEvent)
         {
-            if (_isDispose)
+            if (isDisposed)
                 return;
 
             var path = watchedEvent.getPath();
@@ -305,10 +286,10 @@ namespace Giant.Zookeeper
             }
             else
             {
-                NodeEntry nodeEntry;
-                if (!_nodeEntries.TryGetValue(path, out nodeEntry))
-                    return;
-                await nodeEntry.OnChange(watchedEvent, false);
+                if (nodeEntries.TryGetValue(path, out NodeEntry nodeEntry))
+                { 
+                    await nodeEntry.OnChange(watchedEvent, false);
+                }
             }
         }
 
@@ -319,11 +300,11 @@ namespace Giant.Zookeeper
         /// <summary>执行与释放或重置非托管资源关联的应用程序定义的任务。</summary>
         public void Dispose()
         {
-            if (_isDispose)
+            if (isDisposed)
                 return;
-            _isDispose = true;
+            isDisposed = true;
 
-            lock (_zkEventLock)
+            lock (zkEventLock)
             {
                 Task.Run(async () =>
                 {
@@ -336,11 +317,11 @@ namespace Giant.Zookeeper
 
         #region Private Method
 
-        private bool _isFirstConnectioned = true;
+        private bool isFirstConnected = true;
 
         private async Task OnConnectionStateChange(WatchedEvent watchedEvent)
         {
-            if (_isDispose)
+            if (isDisposed)
                 return;
 
             var state = watchedEvent.getState();
@@ -352,23 +333,23 @@ namespace Giant.Zookeeper
             }
             else if (state == Event.KeeperState.SyncConnected)
             {
-                if (_isFirstConnectioned)
+                if (isFirstConnected)
                 {
-                    _isFirstConnectioned = false;
+                    isFirstConnected = false;
                 }
                 else
                 {
-                    foreach (var nodeEntry in _nodeEntries)
+                    foreach (var nodeEntry in nodeEntries)
                     {
                         await nodeEntry.Value.OnChange(watchedEvent, true);
                     }
                 }
             }
 
-            _stateChangedCondition.Set();
-            if (_connectionStateChangeHandler == null)
+            stateChangedCondition.Set();
+            if (connectionStateChangeHandler == null)
                 return;
-            await _connectionStateChangeHandler(this, new ConnectionStateChangeArgs
+            await connectionStateChangeHandler(this, new StateChangeArgs
             {
                 State = state
             });
@@ -376,7 +357,7 @@ namespace Giant.Zookeeper
 
         private NodeEntry GetOrAddNodeEntry(string path)
         {
-            return _nodeEntries.GetOrAdd(path, k => new NodeEntry(path, this));
+            return nodeEntries.GetOrAdd(path, k => new NodeEntry(path, this));
         }
 
         private ZooKeeper CreateZooKeeper()
@@ -386,7 +367,7 @@ namespace Giant.Zookeeper
 
         private async Task ReConnect()
         {
-            if (!Monitor.TryEnter(_zkEventLock, Options.ConnectionTimeout))
+            if (!Monitor.TryEnter(zkEventLock, Options.ConnectionTimeout))
                 return;
             try
             {
@@ -395,7 +376,7 @@ namespace Giant.Zookeeper
             }
             finally
             {
-                Monitor.Exit(_zkEventLock);
+                Monitor.Exit(zkEventLock);
             }
         }
 
@@ -403,7 +384,7 @@ namespace Giant.Zookeeper
         {
             lock (this)
             {
-                _currentState = state;
+                currentState = state;
             }
         }
 

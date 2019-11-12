@@ -5,8 +5,8 @@ namespace Giant.Utils.Kafka
 {
     public class KafkaProducer<K, V> : KafkaClient
     {
-        public static ISerializer<K>  DefaultKeySerializer = new ProducerSerialize<K>();
-        public static ISerializer<V>  DefaultValueSerializer = new ProducerSerialize<V>();
+        public static ISerializer<K>  DefaultKeySerializer => new ProducerSerialize<K>();
+        public static ISerializer<V>  DefaultValueSerializer => new ProducerSerialize<V>();
 
         private IProducer<K, V> producer;
 
@@ -28,9 +28,9 @@ namespace Giant.Utils.Kafka
 
                 Console.WriteLine($"Delivered '{dr.Value}' to '{dr.TopicPartitionOffset}'");
             }
-            catch (ProduceException<K, string> e)
+            catch (Exception ex)
             {
-                Console.WriteLine($"Delivery failed: {e.Error.Reason}");
+                Console.WriteLine(ex);
             }
         }
 
@@ -40,10 +40,6 @@ namespace Giant.Utils.Kafka
             {
                 producer.Produce(this.Topic, new Message<K, V> { Key = key, Value = message });
                 producer.Flush();
-            }
-            catch (ProduceException<Null, string> e)
-            {
-                Console.WriteLine($"Delivery failed: {e.Error.Reason}");
             }
             catch (Exception ex)
             {

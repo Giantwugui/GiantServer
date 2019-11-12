@@ -5,28 +5,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Giant.Zookeeper
+namespace Giant.Utils.ZK
 {
     internal class NodeEntry
     {
         #region Field
 
-        private readonly IZookeeperClient _client;
+        private readonly IZookeeperClient client;
 
         /// <summary>
         /// 数据变更多播委托。
         /// </summary>
-        private NodeDataChangeHandler _dataChangeHandler;
+        private NodeDataChangeHandler dataChangeHandler;
 
         /// <summary>
         /// 子节点变更多播委托。
         /// </summary>
-        private NodeChildrenChangeHandler _childrenChangeHandler;
+        private NodeChildrenChangeHandler childrenChangeHandler;
 
         /// <summary>
         /// 节点的快照。
         /// </summary>
-        private NodeSnapshot _localSnapshot = default(NodeSnapshot);
+        private NodeSnapshot localSnapshot = default(NodeSnapshot);
 
         #endregion Field
 
@@ -41,78 +41,78 @@ namespace Giant.Zookeeper
         public NodeEntry(string path, IZookeeperClient client)
         {
             Path = path;
-            _client = client;
+            this.client = client;
         }
 
         #endregion Constructor
 
         #region Public Method
 
-        public async Task<IEnumerable<byte>> GetDataAsync(bool watch = false)
+        public async Task<byte[]> GetDataAsync(bool watch = false)
         {
-            var zookeeper = _client.ZooKeeper;
+            var zookeeper = client.ZooKeeper;
             var data = await zookeeper.getDataAsync(Path, watch);
 
-            _localSnapshot.SetData(data?.Data);
+            localSnapshot.SetData(data?.Data);
 
             return data?.Data;
         }
 
         public async Task<IEnumerable<string>> GetChildrenAsync(bool watch = false)
         {
-            var zookeeper = _client.ZooKeeper;
+            var zookeeper = client.ZooKeeper;
             var data = await zookeeper.getChildrenAsync(Path, watch);
 
-            _localSnapshot.SetChildrens(data?.Children);
+            localSnapshot.SetChildrens(data?.Children);
 
             return data?.Children;
         }
 
         public async Task<bool> ExistsAsync(bool watch = false)
         {
-            var zookeeper = _client.ZooKeeper;
+            var zookeeper = client.ZooKeeper;
             var data = await zookeeper.existsAsync(Path, watch);
 
             var exists = data != null;
 
-            _localSnapshot.SetExists(exists);
+            localSnapshot.SetExists(exists);
 
             return exists;
         }
 
         public async Task<string> CreateAsync(byte[] data, List<ACL> acls, CreateMode createMode)
         {
-            var zooKeeper = _client.ZooKeeper;
+            var zooKeeper = client.ZooKeeper;
             var path = await zooKeeper.createAsync(Path, data, acls, createMode);
 
-            _localSnapshot.Create(createMode, data, acls);
+            localSnapshot.Create(createMode, data, acls);
 
             return path;
         }
 
         public Task<Stat> SetDataAsync(byte[] data, int version = -1)
         {
-            var zooKeeper = _client.ZooKeeper;
+            var zooKeeper = client.ZooKeeper;
             var stat = zooKeeper.setDataAsync(Path, data, version);
 
-            _localSnapshot.Update(data, version);
+            localSnapshot.Update(data, version);
 
             return stat;
         }
 
         public async Task DeleteAsync(int version = -1)
         {
-            var zookeeper = _client.ZooKeeper;
+            var zookeeper = client.ZooKeeper;
             await zookeeper.deleteAsync(Path, version);
 
-            _localSnapshot.Delete();
+            localSnapshot.Delete();
         }
 
         #region Listener
 
         public async Task SubscribeDataChange(NodeDataChangeHandler listener)
         {
-            _dataChangeHandler += listener;
+            dataChangeHandler += listener;
 
             //监控数据变化
             await WatchDataChange();
@@ -120,12 +120,12 @@ namespace Giant.Zookeeper
 
         public void UnSubscribeDataChange(NodeDataChangeHandler listener)
         {
-            _dataChangeHandler -= listener;
+            dataChangeHandler -= listener;
         }
 
         public async Task<IEnumerable<string>> SubscribeChildrenChange(NodeChildrenChangeHandler listener)
         {
-            _childrenChangeHandler += listener;
+            childrenChangeHandler += listener;
 
             //监控子节点变化
             return await WatchChildrenChange();
@@ -133,7 +133,7 @@ namespace Giant.Zookeeper
 
         public void UnSubscribeChildrenChange(NodeChildrenChangeHandler listener)
         {
-            _childrenChangeHandler -= listener;
+            childrenChangeHandler -= listener;
         }
 
         #endregion Listener
@@ -175,7 +175,7 @@ namespace Giant.Zookeeper
                 {
                     //如果子节点刚刚被创建并且该节点有注册子节点变更监听，则通知zk进行子节点监听（延迟监听）
                     if (eventType == Watcher.Event.EventType.NodeCreated && HasChildrenChangeHandler)
-                        await _client.RetryUntilConnected(() => GetChildrenAsync(true));
+                        await client.RetryUntilConnected(() => GetChildrenAsync(true));
 
                     //进行数据变更处理
                     await OnDataChangeHandle(watchedEvent);
@@ -191,12 +191,12 @@ namespace Giant.Zookeeper
         /// <summary>
         /// 是否有数据变更处理者。
         /// </summary>
-        private bool HasDataChangeHandler => HasHandler(_dataChangeHandler);
+        private bool HasDataChangeHandler => HasHandler(dataChangeHandler);
 
         /// <summary>
         /// 是否有子节点变更处理者。
         /// </summary>
-        private bool HasChildrenChangeHandler => HasHandler(_childrenChangeHandler);
+        private bool HasChildrenChangeHandler => HasHandler(childrenChangeHandler);
 
         /// <summary>
         /// 状态变更处理。
@@ -224,7 +224,7 @@ namespace Giant.Zookeeper
                 return;
 
             //获取当前节点最新数据的一个委托
-            var getCurrentData = new Func<Task<IEnumerable<byte>>>(() => _client.RetryUntilConnected(async () =>
+            var getCurrentData = new Func<Task<byte[]>>(() => client.RetryUntilConnected(async () =>
             {
                 try
                 {
@@ -257,7 +257,7 @@ namespace Giant.Zookeeper
                     throw new NotSupportedException($"不支持的事件类型：{watchedEvent.get_Type()}");
             }
 
-            await _dataChangeHandler(_client, args);
+            await dataChangeHandler(client, args);
 
             //重新监听
             await WatchDataChange();
@@ -269,7 +269,7 @@ namespace Giant.Zookeeper
                 return;
 
             //获取当前节点最新的子节点信息
-            var getCurrentChildrens = new Func<Task<IEnumerable<string>>>(() => _client.RetryUntilConnected(
+            var getCurrentChildrens = new Func<Task<IEnumerable<string>>>(() => client.RetryUntilConnected(
                 async () =>
                 {
                     try
@@ -287,8 +287,7 @@ namespace Giant.Zookeeper
             switch (watchedEvent.get_Type())
             {
                 case Watcher.Event.EventType.NodeCreated:
-                    args = new NodeChildrenChangeArgs(Path, Watcher.Event.EventType.NodeCreated,
-                        await getCurrentChildrens());
+                    args = new NodeChildrenChangeArgs(Path, Watcher.Event.EventType.NodeCreated, await getCurrentChildrens());
                     break;
 
                 case Watcher.Event.EventType.NodeDeleted:
@@ -297,15 +296,14 @@ namespace Giant.Zookeeper
 
                 case Watcher.Event.EventType.NodeChildrenChanged:
                 case Watcher.Event.EventType.None: //重连时触发
-                    args = new NodeChildrenChangeArgs(Path, Watcher.Event.EventType.NodeChildrenChanged,
-                        await getCurrentChildrens());
+                    args = new NodeChildrenChangeArgs(Path, Watcher.Event.EventType.NodeChildrenChanged, await getCurrentChildrens());
                     break;
 
                 default:
                     throw new NotSupportedException($"不支持的事件类型：{watchedEvent.get_Type()}");
             }
 
-            await _childrenChangeHandler(_client, args);
+            await childrenChangeHandler(client, args);
 
             //重新监听
             await WatchChildrenChange();
@@ -313,12 +311,12 @@ namespace Giant.Zookeeper
 
         private async Task WatchDataChange()
         {
-            await _client.RetryUntilConnected(() => ExistsAsync(true));
+            await client.RetryUntilConnected(() => ExistsAsync(true));
         }
 
         private async Task<IEnumerable<string>> WatchChildrenChange()
         {
-            return await _client.RetryUntilConnected(async () =>
+            return await client.RetryUntilConnected(async () =>
             {
                 await ExistsAsync(true);
                 try
@@ -340,24 +338,24 @@ namespace Giant.Zookeeper
         private async Task RestoreEphemeral()
         {
             //没有开启恢复
-            if (!_client.Options.EnableEphemeralNodeRestore)
+            if (!client.Options.EnableEphemeralNodeRestore)
                 return;
 
             //节点不存在
-            if (!_localSnapshot.IsExist)
+            if (!localSnapshot.IsExist)
                 return;
 
             //不是短暂的节点
-            if (_localSnapshot.Mode != CreateMode.EPHEMERAL && _localSnapshot.Mode != CreateMode.EPHEMERAL_SEQUENTIAL)
+            if (localSnapshot.Mode != CreateMode.EPHEMERAL && localSnapshot.Mode != CreateMode.EPHEMERAL_SEQUENTIAL)
                 return;
 
             try
             {
-                await _client.RetryUntilConnected(async () =>
+                await client.RetryUntilConnected(async () =>
                 {
                     try
                     {
-                        return await CreateAsync(_localSnapshot.Data?.ToArray(), _localSnapshot.Acls, _localSnapshot.Mode);
+                        return await CreateAsync(localSnapshot.Data?.ToArray(), localSnapshot.Acls, localSnapshot.Mode);
                     }
                     catch (KeeperException.NodeExistsException) //节点已经存在则忽略
                     {
@@ -372,68 +370,5 @@ namespace Giant.Zookeeper
         }
 
         #endregion Private Method
-
-        #region Help Type
-
-        public struct NodeSnapshot
-        {
-            public bool IsExist { get; set; }
-            public CreateMode Mode { get; set; }
-            public IEnumerable<byte> Data { get; set; }
-            public int? Version { get; set; }
-            public List<ACL> Acls { get; set; }
-            public IEnumerable<string> Childrens { get; set; }
-
-            public void Create(CreateMode mode, byte[] data, List<ACL> acls)
-            {
-                IsExist = true;
-                Mode = mode;
-                Data = data;
-                Version = -1;
-                Acls = acls;
-                Childrens = null;
-            }
-
-            public void Update(IEnumerable<byte> data, int version)
-            {
-                IsExist = true;
-                Data = data;
-                Version = version;
-            }
-
-            public void Delete()
-            {
-                IsExist = false;
-                Mode = null;
-                Data = null;
-                Version = null;
-                Acls = null;
-                Childrens = null;
-            }
-
-            public void SetData(IEnumerable<byte> data)
-            {
-                IsExist = true;
-                Data = data;
-            }
-
-            public void SetChildrens(IEnumerable<string> childrens)
-            {
-                IsExist = true;
-                Childrens = childrens;
-            }
-
-            public void SetExists(bool exists)
-            {
-                if (!exists)
-                {
-                    Delete();
-                    return;
-                }
-                IsExist = true;
-            }
-        }
-
-        #endregion Help Type
     }
 }

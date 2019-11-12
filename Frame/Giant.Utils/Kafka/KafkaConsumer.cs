@@ -1,12 +1,11 @@
 ﻿using Confluent.Kafka;
-using Giant.Share;
 
 namespace Giant.Utils.Kafka
 {
     public class KafkaConsumer<K, V> : KafkaClient
     {
-        public IDeserializer<K> DefaultKeyDeserializer = new ConsumerDeserialize<K>();
-        public IDeserializer<V> DefaultValueDeserializer = new ConsumerDeserialize<V>();
+        public static IDeserializer<K> DefaultKeyDeserializer => new ConsumerDeserialize<K>();
+        public static IDeserializer<V> DefaultValueDeserializer => new ConsumerDeserialize<V>();
 
         private IConsumer<K, V> consumer;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Giant.Zookeeper
+namespace Giant.Utils.ZK
 {
     /// <summary>
     /// ZooKeeper客户端选项。

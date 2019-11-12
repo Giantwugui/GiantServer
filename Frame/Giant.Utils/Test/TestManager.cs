@@ -24,7 +24,13 @@ namespace Giant.Utils.Test
             }
 
             ITest test = GetTest(param[0]);
-            test?.DoTest(param);
+            if (test == null)
+            {
+                Console.WriteLine($"have no test {param[0]}");
+                return;
+            }
+
+            test.DoTest(param);
         }
 
         public static void LoadTestes(Assembly assembly)
