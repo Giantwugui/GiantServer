@@ -9,8 +9,4 @@
     <OutputPath>F:\GiantFrame\Bin\</OutputPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Server.Frame\Server.Frame.csproj" />
-  </ItemGroup>
-
 </Project>
