@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Server.Relation": {
+      "commandName": "Project",
+      "commandLineArgs": "--appType=Relation  --appId=1001 --subId=1"
+    }
+  }
+}

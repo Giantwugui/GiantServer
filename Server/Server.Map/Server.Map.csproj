@@ -21,4 +21,8 @@
     <Folder Include="Server\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Framework\Server.Frame\Server.Frame.csproj" />
+  </ItemGroup>
+
 </Project>

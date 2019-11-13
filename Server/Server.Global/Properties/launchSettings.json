@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Server.Global": {
+      "commandName": "Project",
+      "commandLineArgs": "--appType=Global --appId=1001 --subId=1"
+    }
+  }
+}
