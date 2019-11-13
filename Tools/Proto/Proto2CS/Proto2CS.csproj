@@ -32,8 +32,4 @@
       <None Remove="Message\**" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="ET.Google.Protobuf" Version="1.0.1.1" />
-    </ItemGroup>
-
 </Project>

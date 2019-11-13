@@ -16,7 +16,7 @@ namespace ETTools
     public static class Program
     {
         private static string protoPath = "./Proto";
-        private static string csharpPath = "../Frame/Giant.Msg/";
+        private static string csharpPath = "../Server/Framework/Giant.Msg/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
@@ -35,7 +35,7 @@ namespace ETTools
             if (args.Length != 0)
             {
                 protoPath = $"{args[0]}../Proto/Proto";
-                csharpPath = $"{args[0]}../Frame/Giant.Msg/";
+                csharpPath = $"{args[0]}../Server/Framework/Giant.Msg/";
             }
 
             //直接使用命令行 在项目编译之前会重新生成
@@ -153,8 +153,8 @@ namespace ETTools
 
     public static class InnerProto2CS
     {
-        private const string protoPath = "../Frame/Giant.Msg/Proto/";
-        private const string serverMessagePath = "../Frame/Giant.Msg/";
+        private const string protoPath = "../Server/Framework/Giant.Msg/Proto/";
+        private const string serverMessagePath = "../Server/Framework/Giant.Msg/";
         private static readonly char[] splitChars = { ' ', '\t' };
         private static readonly List<OpcodeInfo> msgOpcode = new List<OpcodeInfo>();
 
