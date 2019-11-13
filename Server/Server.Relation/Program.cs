@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Server.Relation
+﻿namespace Server.Relation
 {
     class Program
     {

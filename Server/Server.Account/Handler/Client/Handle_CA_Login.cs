@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using Giant.Core;
+using Giant.DB.MongoDB;
+using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
-using Giant.Log;
-using Giant.DB.MongoDB;
 using System.Collections.Generic;
-using Giant.Core;
+using System.Threading.Tasks;
 
 namespace Server.Account
 {
@@ -59,7 +59,7 @@ namespace Server.Account
                 {
                     account.Servers = new List<int>() { request.Zone };
                 }
-                if(account.Servers.Contains(request.Zone))
+                if (account.Servers.Contains(request.Zone))
                 {
                     account.Servers.Add(request.Zone);
                     await account.UpdateTask();

@@ -1,9 +1,9 @@
-﻿using Giant.Log;
+﻿using Giant.Data;
+using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
 using System.Threading.Tasks;
-using Giant.Data;
 
 namespace Server.Frame
 {

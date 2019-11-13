@@ -35,9 +35,7 @@ THE SOFTWARE.
 An Interface for the NodePool Class.
 
 */
-using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace EpPathFinding
 {
@@ -62,8 +60,7 @@ namespace EpPathFinding
 
         public Node GetNode(GridPos iPos)
         {
-            Node retVal = null;
-            m_nodes.TryGetValue(iPos, out retVal);
+            m_nodes.TryGetValue(iPos, out Node retVal);
             return retVal;
         }
 
@@ -79,8 +76,7 @@ namespace EpPathFinding
             {
                 if (iWalkable.Value == true)
                 {
-                    Node retVal = null;
-                    if (m_nodes.TryGetValue(iPos, out retVal))
+                    if (m_nodes.TryGetValue(iPos, out Node retVal))
                     {
                         return retVal;
                     }

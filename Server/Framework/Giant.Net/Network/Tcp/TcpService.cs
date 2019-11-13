@@ -1,10 +1,10 @@
-﻿using Microsoft.IO;
+﻿using Giant.Log;
+using Giant.Share;
+using Microsoft.IO;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using Giant.Log;
-using Giant.Share;
 
 namespace Giant.Net
 {

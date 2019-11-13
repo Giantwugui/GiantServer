@@ -4,7 +4,7 @@ using System.Globalization;
 namespace UnityEngine
 {
     [Serializable]
-    public struct Matrix4x4: IEquatable<Matrix4x4>
+    public struct Matrix4x4 : IEquatable<Matrix4x4>
     {
         public static readonly Matrix4x4 identity = new Matrix4x4(1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f, 0.0f, 0.0f, 0.0f, 0.0f, 1f);
         public float m00;
@@ -23,13 +23,13 @@ namespace UnityEngine
         public float m31;
         public float m32;
         public float m33;
-        
+
         public bool isIdentity
         {
             get
             {
                 return this.m00 == 1f && this.m11 == 1f && this.m22 == 1f && this.m33 == 1f && // Check diagonal element first for early out.
-                this.m12 == 0.0f && this.m13 == 0.0f && this.m13 == 0.0f && this.m21 == 0.0f  && this.m23 == 0.0f && this.m23 == 0.0f  && this.m31 == 0.0f  && this.m32 == 0.0f  && this.m33 == 0.0f;
+                this.m12 == 0.0f && this.m13 == 0.0f && this.m13 == 0.0f && this.m21 == 0.0f && this.m23 == 0.0f && this.m23 == 0.0f && this.m31 == 0.0f && this.m32 == 0.0f && this.m33 == 0.0f;
             }
         }
 
@@ -309,8 +309,7 @@ namespace UnityEngine
 
         public static Matrix4x4 Scale(Vector3 scales)
         {
-            Matrix4x4 m1;
-            CreateScale(ref scales, out m1);
+            CreateScale(ref scales, out Matrix4x4 m1);
             return m1;
         }
 
@@ -341,7 +340,7 @@ namespace UnityEngine
             matrix44.m10 = matrix44.m20 = matrix44.m30 = 0.0f;
             matrix44.m11 = 2f / height;
             matrix44.m01 = matrix44.m21 = matrix44.m31 = 0.0f;
-            matrix44.m22 = (float) (1.0 / ((double) zNearPlane - (double) zFarPlane));
+            matrix44.m22 = (float)(1.0 / (zNearPlane - (double)zFarPlane));
             matrix44.m02 = matrix44.m12 = matrix44.m32 = 0.0f;
             matrix44.m03 = matrix44.m13 = 0.0f;
             matrix44.m23 = zNearPlane / (zNearPlane - zFarPlane);
@@ -355,7 +354,7 @@ namespace UnityEngine
             matrix.m10 = matrix.m20 = matrix.m30 = 0.0f;
             matrix.m11 = 2f / height;
             matrix.m01 = matrix.m21 = matrix.m31 = 0.0f;
-            matrix.m22 = (float) (1.0 / ((double) zNearPlane - (double) zFarPlane));
+            matrix.m22 = (float)(1.0 / (zNearPlane - (double)zFarPlane));
             matrix.m02 = matrix.m12 = matrix.m32 = 0.0f;
             matrix.m03 = matrix.m13 = 0.0f;
             matrix.m23 = zNearPlane / (zNearPlane - zFarPlane);
@@ -422,17 +421,17 @@ namespace UnityEngine
             float num8 = quaternion.y * quaternion.z;
             float num9 = quaternion.x * quaternion.w;
             Matrix4x4 matrix44;
-            matrix44.m00 = (float) (1.0 - 2.0 * ((double) num2 + (double) num3));
-            matrix44.m10 = (float) (2.0 * ((double) num4 + (double) num5));
-            matrix44.m20 = (float) (2.0 * ((double) num6 - (double) num7));
+            matrix44.m00 = (float)(1.0 - 2.0 * (num2 + (double)num3));
+            matrix44.m10 = (float)(2.0 * (num4 + (double)num5));
+            matrix44.m20 = (float)(2.0 * (num6 - (double)num7));
             matrix44.m30 = 0.0f;
-            matrix44.m01 = (float) (2.0 * ((double) num4 - (double) num5));
-            matrix44.m11 = (float) (1.0 - 2.0 * ((double) num3 + (double) num1));
-            matrix44.m21 = (float) (2.0 * ((double) num8 + (double) num9));
+            matrix44.m01 = (float)(2.0 * (num4 - (double)num5));
+            matrix44.m11 = (float)(1.0 - 2.0 * (num3 + (double)num1));
+            matrix44.m21 = (float)(2.0 * (num8 + (double)num9));
             matrix44.m31 = 0.0f;
-            matrix44.m02 = (float) (2.0 * ((double) num6 + (double) num7));
-            matrix44.m12 = (float) (2.0 * ((double) num8 - (double) num9));
-            matrix44.m22 = (float) (1.0 - 2.0 * ((double) num2 + (double) num1));
+            matrix44.m02 = (float)(2.0 * (num6 + (double)num7));
+            matrix44.m12 = (float)(2.0 * (num8 - (double)num9));
+            matrix44.m22 = (float)(1.0 - 2.0 * (num2 + (double)num1));
             matrix44.m32 = 0.0f;
             matrix44.m03 = 0.0f;
             matrix44.m13 = 0.0f;
@@ -452,17 +451,17 @@ namespace UnityEngine
             float num7 = quaternion.y * quaternion.w;
             float num8 = quaternion.y * quaternion.z;
             float num9 = quaternion.x * quaternion.w;
-            matrix.m00 = (float) (1.0 - 2.0 * ((double) num2 + (double) num3));
-            matrix.m10 = (float) (2.0 * ((double) num4 + (double) num5));
-            matrix.m20 = (float) (2.0 * ((double) num6 - (double) num7));
+            matrix.m00 = (float)(1.0 - 2.0 * (num2 + (double)num3));
+            matrix.m10 = (float)(2.0 * (num4 + (double)num5));
+            matrix.m20 = (float)(2.0 * (num6 - (double)num7));
             matrix.m30 = 0.0f;
-            matrix.m01 = (float) (2.0 * ((double) num4 - (double) num5));
-            matrix.m11 = (float) (1.0 - 2.0 * ((double) num3 + (double) num1));
-            matrix.m21 = (float) (2.0 * ((double) num8 + (double) num9));
+            matrix.m01 = (float)(2.0 * (num4 - (double)num5));
+            matrix.m11 = (float)(1.0 - 2.0 * (num3 + (double)num1));
+            matrix.m21 = (float)(2.0 * (num8 + (double)num9));
             matrix.m31 = 0.0f;
-            matrix.m02 = (float) (2.0 * ((double) num6 + (double) num7));
-            matrix.m12 = (float) (2.0 * ((double) num8 - (double) num9));
-            matrix.m22 = (float) (1.0 - 2.0 * ((double) num2 + (double) num1));
+            matrix.m02 = (float)(2.0 * (num6 + (double)num7));
+            matrix.m12 = (float)(2.0 * (num8 - (double)num9));
+            matrix.m22 = (float)(1.0 - 2.0 * (num2 + (double)num1));
             matrix.m32 = 0.0f;
             matrix.m03 = 0.0f;
             matrix.m13 = 0.0f;
@@ -472,22 +471,20 @@ namespace UnityEngine
 
         public static Matrix4x4 CreateFromYawPitchRoll(float yaw, float pitch, float roll)
         {
-            Quaternion result;
-            Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out result);
+            Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out Quaternion result);
             return Matrix4x4.CreateFromQuaternion(result);
         }
 
         public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix4x4 result)
         {
-            Quaternion result1;
-            Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out result1);
+            Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out Quaternion result1);
             result = Matrix4x4.CreateFromQuaternion(result1);
         }
 
         public static Matrix4x4 CreateRotationX(float radians)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             Matrix4x4 matrix44;
             matrix44.m00 = 1f;
             matrix44.m10 = 0.0f;
@@ -510,8 +507,8 @@ namespace UnityEngine
 
         public static void CreateRotationX(float radians, out Matrix4x4 result)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             result.m00 = 1f;
             result.m10 = 0.0f;
             result.m20 = 0.0f;
@@ -532,8 +529,8 @@ namespace UnityEngine
 
         public static Matrix4x4 CreateRotationY(float radians)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             Matrix4x4 matrix44;
             matrix44.m00 = num1;
             matrix44.m10 = 0.0f;
@@ -556,8 +553,8 @@ namespace UnityEngine
 
         public static void CreateRotationY(float radians, out Matrix4x4 result)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             result.m00 = num1;
             result.m10 = 0.0f;
             result.m20 = -num2;
@@ -578,8 +575,8 @@ namespace UnityEngine
 
         public static Matrix4x4 CreateRotationZ(float radians)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             Matrix4x4 matrix44;
             matrix44.m00 = num1;
             matrix44.m10 = num2;
@@ -602,8 +599,8 @@ namespace UnityEngine
 
         public static void CreateRotationZ(float radians, out Matrix4x4 result)
         {
-            float num1 = (float) Math.Cos((double) radians);
-            float num2 = (float) Math.Sin((double) radians);
+            float num1 = (float)Math.Cos(radians);
+            float num2 = (float)Math.Sin(radians);
             result.m00 = num1;
             result.m10 = num2;
             result.m20 = 0.0f;
@@ -627,8 +624,8 @@ namespace UnityEngine
             float x = axis.x;
             float y = axis.y;
             float z = axis.z;
-            float num1 = (float) Math.Sin((double) angle);
-            float num2 = (float) Math.Cos((double) angle);
+            float num1 = (float)Math.Sin(angle);
+            float num2 = (float)Math.Cos(angle);
             float num3 = x * x;
             float num4 = y * y;
             float num5 = z * z;
@@ -637,15 +634,15 @@ namespace UnityEngine
             float num8 = y * z;
             Matrix4x4 matrix44;
             matrix44.m00 = num3 + num2 * (1f - num3);
-            matrix44.m10 = (float) ((double) num6 - (double) num2 * (double) num6 + (double) num1 * (double) z);
-            matrix44.m20 = (float) ((double) num7 - (double) num2 * (double) num7 - (double) num1 * (double) y);
+            matrix44.m10 = (float)(num6 - num2 * (double)num6 + num1 * (double)z);
+            matrix44.m20 = (float)(num7 - num2 * (double)num7 - num1 * (double)y);
             matrix44.m30 = 0.0f;
-            matrix44.m01 = (float) ((double) num6 - (double) num2 * (double) num6 - (double) num1 * (double) z);
+            matrix44.m01 = (float)(num6 - num2 * (double)num6 - num1 * (double)z);
             matrix44.m11 = num4 + num2 * (1f - num4);
-            matrix44.m21 = (float) ((double) num8 - (double) num2 * (double) num8 + (double) num1 * (double) x);
+            matrix44.m21 = (float)(num8 - num2 * (double)num8 + num1 * (double)x);
             matrix44.m31 = 0.0f;
-            matrix44.m02 = (float) ((double) num7 - (double) num2 * (double) num7 + (double) num1 * (double) y);
-            matrix44.m12 = (float) ((double) num8 - (double) num2 * (double) num8 - (double) num1 * (double) x);
+            matrix44.m02 = (float)(num7 - num2 * (double)num7 + num1 * (double)y);
+            matrix44.m12 = (float)(num8 - num2 * (double)num8 - num1 * (double)x);
             matrix44.m22 = num5 + num2 * (1f - num5);
             matrix44.m32 = 0.0f;
             matrix44.m03 = 0.0f;
@@ -660,8 +657,8 @@ namespace UnityEngine
             float x = axis.x;
             float y = axis.y;
             float z = axis.z;
-            float num1 = (float) Math.Sin((double) angle);
-            float num2 = (float) Math.Cos((double) angle);
+            float num1 = (float)Math.Sin(angle);
+            float num2 = (float)Math.Cos(angle);
             float num3 = x * x;
             float num4 = y * y;
             float num5 = z * z;
@@ -669,15 +666,15 @@ namespace UnityEngine
             float num7 = x * z;
             float num8 = y * z;
             result.m00 = num3 + num2 * (1f - num3);
-            result.m10 = (float) ((double) num6 - (double) num2 * (double) num6 + (double) num1 * (double) z);
-            result.m20 = (float) ((double) num7 - (double) num2 * (double) num7 - (double) num1 * (double) y);
+            result.m10 = (float)(num6 - num2 * (double)num6 + num1 * (double)z);
+            result.m20 = (float)(num7 - num2 * (double)num7 - num1 * (double)y);
             result.m30 = 0.0f;
-            result.m01 = (float) ((double) num6 - (double) num2 * (double) num6 - (double) num1 * (double) z);
+            result.m01 = (float)(num6 - num2 * (double)num6 - num1 * (double)z);
             result.m11 = num4 + num2 * (1f - num4);
-            result.m21 = (float) ((double) num8 - (double) num2 * (double) num8 + (double) num1 * (double) x);
+            result.m21 = (float)(num8 - num2 * (double)num8 + num1 * (double)x);
             result.m31 = 0.0f;
-            result.m02 = (float) ((double) num7 - (double) num2 * (double) num7 + (double) num1 * (double) y);
-            result.m12 = (float) ((double) num8 - (double) num2 * (double) num8 - (double) num1 * (double) x);
+            result.m02 = (float)(num7 - num2 * (double)num7 + num1 * (double)y);
+            result.m12 = (float)(num8 - num2 * (double)num8 - num1 * (double)x);
             result.m22 = num5 + num2 * (1f - num5);
             result.m32 = 0.0f;
             result.m03 = 0.0f;
@@ -689,44 +686,44 @@ namespace UnityEngine
         public void Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
         {
             Matrix4x4 identity = Matrix4x4.identity;
-            float num1 = 1f / (float) Math.Sqrt((double) this[0, 0] * (double) this[0, 0] + (double) this[1, 0] * (double) this[1, 0] +
-                                                (double) this[2, 0] * (double) this[2, 0]);
+            float num1 = 1f / (float)Math.Sqrt(this[0, 0] * (double)this[0, 0] + this[1, 0] * (double)this[1, 0] +
+                                                 this[2, 0] * (double)this[2, 0]);
             identity[0, 0] = this[0, 0] * num1;
             identity[1, 0] = this[1, 0] * num1;
             identity[2, 0] = this[2, 0] * num1;
-            float num2 = (float) ((double) identity[0, 0] * (double) this[0, 1] + (double) identity[1, 0] * (double) this[1, 1] +
-                (double) identity[2, 0] * (double) this[2, 1]);
+            float num2 = (float)(identity[0, 0] * (double)this[0, 1] + identity[1, 0] * (double)this[1, 1] +
+                 identity[2, 0] * (double)this[2, 1]);
             identity[0, 1] = this[0, 1] - num2 * identity[0, 0];
             identity[1, 1] = this[1, 1] - num2 * identity[1, 0];
             identity[2, 1] = this[2, 1] - num2 * identity[2, 0];
-            float num3 = 1f / (float) Math.Sqrt((double) identity[0, 1] * (double) identity[0, 1] +
-                                                (double) identity[1, 1] * (double) identity[1, 1] +
-                                                (double) identity[2, 1] * (double) identity[2, 1]);
+            float num3 = 1f / (float)Math.Sqrt(identity[0, 1] * (double)identity[0, 1] +
+                                                 identity[1, 1] * (double)identity[1, 1] +
+                                                 identity[2, 1] * (double)identity[2, 1]);
             identity[0, 1] *= num3;
             identity[1, 1] *= num3;
             identity[2, 1] *= num3;
-            float num4 = (float) ((double) identity[0, 0] * (double) this[0, 2] + (double) identity[1, 0] * (double) this[1, 2] +
-                (double) identity[2, 0] * (double) this[2, 2]);
+            float num4 = (float)(identity[0, 0] * (double)this[0, 2] + identity[1, 0] * (double)this[1, 2] +
+                 identity[2, 0] * (double)this[2, 2]);
             identity[0, 2] = this[0, 2] - num4 * identity[0, 0];
             identity[1, 2] = this[1, 2] - num4 * identity[1, 0];
             identity[2, 2] = this[2, 2] - num4 * identity[2, 0];
-            float num5 = (float) ((double) identity[0, 1] * (double) this[0, 2] + (double) identity[1, 1] * (double) this[1, 2] +
-                (double) identity[2, 1] * (double) this[2, 2]);
+            float num5 = (float)(identity[0, 1] * (double)this[0, 2] + identity[1, 1] * (double)this[1, 2] +
+                 identity[2, 1] * (double)this[2, 2]);
             identity[0, 2] -= num5 * identity[0, 1];
             identity[1, 2] -= num5 * identity[1, 1];
             identity[2, 2] -= num5 * identity[2, 1];
-            float num6 = 1f / (float) Math.Sqrt((double) identity[0, 2] * (double) identity[0, 2] +
-                                                (double) identity[1, 2] * (double) identity[1, 2] +
-                                                (double) identity[2, 2] * (double) identity[2, 2]);
+            float num6 = 1f / (float)Math.Sqrt(identity[0, 2] * (double)identity[0, 2] +
+                                                 identity[1, 2] * (double)identity[1, 2] +
+                                                 identity[2, 2] * (double)identity[2, 2]);
             identity[0, 2] *= num6;
             identity[1, 2] *= num6;
             identity[2, 2] *= num6;
-            if ((double) identity[0, 0] * (double) identity[1, 1] * (double) identity[2, 2] +
-                (double) identity[0, 1] * (double) identity[1, 2] * (double) identity[2, 0] +
-                (double) identity[0, 2] * (double) identity[1, 0] * (double) identity[2, 1] -
-                (double) identity[0, 2] * (double) identity[1, 1] * (double) identity[2, 0] -
-                (double) identity[0, 1] * (double) identity[1, 0] * (double) identity[2, 2] -
-                (double) identity[0, 0] * (double) identity[1, 2] * (double) identity[2, 1] < 0.0)
+            if (identity[0, 0] * (double)identity[1, 1] * identity[2, 2] +
+                 identity[0, 1] * (double)identity[1, 2] * identity[2, 0] +
+                 identity[0, 2] * (double)identity[1, 0] * identity[2, 1] -
+                 identity[0, 2] * (double)identity[1, 1] * identity[2, 0] -
+                 identity[0, 1] * (double)identity[1, 0] * identity[2, 2] -
+                 identity[0, 0] * (double)identity[1, 2] * identity[2, 1] < 0.0)
             {
                 for (int index1 = 0; index1 < 3; ++index1)
                 {
@@ -737,11 +734,11 @@ namespace UnityEngine
 
             scale =
                     new
-                            Vector3((float) ((double) identity[0, 0] * (double) this[0, 0] + (double) identity[1, 0] * (double) this[1, 0] + (double) identity[2, 0] * (double) this[2, 0]),
-                                    (float) ((double) identity[0, 1] * (double) this[0, 1] + (double) identity[1, 1] * (double) this[1, 1] +
-                                        (double) identity[2, 1] * (double) this[2, 1]),
-                                    (float) ((double) identity[0, 2] * (double) this[0, 2] + (double) identity[1, 2] * (double) this[1, 2] +
-                                        (double) identity[2, 2] * (double) this[2, 2]));
+                            Vector3((float)(identity[0, 0] * (double)this[0, 0] + identity[1, 0] * (double)this[1, 0] + identity[2, 0] * (double)this[2, 0]),
+                                    (float)(identity[0, 1] * (double)this[0, 1] + identity[1, 1] * (double)this[1, 1] +
+                                         identity[2, 1] * (double)this[2, 1]),
+                                    (float)(identity[0, 2] * (double)this[0, 2] + identity[1, 2] * (double)this[1, 2] +
+                                         identity[2, 2] * (double)this[2, 2]));
             rotation = Quaternion.CreateFromRotationMatrix(identity);
             translation = new Vector3(this[0, 3], this[1, 3], this[2, 3]);
         }
@@ -750,46 +747,46 @@ namespace UnityEngine
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             return
-                    string.Format((IFormatProvider) currentCulture, "{0}, {1}, {2}, {3}; ",
-                                  (object) this.m00.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m01.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m02.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m03.ToString((IFormatProvider) currentCulture)) +
-                    string.Format((IFormatProvider) currentCulture, "{0}, {1}, {2}, {3}; ",
-                                  (object) this.m10.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m11.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m12.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m13.ToString((IFormatProvider) currentCulture)) +
-                    string.Format((IFormatProvider) currentCulture, "{0}, {1}, {2}, {3}; ",
-                                  (object) this.m20.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m21.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m22.ToString((IFormatProvider) currentCulture),
-                                  (object) this.m23.ToString((IFormatProvider) currentCulture)) + string.Format((IFormatProvider) currentCulture,
+                    string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
+                                   this.m00.ToString(currentCulture),
+                                   this.m01.ToString(currentCulture),
+                                   this.m02.ToString(currentCulture),
+                                   this.m03.ToString(currentCulture)) +
+                    string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
+                                   this.m10.ToString(currentCulture),
+                                   this.m11.ToString(currentCulture),
+                                   this.m12.ToString(currentCulture),
+                                   this.m13.ToString(currentCulture)) +
+                    string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
+                                   this.m20.ToString(currentCulture),
+                                   this.m21.ToString(currentCulture),
+                                   this.m22.ToString(currentCulture),
+                                   this.m23.ToString(currentCulture)) + string.Format(currentCulture,
                                                                                                                 "{0}, {1}, {2}, {3}",
-                                                                                                                (object) this.m30
-                                                                                                                        .ToString((IFormatProvider)
+                                                                                                                 this.m30
+                                                                                                                        .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                (object) this.m31
-                                                                                                                        .ToString((IFormatProvider)
+                                                                                                                 this.m31
+                                                                                                                        .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                (object) this.m32
-                                                                                                                        .ToString((IFormatProvider)
+                                                                                                                 this.m32
+                                                                                                                        .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                (object) this.m33
-                                                                                                                        .ToString((IFormatProvider)
+                                                                                                                 this.m33
+                                                                                                                        .ToString(
                                                                                                                                   currentCulture));
         }
 
         public bool Equals(Matrix4x4 other)
         {
-            if ((double) this.m00 == (double) other.m00 && (double) this.m11 == (double) other.m11 &&
-                ((double) this.m22 == (double) other.m22 && (double) this.m33 == (double) other.m33) &&
-                ((double) this.m01 == (double) other.m01 && (double) this.m02 == (double) other.m02 &&
-                    ((double) this.m03 == (double) other.m03 && (double) this.m10 == (double) other.m10)) &&
-                ((double) this.m12 == (double) other.m12 && (double) this.m13 == (double) other.m13 &&
-                    ((double) this.m20 == (double) other.m20 && (double) this.m21 == (double) other.m21) &&
-                    ((double) this.m23 == (double) other.m23 && (double) this.m30 == (double) other.m30 && (double) this.m31 == (double) other.m31)))
-                return (double) this.m32 == (double) other.m32;
+            if (m00 == (double)other.m00 && m11 == (double)other.m11 &&
+                (m22 == (double)other.m22 && m33 == (double)other.m33) &&
+                (m01 == (double)other.m01 && m02 == (double)other.m02 &&
+                    (m03 == (double)other.m03 && m10 == (double)other.m10)) &&
+                (m12 == (double)other.m12 && m13 == (double)other.m13 &&
+                    (m20 == (double)other.m20 && m21 == (double)other.m21) &&
+                    (m23 == (double)other.m23 && m30 == (double)other.m30 && m31 == (double)other.m31)))
+                return m32 == (double)other.m32;
             return false;
         }
 
@@ -797,7 +794,7 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Matrix4x4)
-                flag = this.Equals((Matrix4x4) obj);
+                flag = this.Equals((Matrix4x4)obj);
             return flag;
         }
 
@@ -869,16 +866,16 @@ namespace UnityEngine
             float m13 = this.m13;
             float m23 = this.m23;
             float m33 = this.m33;
-            float num1 = (float) ((double) m22 * (double) m33 - (double) m32 * (double) m23);
-            float num2 = (float) ((double) m12 * (double) m33 - (double) m32 * (double) m13);
-            float num3 = (float) ((double) m12 * (double) m23 - (double) m22 * (double) m13);
-            float num4 = (float) ((double) m02 * (double) m33 - (double) m32 * (double) m03);
-            float num5 = (float) ((double) m02 * (double) m23 - (double) m22 * (double) m03);
-            float num6 = (float) ((double) m02 * (double) m13 - (double) m12 * (double) m03);
-            return (float) ((double) m00 * ((double) m11 * (double) num1 - (double) m21 * (double) num2 + (double) m31 * (double) num3) -
-                (double) m10 * ((double) m01 * (double) num1 - (double) m21 * (double) num4 + (double) m31 * (double) num5) +
-                (double) m20 * ((double) m01 * (double) num2 - (double) m11 * (double) num4 + (double) m31 * (double) num6) -
-                (double) m30 * ((double) m01 * (double) num3 - (double) m11 * (double) num5 + (double) m21 * (double) num6));
+            float num1 = (float)(m22 * (double)m33 - m32 * (double)m23);
+            float num2 = (float)(m12 * (double)m33 - m32 * (double)m13);
+            float num3 = (float)(m12 * (double)m23 - m22 * (double)m13);
+            float num4 = (float)(m02 * (double)m33 - m32 * (double)m03);
+            float num5 = (float)(m02 * (double)m23 - m22 * (double)m03);
+            float num6 = (float)(m02 * (double)m13 - m12 * (double)m03);
+            return (float)(m00 * (m11 * (double)num1 - m21 * (double)num2 + m31 * (double)num3) -
+                 m10 * (m01 * (double)num1 - m21 * (double)num4 + m31 * (double)num5) +
+                 m20 * (m01 * (double)num2 - m11 * (double)num4 + m31 * (double)num6) -
+                 m30 * (m01 * (double)num3 - m11 * (double)num5 + m21 * (double)num6));
         }
 
         public static Matrix4x4 Invert(Matrix4x4 matrix)
@@ -899,47 +896,47 @@ namespace UnityEngine
             float m13 = matrix.m13;
             float m23 = matrix.m23;
             float m33 = matrix.m33;
-            float num1 = (float) ((double) m22 * (double) m33 - (double) m32 * (double) m23);
-            float num2 = (float) ((double) m12 * (double) m33 - (double) m32 * (double) m13);
-            float num3 = (float) ((double) m12 * (double) m23 - (double) m22 * (double) m13);
-            float num4 = (float) ((double) m02 * (double) m33 - (double) m32 * (double) m03);
-            float num5 = (float) ((double) m02 * (double) m23 - (double) m22 * (double) m03);
-            float num6 = (float) ((double) m02 * (double) m13 - (double) m12 * (double) m03);
-            float num7 = (float) ((double) m11 * (double) num1 - (double) m21 * (double) num2 + (double) m31 * (double) num3);
-            float num8 = (float) -((double) m01 * (double) num1 - (double) m21 * (double) num4 + (double) m31 * (double) num5);
-            float num9 = (float) ((double) m01 * (double) num2 - (double) m11 * (double) num4 + (double) m31 * (double) num6);
-            float num10 = (float) -((double) m01 * (double) num3 - (double) m11 * (double) num5 + (double) m21 * (double) num6);
-            float num11 = (float) (1.0 / ((double) m00 * (double) num7 + (double) m10 * (double) num8 + (double) m20 * (double) num9 +
-                (double) m30 * (double) num10));
+            float num1 = (float)(m22 * (double)m33 - m32 * (double)m23);
+            float num2 = (float)(m12 * (double)m33 - m32 * (double)m13);
+            float num3 = (float)(m12 * (double)m23 - m22 * (double)m13);
+            float num4 = (float)(m02 * (double)m33 - m32 * (double)m03);
+            float num5 = (float)(m02 * (double)m23 - m22 * (double)m03);
+            float num6 = (float)(m02 * (double)m13 - m12 * (double)m03);
+            float num7 = (float)(m11 * (double)num1 - m21 * (double)num2 + m31 * (double)num3);
+            float num8 = (float)-(m01 * (double)num1 - m21 * (double)num4 + m31 * (double)num5);
+            float num9 = (float)(m01 * (double)num2 - m11 * (double)num4 + m31 * (double)num6);
+            float num10 = (float)-(m01 * (double)num3 - m11 * (double)num5 + m21 * (double)num6);
+            float num11 = (float)(1.0 / (m00 * (double)num7 + m10 * (double)num8 + m20 * (double)num9 +
+                 m30 * (double)num10));
             Matrix4x4 matrix44;
             matrix44.m00 = num7 * num11;
             matrix44.m01 = num8 * num11;
             matrix44.m02 = num9 * num11;
             matrix44.m03 = num10 * num11;
-            matrix44.m10 = (float) -((double) m10 * (double) num1 - (double) m20 * (double) num2 + (double) m30 * (double) num3) * num11;
-            matrix44.m11 = (float) ((double) m00 * (double) num1 - (double) m20 * (double) num4 + (double) m30 * (double) num5) * num11;
-            matrix44.m12 = (float) -((double) m00 * (double) num2 - (double) m10 * (double) num4 + (double) m30 * (double) num6) * num11;
-            matrix44.m13 = (float) ((double) m00 * (double) num3 - (double) m10 * (double) num5 + (double) m20 * (double) num6) * num11;
-            float num12 = (float) ((double) m21 * (double) m33 - (double) m31 * (double) m23);
-            float num13 = (float) ((double) m11 * (double) m33 - (double) m31 * (double) m13);
-            float num14 = (float) ((double) m11 * (double) m23 - (double) m21 * (double) m13);
-            float num15 = (float) ((double) m01 * (double) m33 - (double) m31 * (double) m03);
-            float num16 = (float) ((double) m01 * (double) m23 - (double) m21 * (double) m03);
-            float num17 = (float) ((double) m01 * (double) m13 - (double) m11 * (double) m03);
-            matrix44.m20 = (float) ((double) m10 * (double) num12 - (double) m20 * (double) num13 + (double) m30 * (double) num14) * num11;
-            matrix44.m21 = (float) -((double) m00 * (double) num12 - (double) m20 * (double) num15 + (double) m30 * (double) num16) * num11;
-            matrix44.m22 = (float) ((double) m00 * (double) num13 - (double) m10 * (double) num15 + (double) m30 * (double) num17) * num11;
-            matrix44.m23 = (float) -((double) m00 * (double) num14 - (double) m10 * (double) num16 + (double) m20 * (double) num17) * num11;
-            float num18 = (float) ((double) m21 * (double) m32 - (double) m31 * (double) m22);
-            float num19 = (float) ((double) m11 * (double) m32 - (double) m31 * (double) m12);
-            float num20 = (float) ((double) m11 * (double) m22 - (double) m21 * (double) m12);
-            float num21 = (float) ((double) m01 * (double) m32 - (double) m31 * (double) m02);
-            float num22 = (float) ((double) m01 * (double) m22 - (double) m21 * (double) m02);
-            float num23 = (float) ((double) m01 * (double) m12 - (double) m11 * (double) m02);
-            matrix44.m30 = (float) -((double) m10 * (double) num18 - (double) m20 * (double) num19 + (double) m30 * (double) num20) * num11;
-            matrix44.m31 = (float) ((double) m00 * (double) num18 - (double) m20 * (double) num21 + (double) m30 * (double) num22) * num11;
-            matrix44.m32 = (float) -((double) m00 * (double) num19 - (double) m10 * (double) num21 + (double) m30 * (double) num23) * num11;
-            matrix44.m33 = (float) ((double) m00 * (double) num20 - (double) m10 * (double) num22 + (double) m20 * (double) num23) * num11;
+            matrix44.m10 = (float)-(m10 * (double)num1 - m20 * (double)num2 + m30 * (double)num3) * num11;
+            matrix44.m11 = (float)(m00 * (double)num1 - m20 * (double)num4 + m30 * (double)num5) * num11;
+            matrix44.m12 = (float)-(m00 * (double)num2 - m10 * (double)num4 + m30 * (double)num6) * num11;
+            matrix44.m13 = (float)(m00 * (double)num3 - m10 * (double)num5 + m20 * (double)num6) * num11;
+            float num12 = (float)(m21 * (double)m33 - m31 * (double)m23);
+            float num13 = (float)(m11 * (double)m33 - m31 * (double)m13);
+            float num14 = (float)(m11 * (double)m23 - m21 * (double)m13);
+            float num15 = (float)(m01 * (double)m33 - m31 * (double)m03);
+            float num16 = (float)(m01 * (double)m23 - m21 * (double)m03);
+            float num17 = (float)(m01 * (double)m13 - m11 * (double)m03);
+            matrix44.m20 = (float)(m10 * (double)num12 - m20 * (double)num13 + m30 * (double)num14) * num11;
+            matrix44.m21 = (float)-(m00 * (double)num12 - m20 * (double)num15 + m30 * (double)num16) * num11;
+            matrix44.m22 = (float)(m00 * (double)num13 - m10 * (double)num15 + m30 * (double)num17) * num11;
+            matrix44.m23 = (float)-(m00 * (double)num14 - m10 * (double)num16 + m20 * (double)num17) * num11;
+            float num18 = (float)(m21 * (double)m32 - m31 * (double)m22);
+            float num19 = (float)(m11 * (double)m32 - m31 * (double)m12);
+            float num20 = (float)(m11 * (double)m22 - m21 * (double)m12);
+            float num21 = (float)(m01 * (double)m32 - m31 * (double)m02);
+            float num22 = (float)(m01 * (double)m22 - m21 * (double)m02);
+            float num23 = (float)(m01 * (double)m12 - m11 * (double)m02);
+            matrix44.m30 = (float)-(m10 * (double)num18 - m20 * (double)num19 + m30 * (double)num20) * num11;
+            matrix44.m31 = (float)(m00 * (double)num18 - m20 * (double)num21 + m30 * (double)num22) * num11;
+            matrix44.m32 = (float)-(m00 * (double)num19 - m10 * (double)num21 + m30 * (double)num23) * num11;
+            matrix44.m33 = (float)(m00 * (double)num20 - m10 * (double)num22 + m20 * (double)num23) * num11;
             return matrix44;
         }
 
@@ -961,46 +958,46 @@ namespace UnityEngine
             float m13 = matrix.m13;
             float m23 = matrix.m23;
             float m33 = matrix.m33;
-            float num1 = (float) ((double) m22 * (double) m33 - (double) m32 * (double) m23);
-            float num2 = (float) ((double) m12 * (double) m33 - (double) m32 * (double) m13);
-            float num3 = (float) ((double) m12 * (double) m23 - (double) m22 * (double) m13);
-            float num4 = (float) ((double) m02 * (double) m33 - (double) m32 * (double) m03);
-            float num5 = (float) ((double) m02 * (double) m23 - (double) m22 * (double) m03);
-            float num6 = (float) ((double) m02 * (double) m13 - (double) m12 * (double) m03);
-            float num7 = (float) ((double) m11 * (double) num1 - (double) m21 * (double) num2 + (double) m31 * (double) num3);
-            float num8 = (float) -((double) m01 * (double) num1 - (double) m21 * (double) num4 + (double) m31 * (double) num5);
-            float num9 = (float) ((double) m01 * (double) num2 - (double) m11 * (double) num4 + (double) m31 * (double) num6);
-            float num10 = (float) -((double) m01 * (double) num3 - (double) m11 * (double) num5 + (double) m21 * (double) num6);
-            float num11 = (float) (1.0 / ((double) m00 * (double) num7 + (double) m10 * (double) num8 + (double) m20 * (double) num9 +
-                (double) m30 * (double) num10));
+            float num1 = (float)(m22 * (double)m33 - m32 * (double)m23);
+            float num2 = (float)(m12 * (double)m33 - m32 * (double)m13);
+            float num3 = (float)(m12 * (double)m23 - m22 * (double)m13);
+            float num4 = (float)(m02 * (double)m33 - m32 * (double)m03);
+            float num5 = (float)(m02 * (double)m23 - m22 * (double)m03);
+            float num6 = (float)(m02 * (double)m13 - m12 * (double)m03);
+            float num7 = (float)(m11 * (double)num1 - m21 * (double)num2 + m31 * (double)num3);
+            float num8 = (float)-(m01 * (double)num1 - m21 * (double)num4 + m31 * (double)num5);
+            float num9 = (float)(m01 * (double)num2 - m11 * (double)num4 + m31 * (double)num6);
+            float num10 = (float)-(m01 * (double)num3 - m11 * (double)num5 + m21 * (double)num6);
+            float num11 = (float)(1.0 / (m00 * (double)num7 + m10 * (double)num8 + m20 * (double)num9 +
+                 m30 * (double)num10));
             result.m00 = num7 * num11;
             result.m01 = num8 * num11;
             result.m02 = num9 * num11;
             result.m03 = num10 * num11;
-            result.m10 = (float) -((double) m10 * (double) num1 - (double) m20 * (double) num2 + (double) m30 * (double) num3) * num11;
-            result.m11 = (float) ((double) m00 * (double) num1 - (double) m20 * (double) num4 + (double) m30 * (double) num5) * num11;
-            result.m12 = (float) -((double) m00 * (double) num2 - (double) m10 * (double) num4 + (double) m30 * (double) num6) * num11;
-            result.m13 = (float) ((double) m00 * (double) num3 - (double) m10 * (double) num5 + (double) m20 * (double) num6) * num11;
-            float num12 = (float) ((double) m21 * (double) m33 - (double) m31 * (double) m23);
-            float num13 = (float) ((double) m11 * (double) m33 - (double) m31 * (double) m13);
-            float num14 = (float) ((double) m11 * (double) m23 - (double) m21 * (double) m13);
-            float num15 = (float) ((double) m01 * (double) m33 - (double) m31 * (double) m03);
-            float num16 = (float) ((double) m01 * (double) m23 - (double) m21 * (double) m03);
-            float num17 = (float) ((double) m01 * (double) m13 - (double) m11 * (double) m03);
-            result.m20 = (float) ((double) m10 * (double) num12 - (double) m20 * (double) num13 + (double) m30 * (double) num14) * num11;
-            result.m21 = (float) -((double) m00 * (double) num12 - (double) m20 * (double) num15 + (double) m30 * (double) num16) * num11;
-            result.m22 = (float) ((double) m00 * (double) num13 - (double) m10 * (double) num15 + (double) m30 * (double) num17) * num11;
-            result.m23 = (float) -((double) m00 * (double) num14 - (double) m10 * (double) num16 + (double) m20 * (double) num17) * num11;
-            float num18 = (float) ((double) m21 * (double) m32 - (double) m31 * (double) m22);
-            float num19 = (float) ((double) m11 * (double) m32 - (double) m31 * (double) m12);
-            float num20 = (float) ((double) m11 * (double) m22 - (double) m21 * (double) m12);
-            float num21 = (float) ((double) m01 * (double) m32 - (double) m31 * (double) m02);
-            float num22 = (float) ((double) m01 * (double) m22 - (double) m21 * (double) m02);
-            float num23 = (float) ((double) m01 * (double) m12 - (double) m11 * (double) m02);
-            result.m30 = (float) -((double) m10 * (double) num18 - (double) m20 * (double) num19 + (double) m30 * (double) num20) * num11;
-            result.m31 = (float) ((double) m00 * (double) num18 - (double) m20 * (double) num21 + (double) m30 * (double) num22) * num11;
-            result.m32 = (float) -((double) m00 * (double) num19 - (double) m10 * (double) num21 + (double) m30 * (double) num23) * num11;
-            result.m33 = (float) ((double) m00 * (double) num20 - (double) m10 * (double) num22 + (double) m20 * (double) num23) * num11;
+            result.m10 = (float)-(m10 * (double)num1 - m20 * (double)num2 + m30 * (double)num3) * num11;
+            result.m11 = (float)(m00 * (double)num1 - m20 * (double)num4 + m30 * (double)num5) * num11;
+            result.m12 = (float)-(m00 * (double)num2 - m10 * (double)num4 + m30 * (double)num6) * num11;
+            result.m13 = (float)(m00 * (double)num3 - m10 * (double)num5 + m20 * (double)num6) * num11;
+            float num12 = (float)(m21 * (double)m33 - m31 * (double)m23);
+            float num13 = (float)(m11 * (double)m33 - m31 * (double)m13);
+            float num14 = (float)(m11 * (double)m23 - m21 * (double)m13);
+            float num15 = (float)(m01 * (double)m33 - m31 * (double)m03);
+            float num16 = (float)(m01 * (double)m23 - m21 * (double)m03);
+            float num17 = (float)(m01 * (double)m13 - m11 * (double)m03);
+            result.m20 = (float)(m10 * (double)num12 - m20 * (double)num13 + m30 * (double)num14) * num11;
+            result.m21 = (float)-(m00 * (double)num12 - m20 * (double)num15 + m30 * (double)num16) * num11;
+            result.m22 = (float)(m00 * (double)num13 - m10 * (double)num15 + m30 * (double)num17) * num11;
+            result.m23 = (float)-(m00 * (double)num14 - m10 * (double)num16 + m20 * (double)num17) * num11;
+            float num18 = (float)(m21 * (double)m32 - m31 * (double)m22);
+            float num19 = (float)(m11 * (double)m32 - m31 * (double)m12);
+            float num20 = (float)(m11 * (double)m22 - m21 * (double)m12);
+            float num21 = (float)(m01 * (double)m32 - m31 * (double)m02);
+            float num22 = (float)(m01 * (double)m22 - m21 * (double)m02);
+            float num23 = (float)(m01 * (double)m12 - m11 * (double)m02);
+            result.m30 = (float)-(m10 * (double)num18 - m20 * (double)num19 + m30 * (double)num20) * num11;
+            result.m31 = (float)(m00 * (double)num18 - m20 * (double)num21 + m30 * (double)num22) * num11;
+            result.m32 = (float)-(m00 * (double)num19 - m10 * (double)num21 + m30 * (double)num23) * num11;
+            result.m33 = (float)(m00 * (double)num20 - m10 * (double)num22 + m20 * (double)num23) * num11;
         }
 
         public static Matrix4x4 Add(Matrix4x4 matrix1, Matrix4x4 matrix2)
@@ -1090,75 +1087,75 @@ namespace UnityEngine
         public static Matrix4x4 Multiply(Matrix4x4 matrix1, Matrix4x4 matrix2)
         {
             Matrix4x4 matrix44;
-            matrix44.m00 = (float) ((double) matrix1.m00 * (double) matrix2.m00 + (double) matrix1.m01 * (double) matrix2.m10 +
-                (double) matrix1.m02 * (double) matrix2.m20 + (double) matrix1.m03 * (double) matrix2.m30);
-            matrix44.m01 = (float) ((double) matrix1.m00 * (double) matrix2.m01 + (double) matrix1.m01 * (double) matrix2.m11 +
-                (double) matrix1.m02 * (double) matrix2.m21 + (double) matrix1.m03 * (double) matrix2.m31);
-            matrix44.m02 = (float) ((double) matrix1.m00 * (double) matrix2.m02 + (double) matrix1.m01 * (double) matrix2.m12 +
-                (double) matrix1.m02 * (double) matrix2.m22 + (double) matrix1.m03 * (double) matrix2.m32);
-            matrix44.m03 = (float) ((double) matrix1.m00 * (double) matrix2.m03 + (double) matrix1.m01 * (double) matrix2.m13 +
-                (double) matrix1.m02 * (double) matrix2.m23 + (double) matrix1.m03 * (double) matrix2.m33);
-            matrix44.m10 = (float) ((double) matrix1.m10 * (double) matrix2.m00 + (double) matrix1.m11 * (double) matrix2.m10 +
-                (double) matrix1.m12 * (double) matrix2.m20 + (double) matrix1.m13 * (double) matrix2.m30);
-            matrix44.m11 = (float) ((double) matrix1.m10 * (double) matrix2.m01 + (double) matrix1.m11 * (double) matrix2.m11 +
-                (double) matrix1.m12 * (double) matrix2.m21 + (double) matrix1.m13 * (double) matrix2.m31);
-            matrix44.m12 = (float) ((double) matrix1.m10 * (double) matrix2.m02 + (double) matrix1.m11 * (double) matrix2.m12 +
-                (double) matrix1.m12 * (double) matrix2.m22 + (double) matrix1.m13 * (double) matrix2.m32);
-            matrix44.m13 = (float) ((double) matrix1.m10 * (double) matrix2.m03 + (double) matrix1.m11 * (double) matrix2.m13 +
-                (double) matrix1.m12 * (double) matrix2.m23 + (double) matrix1.m13 * (double) matrix2.m33);
-            matrix44.m20 = (float) ((double) matrix1.m20 * (double) matrix2.m00 + (double) matrix1.m21 * (double) matrix2.m10 +
-                (double) matrix1.m22 * (double) matrix2.m20 + (double) matrix1.m23 * (double) matrix2.m30);
-            matrix44.m21 = (float) ((double) matrix1.m20 * (double) matrix2.m01 + (double) matrix1.m21 * (double) matrix2.m11 +
-                (double) matrix1.m22 * (double) matrix2.m21 + (double) matrix1.m23 * (double) matrix2.m31);
-            matrix44.m22 = (float) ((double) matrix1.m20 * (double) matrix2.m02 + (double) matrix1.m21 * (double) matrix2.m12 +
-                (double) matrix1.m22 * (double) matrix2.m22 + (double) matrix1.m23 * (double) matrix2.m32);
-            matrix44.m23 = (float) ((double) matrix1.m20 * (double) matrix2.m03 + (double) matrix1.m21 * (double) matrix2.m13 +
-                (double) matrix1.m22 * (double) matrix2.m23 + (double) matrix1.m23 * (double) matrix2.m33);
-            matrix44.m30 = (float) ((double) matrix1.m30 * (double) matrix2.m00 + (double) matrix1.m31 * (double) matrix2.m10 +
-                (double) matrix1.m32 * (double) matrix2.m20 + (double) matrix1.m33 * (double) matrix2.m30);
-            matrix44.m31 = (float) ((double) matrix1.m30 * (double) matrix2.m01 + (double) matrix1.m31 * (double) matrix2.m11 +
-                (double) matrix1.m32 * (double) matrix2.m21 + (double) matrix1.m33 * (double) matrix2.m31);
-            matrix44.m32 = (float) ((double) matrix1.m30 * (double) matrix2.m02 + (double) matrix1.m31 * (double) matrix2.m12 +
-                (double) matrix1.m32 * (double) matrix2.m22 + (double) matrix1.m33 * (double) matrix2.m32);
-            matrix44.m33 = (float) ((double) matrix1.m30 * (double) matrix2.m03 + (double) matrix1.m31 * (double) matrix2.m13 +
-                (double) matrix1.m32 * (double) matrix2.m23 + (double) matrix1.m33 * (double) matrix2.m33);
+            matrix44.m00 = (float)(matrix1.m00 * (double)matrix2.m00 + matrix1.m01 * (double)matrix2.m10 +
+                 matrix1.m02 * (double)matrix2.m20 + matrix1.m03 * (double)matrix2.m30);
+            matrix44.m01 = (float)(matrix1.m00 * (double)matrix2.m01 + matrix1.m01 * (double)matrix2.m11 +
+                 matrix1.m02 * (double)matrix2.m21 + matrix1.m03 * (double)matrix2.m31);
+            matrix44.m02 = (float)(matrix1.m00 * (double)matrix2.m02 + matrix1.m01 * (double)matrix2.m12 +
+                 matrix1.m02 * (double)matrix2.m22 + matrix1.m03 * (double)matrix2.m32);
+            matrix44.m03 = (float)(matrix1.m00 * (double)matrix2.m03 + matrix1.m01 * (double)matrix2.m13 +
+                 matrix1.m02 * (double)matrix2.m23 + matrix1.m03 * (double)matrix2.m33);
+            matrix44.m10 = (float)(matrix1.m10 * (double)matrix2.m00 + matrix1.m11 * (double)matrix2.m10 +
+                 matrix1.m12 * (double)matrix2.m20 + matrix1.m13 * (double)matrix2.m30);
+            matrix44.m11 = (float)(matrix1.m10 * (double)matrix2.m01 + matrix1.m11 * (double)matrix2.m11 +
+                 matrix1.m12 * (double)matrix2.m21 + matrix1.m13 * (double)matrix2.m31);
+            matrix44.m12 = (float)(matrix1.m10 * (double)matrix2.m02 + matrix1.m11 * (double)matrix2.m12 +
+                 matrix1.m12 * (double)matrix2.m22 + matrix1.m13 * (double)matrix2.m32);
+            matrix44.m13 = (float)(matrix1.m10 * (double)matrix2.m03 + matrix1.m11 * (double)matrix2.m13 +
+                 matrix1.m12 * (double)matrix2.m23 + matrix1.m13 * (double)matrix2.m33);
+            matrix44.m20 = (float)(matrix1.m20 * (double)matrix2.m00 + matrix1.m21 * (double)matrix2.m10 +
+                 matrix1.m22 * (double)matrix2.m20 + matrix1.m23 * (double)matrix2.m30);
+            matrix44.m21 = (float)(matrix1.m20 * (double)matrix2.m01 + matrix1.m21 * (double)matrix2.m11 +
+                 matrix1.m22 * (double)matrix2.m21 + matrix1.m23 * (double)matrix2.m31);
+            matrix44.m22 = (float)(matrix1.m20 * (double)matrix2.m02 + matrix1.m21 * (double)matrix2.m12 +
+                 matrix1.m22 * (double)matrix2.m22 + matrix1.m23 * (double)matrix2.m32);
+            matrix44.m23 = (float)(matrix1.m20 * (double)matrix2.m03 + matrix1.m21 * (double)matrix2.m13 +
+                 matrix1.m22 * (double)matrix2.m23 + matrix1.m23 * (double)matrix2.m33);
+            matrix44.m30 = (float)(matrix1.m30 * (double)matrix2.m00 + matrix1.m31 * (double)matrix2.m10 +
+                 matrix1.m32 * (double)matrix2.m20 + matrix1.m33 * (double)matrix2.m30);
+            matrix44.m31 = (float)(matrix1.m30 * (double)matrix2.m01 + matrix1.m31 * (double)matrix2.m11 +
+                 matrix1.m32 * (double)matrix2.m21 + matrix1.m33 * (double)matrix2.m31);
+            matrix44.m32 = (float)(matrix1.m30 * (double)matrix2.m02 + matrix1.m31 * (double)matrix2.m12 +
+                 matrix1.m32 * (double)matrix2.m22 + matrix1.m33 * (double)matrix2.m32);
+            matrix44.m33 = (float)(matrix1.m30 * (double)matrix2.m03 + matrix1.m31 * (double)matrix2.m13 +
+                 matrix1.m32 * (double)matrix2.m23 + matrix1.m33 * (double)matrix2.m33);
             return matrix44;
         }
 
         public static void Multiply(ref Matrix4x4 matrix1, ref Matrix4x4 matrix2, out Matrix4x4 result)
         {
-            float num1 = (float) ((double) matrix1.m00 * (double) matrix2.m00 + (double) matrix1.m01 * (double) matrix2.m10 +
-                (double) matrix1.m02 * (double) matrix2.m20 + (double) matrix1.m03 * (double) matrix2.m30);
-            float num2 = (float) ((double) matrix1.m00 * (double) matrix2.m01 + (double) matrix1.m01 * (double) matrix2.m11 +
-                (double) matrix1.m02 * (double) matrix2.m21 + (double) matrix1.m03 * (double) matrix2.m31);
-            float num3 = (float) ((double) matrix1.m00 * (double) matrix2.m02 + (double) matrix1.m01 * (double) matrix2.m12 +
-                (double) matrix1.m02 * (double) matrix2.m22 + (double) matrix1.m03 * (double) matrix2.m32);
-            float num4 = (float) ((double) matrix1.m00 * (double) matrix2.m03 + (double) matrix1.m01 * (double) matrix2.m13 +
-                (double) matrix1.m02 * (double) matrix2.m23 + (double) matrix1.m03 * (double) matrix2.m33);
-            float num5 = (float) ((double) matrix1.m10 * (double) matrix2.m00 + (double) matrix1.m11 * (double) matrix2.m10 +
-                (double) matrix1.m12 * (double) matrix2.m20 + (double) matrix1.m13 * (double) matrix2.m30);
-            float num6 = (float) ((double) matrix1.m10 * (double) matrix2.m01 + (double) matrix1.m11 * (double) matrix2.m11 +
-                (double) matrix1.m12 * (double) matrix2.m21 + (double) matrix1.m13 * (double) matrix2.m31);
-            float num7 = (float) ((double) matrix1.m10 * (double) matrix2.m02 + (double) matrix1.m11 * (double) matrix2.m12 +
-                (double) matrix1.m12 * (double) matrix2.m22 + (double) matrix1.m13 * (double) matrix2.m32);
-            float num8 = (float) ((double) matrix1.m10 * (double) matrix2.m03 + (double) matrix1.m11 * (double) matrix2.m13 +
-                (double) matrix1.m12 * (double) matrix2.m23 + (double) matrix1.m13 * (double) matrix2.m33);
-            float num9 = (float) ((double) matrix1.m20 * (double) matrix2.m00 + (double) matrix1.m21 * (double) matrix2.m10 +
-                (double) matrix1.m22 * (double) matrix2.m20 + (double) matrix1.m23 * (double) matrix2.m30);
-            float num10 = (float) ((double) matrix1.m20 * (double) matrix2.m01 + (double) matrix1.m21 * (double) matrix2.m11 +
-                (double) matrix1.m22 * (double) matrix2.m21 + (double) matrix1.m23 * (double) matrix2.m31);
-            float num11 = (float) ((double) matrix1.m20 * (double) matrix2.m02 + (double) matrix1.m21 * (double) matrix2.m12 +
-                (double) matrix1.m22 * (double) matrix2.m22 + (double) matrix1.m23 * (double) matrix2.m32);
-            float num12 = (float) ((double) matrix1.m20 * (double) matrix2.m03 + (double) matrix1.m21 * (double) matrix2.m13 +
-                (double) matrix1.m22 * (double) matrix2.m23 + (double) matrix1.m23 * (double) matrix2.m33);
-            float num13 = (float) ((double) matrix1.m30 * (double) matrix2.m00 + (double) matrix1.m31 * (double) matrix2.m10 +
-                (double) matrix1.m32 * (double) matrix2.m20 + (double) matrix1.m33 * (double) matrix2.m30);
-            float num14 = (float) ((double) matrix1.m30 * (double) matrix2.m01 + (double) matrix1.m31 * (double) matrix2.m11 +
-                (double) matrix1.m32 * (double) matrix2.m21 + (double) matrix1.m33 * (double) matrix2.m31);
-            float num15 = (float) ((double) matrix1.m30 * (double) matrix2.m02 + (double) matrix1.m31 * (double) matrix2.m12 +
-                (double) matrix1.m32 * (double) matrix2.m22 + (double) matrix1.m33 * (double) matrix2.m32);
-            float num16 = (float) ((double) matrix1.m30 * (double) matrix2.m03 + (double) matrix1.m31 * (double) matrix2.m13 +
-                (double) matrix1.m32 * (double) matrix2.m23 + (double) matrix1.m33 * (double) matrix2.m33);
+            float num1 = (float)(matrix1.m00 * (double)matrix2.m00 + matrix1.m01 * (double)matrix2.m10 +
+                 matrix1.m02 * (double)matrix2.m20 + matrix1.m03 * (double)matrix2.m30);
+            float num2 = (float)(matrix1.m00 * (double)matrix2.m01 + matrix1.m01 * (double)matrix2.m11 +
+                 matrix1.m02 * (double)matrix2.m21 + matrix1.m03 * (double)matrix2.m31);
+            float num3 = (float)(matrix1.m00 * (double)matrix2.m02 + matrix1.m01 * (double)matrix2.m12 +
+                 matrix1.m02 * (double)matrix2.m22 + matrix1.m03 * (double)matrix2.m32);
+            float num4 = (float)(matrix1.m00 * (double)matrix2.m03 + matrix1.m01 * (double)matrix2.m13 +
+                 matrix1.m02 * (double)matrix2.m23 + matrix1.m03 * (double)matrix2.m33);
+            float num5 = (float)(matrix1.m10 * (double)matrix2.m00 + matrix1.m11 * (double)matrix2.m10 +
+                 matrix1.m12 * (double)matrix2.m20 + matrix1.m13 * (double)matrix2.m30);
+            float num6 = (float)(matrix1.m10 * (double)matrix2.m01 + matrix1.m11 * (double)matrix2.m11 +
+                 matrix1.m12 * (double)matrix2.m21 + matrix1.m13 * (double)matrix2.m31);
+            float num7 = (float)(matrix1.m10 * (double)matrix2.m02 + matrix1.m11 * (double)matrix2.m12 +
+                 matrix1.m12 * (double)matrix2.m22 + matrix1.m13 * (double)matrix2.m32);
+            float num8 = (float)(matrix1.m10 * (double)matrix2.m03 + matrix1.m11 * (double)matrix2.m13 +
+                 matrix1.m12 * (double)matrix2.m23 + matrix1.m13 * (double)matrix2.m33);
+            float num9 = (float)(matrix1.m20 * (double)matrix2.m00 + matrix1.m21 * (double)matrix2.m10 +
+                 matrix1.m22 * (double)matrix2.m20 + matrix1.m23 * (double)matrix2.m30);
+            float num10 = (float)(matrix1.m20 * (double)matrix2.m01 + matrix1.m21 * (double)matrix2.m11 +
+                 matrix1.m22 * (double)matrix2.m21 + matrix1.m23 * (double)matrix2.m31);
+            float num11 = (float)(matrix1.m20 * (double)matrix2.m02 + matrix1.m21 * (double)matrix2.m12 +
+                 matrix1.m22 * (double)matrix2.m22 + matrix1.m23 * (double)matrix2.m32);
+            float num12 = (float)(matrix1.m20 * (double)matrix2.m03 + matrix1.m21 * (double)matrix2.m13 +
+                 matrix1.m22 * (double)matrix2.m23 + matrix1.m23 * (double)matrix2.m33);
+            float num13 = (float)(matrix1.m30 * (double)matrix2.m00 + matrix1.m31 * (double)matrix2.m10 +
+                 matrix1.m32 * (double)matrix2.m20 + matrix1.m33 * (double)matrix2.m30);
+            float num14 = (float)(matrix1.m30 * (double)matrix2.m01 + matrix1.m31 * (double)matrix2.m11 +
+                 matrix1.m32 * (double)matrix2.m21 + matrix1.m33 * (double)matrix2.m31);
+            float num15 = (float)(matrix1.m30 * (double)matrix2.m02 + matrix1.m31 * (double)matrix2.m12 +
+                 matrix1.m32 * (double)matrix2.m22 + matrix1.m33 * (double)matrix2.m32);
+            float num16 = (float)(matrix1.m30 * (double)matrix2.m03 + matrix1.m31 * (double)matrix2.m13 +
+                 matrix1.m32 * (double)matrix2.m23 + matrix1.m33 * (double)matrix2.m33);
             result.m00 = num1;
             result.m01 = num2;
             result.m02 = num3;
@@ -1179,14 +1176,14 @@ namespace UnityEngine
 
         public static Vector4 TransformVector4(Matrix4x4 matrix, Vector4 vector)
         {
-            float num1 = (float) ((double) vector.x * (double) matrix.m00 + (double) vector.y * (double) matrix.m01 +
-                (double) vector.z * (double) matrix.m02 + (double) vector.w * (double) matrix.m03);
-            float num2 = (float) ((double) vector.x * (double) matrix.m10 + (double) vector.y * (double) matrix.m11 +
-                (double) vector.z * (double) matrix.m12 + (double) vector.w * (double) matrix.m13);
-            float num3 = (float) ((double) vector.x * (double) matrix.m20 + (double) vector.y * (double) matrix.m21 +
-                (double) vector.z * (double) matrix.m22 + (double) vector.w * (double) matrix.m23);
-            float num4 = (float) ((double) vector.x * (double) matrix.m30 + (double) vector.y * (double) matrix.m31 +
-                (double) vector.z * (double) matrix.m32 + (double) vector.w * (double) matrix.m33);
+            float num1 = (float)(vector.x * (double)matrix.m00 + vector.y * (double)matrix.m01 +
+                 vector.z * (double)matrix.m02 + vector.w * (double)matrix.m03);
+            float num2 = (float)(vector.x * (double)matrix.m10 + vector.y * (double)matrix.m11 +
+                 vector.z * (double)matrix.m12 + vector.w * (double)matrix.m13);
+            float num3 = (float)(vector.x * (double)matrix.m20 + vector.y * (double)matrix.m21 +
+                 vector.z * (double)matrix.m22 + vector.w * (double)matrix.m23);
+            float num4 = (float)(vector.x * (double)matrix.m30 + vector.y * (double)matrix.m31 +
+                 vector.z * (double)matrix.m32 + vector.w * (double)matrix.m33);
             Vector4 vector4;
             vector4.x = num1;
             vector4.y = num2;
@@ -1197,14 +1194,14 @@ namespace UnityEngine
 
         public static void TransformVector4(ref Matrix4x4 matrix, ref Vector4 vector, out Vector4 result)
         {
-            float num1 = (float) ((double) vector.x * (double) matrix.m00 + (double) vector.y * (double) matrix.m01 +
-                (double) vector.z * (double) matrix.m02 + (double) vector.w * (double) matrix.m03);
-            float num2 = (float) ((double) vector.x * (double) matrix.m10 + (double) vector.y * (double) matrix.m11 +
-                (double) vector.z * (double) matrix.m12 + (double) vector.w * (double) matrix.m13);
-            float num3 = (float) ((double) vector.x * (double) matrix.m20 + (double) vector.y * (double) matrix.m21 +
-                (double) vector.z * (double) matrix.m22 + (double) vector.w * (double) matrix.m23);
-            float num4 = (float) ((double) vector.x * (double) matrix.m30 + (double) vector.y * (double) matrix.m31 +
-                (double) vector.z * (double) matrix.m32 + (double) vector.w * (double) matrix.m33);
+            float num1 = (float)(vector.x * (double)matrix.m00 + vector.y * (double)matrix.m01 +
+                 vector.z * (double)matrix.m02 + vector.w * (double)matrix.m03);
+            float num2 = (float)(vector.x * (double)matrix.m10 + vector.y * (double)matrix.m11 +
+                 vector.z * (double)matrix.m12 + vector.w * (double)matrix.m13);
+            float num3 = (float)(vector.x * (double)matrix.m20 + vector.y * (double)matrix.m21 +
+                 vector.z * (double)matrix.m22 + vector.w * (double)matrix.m23);
+            float num4 = (float)(vector.x * (double)matrix.m30 + vector.y * (double)matrix.m31 +
+                 vector.z * (double)matrix.m32 + vector.w * (double)matrix.m33);
             result.x = num1;
             result.y = num2;
             result.z = num3;
@@ -1213,12 +1210,12 @@ namespace UnityEngine
 
         public static Vector3 TransformPosition(Matrix4x4 matrix, Vector3 position)
         {
-            float num1 = (float) ((double) position.x * (double) matrix.m00 + (double) position.y * (double) matrix.m01 +
-                (double) position.z * (double) matrix.m02) + matrix.m03;
-            float num2 = (float) ((double) position.x * (double) matrix.m10 + (double) position.y * (double) matrix.m11 +
-                (double) position.z * (double) matrix.m12) + matrix.m13;
-            float num3 = (float) ((double) position.x * (double) matrix.m20 + (double) position.y * (double) matrix.m21 +
-                (double) position.z * (double) matrix.m22) + matrix.m23;
+            float num1 = (float)(position.x * (double)matrix.m00 + position.y * (double)matrix.m01 +
+                 position.z * (double)matrix.m02) + matrix.m03;
+            float num2 = (float)(position.x * (double)matrix.m10 + position.y * (double)matrix.m11 +
+                 position.z * (double)matrix.m12) + matrix.m13;
+            float num3 = (float)(position.x * (double)matrix.m20 + position.y * (double)matrix.m21 +
+                 position.z * (double)matrix.m22) + matrix.m23;
             Vector3 vector3;
             vector3.x = num1;
             vector3.y = num2;
@@ -1228,17 +1225,17 @@ namespace UnityEngine
 
         public static void TransformPosition(ref Matrix4x4 matrix, ref Vector3 position, out Vector3 result)
         {
-            float num1 = (float) ((double) position.x * (double) matrix.m00 + (double) position.y * (double) matrix.m01 +
-                (double) position.z * (double) matrix.m02) + matrix.m03;
-            float num2 = (float) ((double) position.x * (double) matrix.m10 + (double) position.y * (double) matrix.m11 +
-                (double) position.z * (double) matrix.m12) + matrix.m13;
-            float num3 = (float) ((double) position.x * (double) matrix.m20 + (double) position.y * (double) matrix.m21 +
-                (double) position.z * (double) matrix.m22) + matrix.m23;
+            float num1 = (float)(position.x * (double)matrix.m00 + position.y * (double)matrix.m01 +
+                 position.z * (double)matrix.m02) + matrix.m03;
+            float num2 = (float)(position.x * (double)matrix.m10 + position.y * (double)matrix.m11 +
+                 position.z * (double)matrix.m12) + matrix.m13;
+            float num3 = (float)(position.x * (double)matrix.m20 + position.y * (double)matrix.m21 +
+                 position.z * (double)matrix.m22) + matrix.m23;
             result.x = num1;
             result.y = num2;
             result.z = num3;
         }
-        
+
         public Vector3 MultiplyPoint3x4(Vector3 point)
         {
             return TransformPosition(this, point);
@@ -1251,12 +1248,12 @@ namespace UnityEngine
 
         public static Vector3 TransformDirection(Matrix4x4 matrix, Vector3 direction)
         {
-            float num1 = (float) ((double) direction.x * (double) matrix.m00 + (double) direction.y * (double) matrix.m01 +
-                (double) direction.z * (double) matrix.m02);
-            float num2 = (float) ((double) direction.x * (double) matrix.m10 + (double) direction.y * (double) matrix.m11 +
-                (double) direction.z * (double) matrix.m12);
-            float num3 = (float) ((double) direction.x * (double) matrix.m20 + (double) direction.y * (double) matrix.m21 +
-                (double) direction.z * (double) matrix.m22);
+            float num1 = (float)(direction.x * (double)matrix.m00 + direction.y * (double)matrix.m01 +
+                 direction.z * (double)matrix.m02);
+            float num2 = (float)(direction.x * (double)matrix.m10 + direction.y * (double)matrix.m11 +
+                 direction.z * (double)matrix.m12);
+            float num3 = (float)(direction.x * (double)matrix.m20 + direction.y * (double)matrix.m21 +
+                 direction.z * (double)matrix.m22);
             Vector3 vector3;
             vector3.x = num1;
             vector3.y = num2;
@@ -1266,12 +1263,12 @@ namespace UnityEngine
 
         public static void TransformDirection(ref Matrix4x4 matrix, ref Vector3 direction, out Vector3 result)
         {
-            float num1 = (float) ((double) direction.x * (double) matrix.m00 + (double) direction.y * (double) matrix.m01 +
-                (double) direction.z * (double) matrix.m02);
-            float num2 = (float) ((double) direction.x * (double) matrix.m10 + (double) direction.y * (double) matrix.m11 +
-                (double) direction.z * (double) matrix.m12);
-            float num3 = (float) ((double) direction.x * (double) matrix.m20 + (double) direction.y * (double) matrix.m21 +
-                (double) direction.z * (double) matrix.m22);
+            float num1 = (float)(direction.x * (double)matrix.m00 + direction.y * (double)matrix.m01 +
+                 direction.z * (double)matrix.m02);
+            float num2 = (float)(direction.x * (double)matrix.m10 + direction.y * (double)matrix.m11 +
+                 direction.z * (double)matrix.m12);
+            float num3 = (float)(direction.x * (double)matrix.m20 + direction.y * (double)matrix.m21 +
+                 direction.z * (double)matrix.m22);
             result.x = num1;
             result.y = num2;
             result.z = num3;
@@ -1301,29 +1298,29 @@ namespace UnityEngine
 
         public static bool operator ==(Matrix4x4 matrix1, Matrix4x4 matrix2)
         {
-            if ((double) matrix1.m00 == (double) matrix2.m00 && (double) matrix1.m11 == (double) matrix2.m11 &&
-                ((double) matrix1.m22 == (double) matrix2.m22 && (double) matrix1.m33 == (double) matrix2.m33) &&
-                ((double) matrix1.m01 == (double) matrix2.m01 && (double) matrix1.m02 == (double) matrix2.m02 &&
-                    ((double) matrix1.m03 == (double) matrix2.m03 && (double) matrix1.m10 == (double) matrix2.m10)) &&
-                ((double) matrix1.m12 == (double) matrix2.m12 && (double) matrix1.m13 == (double) matrix2.m13 &&
-                    ((double) matrix1.m20 == (double) matrix2.m20 && (double) matrix1.m21 == (double) matrix2.m21) &&
-                    ((double) matrix1.m23 == (double) matrix2.m23 && (double) matrix1.m30 == (double) matrix2.m30 &&
-                        (double) matrix1.m31 == (double) matrix2.m31)))
-                return (double) matrix1.m32 == (double) matrix2.m32;
+            if (matrix1.m00 == (double)matrix2.m00 && matrix1.m11 == (double)matrix2.m11 &&
+                (matrix1.m22 == (double)matrix2.m22 && matrix1.m33 == (double)matrix2.m33) &&
+                (matrix1.m01 == (double)matrix2.m01 && matrix1.m02 == (double)matrix2.m02 &&
+                    (matrix1.m03 == (double)matrix2.m03 && matrix1.m10 == (double)matrix2.m10)) &&
+                (matrix1.m12 == (double)matrix2.m12 && matrix1.m13 == (double)matrix2.m13 &&
+                    (matrix1.m20 == (double)matrix2.m20 && matrix1.m21 == (double)matrix2.m21) &&
+                    (matrix1.m23 == (double)matrix2.m23 && matrix1.m30 == (double)matrix2.m30 &&
+                         matrix1.m31 == (double)matrix2.m31)))
+                return matrix1.m32 == (double)matrix2.m32;
             return false;
         }
 
         public static bool operator !=(Matrix4x4 matrix1, Matrix4x4 matrix2)
         {
-            if ((double) matrix1.m00 == (double) matrix2.m00 && (double) matrix1.m01 == (double) matrix2.m01 &&
-                ((double) matrix1.m02 == (double) matrix2.m02 && (double) matrix1.m03 == (double) matrix2.m03) &&
-                ((double) matrix1.m10 == (double) matrix2.m10 && (double) matrix1.m11 == (double) matrix2.m11 &&
-                    ((double) matrix1.m12 == (double) matrix2.m12 && (double) matrix1.m13 == (double) matrix2.m13)) &&
-                ((double) matrix1.m20 == (double) matrix2.m20 && (double) matrix1.m21 == (double) matrix2.m21 &&
-                    ((double) matrix1.m22 == (double) matrix2.m22 && (double) matrix1.m23 == (double) matrix2.m23) &&
-                    ((double) matrix1.m30 == (double) matrix2.m30 && (double) matrix1.m31 == (double) matrix2.m31 &&
-                        (double) matrix1.m32 == (double) matrix2.m32)))
-                return (double) matrix1.m33 != (double) matrix2.m33;
+            if (matrix1.m00 == (double)matrix2.m00 && matrix1.m01 == (double)matrix2.m01 &&
+                (matrix1.m02 == (double)matrix2.m02 && matrix1.m03 == (double)matrix2.m03) &&
+                (matrix1.m10 == (double)matrix2.m10 && matrix1.m11 == (double)matrix2.m11 &&
+                    (matrix1.m12 == (double)matrix2.m12 && matrix1.m13 == (double)matrix2.m13)) &&
+                (matrix1.m20 == (double)matrix2.m20 && matrix1.m21 == (double)matrix2.m21 &&
+                    (matrix1.m22 == (double)matrix2.m22 && matrix1.m23 == (double)matrix2.m23) &&
+                    (matrix1.m30 == (double)matrix2.m30 && matrix1.m31 == (double)matrix2.m31 &&
+                         matrix1.m32 == (double)matrix2.m32)))
+                return matrix1.m33 != (double)matrix2.m33;
             return true;
         }
 
@@ -1374,38 +1371,38 @@ namespace UnityEngine
         public static Matrix4x4 operator *(Matrix4x4 matrix1, Matrix4x4 matrix2)
         {
             Matrix4x4 matrix44;
-            matrix44.m00 = (float) ((double) matrix1.m00 * (double) matrix2.m00 + (double) matrix1.m01 * (double) matrix2.m10 +
-                (double) matrix1.m02 * (double) matrix2.m20 + (double) matrix1.m03 * (double) matrix2.m30);
-            matrix44.m01 = (float) ((double) matrix1.m00 * (double) matrix2.m01 + (double) matrix1.m01 * (double) matrix2.m11 +
-                (double) matrix1.m02 * (double) matrix2.m21 + (double) matrix1.m03 * (double) matrix2.m31);
-            matrix44.m02 = (float) ((double) matrix1.m00 * (double) matrix2.m02 + (double) matrix1.m01 * (double) matrix2.m12 +
-                (double) matrix1.m02 * (double) matrix2.m22 + (double) matrix1.m03 * (double) matrix2.m32);
-            matrix44.m03 = (float) ((double) matrix1.m00 * (double) matrix2.m03 + (double) matrix1.m01 * (double) matrix2.m13 +
-                (double) matrix1.m02 * (double) matrix2.m23 + (double) matrix1.m03 * (double) matrix2.m33);
-            matrix44.m10 = (float) ((double) matrix1.m10 * (double) matrix2.m00 + (double) matrix1.m11 * (double) matrix2.m10 +
-                (double) matrix1.m12 * (double) matrix2.m20 + (double) matrix1.m13 * (double) matrix2.m30);
-            matrix44.m11 = (float) ((double) matrix1.m10 * (double) matrix2.m01 + (double) matrix1.m11 * (double) matrix2.m11 +
-                (double) matrix1.m12 * (double) matrix2.m21 + (double) matrix1.m13 * (double) matrix2.m31);
-            matrix44.m12 = (float) ((double) matrix1.m10 * (double) matrix2.m02 + (double) matrix1.m11 * (double) matrix2.m12 +
-                (double) matrix1.m12 * (double) matrix2.m22 + (double) matrix1.m13 * (double) matrix2.m32);
-            matrix44.m13 = (float) ((double) matrix1.m10 * (double) matrix2.m03 + (double) matrix1.m11 * (double) matrix2.m13 +
-                (double) matrix1.m12 * (double) matrix2.m23 + (double) matrix1.m13 * (double) matrix2.m33);
-            matrix44.m20 = (float) ((double) matrix1.m20 * (double) matrix2.m00 + (double) matrix1.m21 * (double) matrix2.m10 +
-                (double) matrix1.m22 * (double) matrix2.m20 + (double) matrix1.m23 * (double) matrix2.m30);
-            matrix44.m21 = (float) ((double) matrix1.m20 * (double) matrix2.m01 + (double) matrix1.m21 * (double) matrix2.m11 +
-                (double) matrix1.m22 * (double) matrix2.m21 + (double) matrix1.m23 * (double) matrix2.m31);
-            matrix44.m22 = (float) ((double) matrix1.m20 * (double) matrix2.m02 + (double) matrix1.m21 * (double) matrix2.m12 +
-                (double) matrix1.m22 * (double) matrix2.m22 + (double) matrix1.m23 * (double) matrix2.m32);
-            matrix44.m23 = (float) ((double) matrix1.m20 * (double) matrix2.m03 + (double) matrix1.m21 * (double) matrix2.m13 +
-                (double) matrix1.m22 * (double) matrix2.m23 + (double) matrix1.m23 * (double) matrix2.m33);
-            matrix44.m30 = (float) ((double) matrix1.m30 * (double) matrix2.m00 + (double) matrix1.m31 * (double) matrix2.m10 +
-                (double) matrix1.m32 * (double) matrix2.m20 + (double) matrix1.m33 * (double) matrix2.m30);
-            matrix44.m31 = (float) ((double) matrix1.m30 * (double) matrix2.m01 + (double) matrix1.m31 * (double) matrix2.m11 +
-                (double) matrix1.m32 * (double) matrix2.m21 + (double) matrix1.m33 * (double) matrix2.m31);
-            matrix44.m32 = (float) ((double) matrix1.m30 * (double) matrix2.m02 + (double) matrix1.m31 * (double) matrix2.m12 +
-                (double) matrix1.m32 * (double) matrix2.m22 + (double) matrix1.m33 * (double) matrix2.m32);
-            matrix44.m33 = (float) ((double) matrix1.m30 * (double) matrix2.m03 + (double) matrix1.m31 * (double) matrix2.m13 +
-                (double) matrix1.m32 * (double) matrix2.m23 + (double) matrix1.m33 * (double) matrix2.m33);
+            matrix44.m00 = (float)(matrix1.m00 * (double)matrix2.m00 + matrix1.m01 * (double)matrix2.m10 +
+                 matrix1.m02 * (double)matrix2.m20 + matrix1.m03 * (double)matrix2.m30);
+            matrix44.m01 = (float)(matrix1.m00 * (double)matrix2.m01 + matrix1.m01 * (double)matrix2.m11 +
+                 matrix1.m02 * (double)matrix2.m21 + matrix1.m03 * (double)matrix2.m31);
+            matrix44.m02 = (float)(matrix1.m00 * (double)matrix2.m02 + matrix1.m01 * (double)matrix2.m12 +
+                 matrix1.m02 * (double)matrix2.m22 + matrix1.m03 * (double)matrix2.m32);
+            matrix44.m03 = (float)(matrix1.m00 * (double)matrix2.m03 + matrix1.m01 * (double)matrix2.m13 +
+                 matrix1.m02 * (double)matrix2.m23 + matrix1.m03 * (double)matrix2.m33);
+            matrix44.m10 = (float)(matrix1.m10 * (double)matrix2.m00 + matrix1.m11 * (double)matrix2.m10 +
+                 matrix1.m12 * (double)matrix2.m20 + matrix1.m13 * (double)matrix2.m30);
+            matrix44.m11 = (float)(matrix1.m10 * (double)matrix2.m01 + matrix1.m11 * (double)matrix2.m11 +
+                 matrix1.m12 * (double)matrix2.m21 + matrix1.m13 * (double)matrix2.m31);
+            matrix44.m12 = (float)(matrix1.m10 * (double)matrix2.m02 + matrix1.m11 * (double)matrix2.m12 +
+                 matrix1.m12 * (double)matrix2.m22 + matrix1.m13 * (double)matrix2.m32);
+            matrix44.m13 = (float)(matrix1.m10 * (double)matrix2.m03 + matrix1.m11 * (double)matrix2.m13 +
+                 matrix1.m12 * (double)matrix2.m23 + matrix1.m13 * (double)matrix2.m33);
+            matrix44.m20 = (float)(matrix1.m20 * (double)matrix2.m00 + matrix1.m21 * (double)matrix2.m10 +
+                 matrix1.m22 * (double)matrix2.m20 + matrix1.m23 * (double)matrix2.m30);
+            matrix44.m21 = (float)(matrix1.m20 * (double)matrix2.m01 + matrix1.m21 * (double)matrix2.m11 +
+                 matrix1.m22 * (double)matrix2.m21 + matrix1.m23 * (double)matrix2.m31);
+            matrix44.m22 = (float)(matrix1.m20 * (double)matrix2.m02 + matrix1.m21 * (double)matrix2.m12 +
+                 matrix1.m22 * (double)matrix2.m22 + matrix1.m23 * (double)matrix2.m32);
+            matrix44.m23 = (float)(matrix1.m20 * (double)matrix2.m03 + matrix1.m21 * (double)matrix2.m13 +
+                 matrix1.m22 * (double)matrix2.m23 + matrix1.m23 * (double)matrix2.m33);
+            matrix44.m30 = (float)(matrix1.m30 * (double)matrix2.m00 + matrix1.m31 * (double)matrix2.m10 +
+                 matrix1.m32 * (double)matrix2.m20 + matrix1.m33 * (double)matrix2.m30);
+            matrix44.m31 = (float)(matrix1.m30 * (double)matrix2.m01 + matrix1.m31 * (double)matrix2.m11 +
+                 matrix1.m32 * (double)matrix2.m21 + matrix1.m33 * (double)matrix2.m31);
+            matrix44.m32 = (float)(matrix1.m30 * (double)matrix2.m02 + matrix1.m31 * (double)matrix2.m12 +
+                 matrix1.m32 * (double)matrix2.m22 + matrix1.m33 * (double)matrix2.m32);
+            matrix44.m33 = (float)(matrix1.m30 * (double)matrix2.m03 + matrix1.m31 * (double)matrix2.m13 +
+                 matrix1.m32 * (double)matrix2.m23 + matrix1.m33 * (double)matrix2.m33);
             return matrix44;
         }
     }

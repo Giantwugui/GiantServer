@@ -1,5 +1,4 @@
-﻿using Giant.Share;
-using System;
+﻿using System;
 
 namespace Giant.Net
 {

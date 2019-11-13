@@ -34,7 +34,7 @@ namespace Server.Account
 
         public GateInfo GetGateWithBalance(int appId)
         {
-            if(!gateInfos.TryGetValue(appId, out Dictionary<int, GateInfo> gates))
+            if (!gateInfos.TryGetValue(appId, out Dictionary<int, GateInfo> gates))
             {
                 return null;
             }

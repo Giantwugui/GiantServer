@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Giant.Share;
+using System;
 using System.IO;
 using System.Text;
-using Giant.Share;
 
 namespace Giant.Net
 {

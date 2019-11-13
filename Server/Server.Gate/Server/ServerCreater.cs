@@ -7,7 +7,7 @@ namespace Server.Gate
     public class ServerCreater : BaseServerCreater
     {
         public ServerCreater(BaseAppService service) : base(service)
-        { 
+        {
         }
 
         public override FrontendServer CreateFrontendServer(AppConfig config)

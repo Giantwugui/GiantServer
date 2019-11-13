@@ -188,7 +188,7 @@ namespace Giant.Net
                     }
                     break;
                 case SocketError socketError:
-                        Logger.Error($"SocketError {socketError}");
+                    Logger.Error($"SocketError {socketError}");
                     break;
                 default:
                     Logger.Error(error);

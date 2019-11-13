@@ -36,7 +36,7 @@ namespace Server.Account
 
                 Logger.Debug($"get {result} cost {stopwatch.ElapsedMilliseconds}");
             }
-    }
+        }
 
         private static async void DoPost()
         {

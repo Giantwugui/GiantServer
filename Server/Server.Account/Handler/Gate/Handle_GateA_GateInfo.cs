@@ -1,6 +1,5 @@
 ﻿using Giant.Msg;
 using Giant.Net;
-using Giant.Share;
 using System.Threading.Tasks;
 
 namespace Server.Account

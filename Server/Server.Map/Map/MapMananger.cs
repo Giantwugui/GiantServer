@@ -17,7 +17,7 @@ namespace Server.Map
         public void Init()
         {
             Map map = null;
-            MapLibrary.Maps.ForEach(model=>
+            MapLibrary.Maps.ForEach(model =>
             {
                 map = new Map(this, model.Value);
                 maps.Add(map.MapId, map);

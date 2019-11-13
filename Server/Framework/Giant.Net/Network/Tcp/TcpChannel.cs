@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Giant.Core;
+using Giant.Log;
+using Giant.Share;
+using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using Giant.Share;
-using Giant.Log;
-using Giant.Core;
 
 namespace Giant.Net
 {
@@ -28,7 +28,7 @@ namespace Giant.Net
 
         public override MemoryStream Stream => this.memoryStream;
 
-        public TcpChannel(int packetSize, Socket socket, TcpService service):base(service, ChannelType.Accepter)
+        public TcpChannel(int packetSize, Socket socket, TcpService service) : base(service, ChannelType.Accepter)
         {
             this.socket = socket;
             this.IsConnected = true;
@@ -93,7 +93,7 @@ namespace Giant.Net
                     {
                         if (stream.Length > ushort.MaxValue)
                         {
-						    throw new Exception($"send packet too large: {stream.Length}");
+                            throw new Exception($"send packet too large: {stream.Length}");
                         }
 
                         this.packetSizeCache.WriteTo(0, (ushort)stream.Length);

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Server.Manager
+﻿namespace Server.Manager
 {
     class Program
     {

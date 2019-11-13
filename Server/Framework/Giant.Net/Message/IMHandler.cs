@@ -3,9 +3,9 @@
 namespace Giant.Net
 {
     public interface IMHandler
-	{
-		Type GetMessageType();
+    {
+        Type GetMessageType();
 
-		void Handle(Session session, object message);
+        void Handle(Session session, object message);
     }
 }

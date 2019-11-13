@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Giant.Share
 {
-    public class CircularBuffer: Stream
+    public class CircularBuffer : Stream
     {
         public int ChunkSize = 8192;
         private readonly Queue<byte[]> bufferQueue = new Queue<byte[]>();
@@ -14,7 +14,7 @@ namespace Giant.Share
         public int LastIndex { get; set; }
 
         public int FirstIndex { get; set; }
-		
+
         private byte[] lastBuffer;
         public byte[] Last
         {
@@ -131,23 +131,23 @@ namespace Giant.Share
         /// <param name="stream"></param>
         /// <returns></returns>
         public async Task ReadAsync(Stream stream)
-	    {
-		    long buffLength = this.Length;
-			int sendSize = this.ChunkSize - this.FirstIndex;
-		    if (sendSize > buffLength)
-		    {
-			    sendSize = (int)buffLength;
-		    }
-			
-		    await stream.WriteAsync(this.First, this.FirstIndex, sendSize);
-		    
-		    this.FirstIndex += sendSize;
-		    if (this.FirstIndex == this.ChunkSize)
-		    {
-			    this.FirstIndex = 0;
-			    this.RemoveFirst();
-		    }
-		}
+        {
+            long buffLength = this.Length;
+            int sendSize = this.ChunkSize - this.FirstIndex;
+            if (sendSize > buffLength)
+            {
+                sendSize = (int)buffLength;
+            }
+
+            await stream.WriteAsync(this.First, this.FirstIndex, sendSize);
+
+            this.FirstIndex += sendSize;
+            if (this.FirstIndex == this.ChunkSize)
+            {
+                this.FirstIndex = 0;
+                this.RemoveFirst();
+            }
+        }
 
         /// <summary>
         /// 从CircularBuffer读到stream 读取所有缓存的消息 需要拷贝 count长度的数据到stream中
@@ -155,38 +155,38 @@ namespace Giant.Share
         /// <param name="stream"></param>
         /// <param name="count"></param>
         public void Read(Stream stream, int count)
-	    {
-		    if (count > this.Length)
-		    {
-			    throw new Exception($"bufferList length < count, {Length} {count}");
-		    }
+        {
+            if (count > this.Length)
+            {
+                throw new Exception($"bufferList length < count, {Length} {count}");
+            }
 
             //已经拷贝了的长度
-		    int readedSize = 0;
-		    while (readedSize < count)
-		    {
+            int readedSize = 0;
+            while (readedSize < count)
+            {
                 //还需要读取的字节数
-			    int needReadSize = count - readedSize;
+                int needReadSize = count - readedSize;
                 int bufferSize = this.ChunkSize - this.FirstIndex;//当前缓冲区剩余空间
 
                 //当前字节已经包含了所有需要读取的字节
                 if (bufferSize > needReadSize)
-			    {
-				    stream.Write(this.First, this.FirstIndex, needReadSize);
-				    this.FirstIndex += needReadSize;
-				    readedSize += needReadSize; //已经读了所有需要读取的字节数目，推出循环
-			    }
-			    else
-			    {
+                {
+                    stream.Write(this.First, this.FirstIndex, needReadSize);
+                    this.FirstIndex += needReadSize;
+                    readedSize += needReadSize; //已经读了所有需要读取的字节数目，推出循环
+                }
+                else
+                {
                     //获取第一个byte[]
                     //当第一个byte[]数据不够的时候，先读取所有剩余的字节
-				    stream.Write(this.First, this.FirstIndex, bufferSize);
-				    readedSize += bufferSize;
-				    this.FirstIndex = 0;
-				    this.RemoveFirst();
-			    }
-		    }
-	    }
+                    stream.Write(this.First, this.FirstIndex, bufferSize);
+                    readedSize += bufferSize;
+                    this.FirstIndex = 0;
+                    this.RemoveFirst();
+                }
+            }
+        }
 
         // 把buffer写入CircularBuffer中
         public override void Write(byte[] buffer, int offset, int count)
@@ -217,82 +217,82 @@ namespace Giant.Share
 
         // 从stream写入CircularBuffer
         public void Write(Stream stream)
-		{
-			int count = (int)(stream.Length - stream.Position);
-			
-			int writedSize = 0;
-			while (writedSize < count)
-			{
+        {
+            int count = (int)(stream.Length - stream.Position);
+
+            int writedSize = 0;
+            while (writedSize < count)
+            {
                 //最后一个byte[]已经写满数据，则新建一个byte[],并设置成当前正在使用的byte[]
-				if (this.LastIndex == ChunkSize)
-				{
-					this.AddLast();
-					this.LastIndex = 0;
-				}
+                if (this.LastIndex == ChunkSize)
+                {
+                    this.AddLast();
+                    this.LastIndex = 0;
+                }
 
                 //当前bye[]足够使用
-				int needWriteSize = count - writedSize;
+                int needWriteSize = count - writedSize;
                 int bufferSize = this.ChunkSize - this.LastIndex;//当前缓冲区剩余空间
 
-				if (bufferSize > needWriteSize)
+                if (bufferSize > needWriteSize)
                 {
-					stream.Read(this.lastBuffer, this.LastIndex, needWriteSize);
-					this.LastIndex += count - writedSize;
-					writedSize += needWriteSize;
-				}
-				else
-				{
-					stream.Read(this.lastBuffer, this.LastIndex, bufferSize);
-					writedSize += bufferSize;
-					this.LastIndex = ChunkSize;
-				}
-			}
-		}
-	    
+                    stream.Read(this.lastBuffer, this.LastIndex, needWriteSize);
+                    this.LastIndex += count - writedSize;
+                    writedSize += needWriteSize;
+                }
+                else
+                {
+                    stream.Read(this.lastBuffer, this.LastIndex, bufferSize);
+                    writedSize += bufferSize;
+                    this.LastIndex = ChunkSize;
+                }
+            }
+        }
 
-	    /// <summary>
-		///  从stream写入CircularBuffer
-		/// </summary>
-		/// <param name="stream"></param>
-		/// <returns></returns>
-		public async Task<int> WriteAsync(Stream stream)
-	    {
-		    int size = this.ChunkSize - this.LastIndex;
-		    
-		    int n = await stream.ReadAsync(this.Last, this.LastIndex, size);
 
-		    if (n == 0)
-		    {
-			    return 0;
-		    }
+        /// <summary>
+        ///  从stream写入CircularBuffer
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public async Task<int> WriteAsync(Stream stream)
+        {
+            int size = this.ChunkSize - this.LastIndex;
 
-		    this.LastIndex += n;
+            int n = await stream.ReadAsync(this.Last, this.LastIndex, size);
 
-		    if (this.LastIndex == this.ChunkSize)
-		    {
-			    this.AddLast();
-			    this.LastIndex = 0;
-		    }
+            if (n == 0)
+            {
+                return 0;
+            }
 
-		    return n;
-	    }
+            this.LastIndex += n;
+
+            if (this.LastIndex == this.ChunkSize)
+            {
+                this.AddLast();
+                this.LastIndex = 0;
+            }
+
+            return n;
+        }
 
         #region 基类方法
 
         public override void Flush()
-	    {
-		    throw new NotImplementedException();
-		}
+        {
+            throw new NotImplementedException();
+        }
 
-	    public override long Seek(long offset, SeekOrigin origin)
-	    {
-			throw new NotImplementedException();
-	    }
+        public override long Seek(long offset, SeekOrigin origin)
+        {
+            throw new NotImplementedException();
+        }
 
-	    public override void SetLength(long value)
-	    {
-		    throw new NotImplementedException();
-		}
+        public override void SetLength(long value)
+        {
+            throw new NotImplementedException();
+        }
 
         public override bool CanRead => true;
 
@@ -300,7 +300,7 @@ namespace Giant.Share
 
         public override bool CanWrite => true;
 
-	    public override long Position { get; set; }
+        public override long Position { get; set; }
 
         #endregion
     }

@@ -5,7 +5,7 @@ namespace UnityEngine
     public static class Mathf
     {
         public const float Epsilon = 0.00001F;
-        
+
         /// <summary>
         ///   <para>Returns the sine of angle f.</para>
         /// </summary>
@@ -15,7 +15,7 @@ namespace UnityEngine
         /// </returns>
         public static float Sin(float f)
         {
-            return (float) Math.Sin((double) f);
+            return (float)Math.Sin(f);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace UnityEngine
         /// </returns>
         public static float Cos(float f)
         {
-            return (float) Math.Cos((double) f);
+            return (float)Math.Cos(f);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Tan(float f)
         {
-            return (float) Math.Tan((double) f);
+            return (float)Math.Tan(f);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Asin(float f)
         {
-            return (float) Math.Asin((double) f);
+            return (float)Math.Asin(f);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Acos(float f)
         {
-            return (float) Math.Acos((double) f);
+            return (float)Math.Acos(f);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Atan(float f)
         {
-            return (float) Math.Atan((double) f);
+            return (float)Math.Atan(f);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace UnityEngine
         /// <param name="x"></param>
         public static float Atan2(float y, float x)
         {
-            return (float) Math.Atan2((double) y, (double) x);
+            return (float)Math.Atan2(y, x);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Sqrt(float f)
         {
-            return (float) Math.Sqrt((double) f);
+            return (float)Math.Sqrt(f);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace UnityEngine
         /// <param name="values"></param>
         public static float Min(float a, float b)
         {
-            return (double) a >= (double) b? b : a;
+            return a >= (double)b ? b : a;
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace UnityEngine
             float num = values[0];
             for (int index = 1; index < length; ++index)
             {
-                if ((double) values[index] < (double) num)
+                if (values[index] < (double)num)
                     num = values[index];
             }
 
@@ -143,7 +143,7 @@ namespace UnityEngine
         /// <param name="values"></param>
         public static int Min(int a, int b)
         {
-            return a >= b? b : a;
+            return a >= b ? b : a;
         }
 
         /// <summary>
@@ -175,7 +175,7 @@ namespace UnityEngine
         /// <param name="values"></param>
         public static float Max(float a, float b)
         {
-            return (double) a <= (double) b? b : a;
+            return a <= (double)b ? b : a;
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace UnityEngine
             float num = values[0];
             for (int index = 1; index < length; ++index)
             {
-                if ((double) values[index] > (double) num)
+                if (values[index] > (double)num)
                     num = values[index];
             }
 
@@ -207,7 +207,7 @@ namespace UnityEngine
         /// <param name="values"></param>
         public static int Max(int a, int b)
         {
-            return a <= b? b : a;
+            return a <= b ? b : a;
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace UnityEngine
         /// <param name="p"></param>
         public static float Pow(float f, float p)
         {
-            return (float) Math.Pow((double) f, (double) p);
+            return (float)Math.Pow(f, p);
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace UnityEngine
         /// <param name="power"></param>
         public static float Exp(float power)
         {
-            return (float) Math.Exp((double) power);
+            return (float)Math.Exp(power);
         }
 
         /// <summary>
@@ -257,7 +257,7 @@ namespace UnityEngine
         /// <param name="p"></param>
         public static float Log(float f, float p)
         {
-            return (float) Math.Log((double) f, (double) p);
+            return (float)Math.Log(f, p);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Log(float f)
         {
-            return (float) Math.Log((double) f);
+            return (float)Math.Log(f);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Log10(float f)
         {
-            return (float) Math.Log10((double) f);
+            return (float)Math.Log10(f);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Ceil(float f)
         {
-            return (float) Math.Ceiling((double) f);
+            return (float)Math.Ceiling(f);
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Floor(float f)
         {
-            return (float) Math.Floor((double) f);
+            return (float)Math.Floor(f);
         }
 
         /// <summary>
@@ -302,7 +302,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Round(float f)
         {
-            return (float) Math.Round((double) f);
+            return (float)Math.Round(f);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static int CeilToInt(float f)
         {
-            return (int) Math.Ceiling((double) f);
+            return (int)Math.Ceiling(f);
         }
 
         /// <summary>
@@ -320,7 +320,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static int FloorToInt(float f)
         {
-            return (int) Math.Floor((double) f);
+            return (int)Math.Floor(f);
         }
 
         /// <summary>
@@ -329,7 +329,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static int RoundToInt(float f)
         {
-            return (int) Math.Round((double) f);
+            return (int)Math.Round(f);
         }
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace UnityEngine
         /// <param name="f"></param>
         public static float Sign(float f)
         {
-            return (double) f < 0.0? -1f : 1f;
+            return f < 0.0 ? -1f : 1f;
         }
 
         /// <summary>
@@ -349,9 +349,9 @@ namespace UnityEngine
         /// <param name="max"></param>
         public static float Clamp(float value, float min, float max)
         {
-            if ((double) value < (double) min)
+            if (value < (double)min)
                 value = min;
-            else if ((double) value > (double) max)
+            else if (value > (double)max)
                 value = max;
             return value;
         }
@@ -377,9 +377,9 @@ namespace UnityEngine
         /// <param name="value"></param>
         public static float Clamp01(float value)
         {
-            if ((double) value < 0.0)
+            if (value < 0.0)
                 return 0.0f;
-            if ((double) value > 1.0)
+            if (value > 1.0)
                 return 1f;
             return value;
         }
@@ -421,7 +421,7 @@ namespace UnityEngine
         public static float LerpAngle(float a, float b, float t)
         {
             float num = Mathf.Repeat(b - a, 360f);
-            if ((double) num > 180.0)
+            if (num > 180.0)
                 num -= 360f;
             return a + num * Mathf.Clamp01(t);
         }
@@ -434,7 +434,7 @@ namespace UnityEngine
         /// <param name="maxDelta">The maximum change that should be applied to the value.</param>
         public static float MoveTowards(float current, float target, float maxDelta)
         {
-            if ((double) Mathf.Abs(target - current) <= (double) maxDelta)
+            if (Mathf.Abs(target - current) <= (double)maxDelta)
                 return target;
             return current + Mathf.Sign(target - current) * maxDelta;
         }
@@ -448,7 +448,7 @@ namespace UnityEngine
         public static float MoveTowardsAngle(float current, float target, float maxDelta)
         {
             float num = Mathf.DeltaAngle(current, target);
-            if (-(double) maxDelta < (double) num && (double) num < (double) maxDelta)
+            if (-maxDelta < (double)num && num < (double)maxDelta)
                 return target;
             target = current + num;
             return Mathf.MoveTowards(current, target, maxDelta);
@@ -463,20 +463,20 @@ namespace UnityEngine
         public static float SmoothStep(float from, float to, float t)
         {
             t = Mathf.Clamp01(t);
-            t = (float) (-2.0 * (double) t * (double) t * (double) t + 3.0 * (double) t * (double) t);
-            return (float) ((double) to * (double) t + (double) from * (1.0 - (double) t));
+            t = (float)(-2.0 * t * t * t + 3.0 * t * t);
+            return (float)(to * (double)t + from * (1.0 - t));
         }
 
         public static float Gamma(float value, float absmax, float gamma)
         {
             bool flag = false;
-            if ((double) value < 0.0)
+            if (value < 0.0)
                 flag = true;
             float num1 = Mathf.Abs(value);
-            if ((double) num1 > (double) absmax)
-                return !flag? num1 : -num1;
+            if (num1 > (double)absmax)
+                return !flag ? num1 : -num1;
             float num2 = Mathf.Pow(num1 / absmax, gamma) * absmax;
-            return !flag? num2 : -num2;
+            return !flag ? num2 : -num2;
         }
 
         /// <summary>
@@ -508,8 +508,8 @@ namespace UnityEngine
         /// <param name="value"></param>
         public static float InverseLerp(float a, float b, float value)
         {
-            if ((double) a != (double) b)
-                return Mathf.Clamp01((float) (((double) value - (double) a) / ((double) b - (double) a)));
+            if (a != (double)b)
+                return Mathf.Clamp01((float)((value - (double)a) / (b - (double)a)));
             return 0.0f;
         }
 
@@ -521,7 +521,7 @@ namespace UnityEngine
         public static float DeltaAngle(float current, float target)
         {
             float num = Mathf.Repeat(target - current, 360f);
-            if ((double) num > 180.0)
+            if (num > 180.0)
                 num -= 360f;
             return num;
         }
@@ -532,12 +532,12 @@ namespace UnityEngine
             float num2 = p2.y - p1.y;
             float num3 = p4.x - p3.x;
             float num4 = p4.y - p3.y;
-            float num5 = (float) ((double) num1 * (double) num4 - (double) num2 * (double) num3);
-            if ((double) num5 == 0.0)
+            float num5 = (float)(num1 * (double)num4 - num2 * (double)num3);
+            if (num5 == 0.0)
                 return false;
             float num6 = p3.x - p1.x;
             float num7 = p3.y - p1.y;
-            float num8 = (float) ((double) num6 * (double) num4 - (double) num7 * (double) num3) / num5;
+            float num8 = (float)(num6 * (double)num4 - num7 * (double)num3) / num5;
             result = new Vector2(p1.x + num8 * num1, p1.y + num8 * num2);
             return true;
         }
@@ -548,16 +548,16 @@ namespace UnityEngine
             float num2 = p2.y - p1.y;
             float num3 = p4.x - p3.x;
             float num4 = p4.y - p3.y;
-            float num5 = (float) ((double) num1 * (double) num4 - (double) num2 * (double) num3);
-            if ((double) num5 == 0.0)
+            float num5 = (float)(num1 * (double)num4 - num2 * (double)num3);
+            if (num5 == 0.0)
                 return false;
             float num6 = p3.x - p1.x;
             float num7 = p3.y - p1.y;
-            float num8 = (float) ((double) num6 * (double) num4 - (double) num7 * (double) num3) / num5;
-            if ((double) num8 < 0.0 || (double) num8 > 1.0)
+            float num8 = (float)(num6 * (double)num4 - num7 * (double)num3) / num5;
+            if (num8 < 0.0 || num8 > 1.0)
                 return false;
-            float num9 = (float) ((double) num6 * (double) num2 - (double) num7 * (double) num1) / num5;
-            if ((double) num9 < 0.0 || (double) num9 > 1.0)
+            float num9 = (float)(num6 * (double)num2 - num7 * (double)num1) / num5;
+            if (num9 < 0.0 || num9 > 1.0)
                 return false;
             result = new Vector2(p1.x + num8 * num1, p1.y + num8 * num2);
             return true;
@@ -567,14 +567,14 @@ namespace UnityEngine
         {
             byte[] buffer = new byte[8];
             r.NextBytes(buffer);
-            return (long) BitConverter.ToUInt64(buffer, 0) & long.MaxValue;
+            return (long)BitConverter.ToUInt64(buffer, 0) & long.MaxValue;
         }
-        
+
         public static float Rad2Deg(float radians)
         {
             return (float)(radians * 180 / System.Math.PI);
         }
-        
+
         public static float Deg2Rad(float degrees)
         {
             return (float)(degrees * System.Math.PI / 180);
@@ -594,10 +594,10 @@ namespace UnityEngine
                                (float)(degrees.y * System.Math.PI / 180),
                                (float)(degrees.z * System.Math.PI / 180));
         }
-        
+
         public const float CosAngle20 = 0.9396926208f;
         public const float CompareEpsilon = 0.000001f;
-        
+
         public static bool CompareApproximate(float f0, float f1, float epsilon = CompareEpsilon)
         {
             return System.Math.Abs(f0 - f1) < epsilon;

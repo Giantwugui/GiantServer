@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading;
-using System.Net.WebSockets;
-using Giant.Log;
+﻿using Giant.Log;
+using System;
 using System.IO;
+using System.Net.WebSockets;
+using System.Threading;
 
 namespace Giant.Net
 {
@@ -135,7 +135,7 @@ namespace Giant.Net
 
                     if (receiveCount > ushort.MaxValue)
                     {
-                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}",cancellationTokenSource.Token);
+                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}", cancellationTokenSource.Token);
                         this.OnError(ErrorCode.WebsocketMessageTooBig);
                         return;
                     }

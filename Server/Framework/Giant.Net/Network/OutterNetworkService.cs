@@ -1,5 +1,4 @@
-﻿using Giant.Log;
-using System;
+﻿using System;
 
 namespace Giant.Net
 {

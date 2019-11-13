@@ -1,9 +1,9 @@
 ﻿using Giant.Log;
+using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Giant.Share;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -75,7 +75,7 @@ namespace Giant.Net
 
                 var handler = Activator.CreateInstance(type) as BaseHttpHandler;
                 var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-                foreach(var method in methods)
+                foreach (var method in methods)
                 {
                     GetAttribute getAttribute = method.GetCustomAttribute<GetAttribute>();
                     if (getAttribute != null)

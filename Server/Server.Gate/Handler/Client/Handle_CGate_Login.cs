@@ -2,7 +2,6 @@
 using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
-using Giant.Share;
 using Server.Model;
 using System.Threading.Tasks;
 

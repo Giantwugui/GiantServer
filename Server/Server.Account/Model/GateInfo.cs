@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Server.Account
+﻿namespace Server.Account
 {
     public class GateInfo
     {

@@ -108,7 +108,7 @@ namespace Giant.Net
                 channels.Remove(udpId);
             }
 
-            channel = new UdpChannel((uint)udpId, Socket, endPoint, this);
+            channel = new UdpChannel(udpId, Socket, endPoint, this);
 
             channels[udpId] = channel;
             waitConnectClients[udpId] = channel;
@@ -237,7 +237,7 @@ namespace Giant.Net
                             break;
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.Error(ex);
                 }

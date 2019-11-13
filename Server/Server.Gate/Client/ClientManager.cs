@@ -1,5 +1,4 @@
-﻿using Giant.Net;
-using Giant.Share;
+﻿using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,7 +67,7 @@ namespace Server.Gate
         public void Remove(long sessionId)
         {
             if (clientsIndexBySessionId.TryGetValue(sessionId, out Client client))
-            { 
+            {
                 clients.Remove(client.Uid);
                 clientsIndexBySessionId.Remove(sessionId);
             }

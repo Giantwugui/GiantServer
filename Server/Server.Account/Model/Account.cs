@@ -1,7 +1,7 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using Giant.DB.MongoDB;
+using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Giant.DB.MongoDB;
 
 namespace Server.Account
 {

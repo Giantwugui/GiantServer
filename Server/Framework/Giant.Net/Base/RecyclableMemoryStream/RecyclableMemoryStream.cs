@@ -712,17 +712,17 @@ namespace Microsoft.IO
             int newPosition;
             switch (loc)
             {
-            case SeekOrigin.Begin:
-                newPosition = (int)offset;
-                break;
-            case SeekOrigin.Current:
-                newPosition = (int)offset + this.position;
-                break;
-            case SeekOrigin.End:
-                newPosition = (int)offset + this.length;
-                break;
-            default:
-                throw new ArgumentException("Invalid seek origin", nameof(loc));
+                case SeekOrigin.Begin:
+                    newPosition = (int)offset;
+                    break;
+                case SeekOrigin.Current:
+                    newPosition = (int)offset + this.position;
+                    break;
+                case SeekOrigin.End:
+                    newPosition = (int)offset + this.length;
+                    break;
+                default:
+                    throw new ArgumentException("Invalid seek origin", nameof(loc));
             }
             if (newPosition < 0)
             {

@@ -14,7 +14,7 @@ namespace Giant.Net
     /// <summary>
     /// 通讯类型抽象类
     /// </summary>
-    public abstract class BaseChannel: IDisposable
+    public abstract class BaseChannel : IDisposable
     {
         public long InstanceId { get; private set; }
         public ChannelType ChannelType { get; private set; }
@@ -67,7 +67,7 @@ namespace Giant.Net
         /// 转发消息
         /// </summary>
         public abstract void Send(MemoryStream stream);
- 
+
 
         public virtual void Start()
         {
