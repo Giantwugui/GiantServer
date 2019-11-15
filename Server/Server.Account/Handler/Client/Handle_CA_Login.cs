@@ -4,6 +4,7 @@ using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Share;
+using Server.Frame;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -14,13 +15,13 @@ namespace Server.Account
     {
         public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response)
         {
-            var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
+            var query = new MongoDBQuery<AccountInfo>(DBName.Account, x => x.Account == request.Account);
             AccountInfo account = await query.Task();
             if (account == null)
             {
                 string securityPwd = MD5Helper.Encrypt(request.Password);
                 account = new AccountInfo() { Account = request.Account, Password = securityPwd, RegistTime = TimeHelper.NowString };
-                var insertQuery = new MongoDBInsert<AccountInfo>("Account", account);
+                var insertQuery = new MongoDBInsert<AccountInfo>(DBName.Account, account);
                 await insertQuery.Task();
             }
             else
@@ -46,7 +47,7 @@ namespace Server.Account
     {
         public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)
         {
-            var query = new MongoDBQuery<AccountInfo>("Account", x => x.Account == request.Account);
+            var query = new MongoDBQuery<AccountInfo>(DBName.Account, x => x.Account == request.Account);
             AccountInfo account = await query.Task();
             if (account == null)
             {

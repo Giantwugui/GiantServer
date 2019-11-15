@@ -1,9 +1,9 @@
-﻿using Giant.Net;
+﻿using Giant.Msg;
+using Giant.Net;
 using Giant.Share;
-using Giant.Msg;
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Client
 {
@@ -23,6 +23,8 @@ namespace Client
     {
         static NetworkService networkService;
         private static readonly Dictionary<long, AccountInfo> waittingLoginList = new Dictionary<long, AccountInfo>();
+
+        public Session Session { get; private set; }
 
         public static void Init()
         {
@@ -85,7 +87,7 @@ namespace Client
                 Account = accountInfo.Account,
             };
 
-            Msg_GC_Login result = await session.Call(msg) as Msg_GC_Login;
+            var result = await session.Call(msg);
             if (result.Error == ErrorCode.Success)
             {
                 Console.WriteLine($"Client login success {accountInfo.Account}");

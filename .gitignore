@@ -2,3 +2,6 @@
 /.gitattributes
 /Bin
 Debug
+/Server/Framework/Server.Frame/obj
+/Server/Framework/Giant.Net/obj
+/Server/Framework/Giant.Msg/obj

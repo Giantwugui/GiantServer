@@ -67,6 +67,11 @@ namespace Giant.Net
             }
         }
 
+        public void RegisterHandler(object allServer, Assembly assembly)
+        {
+            throw new NotImplementedException();
+        }
+
         private void RegisterHandler(IMHandler handler)
         {
             Type type = handler.GetMessageType();

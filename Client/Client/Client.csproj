@@ -6,8 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Frame\Giant.Data\Giant.Data.csproj" />
-    <ProjectReference Include="..\..\Frame\Giant.Net\Giant.Net.csproj" />
+    <Reference Include="Giant.Data">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
