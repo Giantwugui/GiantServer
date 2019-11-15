@@ -24,7 +24,7 @@ namespace Server.Frame
                     return;
                 }
 
-                FrontendServer frontend = Framework.ServerCreater.CreateFrontendServer(config);
+                FrontendServer frontend = Framework.ServerFactory.CreateFrontendServer(config);
                 Framework.NetProxyManager.GetFrontendServiceManager(appType).AddService(frontend);
                 frontend.Start();
             }

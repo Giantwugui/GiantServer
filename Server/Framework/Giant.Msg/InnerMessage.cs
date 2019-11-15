@@ -28,27 +28,32 @@ namespace Giant.Msg {
             "cEFwcBINCgVBcHBJZBgBIAEoBSI0ChJNc2dfQUdfQ2xpZW50TG9naW4SDwoH",
             "QWNjb3VudBgBIAEoCRINCgVUb2tlbhgCIAEoBSJhChJNc2dfR2F0ZUFfR2F0",
             "ZUluZm8SDQoFQXBwSWQYASABKAUSDQoFU3ViSWQYAiABKAUSCgoCSVAYAyAB",
-            "KAkSDAoEUG9ydBgEIAEoBRITCgtDbGllbnRDb3VudBgFIAEoBSJBChBNc2df",
-            "U2VydmljZV9JbmZvEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQYAiABKAUS",
-            "DQoFU3ViSWQYAyABKAUiUgoSTXNnX0hlYXJ0QmVhdF9QaW5nEg0KBVJwY0lk",
-            "GFogASgFEg8KB0FwcFR5cGUYASABKAUSDQoFQXBwSWQYAiABKAUSDQoFU3Vi",
-            "SWQYAyABKAUicgoSTXNnX0hlYXJ0QmVhdF9Qb25nEg0KBVJwY0lkGFogASgF",
-            "Eg0KBUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDwoHQXBwVHlwZRgB",
-            "IAEoBRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJVChVNc2dfUmVn",
-            "aXN0U2VydmljZV9SZXESDQoFUnBjSWQYWiABKAUSDwoHQXBwVHlwZRgBIAEo",
-            "BRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJ1ChVNc2dfUmVnaXN0",
-            "U2VydmljZV9SZXASDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoH",
-            "TWVzc2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgF",
-            "Eg0KBVN1YklkGAMgASgFIjQKEk1zZ19SR19HZXRMb2dpbktleRINCgVScGNJ",
-            "ZBhaIAEoBRIPCgdBY2NvdW50GAEgASgJIk0KD01zZ19HZXRMb2dpbktleRIN",
-            "CgVScGNJZBhaIAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJ",
-            "EgsKA0tleRgBIAEoA2IGcHJvdG8z"));
+            "KAkSDAoEUG9ydBgEIAEoBRITCgtDbGllbnRDb3VudBgFIAEoBSI1ChVNc2df",
+            "R2F0ZU1fQmFsYW5jZVpvbmUSDQoFUnBjSWQYWiABKAUSDQoFTWFwSWQYASAB",
+            "KAUiZQoVTXNnX01HYXRlX0JhbGFuY2Vab25lEg0KBVJwY0lkGFogASgFEg0K",
+            "BUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGWm9uZUlkGAEgASgF",
+            "Eg0KBVN1YklkGAIgASgFIkEKEE1zZ19TZXJ2aWNlX0luZm8SDwoHQXBwVHlw",
+            "ZRgBIAEoBRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJSChJNc2df",
+            "SGVhcnRCZWF0X1BpbmcSDQoFUnBjSWQYWiABKAUSDwoHQXBwVHlwZRgBIAEo",
+            "BRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJyChJNc2dfSGVhcnRC",
+            "ZWF0X1BvbmcSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVz",
+            "c2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0K",
+            "BVN1YklkGAMgASgFIlUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcRINCgVScGNJ",
+            "ZBhaIAEoBRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0KBVN1",
+            "YklkGAMgASgFInUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcBINCgVScGNJZBha",
+            "IAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEg8KB0FwcFR5",
+            "cGUYASABKAUSDQoFQXBwSWQYAiABKAUSDQoFU3ViSWQYAyABKAUiNAoSTXNn",
+            "X1JHX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASAB",
+            "KAkiTQoPTXNnX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg0KBUVycm9y",
+            "GFsgASgFEg8KB01lc3NhZ2UYXCABKAkSCwoDS2V5GAEgASgDYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GM_StopApp), global::Giant.Msg.Msg_GM_StopApp.Parser, new[]{ "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_AG_ClientLogin), global::Giant.Msg.Msg_AG_ClientLogin.Parser, new[]{ "Account", "Token" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateA_GateInfo), global::Giant.Msg.Msg_GateA_GateInfo.Parser, new[]{ "AppId", "SubId", "IP", "Port", "ClientCount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateM_BalanceZone), global::Giant.Msg.Msg_GateM_BalanceZone.Parser, new[]{ "RpcId", "MapId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_MGate_BalanceZone), global::Giant.Msg.Msg_MGate_BalanceZone.Parser, new[]{ "RpcId", "Error", "Message", "ZoneId", "SubId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_Service_Info), global::Giant.Msg.Msg_Service_Info.Parser, new[]{ "AppType", "AppId", "SubId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_HeartBeat_Ping), global::Giant.Msg.Msg_HeartBeat_Ping.Parser, new[]{ "RpcId", "AppType", "AppId", "SubId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_HeartBeat_Pong), global::Giant.Msg.Msg_HeartBeat_Pong.Parser, new[]{ "RpcId", "Error", "Message", "AppType", "AppId", "SubId" }, null, null, null),
@@ -589,6 +594,404 @@ namespace Giant.Msg {
 
   }
 
+  public sealed partial class Msg_GateM_BalanceZone : pb::IMessage<Msg_GateM_BalanceZone> {
+    private static readonly pb::MessageParser<Msg_GateM_BalanceZone> _parser = new pb::MessageParser<Msg_GateM_BalanceZone>(() => new Msg_GateM_BalanceZone());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Msg_GateM_BalanceZone> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_GateM_BalanceZone() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_GateM_BalanceZone(Msg_GateM_BalanceZone other) : this() {
+      rpcId_ = other.rpcId_;
+      mapId_ = other.mapId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_GateM_BalanceZone Clone() {
+      return new Msg_GateM_BalanceZone(this);
+    }
+
+    /// <summary>Field number for the "RpcId" field.</summary>
+    public const int RpcIdFieldNumber = 90;
+    private int rpcId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "MapId" field.</summary>
+    public const int MapIdFieldNumber = 1;
+    private int mapId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int MapId {
+      get { return mapId_; }
+      set {
+        mapId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Msg_GateM_BalanceZone);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Msg_GateM_BalanceZone other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RpcId != other.RpcId) return false;
+      if (MapId != other.MapId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (MapId != 0) hash ^= MapId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (MapId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(MapId);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (MapId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(MapId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Msg_GateM_BalanceZone other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RpcId != 0) {
+        RpcId = other.RpcId;
+      }
+      if (other.MapId != 0) {
+        MapId = other.MapId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            MapId = input.ReadInt32();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class Msg_MGate_BalanceZone : pb::IMessage<Msg_MGate_BalanceZone> {
+    private static readonly pb::MessageParser<Msg_MGate_BalanceZone> _parser = new pb::MessageParser<Msg_MGate_BalanceZone>(() => new Msg_MGate_BalanceZone());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<Msg_MGate_BalanceZone> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[4]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_MGate_BalanceZone() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_MGate_BalanceZone(Msg_MGate_BalanceZone other) : this() {
+      rpcId_ = other.rpcId_;
+      error_ = other.error_;
+      message_ = other.message_;
+      zoneId_ = other.zoneId_;
+      subId_ = other.subId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public Msg_MGate_BalanceZone Clone() {
+      return new Msg_MGate_BalanceZone(this);
+    }
+
+    /// <summary>Field number for the "RpcId" field.</summary>
+    public const int RpcIdFieldNumber = 90;
+    private int rpcId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int RpcId {
+      get { return rpcId_; }
+      set {
+        rpcId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Error" field.</summary>
+    public const int ErrorFieldNumber = 91;
+    private int error_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Error {
+      get { return error_; }
+      set {
+        error_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Message" field.</summary>
+    public const int MessageFieldNumber = 92;
+    private string message_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Message {
+      get { return message_; }
+      set {
+        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "ZoneId" field.</summary>
+    public const int ZoneIdFieldNumber = 1;
+    private int zoneId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int ZoneId {
+      get { return zoneId_; }
+      set {
+        zoneId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "SubId" field.</summary>
+    public const int SubIdFieldNumber = 2;
+    private int subId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SubId {
+      get { return subId_; }
+      set {
+        subId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as Msg_MGate_BalanceZone);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(Msg_MGate_BalanceZone other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RpcId != other.RpcId) return false;
+      if (Error != other.Error) return false;
+      if (Message != other.Message) return false;
+      if (ZoneId != other.ZoneId) return false;
+      if (SubId != other.SubId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RpcId != 0) hash ^= RpcId.GetHashCode();
+      if (Error != 0) hash ^= Error.GetHashCode();
+      if (Message.Length != 0) hash ^= Message.GetHashCode();
+      if (ZoneId != 0) hash ^= ZoneId.GetHashCode();
+      if (SubId != 0) hash ^= SubId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (ZoneId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(ZoneId);
+      }
+      if (SubId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(SubId);
+      }
+      if (RpcId != 0) {
+        output.WriteRawTag(208, 5);
+        output.WriteInt32(RpcId);
+      }
+      if (Error != 0) {
+        output.WriteRawTag(216, 5);
+        output.WriteInt32(Error);
+      }
+      if (Message.Length != 0) {
+        output.WriteRawTag(226, 5);
+        output.WriteString(Message);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RpcId != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(RpcId);
+      }
+      if (Error != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Error);
+      }
+      if (Message.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Message);
+      }
+      if (ZoneId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(ZoneId);
+      }
+      if (SubId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(Msg_MGate_BalanceZone other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RpcId != 0) {
+        RpcId = other.RpcId;
+      }
+      if (other.Error != 0) {
+        Error = other.Error;
+      }
+      if (other.Message.Length != 0) {
+        Message = other.Message;
+      }
+      if (other.ZoneId != 0) {
+        ZoneId = other.ZoneId;
+      }
+      if (other.SubId != 0) {
+        SubId = other.SubId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            ZoneId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            SubId = input.ReadInt32();
+            break;
+          }
+          case 720: {
+            RpcId = input.ReadInt32();
+            break;
+          }
+          case 728: {
+            Error = input.ReadInt32();
+            break;
+          }
+          case 738: {
+            Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class Msg_Service_Info : pb::IMessage<Msg_Service_Info> {
     private static readonly pb::MessageParser<Msg_Service_Info> _parser = new pb::MessageParser<Msg_Service_Info>(() => new Msg_Service_Info());
     private pb::UnknownFieldSet _unknownFields;
@@ -597,7 +1000,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[3]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -782,7 +1185,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -995,7 +1398,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[5]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1264,7 +1667,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[6]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1477,7 +1880,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[7]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1746,7 +2149,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1903,7 +2306,7 @@ namespace Giant.Msg {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Giant.Msg.InnerMessageReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

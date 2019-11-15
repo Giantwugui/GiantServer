@@ -10,12 +10,6 @@ namespace Server.Gate
     {
         public static AppService Instacne { get; } = new AppService();
 
-        public GlobalServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId) as GlobalServer;
-        public AccountServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId) as AccountServer;
-        public ZoneServer MapServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ZoneServer;
-        public ManagerServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ManagerServer;
-
-
         public override void Start(string[] args)
         {
             this.Init(args);
@@ -35,9 +29,9 @@ namespace Server.Gate
             ConsoleReader.Instance.Start(DoCmd);
         }
 
-        protected override void InitServerCreater()
+        protected override void InitServerFactory()
         {
-            this.ServerCreater = new ServerCreater(this);
+            this.ServerFactory = new ServerFactory(this);
         }
 
         private void DoUpdate()

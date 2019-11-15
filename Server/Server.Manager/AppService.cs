@@ -29,6 +29,11 @@ namespace Server.Manager
             ConsoleReader.Instance.Start(DoCmd);
         }
 
+        protected override void InitServerFactory()
+        {
+            this.ServerFactory = new ServerFactory(this);
+        }
+
         private void DoUpdate()
         {
             while (true)

@@ -33,7 +33,7 @@ namespace Server.Frame
                 return;
             }
 
-            FrontendServer frontend = AppService.ServerCreater.CreateFrontendServer(config);
+            FrontendServer frontend = AppService.ServerFactory.CreateFrontendServer(config);
             AddFrontend(frontend);
         }
 

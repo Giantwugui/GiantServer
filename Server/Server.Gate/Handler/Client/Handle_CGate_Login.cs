@@ -2,6 +2,7 @@
 using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
+using Server.Frame;
 using Server.Model;
 using System.Threading.Tasks;
 
@@ -42,13 +43,30 @@ namespace Server.Gate
                 return;
             }
 
-            var query = new MongoDBQuery<PlayerInfo>("Player", x => x.Uid == request.Uid);
+            Client client = ClientManager.Instance.GetClient(session.Id);
+            if (client == null)
+            {
+                response.Error = ErrorCode.Fail;
+                return;
+            }
+
+            var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid == request.Uid);
             PlayerInfo playerInfo = await query.Task();
             if (playerInfo == null)
             {
                 response.Error = ErrorCode.HaveNotFindCharacer;
                 return;
             }
+
+            //通知manager 负载均衡一个zone
+            Msg_GateM_BalanceZone msg = new Msg_GateM_BalanceZone() { MapId = playerInfo.MapId };
+            IResponse mResponse = await AppService.Instacne.ManagerServer.Call(msg);
+
+            Msg_MGate_BalanceZone zone = mResponse as Msg_MGate_BalanceZone;
+            ZoneServer server = AppService.Instacne.ZoneManager.GetService(zone.ZoneId, zone.SubId) as ZoneServer;
+
+            client.SetZoneServer(server);
+            client.EnterWorld();
         }
     }
 }

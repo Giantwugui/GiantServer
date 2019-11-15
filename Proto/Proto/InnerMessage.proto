@@ -16,6 +16,8 @@ message Msg_AG_ClientLogin // IMessage
 	int32 Token = 2;
 }
 
+/*********************** Gate ==> Account ****************************/
+
 message Msg_GateA_GateInfo // IMessage
 {
 	int32 AppId = 1;
@@ -23,6 +25,27 @@ message Msg_GateA_GateInfo // IMessage
 	string IP = 3;
 	int32 Port = 4;
 	int32 ClientCount = 5;
+}
+
+
+/*********************** Gate ==> Manager ****************************/
+
+message Msg_GateM_BalanceZone // IRequest
+{
+    int32 RpcId = 90;
+	int32 MapId = 1;
+}
+
+/*********************** Manager ==> Gate ****************************/
+
+message Msg_MGate_BalanceZone // IResponse
+{
+    int32 RpcId = 90;
+	int32 Error = 91;
+    string Message = 92;
+	
+	int32 ZoneId = 1;
+	int32 SubId = 2;
 }
 
 /*********************** Global ****************************/

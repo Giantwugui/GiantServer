@@ -26,6 +26,9 @@ namespace Giant.Msg
 	[Message(OuterOpcode.Msg_CG_PlayerInfo)]
 	public partial class Msg_CG_PlayerInfo : IRequest {}
 
+	[Message(OuterOpcode.Msg_CG_CreateCharacter)]
+	public partial class Msg_CG_CreateCharacter : IRequest {}
+
 	[Message(OuterOpcode.Msg_GC_HeartBeat_Pong)]
 	public partial class Msg_GC_HeartBeat_Pong : IResponse {}
 
@@ -34,6 +37,9 @@ namespace Giant.Msg
 
 	[Message(OuterOpcode.Msg_GC_Get_SecretKey)]
 	public partial class Msg_GC_Get_SecretKey : IResponse {}
+
+	[Message(OuterOpcode.Msg_GC_CreateCharacter)]
+	public partial class Msg_GC_CreateCharacter : IResponse {}
 
 	[Message(OuterOpcode.Msg_GC_PlayerInfo)]
 	public partial class Msg_GC_PlayerInfo : IResponse {}
@@ -78,19 +84,21 @@ namespace Giant.Msg
 		 public const ushort Msg_CG_Login = 106;
 		 public const ushort Msg_CG_Get_SecretKey = 107;
 		 public const ushort Msg_CG_PlayerInfo = 108;
-		 public const ushort Msg_GC_HeartBeat_Pong = 109;
-		 public const ushort Msg_GC_Login = 110;
-		 public const ushort Msg_GC_Get_SecretKey = 111;
-		 public const ushort Msg_GC_PlayerInfo = 112;
-		 public const ushort Msg_PlayerInfo = 113;
-		 public const ushort Msg_CG_EnterMap = 114;
-		 public const ushort Msg_GC_EnterMap = 115;
-		 public const ushort Msg_UnitInfo = 116;
-		 public const ushort Msg_MC_PathfindingResult = 117;
-		 public const ushort CM_Reload = 118;
-		 public const ushort MC_Reload = 119;
-		 public const ushort ZGC_Broadcast = 120;
-		 public const ushort Msg_CG_TestMap = 121;
+		 public const ushort Msg_CG_CreateCharacter = 109;
+		 public const ushort Msg_GC_HeartBeat_Pong = 110;
+		 public const ushort Msg_GC_Login = 111;
+		 public const ushort Msg_GC_Get_SecretKey = 112;
+		 public const ushort Msg_GC_CreateCharacter = 113;
+		 public const ushort Msg_GC_PlayerInfo = 114;
+		 public const ushort Msg_PlayerInfo = 115;
+		 public const ushort Msg_CG_EnterMap = 116;
+		 public const ushort Msg_GC_EnterMap = 117;
+		 public const ushort Msg_UnitInfo = 118;
+		 public const ushort Msg_MC_PathfindingResult = 119;
+		 public const ushort CM_Reload = 120;
+		 public const ushort MC_Reload = 121;
+		 public const ushort ZGC_Broadcast = 122;
+		 public const ushort Msg_CG_TestMap = 123;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
@@ -102,9 +110,11 @@ namespace Giant.Msg
 			{Msg_CG_Login, typeof(Msg_CG_Login)},
 			{Msg_CG_Get_SecretKey, typeof(Msg_CG_Get_SecretKey)},
 			{Msg_CG_PlayerInfo, typeof(Msg_CG_PlayerInfo)},
+			{Msg_CG_CreateCharacter, typeof(Msg_CG_CreateCharacter)},
 			{Msg_GC_HeartBeat_Pong, typeof(Msg_GC_HeartBeat_Pong)},
 			{Msg_GC_Login, typeof(Msg_GC_Login)},
 			{Msg_GC_Get_SecretKey, typeof(Msg_GC_Get_SecretKey)},
+			{Msg_GC_CreateCharacter, typeof(Msg_GC_CreateCharacter)},
 			{Msg_GC_PlayerInfo, typeof(Msg_GC_PlayerInfo)},
 			{Msg_PlayerInfo, typeof(Msg_PlayerInfo)},
 			{Msg_CG_EnterMap, typeof(Msg_CG_EnterMap)},

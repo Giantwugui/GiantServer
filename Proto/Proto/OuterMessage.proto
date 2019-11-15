@@ -60,6 +60,13 @@ message Msg_CG_PlayerInfo // IRequest
 	int32 RpcId = 90;
 }
 
+message Msg_CG_CreateCharacter // IRequest
+{
+	int32 RpcId = 90;
+	int32 Uid = 1;
+	int32 HeroId = 2;
+}
+
 /*********************** Gate => Client ****************************/
 message Msg_GC_HeartBeat_Pong // IResponse
 {
@@ -77,6 +84,15 @@ message Msg_GC_Login // IResponse
 }
 
 message Msg_GC_Get_SecretKey // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	string SecretKey = 1;
+}
+
+message Msg_GC_CreateCharacter // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;

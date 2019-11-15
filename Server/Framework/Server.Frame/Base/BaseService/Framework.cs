@@ -17,7 +17,7 @@ namespace Server.Frame
         public static int SubId => AppOption.SubId;
 
 
-        public static BaseServerCreater ServerCreater => Service.ServerCreater;
+        public static BaseServerFactory ServerFactory => Service.ServerFactory;
         public static NetProxyManager NetProxyManager => Service.NetProxyManager;
         public static InnerNetworkService InnerNetworkService => Service.InnerNetworkService;
         public static OutterNetworkService OutterNetworkService => Service.OutterNetworkService;

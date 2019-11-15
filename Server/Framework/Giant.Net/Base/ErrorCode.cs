@@ -34,6 +34,10 @@ namespace Giant.Net
         public const int ConnectGateKeyError = 100105;
         public const int ActorLocationNotFound = 102004;
 
+        public const int HaveNoThisCharacter = 103100;
+        public const int HadExistTheCharacter = 103101;
+
+
 
         //-----------------------------------
         // 小于这个Rpc会抛异常，大于这个异常的error需要自己判断处理，也就是说需要处理的错误应该要大于该值

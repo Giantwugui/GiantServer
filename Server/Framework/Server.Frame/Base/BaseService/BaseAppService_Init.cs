@@ -25,7 +25,7 @@ namespace Server.Frame
             this.InitProtocol();
             this.InitDBService();
             this.InitRedisService();
-            this.InitServerCreater();
+            this.InitServerFactory();
             this.InitNetworkTopology();
         }
 
@@ -38,11 +38,11 @@ namespace Server.Frame
             NetTopologyLibrary.Init();
         }
 
-        public virtual void OnConnect(Session session, bool isConnect) { }
+        public virtual void OnAccept(Session session, bool isConnect) { }
 
-        protected virtual void InitServerCreater()
+        protected virtual void InitServerFactory()
         {
-            ServerCreater = new BaseServerCreater(this);
+            ServerFactory = new BaseServerFactory(this);
         }
 
 
@@ -75,7 +75,7 @@ namespace Server.Frame
             //部分App只有内部服务，Zone
             if (!string.IsNullOrEmpty(config.OutterAddress))
             {
-                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress, OnConnect);
+                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress, OnAccept);
             }
         }
 

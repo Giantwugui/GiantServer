@@ -48,6 +48,11 @@ namespace Server.Frame
             Session.Notify(message);
         }
 
+        public Task<IResponse> Call(IRequest request)
+        {
+            return Session.Call(request);
+        }
+
         private void CheckHeartBeat()
         {
             if (!IsConnected)

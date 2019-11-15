@@ -18,10 +18,10 @@ namespace Server.Frame
             this.Session = session;
             this.AppType = appType;
             BackendManager = manager;
-            Session.OnConnectCallback += OnConnect;
+            Session.OnConnectCallback += OnDissConnect;
         }
 
-        private void OnConnect(Session session, bool connectState)
+        private void OnDissConnect(Session session, bool connectState)
         {
             if (connectState)
             {

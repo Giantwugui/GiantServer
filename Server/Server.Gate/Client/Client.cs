@@ -45,6 +45,10 @@ namespace Server.Gate
             this.ZoneServer = server;
         }
 
+        public void EnterWorld()
+        { 
+        }
+
         public void SendToClient(IMessage message)
         {
             Session.Notify(message);

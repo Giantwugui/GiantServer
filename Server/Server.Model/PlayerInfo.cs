@@ -7,15 +7,8 @@ namespace Server.Model
     {
         [BsonId]
         public long Uid { get; set; }
-
         public string Account { get; set; }
-
         public int Level { get; set; }
-
-        public int Year = 0;
-
-        public int MapId;
-
-        private string PrivateStr = string.Empty;
+        public int MapId { get; set; }
     }
 }

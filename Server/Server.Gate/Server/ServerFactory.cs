@@ -4,9 +4,9 @@ using Server.Frame;
 
 namespace Server.Gate
 {
-    public class ServerCreater : BaseServerCreater
+    public class ServerFactory : BaseServerFactory
     {
-        public ServerCreater(BaseAppService service) : base(service)
+        public ServerFactory(BaseAppService service) : base(service)
         {
         }
 
