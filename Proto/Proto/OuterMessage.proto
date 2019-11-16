@@ -43,13 +43,6 @@ message Msg_CG_HeartBeat_Ping // IRequest
 	int32 Uid = 1;
 }
 
-message Msg_CG_Login // IRequest
-{
-	int32 RpcId = 90;
-	string Account = 1;
-	int32 Uid = 2;
-}
-
 message Msg_CG_Get_SecretKey //IRequest
 {
 	int32 RpcId = 90;
@@ -60,11 +53,21 @@ message Msg_CG_PlayerInfo // IRequest
 	int32 RpcId = 90;
 }
 
+message Msg_CG_GetCharacter //IRequest
+{
+	int32 RpcId = 90;
+}
+
 message Msg_CG_CreateCharacter // IRequest
 {
 	int32 RpcId = 90;
+	int32 RoleId = 1;
+}
+
+message Msg_CG_Login // IRequest
+{
+	int32 RpcId = 90;
 	int32 Uid = 1;
-	int32 HeroId = 2;
 }
 
 /*********************** Gate => Client ****************************/
@@ -73,14 +76,6 @@ message Msg_GC_HeartBeat_Pong // IResponse
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-}
-
-message Msg_GC_Login // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-	int64 PlayerId = 1;
 }
 
 message Msg_GC_Get_SecretKey // IResponse
@@ -98,19 +93,32 @@ message Msg_GC_CreateCharacter // IResponse
 	int32 Error = 91;
 	string Message = 92;
 
-	string SecretKey = 1;
+	Msg_CharacterInfo Character = 1;
 }
 
-message Msg_GC_PlayerInfo // IResponse
+message Msg_CharacterInfo
+{
+	int32 Uid = 1;
+	int32 RoleId = 2;
+}
+
+message Msg_GC_GetCharacter // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	Msg_PlayerInfo PlayerInfo = 1;
-	repeated Msg_PlayerInfo PlayerInfos = 2;
-    repeated string TestRepeatedString = 3;
-    repeated int32 TestRepeatedInt32 = 4;
-    repeated int64 TestRepeatedInt64 = 5;
+
+	repeated Msg_CharacterInfo Characters = 1;
+}
+
+message Msg_GC_Login // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+
+	int32 Uid = 1;
+	Msg_PlayerInfo PlayerInfo = 2;
 }
 
 message Msg_PlayerInfo // IMessage

@@ -63,7 +63,7 @@ namespace Server.Gate
             IResponse mResponse = await AppService.Instacne.ManagerServer.Call(msg);
 
             Msg_MGate_BalanceZone zone = mResponse as Msg_MGate_BalanceZone;
-            ZoneServer server = AppService.Instacne.ZoneManager.GetService(zone.ZoneId, zone.SubId) as ZoneServer;
+            ZoneServer server = AppService.Instacne.ZoneServerManager.GetService(zone.ZoneId, zone.SubId) as ZoneServer;
 
             client.SetZoneServer(server);
             client.EnterWorld();

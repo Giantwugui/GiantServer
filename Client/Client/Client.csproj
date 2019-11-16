@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,6 +8,18 @@
   <ItemGroup>
     <Reference Include="Giant.Data">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Msg">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Net">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Share">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Share.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\Bin\netcoreapp3.0\Google.Protobuf.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -75,7 +75,7 @@ namespace Server.Frame
             //部分App只有内部服务，Zone
             if (!string.IsNullOrEmpty(config.OutterAddress))
             {
-                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.InnerAddress, OnAccept);
+                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.OutterAddress, OnAccept);
             }
         }
 

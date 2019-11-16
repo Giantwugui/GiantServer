@@ -11,7 +11,7 @@ namespace Server.Gate
         public ZoneServer ZoneServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ZoneServer;
         public ManagerServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ManagerServer;
 
-        public FrontendServerManager ZoneManager => NetProxyManager.GetFrontendServiceManager(AppType.Map);
+        public FrontendServerManager  ZoneServerManager  => NetProxyManager.GetFrontendServiceManager(AppType.Map);
 
         public override void OnAccept(Session session, bool isConnect)
         {

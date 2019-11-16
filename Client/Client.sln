@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{BF93D265-4D37-4565-AC1F-7A31D24ED3F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "..\Server\Framework\Giant.Net\Giant.Net.csproj", "{60AABD34-B3E8-4668-B957-426EC6DFCF6F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,18 +20,9 @@ Global
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.exe|Any CPU.Build.0 = Debug|Any CPU
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.exe|Any CPU.ActiveCfg = Debug|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.exe|Any CPU.Build.0 = Debug|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{60AABD34-B3E8-4668-B957-426EC6DFCF6F} = {BF93D265-4D37-4565-AC1F-7A31D24ED3F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54CD18AB-03C4-4099-88DE-D9FD51685BDE}

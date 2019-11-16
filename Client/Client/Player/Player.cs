@@ -6,17 +6,18 @@ namespace Client
 {
     public partial class Player
     {
-        public Session Session;
+        private Msg_PlayerInfo playerInfo;
         private long heartBeatLastTime = TimeHelper.NowSeconds;
+        public Session Session { get; private set; }
 
         public string Account { get; private set; }
         public int Uid { get; private set; }
 
-        public Player(string account, int uid, Session session)
+        public Player(string account, Msg_PlayerInfo playerInfo, Session session)
         {
             this.Account = account;
             this.Session = session;
-            this.Uid = uid;
+            this.playerInfo = playerInfo;
         }
 
         public void Update()

@@ -10,6 +10,8 @@ namespace Server.Account
     {
         public static AppService Instacne { get; } = new AppService();
 
+        public BackendServerManager GateServerManager => NetProxyManager.GetBackendServiceManager(AppType.Gate);
+
         public override void Start(string[] args)
         {
             this.Init(args);
