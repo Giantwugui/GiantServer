@@ -16,7 +16,7 @@ namespace Giant.Net
         public uint RemoteUdp { get; set; }
 
         public IPEndPoint RemoteIPEndPoint { get; set; }
-        public override MemoryStream Stream => this.sendStream;
+        public override MemoryStream Stream => sendStream;
 
         public UdpChannel(uint udpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Connecter)
         {
@@ -24,8 +24,8 @@ namespace Giant.Net
             this.socket = socket;
             RemoteIPEndPoint = endPoint;
 
-            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.Connect();
+            sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            Connect();
         }
 
         public UdpChannel(uint udpId, uint remoteUdpId, Socket socket, IPEndPoint endPoint, UdpService service) : base(udpId, service, ChannelType.Accepter)
@@ -33,28 +33,28 @@ namespace Giant.Net
             this.socket = socket;
             RemoteUdp = remoteUdpId;
             RemoteIPEndPoint = endPoint;
-            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
 
-            this.Accept();
+            Accept();
         }
 
         public void OnConnected(uint remoteId)
         {
-            this.RemoteUdp = remoteId;
-            this.IsConnected = true;
+            RemoteUdp = remoteId;
+            IsConnected = true;
         }
 
         public void OnReceive(byte[] message, int offset, int length)
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
-                this.IsConnected = true;
+                IsConnected = true;
             }
 
-            this.sendStream.Seek(0, SeekOrigin.Begin);
-            this.sendStream.Write(message, offset, length);
+            sendStream.Seek(0, SeekOrigin.Begin);
+            sendStream.Write(message, offset, length);
 
-            OnRead(this.sendStream);
+            OnRead(sendStream);
         }
 
         public override void Send(MemoryStream stream)
@@ -88,18 +88,18 @@ namespace Giant.Net
 
         public override void Update()
         {
-            if (this.ChannelType == ChannelType.Connecter)
+            if (ChannelType == ChannelType.Connecter)
             {
                 if (!IsConnected && (TimeHelper.Now - LastReceiveMsgTime).TotalSeconds > 10)
                 {
-                    this.Connect();
+                    Connect();
                 }
             }
         }
 
         public override void Dispose()
         {
-            this.IsConnected = false;
+            IsConnected = false;
 
             byte[] content = new byte[9];
             content.WriteTo(0, UdpChannelState.FIN);
@@ -130,7 +130,7 @@ namespace Giant.Net
             }
             catch
             {
-                this.IsConnected = false;
+                IsConnected = false;
             }
         }
 

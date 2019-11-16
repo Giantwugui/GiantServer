@@ -9,7 +9,7 @@ namespace Giant.Msg
 
         public BaseAttribute()
         {
-            this.AttributeType = this.GetType();
+            AttributeType = GetType();
         }
     }
 
@@ -19,7 +19,7 @@ namespace Giant.Msg
 
         public MessageAttribute(ushort opcode)
         {
-            this.Opcode = opcode;
+            Opcode = opcode;
         }
     }
 }

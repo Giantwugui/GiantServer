@@ -19,7 +19,7 @@ namespace Server.Account
 
         public override Task UpdateTask()
         {
-            return new MongoDBUpdate<AccountInfo>("Account", x => x.Account == this.Account, this).Task();
+            return new MongoDBUpdate<AccountInfo>("Account", x => x.Account == Account, this).Task();
         }
     }
 }

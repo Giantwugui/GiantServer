@@ -18,7 +18,7 @@ namespace Server.Frame
 
         public NetProxyManager(BaseAppService service)
         {
-            this.AppService = service;
+            AppService = service;
         }
 
         public void Init()
@@ -96,7 +96,7 @@ namespace Server.Frame
             BackendServer oldService = manager.GetService(service.AppId, service.SubId);
             if (oldService != null)
             {
-                Logger.Warn($"{service.AppType} {service.AppId} {service.SubId} regist to {this.AppType} {this.AppId} {this.SubId} repeat !");
+                Logger.Warn($"{service.AppType} {service.AppId} {service.SubId} regist to {AppType} {AppId} {SubId} repeat !");
                 return;
             }
 

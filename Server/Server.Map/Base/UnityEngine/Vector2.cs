@@ -30,7 +30,7 @@ namespace UnityEngine
 
         public Vector2(float value)
         {
-            this.x = this.y = value;
+            x = y = value;
         }
 
         public float this[int index]
@@ -38,9 +38,9 @@ namespace UnityEngine
             get
             {
                 if (index == 0)
-                    return this.x;
+                    return x;
                 if (index == 1)
-                    return this.y;
+                    return y;
                 throw new IndexOutOfRangeException("Invalid Vector2 index!");
             }
             set
@@ -49,10 +49,10 @@ namespace UnityEngine
                 {
                     if (index != 1)
                         throw new IndexOutOfRangeException("Invalid Vector2 index!");
-                    this.y = value;
+                    y = value;
                 }
                 else
-                    this.x = value;
+                    x = value;
             }
         }
 
@@ -62,8 +62,8 @@ namespace UnityEngine
             return string.Format(currentCulture, "{0}, {1}",
                                  new object[2]
                                  {
-                                     this.x.ToString(currentCulture),
-                                     this.y.ToString(currentCulture)
+                                     x.ToString(currentCulture),
+                                     y.ToString(currentCulture)
                                  });
         }
 
@@ -76,30 +76,30 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Vector2)
-                flag = this.Equals((Vector2)obj);
+                flag = Equals((Vector2)obj);
             return flag;
         }
 
         public override int GetHashCode()
         {
-            return this.x.GetHashCode() + this.y.GetHashCode();
+            return x.GetHashCode() + y.GetHashCode();
         }
 
         public float Length()
         {
-            return (float)Math.Sqrt(this.x * (double)this.x + this.y * (double)this.y);
+            return (float)Math.Sqrt(x * (double)x + y * (double)y);
         }
 
         public float LengthSquared()
         {
-            return (float)(this.x * (double)this.x + this.y * (double)this.y);
+            return (float)(x * (double)x + y * (double)y);
         }
 
         public float magnitude
         {
             get
             {
-                return this.Length();
+                return Length();
             }
         }
 
@@ -107,7 +107,7 @@ namespace UnityEngine
         {
             get
             {
-                return this.LengthSquared();
+                return LengthSquared();
             }
         }
 
@@ -142,12 +142,12 @@ namespace UnityEngine
 
         public void Normalize()
         {
-            float num1 = (float)(this.x * (double)this.x + this.y * (double)this.y);
+            float num1 = (float)(x * (double)x + y * (double)y);
             if (num1 < 9.99999974737875E-06)
                 return;
             float num2 = 1f / (float)Math.Sqrt(num1);
-            this.x *= num2;
-            this.y *= num2;
+            x *= num2;
+            y *= num2;
         }
 
         public static Vector2 Normalize(Vector2 value)

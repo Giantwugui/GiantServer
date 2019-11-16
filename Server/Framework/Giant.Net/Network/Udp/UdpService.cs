@@ -152,14 +152,14 @@ namespace Giant.Net
                                     waitConnectClients.Remove(remoteUdp);
                                 }
 
-                                channel = new UdpChannel(++genetareId, remoteUdp, this.Socket, (IPEndPoint)remoteIPEndPoint, this);
+                                channel = new UdpChannel(++genetareId, remoteUdp, Socket, (IPEndPoint)remoteIPEndPoint, this);
 
                                 remoteIPEndPoint = new IPEndPoint(IPAddress.Any, 0);
 
                                 channels[channel.InstanceId] = channel;
                                 waitConnectClients[channel.RemoteUdp] = channel;
 
-                                this.Accept(channel);
+                                Accept(channel);
                             }
                             break;
                         case UdpChannelState.ACK://建立连接

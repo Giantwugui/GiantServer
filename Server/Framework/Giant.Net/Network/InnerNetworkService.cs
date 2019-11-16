@@ -8,8 +8,8 @@ namespace Giant.Net
 
         public InnerNetworkService(NetworkType network, string address) : base(network, address)
         {
-            this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new MessageDispatcher();
+            MessageParser = new ProtoPacker();
+            MessageDispatcher = new MessageDispatcher();
         }
 
         public Session GetSession(string address)

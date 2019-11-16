@@ -9,7 +9,7 @@ namespace Giant.Net
 
         public HttpHandlerAttribute(string path)
         {
-            this.Path = path;
+            Path = path;
         }
     }
 

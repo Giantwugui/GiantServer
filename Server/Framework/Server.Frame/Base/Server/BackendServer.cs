@@ -13,10 +13,10 @@ namespace Server.Frame
 
         public BackendServer(BackendServerManager manager, AppType appType, int appId, int subId, Session session)
         {
-            this.SubId = subId;
-            this.AppId = appId;
-            this.Session = session;
-            this.AppType = appType;
+            SubId = subId;
+            AppId = appId;
+            Session = session;
+            AppType = appType;
             BackendManager = manager;
             Session.OnConnectCallback += OnDissConnect;
         }

@@ -23,38 +23,38 @@ namespace UnityEngine
 
         public Vector4(Vector2 value, float z, float w)
         {
-            this.x = value.x;
-            this.y = value.y;
+            x = value.x;
+            y = value.y;
             this.z = z;
             this.w = w;
         }
 
         public Vector4(Vector3 value, float w)
         {
-            this.x = value.x;
-            this.y = value.y;
-            this.z = value.z;
+            x = value.x;
+            y = value.y;
+            z = value.z;
             this.w = w;
         }
 
         public Vector4(float value)
         {
-            this.x = this.y = this.z = this.w = value;
+            x = y = z = w = value;
         }
 
         public override string ToString()
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            return string.Format(currentCulture, "{0}, {1}, {2}, {3}", this.x.ToString(currentCulture),
-                                  this.y.ToString(currentCulture),
-                                  this.z.ToString(currentCulture),
-                                  this.w.ToString(currentCulture));
+            return string.Format(currentCulture, "{0}, {1}, {2}, {3}", x.ToString(currentCulture),
+                                  y.ToString(currentCulture),
+                                  z.ToString(currentCulture),
+                                  w.ToString(currentCulture));
         }
 
         public bool Equals(Vector4 other)
         {
-            if (this.x == (double)other.x && this.y == (double)other.y && this.z == (double)other.z)
-                return this.w == (double)other.w;
+            if (x == (double)other.x && y == (double)other.y && z == (double)other.z)
+                return w == (double)other.w;
             return false;
         }
 
@@ -62,25 +62,25 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Vector4)
-                flag = this.Equals((Vector4)obj);
+                flag = Equals((Vector4)obj);
             return flag;
         }
 
         public override int GetHashCode()
         {
-            return this.x.GetHashCode() + this.y.GetHashCode() + this.z.GetHashCode() + this.w.GetHashCode();
+            return x.GetHashCode() + y.GetHashCode() + z.GetHashCode() + w.GetHashCode();
         }
 
         public float Length()
         {
-            return (float)Math.Sqrt(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z +
-                                     this.w * (double)this.w);
+            return (float)Math.Sqrt(x * (double)x + y * (double)y + z * (double)z +
+                                     w * (double)w);
         }
 
         public float LengthSquared()
         {
-            return (float)(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z +
-                this.w * (double)this.w);
+            return (float)(x * (double)x + y * (double)y + z * (double)z +
+                w * (double)w);
         }
 
         public static float Distance(Vector4 value1, Vector4 value2)
@@ -138,15 +138,15 @@ namespace UnityEngine
 
         public void Normalize()
         {
-            float num1 = (float)(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z +
-                this.w * (double)this.w);
+            float num1 = (float)(x * (double)x + y * (double)y + z * (double)z +
+                w * (double)w);
             if (num1 < (double)Mathf.Epsilon)
                 return;
             float num2 = 1f / (float)Math.Sqrt(num1);
-            this.x *= num2;
-            this.y *= num2;
-            this.z *= num2;
-            this.w *= num2;
+            x *= num2;
+            y *= num2;
+            z *= num2;
+            w *= num2;
         }
 
         public static Vector4 Normalize(Vector4 vector)

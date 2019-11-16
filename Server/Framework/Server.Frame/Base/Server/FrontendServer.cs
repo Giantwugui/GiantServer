@@ -20,8 +20,8 @@ namespace Server.Frame
 
         public FrontendServer(FrontendServerManager manager, AppConfig appConfig)
         {
-            this.AppConfig = appConfig;
-            this.FrontendManager = manager;
+            AppConfig = appConfig;
+            FrontendManager = manager;
         }
 
         public void Start()
@@ -107,7 +107,7 @@ namespace Server.Frame
             await Task.Delay(3000);//3后重新连接
             Logger.Warn($"app {Framework.AppType} {Framework.AppId} {Framework.SubId} connect to {AppConfig.AppType} {AppConfig.AppId} {Session.RemoteIPEndPoint}");
 
-            this.Start();
+            Start();
         }
 
         private async void RegistService()

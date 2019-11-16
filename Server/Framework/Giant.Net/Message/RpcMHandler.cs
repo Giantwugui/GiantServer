@@ -26,7 +26,7 @@ namespace Giant.Net
 
                 try
                 {
-                    await this.Run(session, request, response);
+                    await Run(session, request, response);
                     session.Reply(response);
                 }
                 catch (Exception ex)

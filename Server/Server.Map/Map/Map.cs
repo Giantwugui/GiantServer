@@ -16,11 +16,11 @@ namespace Server.Map
 
         public Map(MapMananger mamanger, MapModel model)
         {
-            this.MapMamanger = mamanger;
-            this.Model = model;
+            MapMamanger = mamanger;
+            Model = model;
 
-            this.dynamicGrid = MapGridPosManager.GetGrid(model.BianryName);
-            this.jumpPointParam = new JumpPointParam(this.dynamicGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Never, HeuristicMode.EUCLIDEAN);
+            dynamicGrid = MapGridPosManager.GetGrid(model.BianryName);
+            jumpPointParam = new JumpPointParam(dynamicGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Never, HeuristicMode.EUCLIDEAN);
         }
 
         public List<GridPos> PathFind(GridPos startPos, GridPos endPos)

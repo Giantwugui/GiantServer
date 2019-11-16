@@ -6,14 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Server\Framework\Giant.Net\Giant.Net.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Giant.Data">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Data.dll</HintPath>
     </Reference>
     <Reference Include="Giant.Msg">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Net">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
     </Reference>
     <Reference Include="Giant.Share">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Share.dll</HintPath>

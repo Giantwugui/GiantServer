@@ -20,11 +20,11 @@ namespace Giant.Share
         {
             get
             {
-                if (this.bufferQueue.Count == 0)
+                if (bufferQueue.Count == 0)
                 {
-                    this.AddLast();
+                    AddLast();
                 }
-                return this.lastBuffer;
+                return lastBuffer;
             }
         }
 
@@ -32,11 +32,11 @@ namespace Giant.Share
         {
             get
             {
-                if (this.bufferQueue.Count == 0)
+                if (bufferQueue.Count == 0)
                 {
-                    this.AddLast();
+                    AddLast();
                 }
-                return this.bufferQueue.Peek();
+                return bufferQueue.Peek();
             }
         }
 
@@ -45,13 +45,13 @@ namespace Giant.Share
             get
             {
                 int count;
-                if (this.bufferQueue.Count == 0)
+                if (bufferQueue.Count == 0)
                 {
                     count = 0;
                 }
                 else
                 {
-                    count = (this.bufferQueue.Count - 1) * ChunkSize + this.LastIndex - this.FirstIndex;
+                    count = (bufferQueue.Count - 1) * ChunkSize + LastIndex - FirstIndex;
                 }
 
                 return count;
@@ -60,7 +60,7 @@ namespace Giant.Share
 
         public CircularBuffer()
         {
-            this.AddLast();
+            AddLast();
         }
 
         /// <summary>
@@ -68,13 +68,13 @@ namespace Giant.Share
         /// </summary>
         public void AddLast()
         {
-            if (!this.bufferCache.TryDequeue(out byte[] buffer))
+            if (!bufferCache.TryDequeue(out byte[] buffer))
             {
                 buffer = new byte[ChunkSize];
             }
 
-            this.bufferQueue.Enqueue(buffer);
-            this.lastBuffer = buffer;
+            bufferQueue.Enqueue(buffer);
+            lastBuffer = buffer;
         }
 
 
@@ -83,7 +83,7 @@ namespace Giant.Share
         /// </summary>
         public void RemoveFirst()
         {
-            this.bufferCache.Enqueue(bufferQueue.Dequeue());
+            bufferCache.Enqueue(bufferQueue.Dequeue());
         }
 
         // 把CircularBuffer中数据写入buffer
@@ -94,7 +94,7 @@ namespace Giant.Share
                 throw new Exception($"bufferList length < coutn, buffer length: {buffer.Length} {offset} {count}");
             }
 
-            long length = this.Length;
+            long length = Length;
             if (length < count)
             {
                 count = (int)length;
@@ -104,21 +104,21 @@ namespace Giant.Share
             while (readedSize < count)
             {
                 int needReadSize = count - readedSize;
-                int bufferSize = ChunkSize - this.FirstIndex;//当前缓冲区剩余空间
+                int bufferSize = ChunkSize - FirstIndex;//当前缓冲区剩余空间
 
                 if (bufferSize > needReadSize)
                 {
-                    Array.Copy(this.First, this.FirstIndex, buffer, offset + readedSize, needReadSize);
+                    Array.Copy(First, FirstIndex, buffer, offset + readedSize, needReadSize);
                     readedSize += needReadSize;
-                    this.FirstIndex += needReadSize;
+                    FirstIndex += needReadSize;
                 }
                 else
                 {
-                    Array.Copy(this.First, this.FirstIndex, buffer, offset + readedSize, bufferSize);
+                    Array.Copy(First, FirstIndex, buffer, offset + readedSize, bufferSize);
                     readedSize += bufferSize;
 
-                    this.FirstIndex = 0;
-                    this.RemoveFirst();
+                    FirstIndex = 0;
+                    RemoveFirst();
                 }
             }
 
@@ -132,20 +132,20 @@ namespace Giant.Share
         /// <returns></returns>
         public async Task ReadAsync(Stream stream)
         {
-            long buffLength = this.Length;
-            int sendSize = this.ChunkSize - this.FirstIndex;
+            long buffLength = Length;
+            int sendSize = ChunkSize - FirstIndex;
             if (sendSize > buffLength)
             {
                 sendSize = (int)buffLength;
             }
 
-            await stream.WriteAsync(this.First, this.FirstIndex, sendSize);
+            await stream.WriteAsync(First, FirstIndex, sendSize);
 
-            this.FirstIndex += sendSize;
-            if (this.FirstIndex == this.ChunkSize)
+            FirstIndex += sendSize;
+            if (FirstIndex == ChunkSize)
             {
-                this.FirstIndex = 0;
-                this.RemoveFirst();
+                FirstIndex = 0;
+                RemoveFirst();
             }
         }
 
@@ -156,7 +156,7 @@ namespace Giant.Share
         /// <param name="count"></param>
         public void Read(Stream stream, int count)
         {
-            if (count > this.Length)
+            if (count > Length)
             {
                 throw new Exception($"bufferList length < count, {Length} {count}");
             }
@@ -167,23 +167,23 @@ namespace Giant.Share
             {
                 //还需要读取的字节数
                 int needReadSize = count - readedSize;
-                int bufferSize = this.ChunkSize - this.FirstIndex;//当前缓冲区剩余空间
+                int bufferSize = ChunkSize - FirstIndex;//当前缓冲区剩余空间
 
                 //当前字节已经包含了所有需要读取的字节
                 if (bufferSize > needReadSize)
                 {
-                    stream.Write(this.First, this.FirstIndex, needReadSize);
-                    this.FirstIndex += needReadSize;
+                    stream.Write(First, FirstIndex, needReadSize);
+                    FirstIndex += needReadSize;
                     readedSize += needReadSize; //已经读了所有需要读取的字节数目，推出循环
                 }
                 else
                 {
                     //获取第一个byte[]
                     //当第一个byte[]数据不够的时候，先读取所有剩余的字节
-                    stream.Write(this.First, this.FirstIndex, bufferSize);
+                    stream.Write(First, FirstIndex, bufferSize);
                     readedSize += bufferSize;
-                    this.FirstIndex = 0;
-                    this.RemoveFirst();
+                    FirstIndex = 0;
+                    RemoveFirst();
                 }
             }
         }
@@ -194,22 +194,22 @@ namespace Giant.Share
             int writedSize = 0;
             while (writedSize < count)
             {
-                int bufferSize = this.ChunkSize - this.LastIndex;//当前缓冲区剩余空间
+                int bufferSize = ChunkSize - LastIndex;//当前缓冲区剩余空间
                 int needWriteSize = count - writedSize;
 
                 if (bufferSize > needWriteSize)
                 {
-                    Array.Copy(buffer, offset + writedSize, this.lastBuffer, this.LastIndex, needWriteSize);
+                    Array.Copy(buffer, offset + writedSize, lastBuffer, LastIndex, needWriteSize);
                     writedSize += needWriteSize;
-                    this.LastIndex += needWriteSize;
+                    LastIndex += needWriteSize;
                 }
                 else
                 {
-                    Array.Copy(buffer, offset + writedSize, this.lastBuffer, this.LastIndex, bufferSize);
+                    Array.Copy(buffer, offset + writedSize, lastBuffer, LastIndex, bufferSize);
 
                     writedSize += bufferSize;
-                    this.LastIndex = 0;
-                    this.AddLast();
+                    LastIndex = 0;
+                    AddLast();
                 }
             }
         }
@@ -224,27 +224,27 @@ namespace Giant.Share
             while (writedSize < count)
             {
                 //最后一个byte[]已经写满数据，则新建一个byte[],并设置成当前正在使用的byte[]
-                if (this.LastIndex == ChunkSize)
+                if (LastIndex == ChunkSize)
                 {
-                    this.AddLast();
-                    this.LastIndex = 0;
+                    AddLast();
+                    LastIndex = 0;
                 }
 
                 //当前bye[]足够使用
                 int needWriteSize = count - writedSize;
-                int bufferSize = this.ChunkSize - this.LastIndex;//当前缓冲区剩余空间
+                int bufferSize = ChunkSize - LastIndex;//当前缓冲区剩余空间
 
                 if (bufferSize > needWriteSize)
                 {
-                    stream.Read(this.lastBuffer, this.LastIndex, needWriteSize);
-                    this.LastIndex += count - writedSize;
+                    stream.Read(lastBuffer, LastIndex, needWriteSize);
+                    LastIndex += count - writedSize;
                     writedSize += needWriteSize;
                 }
                 else
                 {
-                    stream.Read(this.lastBuffer, this.LastIndex, bufferSize);
+                    stream.Read(lastBuffer, LastIndex, bufferSize);
                     writedSize += bufferSize;
-                    this.LastIndex = ChunkSize;
+                    LastIndex = ChunkSize;
                 }
             }
         }
@@ -257,21 +257,21 @@ namespace Giant.Share
         /// <returns></returns>
         public async Task<int> WriteAsync(Stream stream)
         {
-            int size = this.ChunkSize - this.LastIndex;
+            int size = ChunkSize - LastIndex;
 
-            int n = await stream.ReadAsync(this.Last, this.LastIndex, size);
+            int n = await stream.ReadAsync(Last, LastIndex, size);
 
             if (n == 0)
             {
                 return 0;
             }
 
-            this.LastIndex += n;
+            LastIndex += n;
 
-            if (this.LastIndex == this.ChunkSize)
+            if (LastIndex == ChunkSize)
             {
-                this.AddLast();
-                this.LastIndex = 0;
+                AddLast();
+                LastIndex = 0;
             }
 
             return n;

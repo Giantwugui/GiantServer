@@ -1,4 +1,5 @@
-﻿using Giant.Log;
+﻿using Giant.Data;
+using Giant.Log;
 using Giant.Net;
 using Giant.Share;
 using System;
@@ -11,6 +12,7 @@ namespace Server.Frame
         public NetProxyManager NetProxyManager { get; private set; }
         public InnerNetworkService InnerNetworkService { get; private set; }
         public OutterNetworkService OutterNetworkService { get; private set; }
+        public AppConfig AppConfig { get; private set; }
 
         public AppType AppType => Framework.AppType;
         public int AppId => Framework.AppId;
@@ -24,8 +26,8 @@ namespace Server.Frame
 
                 Timer.Instance.Update();//定时器
 
-                this.InnerNetworkService.Update();
-                this.NetProxyManager.Update();
+                InnerNetworkService.Update();
+                NetProxyManager.Update();
             }
             catch (Exception ex)
             {
@@ -35,7 +37,7 @@ namespace Server.Frame
 
         public virtual void InitDone()
         {
-            this.NetProxyManager.Start();
+            NetProxyManager.Start();
 
             Framework.AppState = AppState.Started;
         }

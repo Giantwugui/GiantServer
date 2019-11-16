@@ -36,6 +36,7 @@ namespace Giant.Net
 
         public const int HaveNoThisCharacter = 103100;
         public const int HadExistTheCharacter = 103101;
+        public const int TokenOOT = 103102;
 
 
 

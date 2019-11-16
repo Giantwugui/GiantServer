@@ -26,32 +26,32 @@ namespace Giant.Msg {
           string.Concat(
             "ChJJbm5lck1lc3NhZ2UucHJvdG8SCUdpYW50Lk1zZyIfCg5Nc2dfR01fU3Rv",
             "cEFwcBINCgVBcHBJZBgBIAEoBSI0ChJNc2dfQUdfQ2xpZW50TG9naW4SDwoH",
-            "QWNjb3VudBgBIAEoCRINCgVUb2tlbhgCIAEoBSJhChJNc2dfR2F0ZUFfR2F0",
-            "ZUluZm8SDQoFQXBwSWQYASABKAUSDQoFU3ViSWQYAiABKAUSCgoCSVAYAyAB",
-            "KAkSDAoEUG9ydBgEIAEoBRITCgtDbGllbnRDb3VudBgFIAEoBSI1ChVNc2df",
-            "R2F0ZU1fQmFsYW5jZVpvbmUSDQoFUnBjSWQYWiABKAUSDQoFTWFwSWQYASAB",
-            "KAUiZQoVTXNnX01HYXRlX0JhbGFuY2Vab25lEg0KBVJwY0lkGFogASgFEg0K",
-            "BUVycm9yGFsgASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGWm9uZUlkGAEgASgF",
-            "Eg0KBVN1YklkGAIgASgFIkEKEE1zZ19TZXJ2aWNlX0luZm8SDwoHQXBwVHlw",
-            "ZRgBIAEoBRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJSChJNc2df",
-            "SGVhcnRCZWF0X1BpbmcSDQoFUnBjSWQYWiABKAUSDwoHQXBwVHlwZRgBIAEo",
-            "BRINCgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJyChJNc2dfSGVhcnRC",
-            "ZWF0X1BvbmcSDQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVz",
-            "c2FnZRhcIAEoCRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0K",
-            "BVN1YklkGAMgASgFIlUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcRINCgVScGNJ",
-            "ZBhaIAEoBRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0KBVN1",
-            "YklkGAMgASgFInUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcBINCgVScGNJZBha",
-            "IAEoBRINCgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEg8KB0FwcFR5",
-            "cGUYASABKAUSDQoFQXBwSWQYAiABKAUSDQoFU3ViSWQYAyABKAUiNAoSTXNn",
-            "X1JHX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASAB",
-            "KAkiTQoPTXNnX0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg0KBUVycm9y",
-            "GFsgASgFEg8KB01lc3NhZ2UYXCABKAkSCwoDS2V5GAEgASgDYgZwcm90bzM="));
+            "QWNjb3VudBgBIAEoCRINCgVUb2tlbhgCIAEoBSJYChJNc2dfR2F0ZUFfR2F0",
+            "ZUluZm8SDQoFQXBwSWQYASABKAUSDQoFU3ViSWQYAiABKAUSDwoHQWRkcmVz",
+            "cxgDIAEoCRITCgtDbGllbnRDb3VudBgEIAEoBSI1ChVNc2dfR2F0ZU1fQmFs",
+            "YW5jZVpvbmUSDQoFUnBjSWQYWiABKAUSDQoFTWFwSWQYASABKAUiZQoVTXNn",
+            "X01HYXRlX0JhbGFuY2Vab25lEg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsg",
+            "ASgFEg8KB01lc3NhZ2UYXCABKAkSDgoGWm9uZUlkGAEgASgFEg0KBVN1Yklk",
+            "GAIgASgFIkEKEE1zZ19TZXJ2aWNlX0luZm8SDwoHQXBwVHlwZRgBIAEoBRIN",
+            "CgVBcHBJZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJSChJNc2dfSGVhcnRCZWF0",
+            "X1BpbmcSDQoFUnBjSWQYWiABKAUSDwoHQXBwVHlwZRgBIAEoBRINCgVBcHBJ",
+            "ZBgCIAEoBRINCgVTdWJJZBgDIAEoBSJyChJNc2dfSGVhcnRCZWF0X1BvbmcS",
+            "DQoFUnBjSWQYWiABKAUSDQoFRXJyb3IYWyABKAUSDwoHTWVzc2FnZRhcIAEo",
+            "CRIPCgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0KBVN1YklkGAMg",
+            "ASgFIlUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcRINCgVScGNJZBhaIAEoBRIP",
+            "CgdBcHBUeXBlGAEgASgFEg0KBUFwcElkGAIgASgFEg0KBVN1YklkGAMgASgF",
+            "InUKFU1zZ19SZWdpc3RTZXJ2aWNlX1JlcBINCgVScGNJZBhaIAEoBRINCgVF",
+            "cnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEg8KB0FwcFR5cGUYASABKAUS",
+            "DQoFQXBwSWQYAiABKAUSDQoFU3ViSWQYAyABKAUiNAoSTXNnX1JHX0dldExv",
+            "Z2luS2V5Eg0KBVJwY0lkGFogASgFEg8KB0FjY291bnQYASABKAkiTQoPTXNn",
+            "X0dldExvZ2luS2V5Eg0KBVJwY0lkGFogASgFEg0KBUVycm9yGFsgASgFEg8K",
+            "B01lc3NhZ2UYXCABKAkSCwoDS2V5GAEgASgDYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GM_StopApp), global::Giant.Msg.Msg_GM_StopApp.Parser, new[]{ "AppId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_AG_ClientLogin), global::Giant.Msg.Msg_AG_ClientLogin.Parser, new[]{ "Account", "Token" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateA_GateInfo), global::Giant.Msg.Msg_GateA_GateInfo.Parser, new[]{ "AppId", "SubId", "IP", "Port", "ClientCount" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateA_GateInfo), global::Giant.Msg.Msg_GateA_GateInfo.Parser, new[]{ "AppId", "SubId", "Address", "ClientCount" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateM_BalanceZone), global::Giant.Msg.Msg_GateM_BalanceZone.Parser, new[]{ "RpcId", "MapId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_MGate_BalanceZone), global::Giant.Msg.Msg_MGate_BalanceZone.Parser, new[]{ "RpcId", "Error", "Message", "ZoneId", "SubId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_Service_Info), global::Giant.Msg.Msg_Service_Info.Parser, new[]{ "AppType", "AppId", "SubId" }, null, null, null),
@@ -380,8 +380,7 @@ namespace Giant.Msg {
     public Msg_GateA_GateInfo(Msg_GateA_GateInfo other) : this() {
       appId_ = other.appId_;
       subId_ = other.subId_;
-      iP_ = other.iP_;
-      port_ = other.port_;
+      address_ = other.address_;
       clientCount_ = other.clientCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -413,30 +412,19 @@ namespace Giant.Msg {
       }
     }
 
-    /// <summary>Field number for the "IP" field.</summary>
-    public const int IPFieldNumber = 3;
-    private string iP_ = "";
+    /// <summary>Field number for the "Address" field.</summary>
+    public const int AddressFieldNumber = 3;
+    private string address_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string IP {
-      get { return iP_; }
+    public string Address {
+      get { return address_; }
       set {
-        iP_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "Port" field.</summary>
-    public const int PortFieldNumber = 4;
-    private int port_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Port {
-      get { return port_; }
-      set {
-        port_ = value;
+        address_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "ClientCount" field.</summary>
-    public const int ClientCountFieldNumber = 5;
+    public const int ClientCountFieldNumber = 4;
     private int clientCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int ClientCount {
@@ -461,8 +449,7 @@ namespace Giant.Msg {
       }
       if (AppId != other.AppId) return false;
       if (SubId != other.SubId) return false;
-      if (IP != other.IP) return false;
-      if (Port != other.Port) return false;
+      if (Address != other.Address) return false;
       if (ClientCount != other.ClientCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -472,8 +459,7 @@ namespace Giant.Msg {
       int hash = 1;
       if (AppId != 0) hash ^= AppId.GetHashCode();
       if (SubId != 0) hash ^= SubId.GetHashCode();
-      if (IP.Length != 0) hash ^= IP.GetHashCode();
-      if (Port != 0) hash ^= Port.GetHashCode();
+      if (Address.Length != 0) hash ^= Address.GetHashCode();
       if (ClientCount != 0) hash ^= ClientCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -496,16 +482,12 @@ namespace Giant.Msg {
         output.WriteRawTag(16);
         output.WriteInt32(SubId);
       }
-      if (IP.Length != 0) {
+      if (Address.Length != 0) {
         output.WriteRawTag(26);
-        output.WriteString(IP);
-      }
-      if (Port != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Port);
+        output.WriteString(Address);
       }
       if (ClientCount != 0) {
-        output.WriteRawTag(40);
+        output.WriteRawTag(32);
         output.WriteInt32(ClientCount);
       }
       if (_unknownFields != null) {
@@ -522,11 +504,8 @@ namespace Giant.Msg {
       if (SubId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(SubId);
       }
-      if (IP.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(IP);
-      }
-      if (Port != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Port);
+      if (Address.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Address);
       }
       if (ClientCount != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(ClientCount);
@@ -548,11 +527,8 @@ namespace Giant.Msg {
       if (other.SubId != 0) {
         SubId = other.SubId;
       }
-      if (other.IP.Length != 0) {
-        IP = other.IP;
-      }
-      if (other.Port != 0) {
-        Port = other.Port;
+      if (other.Address.Length != 0) {
+        Address = other.Address;
       }
       if (other.ClientCount != 0) {
         ClientCount = other.ClientCount;
@@ -577,14 +553,10 @@ namespace Giant.Msg {
             break;
           }
           case 26: {
-            IP = input.ReadString();
+            Address = input.ReadString();
             break;
           }
           case 32: {
-            Port = input.ReadInt32();
-            break;
-          }
-          case 40: {
             ClientCount = input.ReadInt32();
             break;
           }

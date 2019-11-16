@@ -12,11 +12,11 @@ namespace Server.Gate
 
         public override void Start(string[] args)
         {
-            this.Init(args);
+            Init(args);
 
             Logger.Warn($"server start complete------------- appType {Framework.AppType} appId {Framework.AppId}");
 
-            this.DoUpdate();
+            DoUpdate();
         }
 
         public override void Init(string[] args)
@@ -24,14 +24,14 @@ namespace Server.Gate
             //框架的各种初始化工作
             base.Init(args);
 
-            this.InitDone();
+            InitDone();
 
             ConsoleReader.Instance.Start(DoCmd);
         }
 
         protected override void InitServerFactory()
         {
-            this.ServerFactory = new ServerFactory(this);
+            ServerFactory = new ServerFactory(this);
         }
 
         private void DoUpdate()
@@ -40,7 +40,7 @@ namespace Server.Gate
             {
                 Thread.Sleep(1);
 
-                this.Update(1 * 0.01f);
+                Update(1 * 0.01f);
             }
         }
 

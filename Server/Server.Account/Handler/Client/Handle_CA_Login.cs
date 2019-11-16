@@ -43,7 +43,7 @@ namespace Server.Account
     }
 
     [MessageHandler]
-    class ClientHandle_Login_Zone : RpcMHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
+    class Handle_Login_Zone : RpcMHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
     {
         public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)
         {
@@ -60,7 +60,7 @@ namespace Server.Account
                 {
                     account.Servers = new List<int>() { request.Zone };
                 }
-                if (account.Servers.Contains(request.Zone))
+                if (!account.Servers.Contains(request.Zone))
                 {
                     account.Servers.Add(request.Zone);
                     await account.UpdateTask();
@@ -75,9 +75,17 @@ namespace Server.Account
                 return;
             }
 
-            response.IP = gateInfo.IP;
-            response.Port = gateInfo.Port;
-            response.Key = gateInfo.ClientCount + 1;
+            response.Address = gateInfo.Address;
+            response.Token = gateInfo.ClientCount + 1;
+
+            Msg_AG_ClientLogin loginMsg = new Msg_AG_ClientLogin()
+            {
+                Account = request.Account,
+                Token = response.Token,
+            };
+
+            var server = AppService.Instacne.GateServerManager.GetService(gateInfo.AppId, gateInfo.SubId);
+            server.Session.Notify(loginMsg);
 
             Logger.Debug($"user login {session.RemoteIPEndPoint} {request.Account}");
         }

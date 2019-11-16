@@ -1,23 +1,22 @@
-﻿using Server.Frame;
-using Giant.Net;
+﻿using Giant.Net;
 using Giant.Share;
+using Server.Frame;
 
 namespace Server.Gate
 {
     partial class AppService
     {
-        public GlobalServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, this.AppId) as GlobalServer;
-        public AccountServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, this.AppId) as AccountServer;
-        public ZoneServer ZoneServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ZoneServer;
-        public ManagerServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, this.AppId) as ManagerServer;
+        public GlobalServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, AppId) as GlobalServer;
+        public AccountServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, AppId) as AccountServer;
+        public ZoneServer ZoneServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, AppId) as ZoneServer;
+        public ManagerServer ManagerServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, AppId) as ManagerServer;
 
-        public FrontendServerManager  ZoneServerManager  => NetProxyManager.GetFrontendServiceManager(AppType.Map);
+        public FrontendServerManager ZoneServerManager => NetProxyManager.GetFrontendServiceManager(AppType.Map);
 
-        public override void OnAccept(Session session, bool isConnect)
+        protected override void OnAccept(Session session, bool isConnect)
         {
             if (isConnect)
             {
-                ClientManager.Instance.Add2Watting(new Client(session));
             }
             else
             {

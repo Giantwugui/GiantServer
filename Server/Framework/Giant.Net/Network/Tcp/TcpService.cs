@@ -25,22 +25,22 @@ namespace Giant.Net
 
         public TcpService(int packetSizeLength)
         {
-            this.PacketSizeLength = packetSizeLength;
+            PacketSizeLength = packetSizeLength;
         }
 
         public TcpService(int packetSizeLength, IPEndPoint endPoint, Action<BaseChannel> onAcceptCallback)
         {
-            this.PacketSizeLength = packetSizeLength;
+            PacketSizeLength = packetSizeLength;
 
-            this.OnAccept += onAcceptCallback;
+            OnAccept += onAcceptCallback;
             innerArgs.Completed += OnComplete;
 
-            this.Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            this.Socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-            this.Socket.Bind(endPoint);
-            this.Socket.Listen(1000);
+            Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            Socket.Bind(endPoint);
+            Socket.Listen(1000);
 
-            this.AcceptAsync();
+            AcceptAsync();
         }
 
 
@@ -97,7 +97,7 @@ namespace Giant.Net
             }
 
             innerArgs.AcceptSocket = null;
-            if (this.Socket.AcceptAsync(innerArgs))
+            if (Socket.AcceptAsync(innerArgs))
             {
                 return;
             }
@@ -110,7 +110,7 @@ namespace Giant.Net
             switch (eventArgs.LastOperation)
             {
                 case SocketAsyncOperation.Accept:
-                    OneThreadSynchronizationContext.Instance.Post(this.AcceptComplete, eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(AcceptComplete, eventArgs);
                     //AcceptComplete(eventArgs);
                     break;
             }
@@ -133,7 +133,7 @@ namespace Giant.Net
 
                 channels[channel.InstanceId] = channel;
 
-                this.Accept(channel);
+                Accept(channel);
             }
             catch (Exception ex)
             {

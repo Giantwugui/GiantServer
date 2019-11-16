@@ -24,7 +24,7 @@ namespace Giant.Net
 
         public WebService(List<string> prefixes, Action<BaseChannel> onAcceptCallback)
         {
-            this.OnAccept += onAcceptCallback;
+            OnAccept += onAcceptCallback;
 
             httpListener = new HttpListener();
             prefixes.ForEach(prefixe => httpListener.Prefixes.Add(prefixe));
@@ -44,7 +44,7 @@ namespace Giant.Net
 
                 WebChannel channel = new WebChannel(socketContext, this);
 
-                this.Accept(channel);
+                Accept(channel);
 
                 channels[channel.InstanceId] = channel;
 

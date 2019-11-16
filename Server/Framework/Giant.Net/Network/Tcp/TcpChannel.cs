@@ -26,47 +26,47 @@ namespace Giant.Net
         public bool IsConnecting { get; private set; }
         public bool IsRecving { get; private set; }
 
-        public override MemoryStream Stream => this.memoryStream;
+        public override MemoryStream Stream => memoryStream;
 
         public TcpChannel(int packetSize, Socket socket, TcpService service) : base(service, ChannelType.Accepter)
         {
             this.socket = socket;
-            this.IsConnected = true;
+            IsConnected = true;
 
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
 
-            this.packetSizeCache = new byte[service.PacketSizeLength];
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.parser = new PacketPacker(packetSize, this.recvBuffer, this.memoryStream);
+            packetSizeCache = new byte[service.PacketSizeLength];
+            memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            parser = new PacketPacker(packetSize, recvBuffer, memoryStream);
         }
 
         public TcpChannel(int packetSize, IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
         {
-            this.IsConnected = false;
-            this.IPEndPoint = endPoint;
+            IsConnected = false;
+            IPEndPoint = endPoint;
 
             innerArgs.Completed += OnComplete;
             outtererArgs.Completed += OnComplete;
 
-            this.packetSizeCache = new byte[service.PacketSizeLength];
-            this.memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.parser = new PacketPacker(packetSize, this.recvBuffer, this.memoryStream);
+            packetSizeCache = new byte[service.PacketSizeLength];
+            memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            parser = new PacketPacker(packetSize, recvBuffer, memoryStream);
 
-            this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         public override void Start()
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
                 Connect();
             }
             else
             {
-                if (!this.IsRecving)
+                if (!IsRecving)
                 {
-                    this.IsRecving = true;
+                    IsRecving = true;
                     StartRecv();
                 }
             }
@@ -96,7 +96,7 @@ namespace Giant.Net
                             throw new Exception($"send packet too large: {stream.Length}");
                         }
 
-                        this.packetSizeCache.WriteTo(0, (ushort)stream.Length);
+                        packetSizeCache.WriteTo(0, (ushort)stream.Length);
                     }
                     break;
                 case Packet.PacketSizeLength4:
@@ -106,27 +106,27 @@ namespace Giant.Net
                             throw new Exception($"send packet too large: {stream.Length}");
                         }
 
-                        this.packetSizeCache.WriteTo(0, (int)stream.Length);
+                        packetSizeCache.WriteTo(0, (int)stream.Length);
                     }
                     break;
             }
 
-            this.sendBuffer.Write(packetSizeCache, 0, packetSizeCache.Length);
-            this.sendBuffer.Write(stream);
+            sendBuffer.Write(packetSizeCache, 0, packetSizeCache.Length);
+            sendBuffer.Write(stream);
 
             StartSend();
         }
 
         public override void Update()
         {
-            if (!this.IsSending)
+            if (!IsSending)
             {
             }
         }
 
         public override void Dispose()
         {
-            this.socket.Close();
+            socket.Close();
         }
 
         protected override void OnError(object error)
@@ -137,20 +137,20 @@ namespace Giant.Net
 
         private void SetConnectState(bool state)
         {
-            this.IsConnected = state;
+            IsConnected = state;
             base.OnConnected(state);
         }
 
         private void ConnectAsync()
         {
-            if (socket == null || this.IsConnecting)
+            if (socket == null || IsConnecting)
             {
                 return;
             }
 
-            this.IsConnecting = true;
+            IsConnecting = true;
             innerArgs.RemoteEndPoint = IPEndPoint;
-            if (this.socket.ConnectAsync(innerArgs))
+            if (socket.ConnectAsync(innerArgs))
             {
                 return;
             }
@@ -160,44 +160,44 @@ namespace Giant.Net
 
         private void StartSend()
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
                 return;
             }
 
             // 没有数据需要发送
-            if (this.sendBuffer.Length == 0)
+            if (sendBuffer.Length == 0)
             {
-                this.IsSending = false;
+                IsSending = false;
                 return;
             }
 
-            this.IsSending = true;
+            IsSending = true;
 
-            int sendSize = this.sendBuffer.ChunkSize - this.sendBuffer.FirstIndex;
-            if (sendSize > this.sendBuffer.Length)
+            int sendSize = sendBuffer.ChunkSize - sendBuffer.FirstIndex;
+            if (sendSize > sendBuffer.Length)
             {
-                sendSize = (int)this.sendBuffer.Length;
+                sendSize = (int)sendBuffer.Length;
             }
 
-            this.SendAsync(this.sendBuffer.First, this.sendBuffer.FirstIndex, sendSize);
+            SendAsync(sendBuffer.First, sendBuffer.FirstIndex, sendSize);
         }
 
         private void SendAsync(byte[] buffer, int offset, int count)
         {
             try
             {
-                this.innerArgs.SetBuffer(buffer, offset, count);
+                innerArgs.SetBuffer(buffer, offset, count);
             }
             catch (Exception e)
             {
                 throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
             }
-            if (this.socket.SendAsync(this.innerArgs))
+            if (socket.SendAsync(innerArgs))
             {
                 return;
             }
-            SendComplete(this.innerArgs);
+            SendComplete(innerArgs);
         }
 
         private void StartRecv()
@@ -224,15 +224,15 @@ namespace Giant.Net
             {
                 case SocketAsyncOperation.Connect:
                     //ConnectComplete(eventArgs);
-                    OneThreadSynchronizationContext.Instance.Post(this.ConnectComplete, eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(ConnectComplete, eventArgs);
                     break;
                 case SocketAsyncOperation.Receive:
                     //ReceiveComplete(eventArgs);
-                    OneThreadSynchronizationContext.Instance.Post(this.ReceiveComplete, eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(ReceiveComplete, eventArgs);
                     break;
                 case SocketAsyncOperation.Send:
                     //SendComplete(eventArgs);
-                    OneThreadSynchronizationContext.Instance.Post(this.SendComplete, eventArgs);
+                    OneThreadSynchronizationContext.Instance.Post(SendComplete, eventArgs);
                     break;
             }
         }
@@ -242,21 +242,21 @@ namespace Giant.Net
             SocketAsyncEventArgs e = (SocketAsyncEventArgs)eventArgs;
             if (e.SocketError == SocketError.Success)
             {
-                this.IsConnected = true;
+                IsConnected = true;
 
                 Start();
                 SetConnectState(true);
             }
             else
             {
-                this.OnError(e.SocketError);
+                OnError(e.SocketError);
             }
-            this.IsConnecting = false;
+            IsConnecting = false;
         }
 
         private void ReceiveComplete(object eventArgs)
         {
-            if (this.socket == null)
+            if (socket == null)
             {
                 return;
             }
@@ -265,21 +265,21 @@ namespace Giant.Net
 
             if (e.SocketError != SocketError.Success)
             {
-                this.OnError(e.SocketError);
+                OnError(e.SocketError);
                 return;
             }
 
             if (e.BytesTransferred == 0)
             {
-                this.OnError(ErrorCode.PeerDisconnect);
+                OnError(ErrorCode.PeerDisconnect);
                 return;
             }
 
-            this.recvBuffer.LastIndex += e.BytesTransferred;
-            if (this.recvBuffer.LastIndex == this.sendBuffer.ChunkSize)
+            recvBuffer.LastIndex += e.BytesTransferred;
+            if (recvBuffer.LastIndex == sendBuffer.ChunkSize)
             {
-                this.recvBuffer.LastIndex = 0;
-                this.recvBuffer.AddLast();
+                recvBuffer.LastIndex = 0;
+                recvBuffer.AddLast();
             }
 
             // 收到消息回调
@@ -287,7 +287,7 @@ namespace Giant.Net
             {
                 try
                 {
-                    if (!this.parser.Parse())
+                    if (!parser.Parse())
                     {
                         break;
                     }
@@ -295,13 +295,13 @@ namespace Giant.Net
                 catch (Exception ex)
                 {
                     Logger.Error(ex);
-                    this.OnError(ErrorCode.SocketError);
+                    OnError(ErrorCode.SocketError);
                     return;
                 }
 
                 try
                 {
-                    this.OnRead(this.parser.GetPacket());
+                    OnRead(parser.GetPacket());
                 }
                 catch (Exception ex)
                 {
@@ -314,7 +314,7 @@ namespace Giant.Net
 
         private void SendComplete(object eventArgs)
         {
-            if (this.socket == null)
+            if (socket == null)
             {
                 return;
             }
@@ -322,24 +322,24 @@ namespace Giant.Net
 
             if (e.SocketError != SocketError.Success)
             {
-                this.OnError(e.SocketError);
+                OnError(e.SocketError);
                 return;
             }
 
             if (e.BytesTransferred == 0)
             {
-                this.OnError(ErrorCode.PeerDisconnect);
+                OnError(ErrorCode.PeerDisconnect);
                 return;
             }
 
-            this.sendBuffer.FirstIndex += e.BytesTransferred;
-            if (this.sendBuffer.FirstIndex == this.sendBuffer.ChunkSize)
+            sendBuffer.FirstIndex += e.BytesTransferred;
+            if (sendBuffer.FirstIndex == sendBuffer.ChunkSize)
             {
-                this.sendBuffer.FirstIndex = 0;
-                this.sendBuffer.RemoveFirst();
+                sendBuffer.FirstIndex = 0;
+                sendBuffer.RemoveFirst();
             }
 
-            this.StartSend();
+            StartSend();
         }
 
     }

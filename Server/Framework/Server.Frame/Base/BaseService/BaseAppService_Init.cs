@@ -17,16 +17,16 @@ namespace Server.Frame
         public virtual void Init(string[] args)
         {
             //框架的各种初始化
-            this.InitBase(args);
-            this.InitLogConfig();
+            InitBase(args);
+            InitLogConfig();
 
-            this.InitData();
-            this.InitNetwork();
-            this.InitProtocol();
-            this.InitDBService();
-            this.InitRedisService();
-            this.InitServerFactory();
-            this.InitNetworkTopology();
+            InitData();
+            InitNetwork();
+            InitProtocol();
+            InitDBService();
+            InitRedisService();
+            InitServerFactory();
+            InitNetworkTopology();
         }
 
         public virtual void InitData()
@@ -38,7 +38,7 @@ namespace Server.Frame
             NetTopologyLibrary.Init();
         }
 
-        public virtual void OnAccept(Session session, bool isConnect) { }
+        protected virtual void OnAccept(Session session, bool isConnect) { }
 
         protected virtual void InitServerFactory()
         {
@@ -57,25 +57,25 @@ namespace Server.Frame
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
-            IdGenerator.AppId = this.AppId;
+            IdGenerator.AppId = AppId;
         }
 
         //日志配置
         private void InitLogConfig()
         {
-            Logger.Init(false, this.AppType.ToString(), this.AppId, this.SubId);
+            Logger.Init(false, AppType.ToString(), AppId, SubId);
         }
 
         //网络服务
         private void InitNetwork()
         {
-            AppConfig config = AppConfigLibrary.GetNetConfig(this.AppType, this.AppId, this.SubId);
-            this.InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, config.InnerAddress);
+            AppConfig = AppConfigLibrary.GetNetConfig(AppType, AppId, SubId);
+            InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, AppConfig.InnerAddress);
 
             //部分App只有内部服务，Zone
-            if (!string.IsNullOrEmpty(config.OutterAddress))
+            if (!string.IsNullOrEmpty(AppConfig.OutterAddress))
             {
-                this.OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, config.OutterAddress, OnAccept);
+                OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, AppConfig.OutterAddress, OnAccept);
             }
         }
 
@@ -84,20 +84,20 @@ namespace Server.Frame
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             Assembly currendAssembly = Assembly.GetExecutingAssembly();
-            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, entryAssembly);
-            this.InnerNetworkService.MessageDispatcher.RegisterHandler(this.AppType, currendAssembly);
+            InnerNetworkService.MessageDispatcher.RegisterHandler(AppType, entryAssembly);
+            InnerNetworkService.MessageDispatcher.RegisterHandler(AppType, currendAssembly);
 
-            if (this.OutterNetworkService != null)
+            if (OutterNetworkService != null)
             {
-                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, entryAssembly);
-                this.OutterNetworkService.MessageDispatcher.RegisterHandler(this.AppType, currendAssembly);
+                OutterNetworkService.MessageDispatcher.RegisterHandler(AppType, entryAssembly);
+                OutterNetworkService.MessageDispatcher.RegisterHandler(AppType, currendAssembly);
             }
         }
 
         //数据库服务
         private void InitDBService()
         {
-            if (this.AppType.NeedDBService())
+            if (AppType.NeedDBService())
             {
                 DataBaseService.Instance.Init(DataBaseType.MongoDB, DBConfig.DBHost, DBConfig.DBName,
                     DBConfig.DBAccount, DBConfig.DBPwd, DBConfig.DBTaskCount);
@@ -107,7 +107,7 @@ namespace Server.Frame
         //Redis服务
         private void InitRedisService()
         {
-            if (this.AppType.NeedRedisServer())
+            if (AppType.NeedRedisServer())
             {
                 RedisService.Instance.Init(DBConfig.RedisHost, DBConfig.RedisPwd, DBConfig.RedisTaskCount, 0);
             }
@@ -116,8 +116,8 @@ namespace Server.Frame
         //网络拓扑
         private void InitNetworkTopology()
         {
-            this.NetProxyManager = new NetProxyManager(this);
-            this.NetProxyManager.Init();
+            NetProxyManager = new NetProxyManager(this);
+            NetProxyManager.Init();
         }
 
 

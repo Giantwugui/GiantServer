@@ -28,8 +28,8 @@ namespace UnityEngine
         {
             get
             {
-                return this.m00 == 1f && this.m11 == 1f && this.m22 == 1f && this.m33 == 1f && // Check diagonal element first for early out.
-                this.m12 == 0.0f && this.m13 == 0.0f && this.m13 == 0.0f && this.m21 == 0.0f && this.m23 == 0.0f && this.m23 == 0.0f && this.m31 == 0.0f && this.m32 == 0.0f && this.m33 == 0.0f;
+                return m00 == 1f && m11 == 1f && m22 == 1f && m33 == 1f && // Check diagonal element first for early out.
+                m12 == 0.0f && m13 == 0.0f && m13 == 0.0f && m21 == 0.0f && m23 == 0.0f && m23 == 0.0f && m31 == 0.0f && m32 == 0.0f && m33 == 0.0f;
             }
         }
 
@@ -38,16 +38,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m01;
-                vector3.y = this.m11;
-                vector3.z = this.m21;
+                vector3.x = m01;
+                vector3.y = m11;
+                vector3.z = m21;
                 return vector3;
             }
             set
             {
-                this.m01 = value.x;
-                this.m11 = value.y;
-                this.m21 = value.z;
+                m01 = value.x;
+                m11 = value.y;
+                m21 = value.z;
             }
         }
 
@@ -56,16 +56,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m01;
-                vector3.y = -this.m11;
-                vector3.z = -this.m21;
+                vector3.x = -m01;
+                vector3.y = -m11;
+                vector3.z = -m21;
                 return vector3;
             }
             set
             {
-                this.m01 = -value.x;
-                this.m11 = -value.y;
-                this.m21 = -value.z;
+                m01 = -value.x;
+                m11 = -value.y;
+                m21 = -value.z;
             }
         }
 
@@ -74,16 +74,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m00;
-                vector3.y = this.m10;
-                vector3.z = this.m20;
+                vector3.x = m00;
+                vector3.y = m10;
+                vector3.z = m20;
                 return vector3;
             }
             set
             {
-                this.m00 = value.x;
-                this.m10 = value.y;
-                this.m20 = value.z;
+                m00 = value.x;
+                m10 = value.y;
+                m20 = value.z;
             }
         }
 
@@ -92,16 +92,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m00;
-                vector3.y = -this.m10;
-                vector3.z = -this.m20;
+                vector3.x = -m00;
+                vector3.y = -m10;
+                vector3.z = -m20;
                 return vector3;
             }
             set
             {
-                this.m00 = -value.x;
-                this.m10 = -value.y;
-                this.m20 = -value.z;
+                m00 = -value.x;
+                m10 = -value.y;
+                m20 = -value.z;
             }
         }
 
@@ -110,16 +110,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = -this.m02;
-                vector3.y = -this.m12;
-                vector3.z = -this.m22;
+                vector3.x = -m02;
+                vector3.y = -m12;
+                vector3.z = -m22;
                 return vector3;
             }
             set
             {
-                this.m02 = -value.x;
-                this.m12 = -value.y;
-                this.m22 = -value.z;
+                m02 = -value.x;
+                m12 = -value.y;
+                m22 = -value.z;
             }
         }
 
@@ -128,16 +128,16 @@ namespace UnityEngine
             get
             {
                 Vector3 vector3;
-                vector3.x = this.m02;
-                vector3.y = this.m12;
-                vector3.z = this.m22;
+                vector3.x = m02;
+                vector3.y = m12;
+                vector3.z = m22;
                 return vector3;
             }
             set
             {
-                this.m02 = value.x;
-                this.m12 = value.y;
-                this.m22 = value.z;
+                m02 = value.x;
+                m12 = value.y;
+                m22 = value.z;
             }
         }
 
@@ -145,12 +145,12 @@ namespace UnityEngine
         {
             get
             {
-                fixed (float* numPtr = &this.m00)
+                fixed (float* numPtr = &m00)
                     return numPtr[row * 4 + col];
             }
             set
             {
-                fixed (float* numPtr = &this.m00)
+                fixed (float* numPtr = &m00)
                     numPtr[row * 4 + col] = value;
             }
         }
@@ -159,12 +159,12 @@ namespace UnityEngine
         {
             get
             {
-                fixed (float* numPtr = &this.m00)
+                fixed (float* numPtr = &m00)
                     return numPtr[index];
             }
             set
             {
-                fixed (float* numPtr = &this.m00)
+                fixed (float* numPtr = &m00)
                     numPtr[index] = value;
             }
         }
@@ -748,31 +748,31 @@ namespace UnityEngine
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
             return
                     string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
-                                   this.m00.ToString(currentCulture),
-                                   this.m01.ToString(currentCulture),
-                                   this.m02.ToString(currentCulture),
-                                   this.m03.ToString(currentCulture)) +
+                                   m00.ToString(currentCulture),
+                                   m01.ToString(currentCulture),
+                                   m02.ToString(currentCulture),
+                                   m03.ToString(currentCulture)) +
                     string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
-                                   this.m10.ToString(currentCulture),
-                                   this.m11.ToString(currentCulture),
-                                   this.m12.ToString(currentCulture),
-                                   this.m13.ToString(currentCulture)) +
+                                   m10.ToString(currentCulture),
+                                   m11.ToString(currentCulture),
+                                   m12.ToString(currentCulture),
+                                   m13.ToString(currentCulture)) +
                     string.Format(currentCulture, "{0}, {1}, {2}, {3}; ",
-                                   this.m20.ToString(currentCulture),
-                                   this.m21.ToString(currentCulture),
-                                   this.m22.ToString(currentCulture),
-                                   this.m23.ToString(currentCulture)) + string.Format(currentCulture,
+                                   m20.ToString(currentCulture),
+                                   m21.ToString(currentCulture),
+                                   m22.ToString(currentCulture),
+                                   m23.ToString(currentCulture)) + string.Format(currentCulture,
                                                                                                                 "{0}, {1}, {2}, {3}",
-                                                                                                                 this.m30
+                                                                                                                 m30
                                                                                                                         .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                 this.m31
+                                                                                                                 m31
                                                                                                                         .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                 this.m32
+                                                                                                                 m32
                                                                                                                         .ToString(
                                                                                                                                   currentCulture),
-                                                                                                                 this.m33
+                                                                                                                 m33
                                                                                                                         .ToString(
                                                                                                                                   currentCulture));
         }
@@ -794,16 +794,16 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Matrix4x4)
-                flag = this.Equals((Matrix4x4)obj);
+                flag = Equals((Matrix4x4)obj);
             return flag;
         }
 
         public override int GetHashCode()
         {
-            return this.m00.GetHashCode() + this.m01.GetHashCode() + this.m02.GetHashCode() + this.m03.GetHashCode() + this.m10.GetHashCode() +
-                    this.m11.GetHashCode() + this.m12.GetHashCode() + this.m13.GetHashCode() + this.m20.GetHashCode() + this.m21.GetHashCode() +
-                    this.m22.GetHashCode() + this.m23.GetHashCode() + this.m30.GetHashCode() + this.m31.GetHashCode() + this.m32.GetHashCode() +
-                    this.m33.GetHashCode();
+            return m00.GetHashCode() + m01.GetHashCode() + m02.GetHashCode() + m03.GetHashCode() + m10.GetHashCode() +
+                    m11.GetHashCode() + m12.GetHashCode() + m13.GetHashCode() + m20.GetHashCode() + m21.GetHashCode() +
+                    m22.GetHashCode() + m23.GetHashCode() + m30.GetHashCode() + m31.GetHashCode() + m32.GetHashCode() +
+                    m33.GetHashCode();
         }
 
         public static Matrix4x4 Transpose(Matrix4x4 matrix)

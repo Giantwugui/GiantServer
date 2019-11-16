@@ -17,11 +17,11 @@ namespace Server.Map
 
         public override void Start(string[] args)
         {
-            this.Init(args);
+            Init(args);
 
             Logger.Warn($"server start complete------------- appType {Framework.AppType} appId {Framework.AppId}");
 
-            this.DoUpdate();
+            DoUpdate();
         }
 
         public override void Init(string[] args)
@@ -31,7 +31,7 @@ namespace Server.Map
 
             mapMananger.Init();
 
-            this.InitDone();
+            InitDone();
             ConsoleReader.Instance.Start(DoCmd);
         }
 
@@ -41,7 +41,7 @@ namespace Server.Map
             {
                 Thread.Sleep(1);
 
-                this.Update(1 * 0.01f);
+                Update(1 * 0.01f);
             }
         }
 

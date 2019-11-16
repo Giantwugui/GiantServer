@@ -122,10 +122,10 @@ namespace EpPathFinding
 
         public GridRect Set(int iMinX, int iMinY, int iMaxX, int iMaxY)
         {
-            this.minX = iMinX;
-            this.minY = iMinY;
-            this.maxX = iMaxX;
-            this.maxY = iMaxY;
+            minX = iMinX;
+            minY = iMinY;
+            maxX = iMaxX;
+            maxY = iMaxY;
             return this;
         }
     }

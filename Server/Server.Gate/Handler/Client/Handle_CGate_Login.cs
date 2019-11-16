@@ -1,5 +1,4 @@
 ﻿using Giant.DB.MongoDB;
-using Giant.Log;
 using Giant.Msg;
 using Giant.Net;
 using Server.Frame;
@@ -9,12 +8,11 @@ using System.Threading.Tasks;
 namespace Server.Gate
 {
     [MessageHandler]
-    public class ClientHandle_Ping : RpcMHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
+    public class Handle_Ping : RpcMHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
     {
         public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
         {
             response.Error = ErrorCode.Success;
-            Logger.Debug($"client heart beat !");
             Client client = ClientManager.Instance.GetClient(session.Id);
             client?.HeartBeat();
 
@@ -23,7 +21,7 @@ namespace Server.Gate
     }
 
     [MessageHandler]
-    public class ClientHandle_GetSecretKey : RpcMHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
+    public class Handle_GetSecretKey : RpcMHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
     {
         public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response)
         {
@@ -32,18 +30,35 @@ namespace Server.Gate
     }
 
     [MessageHandler]
-    public class ClientHandle_Login : RpcMHandler<Msg_CG_Login, Msg_GC_Login>
+    public class Handle_Login : RpcMHandler<Msg_CG_Login, Msg_GC_Login>
     {
         public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
-            ClientEnter entry = ClientManager.Instance.GetClientEntry(request.Account);
-            if (entry == null)
+            ClientEnter enter = ClientManager.Instance.GetClientEntry(request.Account);
+            if (enter == null || enter.Token != request.Token)
             {
-                response.Error = ErrorCode.Fail;
+                response.Error = ErrorCode.TokenOOT;
                 return;
             }
 
+            ClientManager.Instance.RemoveClientEntry(request.Account);
             Client client = ClientManager.Instance.GetClient(session.Id);
+            client?.Dispose();
+
+            if (client == null)
+            {
+                client = new Client(session, request.Account);
+                ClientManager.Instance.Add(client);
+            }
+        }
+    }
+
+    [MessageHandler]
+    public class Handle_EnterWorld : RpcMHandler<Msg_CG_EnterWorld, Msg_GC_EnterWorld>
+    {
+        public override async Task Run(Session session, Msg_CG_EnterWorld request, Msg_GC_EnterWorld response)
+        {
+            Client client = ClientManager.Instance.GetClient(request.Uid);
             if (client == null)
             {
                 response.Error = ErrorCode.Fail;
@@ -60,13 +75,13 @@ namespace Server.Gate
 
             //通知manager 负载均衡一个zone
             Msg_GateM_BalanceZone msg = new Msg_GateM_BalanceZone() { MapId = playerInfo.MapId };
-            IResponse mResponse = await AppService.Instacne.ManagerServer.Call(msg);
-
-            Msg_MGate_BalanceZone zone = mResponse as Msg_MGate_BalanceZone;
+            Msg_MGate_BalanceZone zone = (await AppService.Instacne.ManagerServer.Call(msg)) as Msg_MGate_BalanceZone;
             ZoneServer server = AppService.Instacne.ZoneServerManager.GetService(zone.ZoneId, zone.SubId) as ZoneServer;
 
+            client.Uid = request.Uid;
             client.SetZoneServer(server);
             client.EnterWorld();
+            response.Error = ErrorCode.Success;
         }
     }
 }

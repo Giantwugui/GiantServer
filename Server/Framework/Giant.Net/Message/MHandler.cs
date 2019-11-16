@@ -19,7 +19,7 @@ namespace Giant.Net
             try
             {
                 Message msg = message as Message;
-                await this.Run(session, msg);
+                await Run(session, msg);
             }
             catch (Exception ex)
             {

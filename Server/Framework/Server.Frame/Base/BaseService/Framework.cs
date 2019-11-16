@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Giant.Data;
 using Giant.Net;
 using Giant.Share;
 using System;
@@ -9,7 +10,6 @@ namespace Server.Frame
     {
         public static AppOption AppOption { get; private set; }
         public static BaseAppService Service { get; private set; }
-
 
         public static AppState AppState { get; set; }
         public static AppType AppType => AppOption.AppType;

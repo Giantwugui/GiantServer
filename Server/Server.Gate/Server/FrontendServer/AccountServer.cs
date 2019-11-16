@@ -28,8 +28,7 @@ namespace Server.Gate
             {
                 AppId = Framework.AppId,
                 SubId = Framework.SubId,
-                IP = Session.RemoteIPEndPoint.Address.ToString(),
-                Port = Session.RemoteIPEndPoint.Port,
+                Address = AppService.Instacne.AppConfig.OutterAddress,
                 ClientCount = ClientManager.Instance.ClientCount()
             };
             Send(msg);

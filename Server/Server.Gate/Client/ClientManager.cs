@@ -13,9 +13,9 @@ namespace Server.Gate
 
         public ClientEnter(string account, int token)
         {
-            this.Token = token;
-            this.Account = account;
-            this.EntryTime = TimeHelper.Now;
+            Token = token;
+            Account = account;
+            EntryTime = TimeHelper.Now;
         }
     }
 
@@ -42,9 +42,15 @@ namespace Server.Gate
             return entry;
         }
 
+        public void RemoveClientEntry(string account)
+        {
+            enterList.Remove(account);
+        }
+
         public void Add(Client client)
         {
             clients.Add(client.Uid, client);
+            clientsIndexBySessionId[client.Session.Id] = client;
         }
 
         public void Add2Watting(Client client)

@@ -29,28 +29,28 @@ namespace UnityEngine
 
         public Vector3(float value)
         {
-            this.x = this.y = this.z = value;
+            x = y = z = value;
         }
 
         public Vector3(Vector2 value, float z)
         {
-            this.x = value.x;
-            this.y = value.y;
+            x = value.x;
+            y = value.y;
             this.z = z;
         }
 
         public override string ToString()
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            return string.Format(currentCulture, "({0}, {1}, {2})", this.x.ToString(currentCulture),
-                                 this.y.ToString(currentCulture),
-                                 this.z.ToString(currentCulture));
+            return string.Format(currentCulture, "({0}, {1}, {2})", x.ToString(currentCulture),
+                                 y.ToString(currentCulture),
+                                 z.ToString(currentCulture));
         }
 
         public bool Equals(Vector3 other)
         {
-            if (this.x == (double)other.x && this.y == (double)other.y)
-                return this.z == (double)other.z;
+            if (x == (double)other.x && y == (double)other.y)
+                return z == (double)other.z;
             return false;
         }
 
@@ -58,30 +58,30 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Vector3)
-                flag = this.Equals((Vector3)obj);
+                flag = Equals((Vector3)obj);
             return flag;
         }
 
         public override int GetHashCode()
         {
-            return this.x.GetHashCode() + this.y.GetHashCode() + this.z.GetHashCode();
+            return x.GetHashCode() + y.GetHashCode() + z.GetHashCode();
         }
 
         public float Length()
         {
-            return (float)Math.Sqrt(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z);
+            return (float)Math.Sqrt(x * (double)x + y * (double)y + z * (double)z);
         }
 
         public float LengthSquared()
         {
-            return (float)(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z);
+            return (float)(x * (double)x + y * (double)y + z * (double)z);
         }
 
         public float magnitude
         {
             get
             {
-                return this.Length();
+                return Length();
             }
         }
 
@@ -89,7 +89,7 @@ namespace UnityEngine
         {
             get
             {
-                return this.LengthSquared();
+                return LengthSquared();
             }
         }
 
@@ -140,13 +140,13 @@ namespace UnityEngine
 
         public void Normalize()
         {
-            float num1 = (float)(this.x * (double)this.x + this.y * (double)this.y + this.z * (double)this.z);
+            float num1 = (float)(x * (double)x + y * (double)y + z * (double)z);
             if (num1 < (double)Mathf.Epsilon)
                 return;
             float num2 = 1f / (float)Math.Sqrt(num1);
-            this.x *= num2;
-            this.y *= num2;
-            this.z *= num2;
+            x *= num2;
+            y *= num2;
+            z *= num2;
         }
 
         public Vector3 normalized

@@ -1,4 +1,5 @@
 ﻿using Giant.Log;
+using Giant.Net;
 using Giant.Share;
 using Server.Frame;
 using System;
@@ -14,11 +15,11 @@ namespace Server.Account
 
         public override void Start(string[] args)
         {
-            this.Init(args);
+            Init(args);
 
             Logger.Warn($"server start complete------------- appType {Framework.AppType} appId {Framework.AppId}");
 
-            this.DoUpdate();
+            DoUpdate();
         }
 
         public override void Init(string[] args)
@@ -26,7 +27,7 @@ namespace Server.Account
             //框架的各种初始化工作
             base.Init(args);
 
-            this.InitDone();
+            InitDone();
 
             ConsoleReader.Instance.Start(DoCmd);
         }
@@ -37,7 +38,7 @@ namespace Server.Account
             {
                 Thread.Sleep(1);
 
-                this.Update(1 * 0.01f);
+                Update(1 * 0.01f);
             }
         }
 
@@ -73,6 +74,19 @@ namespace Server.Account
                 default:
                     Logger.Info($"system call -> {message}");
                     break;
+            }
+        }
+
+        protected override void OnAccept(Session session, bool isConnect)
+        {
+            if (isConnect)
+            {
+                ClientManager.Instance.Add(new Client(session));
+            }
+            else
+            {
+                Client client = ClientManager.Instance.GetClient(session.Id);
+                client?.Offline();
             }
         }
     }

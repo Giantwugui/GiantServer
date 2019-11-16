@@ -15,28 +15,28 @@ namespace Giant.Net
         private readonly MemoryStream recvStream;
         private readonly MemoryStream sendStream;
 
-        public override MemoryStream Stream => this.sendStream;
+        public override MemoryStream Stream => sendStream;
 
         public WebChannel(HttpListenerWebSocketContext socketContext, WebService service) : base(service, ChannelType.Accepter)
         {
-            this.IsConnected = true;
+            IsConnected = true;
             this.socketContext = socketContext;
-            this.webSocket = socketContext.WebSocket;
-            this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            webSocket = socketContext.WebSocket;
+            recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public WebChannel(WebSocket webSocket, WebService service) : base(service, ChannelType.Connecter)
         {
-            this.IsConnected = false;
+            IsConnected = false;
             this.webSocket = webSocket;
-            this.recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            this.sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            recvStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
+            sendStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
         }
 
         public override void Start()
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
                 return;
             }
@@ -64,7 +64,7 @@ namespace Giant.Net
             }
             catch (Exception ex)
             {
-                this.OnError(ex);
+                OnError(ex);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Giant.Net
             try
             {
                 await ((ClientWebSocket)webSocket).ConnectAsync(new Uri(url), cancellationTokenSource.Token);
-                this.IsConnected = true;
+                IsConnected = true;
             }
             catch (Exception ex)
             {
@@ -87,7 +87,7 @@ namespace Giant.Net
 
         public override void Dispose()
         {
-            this.IsConnected = false;
+            IsConnected = false;
             webSocket.Dispose();
         }
 
@@ -95,12 +95,12 @@ namespace Giant.Net
         {
             base.OnError(error);
 
-            this.IsConnected = false;
+            IsConnected = false;
         }
 
         private async void StartRecv()
         {
-            if (!this.IsConnected)
+            if (!IsConnected)
             {
                 return;
             }
@@ -114,11 +114,11 @@ namespace Giant.Net
 
                     do
                     {
-                        receiveResult = await this.webSocket.ReceiveAsync(
-                            new Memory<byte>(this.recvStream.GetBuffer(), receiveCount, this.recvStream.Capacity - receiveCount),
+                        receiveResult = await webSocket.ReceiveAsync(
+                            new Memory<byte>(recvStream.GetBuffer(), receiveCount, recvStream.Capacity - receiveCount),
                             cancellationTokenSource.Token);
 
-                        if (!this.IsConnected)
+                        if (!IsConnected)
                         {
                             return;
                         }
@@ -129,25 +129,25 @@ namespace Giant.Net
 
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
                     {
-                        this.OnError(ErrorCode.WebsocketPeerReset);
+                        OnError(ErrorCode.WebsocketPeerReset);
                         return;
                     }
 
                     if (receiveCount > ushort.MaxValue)
                     {
-                        await this.webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}", cancellationTokenSource.Token);
-                        this.OnError(ErrorCode.WebsocketMessageTooBig);
+                        await webSocket.CloseAsync(WebSocketCloseStatus.MessageTooBig, $"message too big: {receiveCount}", cancellationTokenSource.Token);
+                        OnError(ErrorCode.WebsocketMessageTooBig);
                         return;
                     }
 
-                    this.recvStream.SetLength(receiveResult.Count);
-                    this.OnRead(this.recvStream);
+                    recvStream.SetLength(receiveResult.Count);
+                    OnRead(recvStream);
                 }
             }
             catch (Exception e)
             {
                 Logger.Error(e);
-                this.OnError(ErrorCode.WebsocketRecvError);
+                OnError(ErrorCode.WebsocketRecvError);
             }
         }
     }

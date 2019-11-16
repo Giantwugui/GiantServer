@@ -47,16 +47,16 @@ namespace Giant.Net
 
         public BaseChannel(BaseNetService service, ChannelType type)
         {
-            this.InstanceId = IdGenerator.NewId;
-            this.ChannelType = type;
-            this.Service = service;
+            InstanceId = IdGenerator.NewId;
+            ChannelType = type;
+            Service = service;
         }
 
         public BaseChannel(long id, BaseNetService service, ChannelType type)
         {
-            this.InstanceId = id;
-            this.ChannelType = type;
-            this.Service = service;
+            InstanceId = id;
+            ChannelType = type;
+            Service = service;
         }
 
         public abstract void Update();
@@ -75,7 +75,7 @@ namespace Giant.Net
 
         public virtual void Dispose()
         {
-            this.Service.Remove(this.InstanceId);
+            Service.Remove(InstanceId);
         }
 
         protected void OnConnected(bool connect)

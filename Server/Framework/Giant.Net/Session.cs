@@ -22,8 +22,8 @@ namespace Giant.Net
 
         public long Id { get; private set; }
 
-        public bool IsConnected => this.channel.IsConnected;
-        public IPEndPoint RemoteIPEndPoint => this.channel.IPEndPoint;
+        public bool IsConnected => channel.IsConnected;
+        public IPEndPoint RemoteIPEndPoint => channel.IPEndPoint;
 
         private Action<Session, bool> onConnectCallback;
         public event Action<Session, bool> OnConnectCallback
@@ -37,33 +37,33 @@ namespace Giant.Net
         {
             Id = baseChannel.InstanceId;
             NetworkService = networkService;
-            this.channel = baseChannel;
+            channel = baseChannel;
 
-            this.channel.OnReadCallback += OnRead;
-            this.channel.OnErrorCallback += OnError;
-            this.channel.OnConnectCallback += OnConnect;
+            channel.OnReadCallback += OnRead;
+            channel.OnErrorCallback += OnError;
+            channel.OnConnectCallback += OnConnect;
         }
 
         public void Reply(IMessage message)
         {
-            this.Notify(message);
+            Notify(message);
         }
 
         public void Notify(IMessage message)
         {
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(message.GetType());
-            this.Notify(opcode, message);
+            Notify(opcode, message);
         }
 
         public Task<IResponse> Call(IRequest request)
         {
-            request.RpcId = ++this.rpcId;
+            request.RpcId = ++rpcId;
 
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(request.GetType());
 
             TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
 
-            this.responseCallback[rpcId] = (response) =>
+            responseCallback[rpcId] = (response) =>
             {
                 try
                 {
@@ -85,20 +85,20 @@ namespace Giant.Net
                 }
             };
 
-            this.Notify(opcode, request);
+            Notify(opcode, request);
 
             return tcs.Task;
         }
 
         public Task<IResponse> Call(IRequest request, CancellationToken cancellation)
         {
-            request.RpcId = ++this.rpcId;
+            request.RpcId = ++rpcId;
 
             ushort opcode = NetworkService.MessageDispatcher.GetOpcode(request.GetType());
 
             TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
 
-            this.responseCallback[rpcId] = (response) =>
+            responseCallback[rpcId] = (response) =>
             {
                 try
                 {
@@ -120,16 +120,16 @@ namespace Giant.Net
                 }
             };
 
-            cancellation.Register(() => this.responseCallback.Remove(this.rpcId));
+            cancellation.Register(() => responseCallback.Remove(rpcId));
 
-            this.Notify(opcode, request);
+            Notify(opcode, request);
 
             return tcs.Task;
         }
 
         public void Start()
         {
-            this.channel.Start();
+            channel.Start();
         }
 
         public void Dispose()
@@ -142,7 +142,7 @@ namespace Giant.Net
 
         private void Notify(ushort opcode, IMessage message)
         {
-            var stream = this.channel.Stream;
+            var stream = channel.Stream;
             opcodeBytes.WriteTo(0, opcode);
 
             stream.Seek(0, SeekOrigin.Begin);
@@ -152,7 +152,7 @@ namespace Giant.Net
             ProtoHelper.ToStream(stream, message);
             stream.Seek(0, SeekOrigin.Begin);
 
-            this.channel.Send(stream);
+            channel.Send(stream);
         }
 
         private void OnRead(MemoryStream memoryStream)
@@ -161,8 +161,8 @@ namespace Giant.Net
             ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), Packet.OpcodeIndex);
             memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 
-            Type msgType = this.NetworkService.MessageDispatcher.GetMessageType(opcode);
-            IMessage message = this.NetworkService.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
+            Type msgType = NetworkService.MessageDispatcher.GetMessageType(opcode);
+            IMessage message = NetworkService.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
 
             if (message is IResponse response)
             {
@@ -197,12 +197,12 @@ namespace Giant.Net
 
             NetworkService.Remove(this);
 
-            this.Dispose();
+            Dispose();
         }
 
         public void OnConnect(bool connState)
         {
-            this.onConnectCallback?.Invoke(this, connState);
+            onConnectCallback?.Invoke(this, connState);
         }
 
     }

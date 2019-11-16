@@ -26,10 +26,10 @@ namespace UnityEngine
             float num1 = angle * 0.5f;
             float num2 = (float)Math.Sin(num1);
             float num3 = (float)Math.Cos(num1);
-            this.x = rkAxis.x * num2;
-            this.y = rkAxis.y * num2;
-            this.z = rkAxis.z * num2;
-            this.w = num3;
+            x = rkAxis.x * num2;
+            y = rkAxis.y * num2;
+            z = rkAxis.z * num2;
+            w = num3;
         }
 
         public Quaternion(Vector3 xaxis, Vector3 yaxis, Vector3 zaxis)
@@ -58,19 +58,19 @@ namespace UnityEngine
             float num7 = yaw * 0.5f;
             float num8 = (float)Math.Sin(num7);
             float num9 = (float)Math.Cos(num7);
-            this.x = (float)(num9 * (double)num5 * num3 + num8 * (double)num6 * num2);
-            this.y = (float)(num8 * (double)num6 * num3 - num9 * (double)num5 * num2);
-            this.z = (float)(num9 * (double)num6 * num2 - num8 * (double)num5 * num3);
-            this.w = (float)(num9 * (double)num6 * num3 + num8 * (double)num5 * num2);
+            x = (float)(num9 * (double)num5 * num3 + num8 * (double)num6 * num2);
+            y = (float)(num8 * (double)num6 * num3 - num9 * (double)num5 * num2);
+            z = (float)(num9 * (double)num6 * num2 - num8 * (double)num5 * num3);
+            w = (float)(num9 * (double)num6 * num3 + num8 * (double)num5 * num2);
         }
 
         public override string ToString()
         {
             CultureInfo currentCulture = CultureInfo.CurrentCulture;
-            return string.Format(currentCulture, "({0}, {1}, {2}, {3})", this.x.ToString(currentCulture),
-                                  this.y.ToString(currentCulture),
-                                  this.z.ToString(currentCulture),
-                                  this.w.ToString(currentCulture));
+            return string.Format(currentCulture, "({0}, {1}, {2}, {3})", x.ToString(currentCulture),
+                                  y.ToString(currentCulture),
+                                  z.ToString(currentCulture),
+                                  w.ToString(currentCulture));
         }
 
         public bool Equals(Quaternion other)
@@ -84,35 +84,35 @@ namespace UnityEngine
         {
             bool flag = false;
             if (obj is Quaternion)
-                flag = this.Equals((Quaternion)obj);
+                flag = Equals((Quaternion)obj);
             return flag;
         }
 
         public override int GetHashCode()
         {
-            return this.x.GetHashCode() + this.y.GetHashCode() + this.z.GetHashCode() + this.w.GetHashCode();
+            return x.GetHashCode() + y.GetHashCode() + z.GetHashCode() + w.GetHashCode();
         }
 
         public float LengthSquared()
         {
-            return (float)(x * (double)this.x + y * (double)this.y + z * (double)this.z +
-                 w * (double)this.w);
+            return (float)(x * (double)x + y * (double)y + z * (double)z +
+                 w * (double)w);
         }
 
         public float Length()
         {
-            return (float)Math.Sqrt(x * (double)this.x + y * (double)this.y + z * (double)this.z +
-                                      w * (double)this.w);
+            return (float)Math.Sqrt(x * (double)x + y * (double)y + z * (double)z +
+                                      w * (double)w);
         }
 
         public void Normalize()
         {
-            float num = 1f / (float)Math.Sqrt(x * (double)this.x + y * (double)this.y +
-                                                z * (double)this.z + w * (double)this.w);
-            this.x *= num;
-            this.y *= num;
-            this.z *= num;
-            this.w *= num;
+            float num = 1f / (float)Math.Sqrt(x * (double)x + y * (double)y +
+                                                z * (double)z + w * (double)w);
+            x *= num;
+            y *= num;
+            z *= num;
+            w *= num;
         }
 
         public static Quaternion Normalize(Quaternion quaternion)
@@ -678,9 +678,9 @@ namespace UnityEngine
 
         public void Conjugate()
         {
-            this.x = -this.x;
-            this.y = -this.y;
-            this.z = -this.z;
+            x = -x;
+            y = -y;
+            z = -z;
         }
 
         public static Quaternion Conjugate(Quaternion value)

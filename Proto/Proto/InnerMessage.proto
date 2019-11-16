@@ -22,9 +22,8 @@ message Msg_GateA_GateInfo // IMessage
 {
 	int32 AppId = 1;
 	int32 SubId = 2;
-	string IP = 3;
-	int32 Port = 4;
-	int32 ClientCount = 5;
+	string Address = 3;
+	int32 ClientCount = 4;
 }
 
 

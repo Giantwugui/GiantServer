@@ -62,7 +62,7 @@ namespace Giant.Net
                 }
                 if (Activator.CreateInstance(type) is IMHandler handler)
                 {
-                    this.RegisterHandler(handler);
+                    RegisterHandler(handler);
                 }
             }
         }

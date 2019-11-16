@@ -25,6 +25,7 @@ namespace Client
             {
                 try
                 {
+                    OneThreadSynchronizationContext.Instance.Update();
                     PlayerManager.Instance.Update();
                     Thread.Sleep(1);
                 }

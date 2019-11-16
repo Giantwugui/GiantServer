@@ -10,6 +10,15 @@ message Msg_CA_Login // IRequest
 	string	Password = 2;	// 密码
 }
 
+message Msg_CA_LoginZone // IRequest
+{
+	int32 RpcId = 90;
+	string	Account	 = 1;	// 帐号
+	int32 Zone = 2;	
+}
+
+/*********************** Account => Client ****************************/
+
 message Msg_AC_Login // IResponse
 {
 	int32 RpcId = 90;
@@ -18,21 +27,13 @@ message Msg_AC_Login // IResponse
 	repeated int32 Servers = 1;
 }
 
-message Msg_CA_LoginZone // IRequest
-{
-	int32 RpcId = 90;
-	string	Account	 = 1;	// 帐号
-	int32 Zone = 2;	
-}
-
 message Msg_AC_LoginZone // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
-	int64 Key = 1;
-	string IP = 2;
-	int32 port = 3;
+	int32 Token = 1;
+	string Address = 2;
 }
 
 /*********************** Client => Gate ****************************/
@@ -65,6 +66,13 @@ message Msg_CG_CreateCharacter // IRequest
 }
 
 message Msg_CG_Login // IRequest
+{
+	int32 RpcId = 90;
+	string Account = 1;
+	int32 Token = 2;
+}
+
+message Msg_CG_EnterWorld // IRequest
 {
 	int32 RpcId = 90;
 	int32 Uid = 1;
@@ -124,6 +132,13 @@ message Msg_GC_Login // IResponse
 message Msg_PlayerInfo // IMessage
 {
 	int32 RpcId = 90;
+}
+
+message Msg_GC_EnterWorld // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
 }
 
 message Msg_CG_EnterMap // IRequest

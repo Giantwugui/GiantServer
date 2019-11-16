@@ -2,7 +2,6 @@
 using Giant.Net;
 using System;
 using System.Linq;
-using System.Net;
 
 namespace Client
 {
@@ -32,26 +31,27 @@ namespace Client
             Msg_CA_LoginZone msg = new Msg_CA_LoginZone()
             {
                 Account = accountInfo.Account,
-                Zone = 1,
+                Zone = 1001,
             };
 
             Msg_AC_LoginZone result = (await session.Call(msg)) as Msg_AC_LoginZone;
             if (result.Error == ErrorCode.Success)
             {
-                Console.WriteLine($"Client login to gate IP {result.IP} port {result.Port}");
+                Console.WriteLine($"Client login to gate address {result.Address}");
 
-                ConnectToGate(result.IP, result.Port);
+                token = result.Token;
+                ConnectToGate(result.Address);
             }
         }
 
-        private static void ConnectToGate(string ip, int port)
+        private static void ConnectToGate(string address)
         {
-            session = networkService.Create(new IPEndPoint(IPAddress.Parse(ip), port));
-            Session.OnConnectCallback += (aimSession, state) =>
+            session = networkService.Create(address);
+            session.OnConnectCallback += (aimSession, state) =>
             {
                 if (state)
                 {
-                    GetCharacter();
+                    LoginZone();
                 }
                 else
                 {
@@ -62,6 +62,16 @@ namespace Client
             session.Start();
         }
 
+        private static async void LoginZone()
+        {
+            Msg_CG_Login msg = new Msg_CG_Login() { Account = accountInfo.Account, Token = token };
+            Msg_GC_Login result = (await session.Call(msg)) as Msg_GC_Login;
+            if (result.IsSuccess())
+            {
+                GetCharacter();
+            }
+        }
+
         private static async void GetCharacter()
         {
             Msg_CG_GetCharacter msg = new Msg_CG_GetCharacter();
@@ -70,11 +80,14 @@ namespace Client
 
             if (result.IsSuccess())
             {
-                LoginWorld(result.Characters.First().Uid);
-            }
-            else
-            {
-                CreateCharacter(1);
+                if (result.Characters.Count > 0)
+                {
+                    LoginWorld(result.Characters.First().Uid);
+                }
+                else
+                { 
+                    CreateCharacter(1);
+                }
             }
         }
 
@@ -88,14 +101,10 @@ namespace Client
             }
         }
 
-        private static async void LoginWorld(int uid)
+        private static void LoginWorld(int uid)
         {
-            Msg_CG_Login msg = new Msg_CG_Login() { Uid = uid };
-            Msg_GC_Login result = (await session.Call(msg)) as Msg_GC_Login;
-            if (result.IsSuccess())
-            {
-                Player = new Player(accountInfo.Account, result.PlayerInfo, session);
-            }
+            Msg_CG_EnterWorld msg = new Msg_CG_EnterWorld() { Uid = uid };
+            session.Notify(msg);
         }
 
         private static void PlayerOffline(Session session)

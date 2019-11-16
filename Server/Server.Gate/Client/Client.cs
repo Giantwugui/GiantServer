@@ -6,33 +6,28 @@ using System;
 
 namespace Server.Gate
 {
-    public class Client
+    public class Client : IDisposable
     {
         private AESCrypt AESCrypt;
         public string SecretKey => AESCrypt.EncryptKey;
 
         public Session Session { get; private set; }
-        public string Account { get; private set; }
-        public int Uid { get; private set; }
+        public string Account { get; set; }
+        public int Uid { get; set; }
 
         public DateTime HeartBeatTime = TimeHelper.Now;
 
         public ZoneServer ZoneServer { get; private set; }
 
-        public Client(Session session)
+        public Client(Session session, string account)
         {
-            this.Session = session;
-        }
-
-        public void Online(string account, int uid)
-        {
-            Uid = uid;
+            Session = session;
             Account = account;
         }
 
         public void Offline()
         {
-            ClientManager.Instance.Remove(this.Session.Id);
+            ClientManager.Instance.Remove(Session.Id);
         }
 
         public void HeartBeat()
@@ -42,11 +37,11 @@ namespace Server.Gate
 
         public void SetZoneServer(ZoneServer server)
         {
-            this.ZoneServer = server;
+            ZoneServer = server;
         }
 
         public void EnterWorld()
-        { 
+        {
         }
 
         public void SendToClient(IMessage message)
@@ -62,6 +57,11 @@ namespace Server.Gate
         public void BuildSecretKey()
         {
             AESCrypt = new AESCrypt();
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }

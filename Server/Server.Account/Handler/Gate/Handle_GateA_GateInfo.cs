@@ -13,8 +13,7 @@ namespace Server.Account
             {
                 AppId = message.AppId,
                 SubId = message.SubId,
-                IP = message.IP,
-                Port = message.Port,
+                Address = message.Address,
                 ClientCount = message.ClientCount,
             };
             GateInfoManager.Instance.UpdateGateInfo(gateInfo);

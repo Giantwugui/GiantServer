@@ -54,7 +54,7 @@ namespace EpPathFinding
             m_gridRect.minY = 0;
             m_gridRect.maxX = iWidth - 1;
             m_gridRect.maxY = iHeight - 1;
-            this.m_nodes = buildNodes(iWidth, iHeight, iMatrix);
+            m_nodes = buildNodes(iWidth, iHeight, iMatrix);
         }
 
         public StaticGrid(StaticGrid b)
@@ -72,7 +72,7 @@ namespace EpPathFinding
                         tMatrix[widthTrav][heightTrav] = false;
                 }
             }
-            this.m_nodes = buildNodes(b.width, b.height, tMatrix);
+            m_nodes = buildNodes(b.width, b.height, tMatrix);
         }
 
         private Node[][] buildNodes(int iWidth, int iHeight, bool[][] iMatrix)
@@ -118,12 +118,12 @@ namespace EpPathFinding
 
         public override Node GetNodeAt(int iX, int iY)
         {
-            return this.m_nodes[iX][iY];
+            return m_nodes[iX][iY];
         }
 
         public override bool IsWalkableAt(int iX, int iY)
         {
-            return isInside(iX, iY) && this.m_nodes[iX][iY].walkable;
+            return isInside(iX, iY) && m_nodes[iX][iY].walkable;
         }
 
         protected bool isInside(int iX, int iY)
@@ -133,7 +133,7 @@ namespace EpPathFinding
 
         public override bool SetWalkableAt(int iX, int iY, bool iWalkable)
         {
-            this.m_nodes[iX][iY].walkable = iWalkable;
+            m_nodes[iX][iY].walkable = iWalkable;
             return true;
         }
 
@@ -201,7 +201,7 @@ namespace EpPathFinding
         {
             int tWidth = width;
             int tHeight = height;
-            Node[][] tNodes = this.m_nodes;
+            Node[][] tNodes = m_nodes;
 
             StaticGrid tNewGrid = new StaticGrid(tWidth, tHeight, null);
 

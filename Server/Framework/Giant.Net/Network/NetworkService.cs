@@ -43,7 +43,7 @@ namespace Giant.Net
 
         public Session Create(string address)
         {
-            return this.Create(NetworkHelper.ToIPEndPoint(address));
+            return Create(NetworkHelper.ToIPEndPoint(address));
         }
 
         public Session Create(IPEndPoint endPoint)
@@ -85,8 +85,8 @@ namespace Giant.Net
                     break;
             }
 
-            this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new MessageDispatcher();
+            MessageParser = new ProtoPacker();
+            MessageDispatcher = new MessageDispatcher();
         }
 
         private void Init(NetworkType network, string address)
@@ -107,8 +107,8 @@ namespace Giant.Net
                     break;
             }
 
-            this.MessageParser = new ProtoPacker();
-            this.MessageDispatcher = new MessageDispatcher();
+            MessageParser = new ProtoPacker();
+            MessageDispatcher = new MessageDispatcher();
         }
 
         private void OnAccept(BaseChannel baseChannel)

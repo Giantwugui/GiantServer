@@ -30,6 +30,7 @@ namespace Client
 
         private static string accountHost = "127.0.0.1:6002";
 
+        private static int token;
         private static Player Player;
         private static List<int> loginedServers = new List<int>();
         private static Dictionary<int, Msg_CharacterInfo> characterInfos = new Dictionary<int, Msg_CharacterInfo>();
@@ -46,10 +47,10 @@ namespace Client
 
         public static void DoLogin(string account, string passward)
         {
-            session = networkService.Create(accountHost);
             accountInfo = new AccountInfo(account, passward);
 
-            Session.OnConnectCallback += (aimSession, state)=>
+            session = networkService.Create(accountHost);
+            session.OnConnectCallback += (aimSession, state) =>
             {
                 if (state)
                 {

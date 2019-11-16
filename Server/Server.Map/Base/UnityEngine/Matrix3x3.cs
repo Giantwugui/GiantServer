@@ -50,9 +50,9 @@ namespace UnityEngine
 
         public void SetOrthoNormalBasis(Vector3 inX, Vector3 inY, Vector3 inZ)
         {
-            this.Set(0, 0, inX.x); this.Set(0, 1, inY.x); this.Set(0, 2, inZ.x);
-            this.Set(1, 0, inX.y); this.Set(1, 1, inY.y); this.Set(1, 2, inZ.y);
-            this.Set(2, 0, inX.z); this.Set(2, 1, inY.z); this.Set(2, 2, inZ.z);
+            Set(0, 0, inX.x); Set(0, 1, inY.x); Set(0, 2, inZ.x);
+            Set(1, 0, inX.y); Set(1, 1, inY.y); Set(1, 2, inZ.y);
+            Set(2, 0, inX.z); Set(2, 1, inY.z); Set(2, 2, inZ.z);
         }
         public float GetDeterminant()
         {

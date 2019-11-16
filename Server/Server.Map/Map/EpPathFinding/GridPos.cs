@@ -51,8 +51,8 @@ namespace EpPathFinding
         }
         public GridPos(int iX, int iY)
         {
-            this.x = iX;
-            this.y = iY;
+            x = iX;
+            y = iY;
         }
 
         public GridPos(GridPos b)
@@ -118,8 +118,8 @@ namespace EpPathFinding
 
         public GridPos Set(int iX, int iY)
         {
-            this.x = iX;
-            this.y = iY;
+            x = iX;
+            y = iY;
             return this;
         }
 
