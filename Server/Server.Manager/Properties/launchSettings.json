@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Server.Manager": {
+      "commandName": "Project",
+      "commandLineArgs": "--appType=Manager --appId=1001 --subId=1"
+    }
+  }
+}
