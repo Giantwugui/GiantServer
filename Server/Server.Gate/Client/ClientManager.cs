@@ -1,4 +1,5 @@
-﻿using Giant.Share;
+﻿using Giant.Net;
+using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,12 @@ namespace Server.Gate
         public void Update()
         {
             RemoveTimeOutClient();
+        }
+
+        public void ClientOffline(Session session)
+        {
+            Client client = GetClient(session.Id);
+            client?.Offline();
         }
 
         private void RemoveTimeOutClient()

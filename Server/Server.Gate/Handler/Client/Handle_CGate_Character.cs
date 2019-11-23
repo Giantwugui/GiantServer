@@ -20,12 +20,16 @@ namespace Server.Gate
                 return;
             }
 
-            var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Account == client.Account);
-            PlayerInfo playerInfo = await query.Task();
-            if (playerInfo != null)
+            var query = new MongoDBQueryBatch<PlayerInfo>(DBName.Player, x => x.Account == client.Account);
+            var playerInfos = await query.Task();
+            if (playerInfos?.Count == 0)
             {
-                response.Error = ErrorCode.HadExistTheCharacter;
+                response.Error = ErrorCode.HaveNoThisCharacter;
                 return;
+            }
+            else
+            {
+                playerInfos.ForEach(player => response.Characters.Add(new Msg_CharacterInfo() { Uid = player.Uid, RoleId = player.RoleId }));
             }
 
             response.Error = ErrorCode.Success;
@@ -52,7 +56,15 @@ namespace Server.Gate
                 return;
             }
 
-            PlayerInfo player = await CreateCharacter(response, client.Account, 100001, request.RoleId);
+            Msg_GateM_GetUid msg = new Msg_GateM_GetUid();
+            Msg_MGate_GetUid result = (await AppService.Instacne.ManagerServer.Call(msg)) as Msg_MGate_GetUid;
+            if (result.Error != ErrorCode.Success)
+            {
+                response.Error = ErrorCode.Fail;
+                return;
+            }
+
+            PlayerInfo player = await CreateCharacter(response, client.Account, result.Uid, request.RoleId);
             response.Character = new Msg_CharacterInfo() { Uid = player.Uid, RoleId = request.RoleId };
 
             response.Error = ErrorCode.Success;

@@ -13,8 +13,4 @@
     <ProjectReference Include="..\Framework\Server.Frame\Server.Frame.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Handler\" />
-  </ItemGroup>
-
 </Project>

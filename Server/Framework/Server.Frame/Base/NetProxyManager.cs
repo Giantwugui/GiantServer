@@ -67,7 +67,7 @@ namespace Server.Frame
 
         public FrontendServer GetFrontendSinglePoint(AppType appType, int appId)
         {
-            return GetFrontend(appType, appId, 0);
+            return GetFrontend(appType, appId, 1);
         }
 
         public void AddFrontend(FrontendServer frontend)
@@ -121,7 +121,7 @@ namespace Server.Frame
 
         public FrontendServer GetBackendSinglePoint(AppType appType, int appId)
         {
-            return GetFrontend(appType, appId, 0);
+            return GetFrontend(appType, appId, 1);
         }
 
         public BackendServerManager GetBackendServiceManager(AppType appType)

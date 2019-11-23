@@ -32,24 +32,23 @@ namespace Server.Gate
     [MessageHandler]
     public class Handle_Login : RpcMHandler<Msg_CG_Login, Msg_GC_Login>
     {
-        public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
+        public override Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
             ClientEnter enter = ClientManager.Instance.GetClientEntry(request.Account);
             if (enter == null || enter.Token != request.Token)
             {
                 response.Error = ErrorCode.TokenOOT;
-                return;
+                return Task.CompletedTask;
             }
 
             ClientManager.Instance.RemoveClientEntry(request.Account);
             Client client = ClientManager.Instance.GetClient(session.Id);
             client?.Dispose();
 
-            if (client == null)
-            {
-                client = new Client(session, request.Account);
-                ClientManager.Instance.Add(client);
-            }
+            client = new Client(session, request.Account);
+            ClientManager.Instance.Add(client);
+
+            return Task.CompletedTask;
         }
     }
 
@@ -58,7 +57,7 @@ namespace Server.Gate
     {
         public override async Task Run(Session session, Msg_CG_EnterWorld request, Msg_GC_EnterWorld response)
         {
-            Client client = ClientManager.Instance.GetClient(request.Uid);
+            Client client = ClientManager.Instance.GetClient(session.Id);
             if (client == null)
             {
                 response.Error = ErrorCode.Fail;
@@ -76,11 +75,10 @@ namespace Server.Gate
             //通知manager 负载均衡一个zone
             Msg_GateM_BalanceZone msg = new Msg_GateM_BalanceZone() { MapId = playerInfo.MapId };
             Msg_MGate_BalanceZone zone = (await AppService.Instacne.ManagerServer.Call(msg)) as Msg_MGate_BalanceZone;
-            ZoneServer server = AppService.Instacne.ZoneServerManager.GetService(zone.ZoneId, zone.SubId) as ZoneServer;
+            ZoneServer server = AppService.Instacne.GetZoneServer(zone.ZoneId, zone.SubId);
+            client.EnterWorld(server);
 
             client.Uid = request.Uid;
-            client.SetZoneServer(server);
-            client.EnterWorld();
             response.Error = ErrorCode.Success;
         }
     }

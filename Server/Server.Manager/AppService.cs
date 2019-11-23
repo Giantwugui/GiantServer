@@ -10,6 +10,10 @@ namespace Server.Manager
     {
         public static AppService Instacne { get; } = new AppService();
 
+        public UidManager UidManager { get; private set; }
+
+        public BackendServerManager ZoneServerManager => NetProxyManager.GetBackendServiceManager(AppType.Map);
+
         public override void Start(string[] args)
         {
             Init(args);
@@ -64,6 +68,8 @@ namespace Server.Manager
         public override void InitDone()
         {
             base.InitDone();
+
+            UidManager = new UidManager(this);
         }
 
         private void DoCmd(string message)

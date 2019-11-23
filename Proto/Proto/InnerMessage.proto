@@ -35,6 +35,11 @@ message Msg_GateM_BalanceZone // IRequest
 	int32 MapId = 1;
 }
 
+message Msg_GateM_GetUid //IRequest
+{
+    int32 RpcId = 90;
+}
+
 /*********************** Manager ==> Gate ****************************/
 
 message Msg_MGate_BalanceZone // IResponse
@@ -45,6 +50,15 @@ message Msg_MGate_BalanceZone // IResponse
 	
 	int32 ZoneId = 1;
 	int32 SubId = 2;
+}
+
+message Msg_MGate_GetUid //IResponse
+{
+   int32 RpcId = 90;
+	int32 Error = 91;
+    string Message = 92;
+	
+	int32 Uid = 1;
 }
 
 /*********************** Global ****************************/

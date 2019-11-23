@@ -27,6 +27,7 @@ namespace Server.Gate
 
         public void Offline()
         {
+            //todo leave world
             ClientManager.Instance.Remove(Session.Id);
         }
 
@@ -35,13 +36,9 @@ namespace Server.Gate
             HeartBeatTime = TimeHelper.Now;
         }
 
-        public void SetZoneServer(ZoneServer server)
+        public void EnterWorld(ZoneServer server)
         {
             ZoneServer = server;
-        }
-
-        public void EnterWorld()
-        {
         }
 
         public void SendToClient(IMessage message)

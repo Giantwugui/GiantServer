@@ -1,4 +1,5 @@
 ﻿using Giant.Log;
+using Giant.Net;
 using Giant.Share;
 using Server.Frame;
 using System;
@@ -9,6 +10,12 @@ namespace Server.Gate
     public partial class AppService : BaseAppService
     {
         public static AppService Instacne { get; } = new AppService();
+        public GlobalServer GlobalServer => NetProxyManager.GetBackendSinglePoint(AppType.Global, AppId) as GlobalServer;
+        public AccountServer AccountServer => NetProxyManager.GetBackendSinglePoint(AppType.Account, AppId) as AccountServer;
+        public ZoneServer ZoneServer => NetProxyManager.GetBackendSinglePoint(AppType.Map, AppId) as ZoneServer;
+        public ManagerServer ManagerServer => NetProxyManager.GetFrontendSinglePoint(AppType.Manager, AppId) as ManagerServer;
+
+        public FrontendServerManager ZoneServerManager => NetProxyManager.GetFrontendServiceManager(AppType.Map);
 
         public override void Start(string[] args)
         {
@@ -65,6 +72,23 @@ namespace Server.Gate
         public override void InitDone()
         {
             base.InitDone();
+        }
+
+        public ZoneServer GetZoneServer(int appId, int subId)
+        {
+            return ZoneServerManager.GetService(appId, subId) as ZoneServer;
+        }
+
+
+        protected override void OnAccept(Session session, bool isConnect)
+        {
+            if (!isConnect)
+            {
+                ClientManager.Instance.ClientOffline(session);
+            }
+            else
+            {
+            }
         }
 
         private void DoCmd(string message)
