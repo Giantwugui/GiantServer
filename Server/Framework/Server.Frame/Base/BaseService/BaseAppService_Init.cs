@@ -70,9 +70,12 @@ namespace Server.Frame
         private void InitNetwork()
         {
             AppConfig = AppConfigLibrary.GetNetConfig(AppType, AppId, SubId);
-            InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, AppConfig.InnerAddress);
 
-            //部分App只有内部服务，Zone
+            if(!string.IsNullOrEmpty(AppConfig.InnerAddress))
+            {
+                InnerNetworkService = new InnerNetworkService(NetworkType.Tcp, AppConfig.InnerAddress);
+            }
+
             if (!string.IsNullOrEmpty(AppConfig.OutterAddress))
             {
                 OutterNetworkService = new OutterNetworkService(NetworkType.Tcp, AppConfig.OutterAddress, OnAccept);
@@ -84,13 +87,17 @@ namespace Server.Frame
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             Assembly currendAssembly = Assembly.GetExecutingAssembly();
-            InnerNetworkService.MessageDispatcher.RegisterHandler(AppType, entryAssembly);
-            InnerNetworkService.MessageDispatcher.RegisterHandler(AppType, currendAssembly);
+
+            if (InnerNetworkService != null)
+            {
+                InnerNetworkService.MessageDispatcher.RegisterHandler(entryAssembly);
+                InnerNetworkService.MessageDispatcher.RegisterHandler(currendAssembly);
+            }
 
             if (OutterNetworkService != null)
             {
-                OutterNetworkService.MessageDispatcher.RegisterHandler(AppType, entryAssembly);
-                OutterNetworkService.MessageDispatcher.RegisterHandler(AppType, currendAssembly);
+                OutterNetworkService.MessageDispatcher.RegisterHandler(entryAssembly);
+                OutterNetworkService.MessageDispatcher.RegisterHandler(currendAssembly);
             }
         }
 

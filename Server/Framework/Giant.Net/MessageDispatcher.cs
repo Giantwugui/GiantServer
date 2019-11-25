@@ -50,7 +50,7 @@ namespace Giant.Net
             return type;
         }
 
-        public void RegisterHandler(AppType appyType, Assembly assembly)
+        public void RegisterHandler(Assembly assembly)
         {
             Type handlerType = typeof(MessageHandlerAttribute);
             var types = assembly.GetTypes();
