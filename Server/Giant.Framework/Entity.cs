@@ -1,0 +1,3 @@
+﻿namespace Giant.Framework
+{
+}

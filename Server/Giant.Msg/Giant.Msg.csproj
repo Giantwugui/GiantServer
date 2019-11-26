@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>F:\GiantFrame\Bin\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>F:\GiantFrame\Bin</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Helper\**" />
+    <Compile Remove="Packer\**" />
+    <Compile Remove="Parser\**" />
+    <EmbeddedResource Remove="Helper\**" />
+    <EmbeddedResource Remove="Packer\**" />
+    <EmbeddedResource Remove="Parser\**" />
+    <None Remove="Helper\**" />
+    <None Remove="Packer\**" />
+    <None Remove="Parser\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\Proto\Proto\*.proto" Link="Proto\InnerMessage.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Proto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\Proto\Proto\InnerMessage.proto" Link="Proto\InnerMessage.proto" />
+    <None Include="..\..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,30 @@
+﻿using Giant.Logger;
+using System;
+using System.Threading.Tasks;
+
+namespace Giant.Net
+{
+    //通知类消息
+    public abstract class MHandler<Message> : IMHandler where Message : class
+    {
+        public abstract Task Run(Session session, Message message);
+
+        public Type GetMessageType()
+        {
+            return typeof(Message);
+        }
+
+        public async void Handle(Session session, object message)
+        {
+            try
+            {
+                Message msg = message as Message;
+                await Run(session, msg);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+        }
+    }
+}

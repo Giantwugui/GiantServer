@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Server.App": {
-      "commandName": "Project",
-      "commandLineArgs": "--appType=Map     --appId=1001 --subId=1"
-    }
-  }
-}
