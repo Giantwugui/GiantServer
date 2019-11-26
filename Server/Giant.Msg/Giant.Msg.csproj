@@ -41,4 +41,8 @@
     <None Include="..\..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
   </ItemGroup>
 
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="$(SolutionDir)..\Proto\protoc --csharp_out=$(ProjectDir)/ --proto_path=$(SolutionDir)../Proto/Proto/ InnerMessage.proto&#xD;&#xA;$(SolutionDir)..\Proto\protoc --csharp_out=$(ProjectDir)/ --proto_path=$(SolutionDir)../Proto/Proto/ OuterMessage.proto&#xD;&#xA;start dotnet $(SolutionDir)..\Proto\Proto2CS.dll $(SolutionDir)" />
+  </Target>
+
 </Project>
