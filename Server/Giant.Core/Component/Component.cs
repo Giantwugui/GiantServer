@@ -16,7 +16,16 @@ namespace Giant.Core
 
         public virtual void Dispose()
         {
+            foreach (var kv in componentes)
+            {
+                Scene.Pool.RemoveChild(kv.Value.InstanceId);
+                kv.Value.Dispose();
+            }
+
+            componentes.Clear();
+
             Scene.EventSystem.Remove(this);
+            InstanceId = 0;
         }
     }
 }

@@ -27,8 +27,6 @@ namespace Giant.Framework
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 
-            //窗口事件拦截
-            Scene.Pool.AddComponent<WindowsEventComponent>();
 
             //xml表
             Scene.Pool.AddComponent<DataComponent>();
@@ -37,14 +35,12 @@ namespace Giant.Framework
 
             Scene.AppConfig = Scene.Pool.GetComponent<AppConfigComponent>().GetNetConfig(appOption.AppType);
 
-            //消息处理
+            Scene.Pool.AddComponent<WindowsEventComponent>();
             Scene.Pool.AddComponent<OpcodeComponent>();
             Scene.Pool.AddComponent<MessageDispatcherComponent>();
-
-            //服务注册
+            Scene.Pool.AddComponent<TimerComponent>();
             Scene.Pool.AddComponent<NetProxyComponent>();
 
-            //DB 服务
             DBConfigComponent component = Scene.Pool.AddComponent<DBConfigComponent>();
             if (Scene.AppConfig.AppType.NeedDBService())
             {

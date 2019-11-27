@@ -18,8 +18,11 @@ namespace Giant.Framework
         private readonly Dictionary<AppType, FrontendManagerComponent> frontendServices = new Dictionary<AppType, FrontendManagerComponent>();
         private readonly Dictionary<AppType, BackendManagerComponent> backendServices = new Dictionary<AppType, BackendManagerComponent>();
 
+        public static NetProxyComponent Instance { get; private set; }
+
         public void Init()
         {
+            Instance = this;
             if (Scene.AppConfig.AppType == AppType.Global)
             {
                 return;
@@ -31,7 +34,7 @@ namespace Giant.Framework
             }
 
             FrontendManagerComponent component = GetFrontendServiceManager(config.AppType);
-            FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, FrontendManagerComponent, AppConfig>(component, config);
+            FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
             AddFrontend(frontend);
         }
 
@@ -42,7 +45,6 @@ namespace Giant.Framework
 
         public void Update(double t)
         {
-            UpdateFrontend();
         }
 
         #region Frontend
@@ -51,7 +53,7 @@ namespace Giant.Framework
         {
             if (!frontendServices.TryGetValue(appType, out var manager))
             {
-                manager = ComponentFactory.CreateComponent<FrontendManagerComponent, NetProxyComponent>(this);
+                manager = ComponentFactory.CreateComponent<FrontendManagerComponent>();
                 frontendServices.Add(appType, manager);
             }
             return manager;
@@ -77,11 +79,6 @@ namespace Giant.Framework
         private void StartFrontend()
         {
             frontendServices.ForEach(x => x.Value.Start());
-        }
-
-        private void UpdateFrontend()
-        {
-            frontendServices.ForEach(x => x.Value.Update());
         }
 
         #endregion
@@ -126,7 +123,7 @@ namespace Giant.Framework
         {
             if (!backendServices.TryGetValue(appType, out var manager))
             {
-                manager = ComponentFactory.CreateComponent<BackendManagerComponent, NetProxyComponent>(this);
+                manager = ComponentFactory.CreateComponent<BackendManagerComponent>();
                 backendServices.Add(appType, manager);
             }
             return manager;

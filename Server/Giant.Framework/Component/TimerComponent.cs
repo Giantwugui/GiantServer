@@ -19,7 +19,7 @@ namespace Giant.Framework
         }
     }
 
-    public class TimerComponent
+    public class TimerComponent : Component, IInitSystem, IUpdateSystem
     {
         private long minTime = 0;//最近过期时间
         private readonly Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo
@@ -31,11 +31,16 @@ namespace Giant.Framework
         private long timerId = 0;
         public long TimerId => ++timerId;
 
-        public static TimerComponent Instance { get; } = new TimerComponent();
+        public static TimerComponent Instance { get; private set; }
 
-        private TimerComponent() { }
+        public TimerComponent() { }
 
-        public void Update()
+        public void Init()
+        {
+            Instance = this;
+        }
+
+        public void Update(double dt)
         {
             long now = TimeHelper.NowMilliSeconds;
 
@@ -64,7 +69,14 @@ namespace Giant.Framework
             {
                 if (timers.TryGetValue(timerId, out TimerInfo timerInfo))
                 {
-                    timerInfo.Action();
+                    try
+                    {
+                        timerInfo.Action();
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.Log.Error(ex);
+                    }
                     timers.Remove(timerId);
                 }
             }
@@ -110,6 +122,5 @@ namespace Giant.Framework
 
             waitDicts[timerInfo.Time].Add(timerInfo.Id);
         }
-
     }
 }

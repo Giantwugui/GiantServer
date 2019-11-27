@@ -2,45 +2,30 @@
 using Giant.Logger;
 using Giant.Msg;
 using Giant.Net;
-using System;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Giant.Framework
 {
-    public class FrontendComponent : BaseServerComponent, IInitSystem<FrontendManagerComponent, AppConfig>
+    public class FrontendComponent : BaseServerComponent, IInitSystem<AppConfig>
     {
-        private CancellationTokenSource cancellation;
-        private long lastHeatBeatTime = TimeHelper.NowSeconds;
-
         public AppConfig AppConfig { get; private set; }
-        public FrontendManagerComponent FrontendManager { get; private set; }
-        public bool IsConnected => Session != null && Session.IsConnected;
 
-        public void Init(FrontendManagerComponent manager, AppConfig appConfig)
+        public void Init(AppConfig appConfig)
         {
             AppConfig = appConfig;
-            FrontendManager = manager;
+
+            AddComponent<HeartBeatComponent, Session, int>(Session, 20);
+
+            Scene.EventSystem.Handle(EventType.AffterFrontend, this);
         }
 
         public void Start()
         {
+            Session?.Dispose();
             InnerNetworkComponent component = Scene.Pool.GetComponent<InnerNetworkComponent>();
             Session = component.Create(AppConfig.InnerAddress);
             Session.OnConnectCallback += OnConnected;
             Session.Start();
-        }
-
-        public virtual void Update()
-        {
-            try
-            {
-                CheckHeartBeat();
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex);
-            }
         }
 
         public void Send(IMessage message)
@@ -53,43 +38,6 @@ namespace Giant.Framework
             return Session.Call(request);
         }
 
-        private void CheckHeartBeat()
-        {
-            if (!IsConnected)
-            {
-                return;
-            }
-
-            if (TimeHelper.NowSeconds - lastHeatBeatTime < 30)
-            {
-                return;
-            }
-
-            HeartBeat();
-            lastHeatBeatTime = TimeHelper.NowSeconds;
-        }
-
-        private async void HeartBeat()
-        {
-            Msg_HeartBeat_Ping ping = new Msg_HeartBeat_Ping
-            {
-                AppType = (int)Scene.AppConfig.AppType,
-                AppId = Scene.AppConfig.AppId,
-                SubId = Scene.AppConfig.SubId,
-            };
-
-            cancellation?.Cancel();
-            cancellation = new CancellationTokenSource(3000);
-
-            if (await Session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
-            {
-                Log.Info($"heart beat pong from appType {(AppType)message.AppType} appId {message.AppId} subId {message.SubId}");
-            }
-
-            cancellation.Dispose();
-            cancellation = null;
-        }
-
         private void OnConnected(Session session, bool connState)
         {
             if (connState)
@@ -98,11 +46,11 @@ namespace Giant.Framework
             }
             else
             {
-                CheckConnect();
+                Reconnect();
             }
         }
 
-        private async void CheckConnect()
+        private async void Reconnect()
         {
             await Task.Delay(3000);//3后重新连接
             Log.Warn($"app {Scene.AppConfig.AppType} {Scene.AppConfig.AppId} {Scene.AppConfig.SubId} connect to {AppConfig.AppType} {AppConfig.AppId} {Session.RemoteIPEndPoint}");

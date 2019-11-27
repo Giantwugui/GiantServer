@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Giant.Redis\Giant.Redis.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Component\Gate\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,4 @@
 ﻿using Giant.Core;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -21,8 +20,6 @@ namespace Giant.Net
         public Dictionary<long, Session> Sessions => sessions;
 
         public IMessagePacker MessageParser { get; set; }
-
-        public Action<Session, bool> OnConnect;
 
 
         public Session GetSession(long id)
@@ -52,7 +49,7 @@ namespace Giant.Net
         public virtual void Remove(Session session)
         {
             sessions.Remove(session.Id);
-            OnConnect?.Invoke(session, false);
+            OnDisconnecte(session);
         }
 
         public void Init(NetworkType network)
@@ -80,31 +77,29 @@ namespace Giant.Net
             {
                 case NetworkType.Tcp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new TcpService(Packet.PacketSizeLength2, endPoint, OnAccept);
+                    service = new TcpService(Packet.PacketSizeLength2, endPoint, channel => this.OnAccept(channel));
                     break;
                 case NetworkType.Udp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new UdpService(endPoint.Port, OnAccept);
+                    service = new UdpService(endPoint.Port, channel => this.OnAccept(channel));
                     break;
                 case NetworkType.Web:
-                    service = new WebService(address.Split(";").ToList(), OnAccept);
+                    service = new WebService(address.Split(";").ToList(), channel => this.OnAccept(channel));
                     break;
             }
         }
 
-        public override void Dispose()
-        {
-            OnConnect = null;
-        }
-
-        private void OnAccept(BaseChannel baseChannel)
+        public virtual Session OnAccept(BaseChannel baseChannel)
         {
             Session session = new Session(this, baseChannel);
             baseChannel.Start();
 
             sessions[session.Id] = session;
+            return session;
+        }
 
-            OnConnect?.Invoke(session, true);
+        public virtual void OnDisconnecte(Session session)
+        { 
         }
     }
 }

@@ -31,19 +31,6 @@ namespace Giant.Framework
             }
         }
 
-        public void Update()
-        {
-            foreach (var kv in services)
-            {
-                if (kv.Value.Count == 0)
-                {
-                    continue;
-                }
-
-                kv.Value.ForEach(x => x.Value.Update());
-            }
-        }
-
         public override void NotifyServiceInfo(BackendComponent backend)
         {
             AppConfig config;

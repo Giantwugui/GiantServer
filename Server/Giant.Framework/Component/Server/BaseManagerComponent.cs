@@ -2,14 +2,9 @@
 
 namespace Giant.Framework
 {
-    public abstract class BaseManagerComponent : Component, IInitSystem<NetProxyComponent>
+    public abstract class BaseManagerComponent : Component, IInitSystem
     {
-        public NetProxyComponent NetProxyManager { get; private set; }
-
-        public void Init(NetProxyComponent manager)
-        {
-            NetProxyManager = manager;
-        }
+        public void Init() { }
 
         public abstract void NotifyServiceInfo(BackendComponent backend);
     }

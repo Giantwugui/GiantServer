@@ -5,6 +5,8 @@ namespace Giant.Core
     public enum EventType
     {
         InitDone,
+        AffterFrontend,
+        AffterBackend,
     }
 
     public interface IEvent
