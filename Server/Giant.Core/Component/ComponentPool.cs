@@ -1,6 +1,6 @@
 ﻿namespace Giant.Core
 {
-    public class ComponentPool : Component
+    public class ComponentPool : Entity
     {
     }
 }

@@ -6,6 +6,7 @@ using Giant.Net;
 using Giant.Redis;
 using System;
 using System.Threading;
+using System.Reflection;
 
 namespace Server.App
 {
@@ -19,6 +20,10 @@ namespace Server.App
                 .WithParsed(options => { appOption = options; });
 
             IdGenerator.AppId = appOption.AppId;
+
+            //注册Event
+            Scene.EventSystem.RegistEvent(Assembly.GetEntryAssembly());
+            Scene.EventSystem.RegistEvent(typeof(NetProxyComponent).Assembly);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
@@ -64,11 +69,11 @@ namespace Server.App
                 Scene.Pool.AddComponent<OutterNetworkComponent, NetworkType, string>(NetworkType.Tcp, appConfig.OutterAddress);
             }
 
-            //启动服务注册  TODO后续需要完善EventSystem，并添加到event中
-            Scene.Pool.GetComponent<NetProxyComponent>().Start();
-
             //控制台监听事件
             Scene.Pool.AddComponent<ConsoleComponent>();
+
+            //启动服务注册
+            Scene.EventSystem.Handle(EventType.InitDone);
 
             DateTime dateTime = TimeHelper.Now;
             while (true)

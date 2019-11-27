@@ -37,8 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\Proto\Proto\InnerMessage.proto" Link="Proto\InnerMessage.proto" />
-    <None Include="..\..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
+    <None Update="..\..\Proto\Proto\OuterMessage.proto" Link="Proto\OuterMessage.proto" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

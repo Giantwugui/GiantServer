@@ -53,7 +53,7 @@
         private void AddComponent(Component component)
         {
             componentes.Add(component.GetType(), component);
-            Scene.EventSystem.Add(component);
+            Scene.EventSystem.Regist(component);
 
         }
     }
