@@ -33,7 +33,6 @@ namespace Giant.Framework
                 return;
             }
 
-            FrontendManagerComponent component = GetFrontendServiceManager(config.AppType);
             FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
             AddFrontend(frontend);
         }

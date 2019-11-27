@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -9,6 +10,8 @@ namespace Giant.Core
         private static DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
         private static DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
         private static ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
+
+        private static ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
         public void Add(Component component)
         {
@@ -50,19 +53,32 @@ namespace Giant.Core
                 }
             }
         }
+
+        public List<Type> Get(Type type)
+        {
+            attributeTypes.TryGetValue(type, out var types);
+            return types;
+        }
+
         #region event
 
-        public void RegistEvent(Assembly assembly)
+        public void Add(Assembly assembly)
         {
-            Type type = typeof(EventAttribute);
-            var events = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(type) != null);
-            foreach (Type kv in events)
+            Type type = typeof(ObjectAttribute);
+            var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(type) != null);
+            foreach (Type kv in objectTypes)
             {
-                if (!(kv.GetCustomAttribute(type) is EventAttribute attribute)) continue;
-
-                if (!(Activator.CreateInstance(kv) is IEvent @event)) continue;
-
-                eventList.Add(attribute.EventType, @event);
+                ObjectAttribute objectAttribute = kv.GetCustomAttribute(type) as ObjectAttribute;
+                switch (objectAttribute)
+                {
+                    case EventAttribute eventAttribute:
+                        if (!(Activator.CreateInstance(kv) is IEvent @event)) continue;
+                        eventList.Add(eventAttribute.EventType, @event);
+                        break;
+                    case MessageHandlerAttribute messageHandlerAttribute:
+                        attributeTypes.Add(messageHandlerAttribute.GetType(), kv);
+                        break;
+                }
             }
         }
 

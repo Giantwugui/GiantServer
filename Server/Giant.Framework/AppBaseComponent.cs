@@ -21,12 +21,11 @@ namespace Giant.Framework
             IdGenerator.AppId = appOption.AppId;
 
             //注册Event
-            Scene.EventSystem.RegistEvent(Assembly.GetEntryAssembly());
-            Scene.EventSystem.RegistEvent(typeof(NetProxyComponent).Assembly);
+            Scene.EventSystem.Add(Assembly.GetEntryAssembly());
+            Scene.EventSystem.Add(typeof(NetProxyComponent).Assembly);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
-
 
             //xml表
             Scene.Pool.AddComponent<DataComponent>();
@@ -40,6 +39,7 @@ namespace Giant.Framework
             Scene.Pool.AddComponent<MessageDispatcherComponent>();
             Scene.Pool.AddComponent<TimerComponent>();
             Scene.Pool.AddComponent<NetProxyComponent>();
+            Scene.Pool.AddComponent<ConsoleComponent>();
 
             DBConfigComponent component = Scene.Pool.AddComponent<DBConfigComponent>();
             if (Scene.AppConfig.AppType.NeedDBService())
@@ -62,9 +62,6 @@ namespace Giant.Framework
             {
                 Scene.Pool.AddComponent<OutterNetworkComponent, NetworkType, string>(NetworkType.Tcp, Scene.AppConfig.OutterAddress);
             }
-
-            //控制台监听事件
-            Scene.Pool.AddComponent<ConsoleComponent>();
         }
     }
 }

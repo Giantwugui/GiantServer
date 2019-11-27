@@ -14,8 +14,6 @@ namespace Giant.Framework
         {
             AppConfig = appConfig;
 
-            AddComponent<HeartBeatComponent, Session, int>(Session, 20);
-
             Scene.EventSystem.Handle(EventType.AffterFrontend, this);
         }
 
@@ -43,6 +41,10 @@ namespace Giant.Framework
             if (connState)
             {
                 RegistService();
+
+                //连接上之后添加心跳
+                GetComponent<HeartBeatComponent>()?.Dispose();
+                AddComponent<HeartBeatComponent, Session, int>(Session, 20);
             }
             else
             {

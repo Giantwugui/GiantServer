@@ -2,6 +2,7 @@
 using Giant.Logger;
 using Giant.Msg;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Giant.Net
@@ -34,27 +35,15 @@ namespace Giant.Net
 
         private void Load()
         {
-            Assembly entryAssembly = Assembly.GetEntryAssembly();
-            Assembly currendAssembly = Assembly.GetExecutingAssembly();
-            RegisterHandler(entryAssembly);
-            RegisterHandler(currendAssembly);
-        }
+            List<Type> handler = Scene.EventSystem.Get(typeof(MessageHandlerAttribute));
 
-        private void RegisterHandler(Assembly assembly)
-        {
-            Type handlerType = typeof(MessageHandlerAttribute);
-            var types = assembly.GetTypes();
-            foreach (var type in types)
+            handler?.ForEach(type =>
             {
-                if (!(type.GetCustomAttribute(handlerType) is MessageHandlerAttribute attribute))
-                {
-                    continue;
-                }
                 if (Activator.CreateInstance(type) is IMHandler handler)
                 {
                     RegisterHandler(handler);
                 }
-            }
+            });
         }
 
         private void RegisterHandler(IMHandler handler)

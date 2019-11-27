@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Giant.Net
+namespace Giant.Core
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class MessageHandlerAttribute : Attribute
+    public class MessageHandlerAttribute : ObjectAttribute
     {
     }
 }
