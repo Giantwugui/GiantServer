@@ -44,7 +44,7 @@ namespace Giant.Framework
 
                 //连接上之后添加心跳
                 GetComponent<HeartBeatComponent>()?.Dispose();
-                AddComponentWithCreate<HeartBeatComponent, Session, int>(Session, 20);
+                AddComponent<HeartBeatComponent, Session, int>(Session, 20);
             }
             else
             {

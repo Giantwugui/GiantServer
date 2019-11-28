@@ -13,7 +13,7 @@ namespace Server.App
             {
                 case AppType.Gate:
                     // 添加一些逻辑处理组件 eg：gate向global同步信息的组件
-                    frontend.AddComponentWithCreate<UpLoadGateInfoComponent, Session>(frontend.Session);
+                    frontend.AddComponent<UpLoadGateInfoComponent, Session>(frontend.Session);
                     break;
             }
         }

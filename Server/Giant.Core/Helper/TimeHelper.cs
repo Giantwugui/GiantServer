@@ -2,7 +2,7 @@
 
 namespace Giant.Core
 {
-    public class TimeHelper
+    public static class TimeHelper
     {
         public const string TimeStr = "yyMMddHHmmss";
         public const string TimeStr1 = "yyyy-MM-dd HH:mm:ss";

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Giant.Core
 {
-    public class MD5Helper
+    public static class MD5Helper
     {
         private static readonly MD5 md5Crypter = new MD5CryptoServiceProvider();
 

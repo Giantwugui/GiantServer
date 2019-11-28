@@ -7,13 +7,13 @@ namespace Giant.Core
 {
     public class EventSystem
     {
-        private static DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
-        private static DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
-        private static ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
+        private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
+        private readonly DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
+        private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
 
-        private static ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
+        private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
-        public void Add(Component component)
+        public void Regist(Component component)
         {
             switch (component)
             {
@@ -65,7 +65,7 @@ namespace Giant.Core
         public void Add(Assembly assembly)
         {
             Type type = typeof(ObjectAttribute);
-            var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(type) != null);
+            var objectTypes = assembly?.GetTypes().ToList().Where(x => x.GetCustomAttribute(type) != null);
             foreach (Type kv in objectTypes)
             {
                 ObjectAttribute objectAttribute = kv.GetCustomAttribute(type) as ObjectAttribute;
