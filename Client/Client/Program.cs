@@ -1,20 +1,26 @@
-﻿using Giant.Data;
-using Giant.Share;
+﻿using Giant.Core;
+using Giant.Net;
 using System;
+using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Client
 {
     class Program
     {
+        static CancellationTokenSource cancellationTokenSource;
+
         static void Main(string[] args)
         {
             try
             {
-                //DataManager.Instance.Init();
-                NET.Init();
+                //Scene.Pool.AddComponentWithCreate<DataComponent>();
+                Scene.Pool.AddComponentWithCreate<OpcodeComponent>();
+                Scene.Pool.AddComponentWithCreate<MessageDispatcherComponent>();
+                Scene.Pool.AddComponentWithCreate<OutterNetworkComponent, NetworkType>(NetworkType.Tcp);
 
-                ConsoleReader.Instance.Start(DoCmd);
+                Scene.EventSystem.Add(Assembly.GetExecutingAssembly());
             }
             catch (Exception ex)
             {
@@ -25,6 +31,8 @@ namespace Client
             {
                 try
                 {
+                    ReadLineAsync();
+
                     OneThreadSynchronizationContext.Instance.Update();
                     PlayerManager.Instance.Update();
                     Thread.Sleep(1);
@@ -35,6 +43,17 @@ namespace Client
                 }
             }
 
+        }
+
+        private static async void ReadLineAsync()
+        {
+            cancellationTokenSource = new CancellationTokenSource();
+            while (true)
+            {
+                string inStr = await Task.Run(() => Console.In.ReadLineAsync(), cancellationTokenSource.Token);
+
+                DoCmd(inStr);
+            }
         }
 
         private static void DoCmd(string content)

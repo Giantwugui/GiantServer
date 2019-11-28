@@ -19,7 +19,7 @@ namespace Giant.Framework
         }
     }
 
-    public class TimerComponent : Component, IInitSystem, IUpdateSystem
+    public class TimerComponent : Component, IUpdateSystem, IInitSystem
     {
         private long minTime = 0;//最近过期时间
         private readonly Dictionary<long, TimerInfo> timers = new Dictionary<long, TimerInfo>();//timerid,timerinfo

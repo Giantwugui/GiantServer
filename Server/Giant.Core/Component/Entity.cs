@@ -12,10 +12,10 @@ namespace Giant.Core
             children[component.InstanceId] = component;
         }
 
-        public Entity GetChild(long instanceId)
+        public T GetChild<T>(long instanceId) where T : Entity
         {
             children.TryGetValue(instanceId, out var component);
-            return component;
+            return component as T;
         }
 
         public void RemoveChild(long instanceId)

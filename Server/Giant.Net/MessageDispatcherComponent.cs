@@ -3,7 +3,6 @@ using Giant.Logger;
 using Giant.Msg;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Giant.Net
 {

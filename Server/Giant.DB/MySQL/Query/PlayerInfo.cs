@@ -10,12 +10,11 @@ namespace Giant.DB
     [BsonIgnoreExtraElements]
     public class PlayerInfo
     {
-        private LevelInfo levelInfo = new LevelInfo();
-
         [BsonId]
         public int Uid { get; set; }
         public string Account { get; set; }
         public int RoleId { get; set; }
         public int Level { get; set; }
+        public int MapId { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿using Giant.Msg;
+﻿using Giant.Core;
+using Giant.Msg;
 using Giant.Net;
-using Giant.Share;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
+using Giant.Framework;
 
 namespace Client
 {
@@ -22,7 +22,6 @@ namespace Client
 
     public partial class NET
     {
-        static NetworkService networkService;
         static AccountInfo accountInfo;
 
         private static Session session;
@@ -35,21 +34,11 @@ namespace Client
         private static List<int> loginedServers = new List<int>();
         private static Dictionary<int, Msg_CharacterInfo> characterInfos = new Dictionary<int, Msg_CharacterInfo>();
 
-        public static void Init()
-        {
-            networkService = new NetworkService(NetworkType.Tcp)
-            {
-                MessageParser = new ProtoPacker(),
-                MessageDispatcher = new MessageDispatcher()
-            };
-            RegistHandler();
-        }
-
         public static void DoLogin(string account, string passward)
         {
             accountInfo = new AccountInfo(account, passward);
 
-            session = networkService.Create(accountHost);
+            session = Scene.Pool.GetComponent<OutterNetworkComponent>().Create(accountHost);
             session.OnConnectCallback += (aimSession, state) =>
             {
                 if (state)
@@ -64,11 +53,6 @@ namespace Client
             };
 
             session.Start();
-        }
-
-        private static void RegistHandler()
-        {
-            networkService.MessageDispatcher.RegisterHandler(AppType.AllServer, Assembly.GetEntryAssembly());
         }
 
         private static void SetLoginedServers(IEnumerable<int> servers)

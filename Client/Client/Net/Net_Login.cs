@@ -1,4 +1,5 @@
-﻿using Giant.Msg;
+﻿using Giant.Core;
+using Giant.Msg;
 using Giant.Net;
 using System;
 using System.Linq;
@@ -46,7 +47,7 @@ namespace Client
 
         private static void ConnectToGate(string address)
         {
-            session = networkService.Create(address);
+            session = Scene.Pool.GetComponent<OutterNetworkComponent>().Create(address);
             session.OnConnectCallback += (aimSession, state) =>
             {
                 if (state)

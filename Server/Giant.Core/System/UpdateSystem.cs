@@ -2,6 +2,6 @@
 {
     public interface IUpdateSystem
     {
-        void Update(double dt);
+        void Update(double dt) { }
     }
 }

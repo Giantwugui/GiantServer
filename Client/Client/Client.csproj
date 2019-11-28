@@ -6,18 +6,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Server\Framework\Giant.Net\Giant.Net.csproj" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Giant.Data">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Data.dll</HintPath>
+    <Reference Include="Giant.Core">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Framework">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Logger">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Logger.dll</HintPath>
     </Reference>
     <Reference Include="Giant.Msg">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
     </Reference>
-    <Reference Include="Giant.Share">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Share.dll</HintPath>
+    <Reference Include="Giant.Net">
+      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\Bin\netcoreapp3.0\Google.Protobuf.dll</HintPath>

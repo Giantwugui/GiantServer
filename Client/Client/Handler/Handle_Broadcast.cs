@@ -1,10 +1,11 @@
-﻿using Giant.Msg;
+﻿using Giant.Core;
+using Giant.Msg;
 using Giant.Net;
 using System.Threading.Tasks;
 
 namespace Client
 {
-    [MessageHandler()]
+    [MessageHandler]
     class Handle_Broadcast : MHandler<ZGC_Broadcast>
     {
         public override async Task Run(Session session, ZGC_Broadcast message)

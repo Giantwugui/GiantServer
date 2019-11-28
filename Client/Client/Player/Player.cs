@@ -1,6 +1,6 @@
-﻿using Giant.Msg;
+﻿using Giant.Core;
+using Giant.Msg;
 using Giant.Net;
-using Giant.Share;
 
 namespace Client
 {

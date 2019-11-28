@@ -77,14 +77,14 @@ namespace Giant.Net
             {
                 case NetworkType.Tcp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new TcpService(Packet.PacketSizeLength2, endPoint, channel => this.OnAccept(channel));
+                    service = new TcpService(Packet.PacketSizeLength2, endPoint, channel => OnAccept(channel));
                     break;
                 case NetworkType.Udp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new UdpService(endPoint.Port, channel => this.OnAccept(channel));
+                    service = new UdpService(endPoint.Port, channel => OnAccept(channel));
                     break;
                 case NetworkType.Web:
-                    service = new WebService(address.Split(";").ToList(), channel => this.OnAccept(channel));
+                    service = new WebService(address.Split(";").ToList(), channel => OnAccept(channel));
                     break;
             }
         }
@@ -99,7 +99,7 @@ namespace Giant.Net
         }
 
         public virtual void OnDisconnecte(Session session)
-        { 
+        {
         }
     }
 }

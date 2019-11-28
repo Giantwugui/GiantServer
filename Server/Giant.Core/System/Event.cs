@@ -21,7 +21,7 @@ namespace Giant.Core
     {
         public void Run()
         {
-            this.Handle();
+            Handle();
         }
 
         public abstract void Handle();
@@ -31,7 +31,7 @@ namespace Giant.Core
     {
         public void Run(object o)
         {
-            this.Handle((A)o);
+            Handle((A)o);
         }
 
         public new Type GetType() => typeof(A);
@@ -41,7 +41,7 @@ namespace Giant.Core
 
     public abstract class Event<A, B> : IEvent
     {
-        public void Run(object a, object b) 
+        public void Run(object a, object b)
         {
             Handle((A)a, (B)b);
         }

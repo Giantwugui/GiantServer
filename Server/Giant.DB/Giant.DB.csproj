@@ -6,7 +6,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
-    <OutputPath>F:\GiantFrame\Bin\</OutputPath>
+    <OutputPath>F:\Giant\Bin\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

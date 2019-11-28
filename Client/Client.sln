@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{A3407FBB-0702-4C78-87E8-E94922AD89CA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{BF93D265-4D37-4565-AC1F-7A31D24ED3F4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Giant.Net", "..\Server\Framework\Giant.Net\Giant.Net.csproj", "{F1186F8B-2A88-468F-90C1-FBBBC691566A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,18 +18,9 @@ Global
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.exe|Any CPU.Build.0 = Debug|Any CPU
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3407FBB-0702-4C78-87E8-E94922AD89CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.exe|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.exe|Any CPU.Build.0 = Debug|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{F1186F8B-2A88-468F-90C1-FBBBC691566A} = {BF93D265-4D37-4565-AC1F-7A31D24ED3F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {54CD18AB-03C4-4099-88DE-D9FD51685BDE}

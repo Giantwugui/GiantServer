@@ -1,7 +1,7 @@
-﻿using Giant.Msg;
+﻿using Giant.Core;
+using Giant.Msg;
 using Giant.Net;
 using System.Threading.Tasks;
-using Giant.Core;
 
 namespace Giant.Framework
 {

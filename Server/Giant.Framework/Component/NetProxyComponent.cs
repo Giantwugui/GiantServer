@@ -20,6 +20,9 @@ namespace Giant.Framework
 
         public static NetProxyComponent Instance { get; private set; }
 
+        public FrontendComponent FrontendManagerServer => GetFrontendSinglePoint(AppType.Manager, Scene.AppConfig.AppId);
+
+
         public void Init()
         {
             Instance = this;
