@@ -93,10 +93,17 @@ namespace Giant.Framework
             BackendComponent oldService = manager.GetService(service.AppId, service.SubId);
             if (oldService != null)
             {
-                Log.Warn($"{service.AppType} {service.AppId} {service.SubId} regist to {Scene.AppConfig.AppType} {Scene.AppConfig.AppId} {Scene.AppConfig.SubId} repeat !");
-                return;
+                if (oldService.InstanceId == service.InstanceId)
+                {
+                    Log.Warn($"{service.AppType} {service.AppId} {service.SubId} regist to {Scene.AppConfig.AppType} {Scene.AppConfig.AppId} {Scene.AppConfig.SubId} repeat !");
+                    return;
+                }
+                else
+                {
+                    oldService.Dispose();
+                    manager.RemoveService(service.AppId, service.SubId);
+                }
             }
-
             manager.RegistService(service);
             NotifyServices(service);
         }

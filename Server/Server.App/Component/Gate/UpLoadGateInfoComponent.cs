@@ -1,14 +1,15 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 using Giant.Msg;
 using Giant.Net;
 using System;
 
 namespace Server.App
 {
-    public class UpLoadGateInfoComponent :  Component, IUpdateSystem, IInitSystem<Session>
+    public class UpLoadGateInfoComponent :  Component, IUpdateSystem, IInitSystem<FrontendComponent>
     {
         private DateTime updateTime = TimeHelper.Now;
-        private Session session;
+        private FrontendComponent frontendComponent;
 
         public void Update(double dt)
         {
@@ -19,9 +20,9 @@ namespace Server.App
             }
         }
 
-        public void Init(Session session)
+        public void Init(FrontendComponent frontend)
         {
-            this.session = session;
+            this.frontendComponent = frontend;
         }
 
         private void SendGateInfo()
@@ -33,7 +34,7 @@ namespace Server.App
                 Address = Scene.AppConfig.OutterAddress,
                 ClientCount = ClientManagerComponent.Instance.ClientCount()
             };
-            session?.Notify(msg);
+            frontendComponent.Session?.Notify(msg);
         }
     }
 }

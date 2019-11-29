@@ -22,16 +22,8 @@ namespace Server.App
 
             var query = new MongoDBQueryBatch<PlayerInfo>(DBName.Player, x => x.Account == client.Account);
             var playerInfos = await query.Task();
-            if (playerInfos?.Count == 0)
-            {
-                response.Error = ErrorCode.HaveNoThisCharacter;
-                return;
-            }
-            else
-            {
-                playerInfos.ForEach(player => response.Characters.Add(new Msg_CharacterInfo() { Uid = player.Uid, RoleId = player.RoleId }));
-            }
 
+            playerInfos.ForEach(player => response.Characters.Add(new Msg_CharacterInfo() { Uid = player.Uid, RoleId = player.RoleId }));
             response.Error = ErrorCode.Success;
         }
     }
@@ -45,14 +37,6 @@ namespace Server.App
             if (client == null)
             {
                 response.Error = ErrorCode.Fail;
-                return;
-            }
-
-            var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.RoleId == request.RoleId);
-            PlayerInfo playerInfo = await query.Task();
-            if (playerInfo != null)
-            {
-                response.Error = ErrorCode.HadExistTheCharacter;
                 return;
             }
 

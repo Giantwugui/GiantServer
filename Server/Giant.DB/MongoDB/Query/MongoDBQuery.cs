@@ -9,18 +9,32 @@ namespace Giant.DB.MongoDB
 {
     public class MongoDBQuery<T> : MongoDBTask<T>
     {
+        private readonly FindOptions<T> options;
         private readonly FilterDefinition<T> definition;
 
         public MongoDBQuery(string collectionName, Expression<Func<T, bool>> filter, FindOptions<T> options = null)
         {
             definition = filter;
             CollectionName = collectionName;
+            this.options = options;
+        }
+
+        public MongoDBQuery(string collectionName, Expression<Func<T, bool>> filter, int limit, int skip, BsonDocument sort)
+        {
+            CollectionName = collectionName;
+            definition = filter;
+            options = new FindOptions<T>
+            {
+                Limit = limit,
+                Skip = skip,
+                Sort = sort
+            };
         }
 
         public override async Task Run()
         {
             var collection = GetCollection<T>(CollectionName);
-            var result = await collection.FindSync<T>(definition).FirstOrDefaultAsync();
+            var result = await collection.FindSync<T>(definition, options).FirstOrDefaultAsync();
 
             SetResult(result);
         }

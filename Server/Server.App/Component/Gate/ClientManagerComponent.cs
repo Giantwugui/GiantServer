@@ -59,7 +59,7 @@ namespace Server.App
 
         public void Add(Client client)
         {
-            clients.Add(client.Uid, client);
+            clients[client.Uid] = client;
             clientsIndexBySessionId[client.Session.Id] = client;
         }
 

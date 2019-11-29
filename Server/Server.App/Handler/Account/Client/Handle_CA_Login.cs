@@ -83,7 +83,7 @@ namespace Server.App
                 Token = response.Token,
             };
 
-            var server = NetProxyComponent.Instance.GetFrontend(AppType.Gate, gateInfo.AppId, gateInfo.SubId);
+            var server = NetProxyComponent.Instance.GetBackend(AppType.Gate, gateInfo.AppId, gateInfo.SubId);
             server.Session.Notify(loginMsg);
 
             Log.Debug($"user login {session.RemoteIPEndPoint} {request.Account}");
