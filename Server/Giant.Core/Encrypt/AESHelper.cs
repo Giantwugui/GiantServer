@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace Giant.Core
 {
-    public class AESHelper
+    public static class AESHelper
     {
         private static readonly byte[] AESIV;
         public static readonly int KeyLength128 = 16;
@@ -12,10 +12,8 @@ namespace Giant.Core
         static AESHelper()
         {
             AESIV = new byte[KeyLength128];
-            using (RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider())
-            {
-                provider.GetBytes(AESIV);
-            }
+            using RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
+            provider.GetBytes(AESIV);
         }
 
         public static string Encrypt(string encryptKey, string content, CipherMode mode)
@@ -25,95 +23,66 @@ namespace Giant.Core
                 byte[] keyArray = encryptKey.FromBase64String();
                 byte[] toEncryptArray = content.FromUTF8String();
 
-                using (RijndaelManaged rDel = new RijndaelManaged()
+                using RijndaelManaged rDel = new RijndaelManaged()
                 {
                     Key = keyArray,
                     Mode = mode,
                     Padding = PaddingMode.PKCS7,
                     IV = AESIV
-                })
-                {
-                    ICryptoTransform cTransform = rDel.CreateEncryptor();
-                    byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-                    return resultArray.ToBase64String();
-                }
+                };
+                ICryptoTransform cTransform = rDel.CreateEncryptor();
+                byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+                return resultArray.ToBase64String();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return "";
             }
         }
 
         public static byte[] Encrypt(byte[] encryptKey, byte[] content, CipherMode mode)
         {
-            try
+            using RijndaelManaged rDel = new RijndaelManaged()
             {
-                using (RijndaelManaged rDel = new RijndaelManaged()
-                {
-                    Key = encryptKey,
-                    Mode = mode,
-                    Padding = PaddingMode.PKCS7,
-                    IV = AESIV
-                })
-                {
-                    ICryptoTransform cTransform = rDel.CreateEncryptor();
-                    byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
-                    return resultArray;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                Key = encryptKey,
+                Mode = mode,
+                Padding = PaddingMode.PKCS7,
+                IV = AESIV
+            };
+            ICryptoTransform cTransform = rDel.CreateEncryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
+            return resultArray;
         }
 
         public static string Dencrypt(string encryptKey, string content, CipherMode mode)
         {
-            try
-            {
-                Byte[] keyArray = encryptKey.FromBase64String();
-                Byte[] toEncryptArray = content.FromBase64String();
+            Byte[] keyArray = encryptKey.FromBase64String();
+            Byte[] toEncryptArray = content.FromBase64String();
 
-                using (RijndaelManaged rDel = new RijndaelManaged
-                {
-                    Key = keyArray,
-                    Mode = mode,
-                    Padding = PaddingMode.PKCS7,
-                    IV = AESIV
-                })
-                {
-                    ICryptoTransform cTransform = rDel.CreateDecryptor();
-                    byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
-                    return resultArray.ToUTF8String();
-                }
-            }
-            catch (Exception ex)
+            using RijndaelManaged rDel = new RijndaelManaged
             {
-                throw ex;
-            }
+                Key = keyArray,
+                Mode = mode,
+                Padding = PaddingMode.PKCS7,
+                IV = AESIV
+            };
+            ICryptoTransform cTransform = rDel.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+            return resultArray.ToUTF8String();
         }
 
         public static byte[] Dencrypt(byte[] encryptKey, byte[] content, CipherMode mode)
         {
-            try
+            using RijndaelManaged managed = new RijndaelManaged
             {
-                using (RijndaelManaged managed = new RijndaelManaged
-                {
-                    Key = encryptKey,
-                    Mode = mode,
-                    Padding = PaddingMode.PKCS7,
-                    IV = AESIV
-                })
-                {
-                    ICryptoTransform cTransform = managed.CreateDecryptor();
-                    byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
-                    return resultArray;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+                Key = encryptKey,
+                Mode = mode,
+                Padding = PaddingMode.PKCS7,
+                IV = AESIV
+            };
+            ICryptoTransform cTransform = managed.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(content, 0, content.Length);
+            return resultArray;
         }
     }
 }

@@ -10,17 +10,17 @@ namespace Server.App
             switch (Scene.AppConfig.AppType)
             {
                 case AppType.Account:
-                    Scene.Pool.AddComponentWithCreate<GateInfoComponent>();
+                    Scene.Pool.AddComponent<GateInfoComponent>();
                     break;
                 case AppType.Gate:
-                    Scene.Pool.AddComponentWithCreate<MapDataComponent>();
-                    Scene.Pool.AddComponentWithCreate<ClientManagerComponent>();
+                    Scene.Pool.AddComponent<MapDataComponent>();
+                    Scene.Pool.AddComponent<ClientManagerComponent>();
                     break;
                 case AppType.Zone:
-                    Scene.Pool.AddComponentWithCreate<MapDataComponent>();
+                    Scene.Pool.AddComponent<MapDataComponent>();
                     break;
                 case AppType.Manager:
-                    Scene.Pool.AddComponentWithCreate<UidComponent>();
+                    Scene.Pool.AddComponent<UidComponent>();
                     break;
             }
         }
