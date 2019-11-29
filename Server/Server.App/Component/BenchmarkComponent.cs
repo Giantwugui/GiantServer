@@ -21,7 +21,7 @@ namespace Server.Map
                 IPEndPoint ipEndPoint = NetworkHelper.ToIPEndPoint("127.0.0.1:8001");
                 for (int i = 0; i < 2000; i++)
                 {
-                    TestAsync(ipEndPoint, i);
+                    TestAsync(ipEndPoint);
                 }
             }
             catch (Exception e)
@@ -30,21 +30,19 @@ namespace Server.Map
             }
         }
 
-        public static async void TestAsync(IPEndPoint ipEndPoint, int j)
+        public static async void TestAsync(IPEndPoint ipEndPoint)
         {
             try
             {
                 OutterNetworkComponent component = Scene.Pool.GetComponent<OutterNetworkComponent>();
-                using (Session session = component.Create(ipEndPoint))
-                {
-                    session.Start();
+                using Session session = component.Create(ipEndPoint);
+                session.Start();
 
-                    int i = 0;
-                    while (i < 100000000)
-                    {
-                        ++i;
-                        await Send(session, j);
-                    }
+                int i = 0;
+                while (i < 100000000)
+                {
+                    ++i;
+                    await Send(session);
                 }
             }
             catch (Exception e)
@@ -53,7 +51,7 @@ namespace Server.Map
             }
         }
 
-        public static async Task Send(Session session, int j)
+        public static async Task Send(Session session)
         {
             try
             {
@@ -68,7 +66,7 @@ namespace Server.Map
                 long time2 = TimeHelper.NowMilliSeconds;
                 long time = time2 - time1;
                 time1 = time2;
-                Log.Warn($"Benchmark k: {num} 每10W次耗时: {time} ms {session.NetworkService.Sessions.Count}");
+                Log.Warn($"Benchmark k: {num} 每10W次耗时: {time} ms {session.GetParent<NetworkComponent>()?.Children.Count}");
             }
             catch (Exception e)
             {

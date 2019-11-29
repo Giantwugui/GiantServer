@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace Giant.Framework
 {
-    public class AppBaseComponent : IInitSystem<string[]>
+    public class AppComponent : IInitSystem<string[]>
     {
         public void Init(string[] args)
         {

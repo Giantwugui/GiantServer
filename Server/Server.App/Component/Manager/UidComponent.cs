@@ -2,7 +2,6 @@
 using Giant.DB;
 using Giant.DB.MongoDB;
 using MongoDB.Bson;
-using MongoDB.Driver;
 
 namespace Server.App
 {

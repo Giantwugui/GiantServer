@@ -1,12 +1,11 @@
 ﻿using Giant.Core;
 using Giant.Framework;
 using Giant.Msg;
-using Giant.Net;
 using System;
 
 namespace Server.App
 {
-    public class UpLoadGateInfoComponent :  Component, IUpdateSystem, IInitSystem<FrontendComponent>
+    public class UpLoadGateInfoComponent : Component, IUpdateSystem, IInitSystem<FrontendComponent>
     {
         private DateTime updateTime = TimeHelper.Now;
         private FrontendComponent frontendComponent;
@@ -22,7 +21,7 @@ namespace Server.App
 
         public void Init(FrontendComponent frontend)
         {
-            this.frontendComponent = frontend;
+            frontendComponent = frontend;
         }
 
         private void SendGateInfo()

@@ -10,7 +10,7 @@ namespace Server.App
         static void Main(string[] args)
         {
             //公共基础服务
-            ComponentFactory.CreateComponent<AppBaseComponent, string[]>(args);
+            ComponentFactory.CreateComponent<AppComponent, string[]>(args);
 
             //启动服务注册
             Scene.EventSystem.Handle(EventType.InitDone);

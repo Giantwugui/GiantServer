@@ -12,21 +12,11 @@ namespace Giant.Net
         Web
     }
 
-    public abstract class NetworkComponent : Component, IInitSystem<NetworkType>, IInitSystem<NetworkType, string>
+    public abstract class NetworkComponent : Entity, IInitSystem<NetworkType>, IInitSystem<NetworkType, string>
     {
         private BaseNetService service;
 
-        private readonly Dictionary<long, Session> sessions = new Dictionary<long, Session>();
-        public Dictionary<long, Session> Sessions => sessions;
-
         public IMessagePacker MessageParser { get; set; }
-
-
-        public Session GetSession(long id)
-        {
-            sessions.TryGetValue(id, out Session session);
-            return session;
-        }
 
         public Session Create(string address)
         {
@@ -36,8 +26,9 @@ namespace Giant.Net
         public Session Create(IPEndPoint endPoint)
         {
             BaseChannel channel = service.CreateChannel(endPoint);
-            Session session = new Session(this, channel);
-            sessions.Add(session.Id, session);
+            
+            Session session = ComponentFactory.CreateComponentWithParent<Session, NetworkComponent, BaseChannel>(this, channel);
+            AddChild(session);
             return session;
         }
 
@@ -48,7 +39,7 @@ namespace Giant.Net
 
         public virtual void Remove(Session session)
         {
-            sessions.Remove(session.Id);
+            RemoveChild(session.InstanceId);
             OnDisconnecte(session);
         }
 
@@ -91,10 +82,10 @@ namespace Giant.Net
 
         public virtual Session OnAccept(BaseChannel baseChannel)
         {
-            Session session = new Session(this, baseChannel);
+            Session session = ComponentFactory.CreateComponentWithParent<Session, NetworkComponent, BaseChannel>(this, baseChannel);
             baseChannel.Start();
 
-            sessions[session.Id] = session;
+            AddChild(session);
             return session;
         }
 

@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Giant.Net
 {
-    public class Session : IDisposable
+    public class Session : Entity, IInitSystem<BaseChannel>
     {
         private int rpcId;
-        private readonly BaseChannel channel;//通讯对象
+        private BaseChannel channel;//通讯对象
         private readonly byte[] opcodeBytes = new byte[2];
         private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
-        public NetworkComponent NetworkService { get; private set; }
+        public NetworkComponent NetworkComponent => GetParent<NetworkComponent>();
 
         public long Id { get; private set; }
 
@@ -32,11 +32,9 @@ namespace Giant.Net
             remove { onConnectCallback -= value; }
         }
 
-
-        public Session(NetworkComponent networkService, BaseChannel baseChannel)
+        public void Init(BaseChannel baseChannel)
         {
             Id = baseChannel.InstanceId;
-            NetworkService = networkService;
             channel = baseChannel;
 
             channel.OnReadCallback += OnRead;
@@ -132,8 +130,9 @@ namespace Giant.Net
             channel.Start();
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
             channel.Dispose();
 
             //清空所有消息回调
@@ -162,7 +161,7 @@ namespace Giant.Net
             memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 
             Type msgType = OpcodeComponent.Instance.GetMessageType(opcode);
-            IMessage message = NetworkService.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
+            IMessage message = NetworkComponent.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
 
             if (message is IResponse response)
             {
@@ -195,9 +194,7 @@ namespace Giant.Net
                     break;
             }
 
-            NetworkService.Remove(this);
-
-            Dispose();
+            NetworkComponent.Remove(this);
         }
 
         public void OnConnect(bool connState)

@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Giant.Net
 {
-    public class HttpService
+    public class HttpComponent : Component, IInitSystem<List<int>>
     {
         private HttpListener httpListener;
         private readonly Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
         private readonly Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
         private readonly Dictionary<MethodInfo, BaseHttpHandler> methodClassMap = new Dictionary<MethodInfo, BaseHttpHandler>();
 
-        public void Start(List<int> ports)
+        public void Init(List<int> ports)
         {
             try
             {

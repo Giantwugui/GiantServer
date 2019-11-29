@@ -1,6 +1,5 @@
 ﻿using Giant.Core;
 using Giant.Framework;
-using Giant.Net;
 
 namespace Server.App
 {
@@ -12,9 +11,9 @@ namespace Server.App
             switch (frontend.AppConfig.AppType)
             {
                 case AppType.Account:
-                        // 添加一些逻辑处理组件 eg：gate向global同步信息的组件
-                        frontend.AddComponentWithCreate<UpLoadGateInfoComponent, FrontendComponent>(frontend);
-                        break;
+                    // 添加一些逻辑处理组件 eg：gate向global同步信息的组件
+                    frontend.AddComponent<UpLoadGateInfoComponent, FrontendComponent>(frontend);
+                    break;
             }
         }
     }

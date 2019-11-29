@@ -18,7 +18,6 @@ namespace Giant.Core
         {
             foreach (var kv in componentes)
             {
-                Scene.Pool.RemoveChild(kv.Value.InstanceId);
                 kv.Value.Dispose();
             }
 

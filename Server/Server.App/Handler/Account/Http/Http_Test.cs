@@ -11,12 +11,12 @@ namespace Server.Account
 {
     public class Http_Test
     {
-        static readonly HttpService service = new HttpService();
+        static readonly HttpComponent service = new HttpComponent();
 
         public static void Test()
         {
             service.Load(Assembly.GetCallingAssembly());
-            service.Start(new List<int>() { 8080, 8081, 8082 });
+            service.Init(new List<int>() { 8080, 8081, 8082 });
 
             DoGet();
         }
