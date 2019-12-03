@@ -5,34 +5,34 @@
         void Init() { }
     }
 
-    public interface IInitSystem<T1>
+    public interface IInitSystem<P1>
     {
-        void Init(T1 t1);
+        void Init(P1 p1);
     }
 
-    public interface IInitSystem<T1, T2>
+    public interface IInitSystem<P1, P2>
     {
-        void Init(T1 t1, T2 t2);
+        void Init(P1 p1, P2 p2);
     }
 
-    public interface IInitSystem<T1, T2, T3>
+    public interface IInitSystem<P1, P2, P3>
     {
-        void Init(T1 t1, T2 t2, T3 t3) { }
+        void Init(P1 p1, P2 p2, P3 p3);
     }
 
-    public interface IInitSystem<T1, T2, T3, T4>
+    public interface IInitSystem<P1, P2, P3, P4>
     {
-        void Init(T1 t1, T2 t2, T3 t3, T4 t4);
+        void Init(P1 p1, P2 p2, P3 p3, P4 p4);
     }
 
-    public interface IInitSystem<T1, T2, T3, T4, T5>
+    public interface IInitSystem<P1, P2, P3, P4, P5>
     {
-        void Init(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
+        void Init(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5);
     }
 
-    public interface IInitSystem<T1, T2, T3, T4, T5, T6>
+    public interface IInitSystem<P1, P2, P3, P4, P5, P6>
     {
-        void Init(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6);
+        void Init(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6);
     }
 
     public abstract class InitSystem : Component, IInitSystem
@@ -40,28 +40,13 @@
         public abstract void Init();
     }
 
-    public abstract class InitSystem<T> : Component, IInitSystem<T>
+    public abstract class InitSystem<P> : Component, IInitSystem<P>
     {
-        public abstract void Init(T t1);
+        public abstract void Init(P t1);
     }
 
-    public abstract class InitSystem<T1, T2> : Component, IInitSystem<T1, T2>
+    public abstract class InitSystem<P1, P2> : Component, IInitSystem<P1, P2>
     {
-        public abstract void Init(T1 t1, T2 t2);
-    }
-
-    public abstract class InitSystem<T1, T2, T3> : Component, IInitSystem<T1, T2, T3>
-    {
-        public abstract void Init(T1 t1, T2 t2, T3 t3);
-    }
-
-    public abstract class InitSystem<T1, T2, T3, T4> : Component, IInitSystem<T1, T2, T3, T4>
-    {
-        public abstract void Init(T1 t1, T2 t2, T3 t3, T4 t4);
-    }
-
-    public abstract class InitSystem<T1, T2, T3, T4, T5> : Component, IInitSystem<T1, T2, T3, T4, T5>
-    {
-        public abstract void Init(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
+        public abstract void Init(P1 p1, P2 p2);
     }
 }
