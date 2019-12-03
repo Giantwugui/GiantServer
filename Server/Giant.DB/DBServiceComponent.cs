@@ -2,7 +2,7 @@
 
 namespace Giant.DB
 {
-    public class DBServiceComponent : Component, IInitSystem<DBType, DBConfig>, IMultDBService
+    public class DBServiceComponent : InitSystem<DBType, DBConfig>, IMultDBService
     {
         private DBType dbType;
 
@@ -15,7 +15,7 @@ namespace Giant.DB
 
         public DBServiceComponent() { }
 
-        public void Init(DBType dbType, DBConfig config)
+        public override void Init(DBType dbType, DBConfig config)
         {
             instance = this;
             this.dbType = dbType;

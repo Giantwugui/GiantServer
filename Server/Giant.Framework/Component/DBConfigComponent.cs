@@ -2,12 +2,12 @@
 
 namespace Giant.Framework
 {
-    public class DBConfigComponent : Component, IInitSystem, ILoadSystem
+    public class DBConfigComponent : InitSystem, ILoadSystem
     {
         public DBConfig DBConfig { get; private set; }
         public RedisConfig RedisConfig { get; private set; }
 
-        public void Init()
+        public override void Init()
         {
             Data data = DataComponent.Instance.GetData("DBConfig", 1);
 

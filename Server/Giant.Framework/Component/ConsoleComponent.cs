@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Giant.Framework
 {
-    public class ConsoleComponent : Component, IInitSystem
+    public class ConsoleComponent : InitSystem
     {
         private CancellationTokenSource cancellationTokenSource;
 
@@ -16,7 +16,7 @@ namespace Giant.Framework
         {
         }
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             cancellationTokenSource = new CancellationTokenSource();

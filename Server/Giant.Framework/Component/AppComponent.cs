@@ -9,9 +9,9 @@ using System.Threading;
 
 namespace Giant.Framework
 {
-    public class AppComponent : IInitSystem<string[]>
+    public class AppComponent : InitSystem<string[]>
     {
-        public void Init(string[] args)
+        public override void Init(string[] args)
         {
             AppOption appOption = null;
             Parser.Default.ParseArguments<AppOption>(args)

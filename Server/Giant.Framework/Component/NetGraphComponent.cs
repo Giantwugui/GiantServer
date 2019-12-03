@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Giant.Framework
 {
-    public class NetGraphComponent : Component, IInitSystem, ILoadSystem
+    public class NetGraphComponent : InitSystem, ILoadSystem
     {
         private readonly DepthMap<AppType, AppType, NetGraphType> netTopology = new DepthMap<AppType, AppType, NetGraphType>();
 
         public NetGraphComponent() { }
 
-        public void Init()
+        public override void Init()
         {
             netTopology.Clear();
             var datas = DataComponent.Instance.GetDatas("NetGraph");

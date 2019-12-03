@@ -5,15 +5,13 @@ using System;
 
 namespace Giant.Net
 {
-    public class OpcodeComponent : Component, IInitSystem, ILoadSystem
+    public class OpcodeComponent : InitSystem, ILoadSystem
     {
         private readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
 
         public static OpcodeComponent Instance { get; private set; }
 
-        public OpcodeComponent() { }
-
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             Load();

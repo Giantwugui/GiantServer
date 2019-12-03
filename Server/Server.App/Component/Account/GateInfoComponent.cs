@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Server.App
 {
-    public class GateInfoComponent : Component, IInitSystem
+    public class GateInfoComponent : InitSystem
     {
         readonly DepthMap<int, int, GateInfo> gateInfos = new DepthMap<int, int, GateInfo>();
 
@@ -40,6 +40,10 @@ namespace Server.App
             }
 
             return gates.Values.OrderByDescending(x => x.ClientCount).FirstOrDefault();
+        }
+
+        public override void Init()
+        {
         }
     }
 }

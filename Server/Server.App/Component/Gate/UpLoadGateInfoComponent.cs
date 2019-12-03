@@ -5,7 +5,7 @@ using System;
 
 namespace Server.App
 {
-    public class UpLoadGateInfoComponent : Component, IUpdateSystem, IInitSystem<FrontendComponent>
+    public class UpLoadGateInfoComponent : InitSystem<FrontendComponent>, IUpdateSystem
     {
         private DateTime updateTime = TimeHelper.Now;
         private FrontendComponent frontendComponent;
@@ -19,7 +19,7 @@ namespace Server.App
             }
         }
 
-        public void Init(FrontendComponent frontend)
+        public override void Init(FrontendComponent frontend)
         {
             frontendComponent = frontend;
         }

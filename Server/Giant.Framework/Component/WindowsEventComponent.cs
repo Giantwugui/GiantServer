@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace Giant.Framework
 {
-    public class WindowsEventComponent : Component, IInitSystem
+    public class WindowsEventComponent : InitSystem
     {
-        public void Init()
+        public override void Init()
         {
             //窗口关闭事件
             SetConsoleCtrlHandler(cancelHandler, true);

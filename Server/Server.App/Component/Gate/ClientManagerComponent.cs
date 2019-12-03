@@ -20,7 +20,7 @@ namespace Server.App
         }
     }
 
-    class ClientManagerComponent : Component, IUpdateSystem, IInitSystem
+    class ClientManagerComponent : InitSystem, IUpdateSystem
     {
         private readonly int timeOut = 3;
         private readonly Dictionary<long, Client> waittingClient = new Dictionary<long, Client>();
@@ -31,7 +31,7 @@ namespace Server.App
 
         public static ClientManagerComponent Instance { get; private set; }
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
         }

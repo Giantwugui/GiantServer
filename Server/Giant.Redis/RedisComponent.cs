@@ -5,7 +5,7 @@ using System;
 
 namespace Giant.Redis
 {
-    public class RedisComponent : Component, IRedisService, IInitSystem<RedisConfig>
+    public class RedisComponent : InitSystem<RedisConfig>, IRedisService
     {
         public TaskPool TaskPool { get; private set; }
 
@@ -27,7 +27,7 @@ namespace Giant.Redis
 
         public static RedisComponent Instance { get; } = new RedisComponent();
 
-        public void Init(RedisConfig config)
+        public override void Init(RedisConfig config)
         {
             string[] hosts = config.Host.Split(',', StringSplitOptions.RemoveEmptyEntries);
             Configuration = new ConfigurationOptions()

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Giant.Net
 {
-    public class MessageDispatcherComponent : Component, IInitSystem
+    public class MessageDispatcherComponent : InitSystem
     {
         private readonly ListMap<ushort, IMHandler> Handlers = new ListMap<ushort, IMHandler>();
 
@@ -14,7 +14,7 @@ namespace Giant.Net
 
         public MessageDispatcherComponent() { }
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             Load();

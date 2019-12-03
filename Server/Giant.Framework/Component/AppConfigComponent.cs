@@ -3,13 +3,13 @@ using System.Linq;
 
 namespace Giant.Framework
 {
-    public class AppConfigComponent : Component, IInitSystem, ILoadSystem
+    public class AppConfigComponent : InitSystem, ILoadSystem
     {
         private readonly ListMap<AppType, AppConfig> appConfigs = new ListMap<AppType, AppConfig>();
 
         public AppConfigComponent() { }
 
-        public void Init()
+        public override void Init()
         {
             appConfigs.Clear();
 

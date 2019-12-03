@@ -5,14 +5,14 @@ using MongoDB.Bson;
 
 namespace Server.App
 {
-    public class UidComponent : Component, IInitSystem
+    public class UidComponent : InitSystem
     {
         private int appId;
         private int maxUid;
 
         public static UidComponent Instance { get; private set; }
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             appId = Scene.AppConfig.AppId;

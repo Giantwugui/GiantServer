@@ -9,11 +9,11 @@ namespace Giant.Framework
     {
         public override void Handle()
         {
-            Scene.Pool.GetComponent<NetProxyComponent>().Handle();
+            Scene.Pool.GetComponent<NetProxyComponent>().Start();
         }
     }
 
-    public class NetProxyComponent : Component, IInitSystem, IUpdateSystem
+    public class NetProxyComponent : InitSystem, IUpdateSystem
     {
         private readonly Dictionary<AppType, FrontendManagerComponent> frontendServices = new Dictionary<AppType, FrontendManagerComponent>();
         private readonly Dictionary<AppType, BackendManagerComponent> backendServices = new Dictionary<AppType, BackendManagerComponent>();
@@ -23,7 +23,7 @@ namespace Giant.Framework
         public FrontendComponent FrontendManagerServer => GetFrontendSinglePoint(AppType.Manager, Scene.AppConfig.AppId);
 
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             if (Scene.AppConfig.AppType == AppType.Global)
@@ -38,11 +38,6 @@ namespace Giant.Framework
 
             FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
             AddFrontend(frontend);
-        }
-
-        public void Handle()
-        {
-            StartFrontend();
         }
 
         public void Update(double t)
@@ -78,7 +73,7 @@ namespace Giant.Framework
             manager?.AddService(frontend);
         }
 
-        private void StartFrontend()
+        public void Start()
         {
             frontendServices.ForEach(x => x.Value.Start());
         }

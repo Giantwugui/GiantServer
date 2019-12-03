@@ -35,27 +35,32 @@
         void Init(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5, T6 t6);
     }
 
-    public abstract class InitSystem<T> : IInitSystem<T>
+    public abstract class InitSystem : Component, IInitSystem
+    {
+        public abstract void Init();
+    }
+
+    public abstract class InitSystem<T> : Component, IInitSystem<T>
     {
         public abstract void Init(T t1);
     }
 
-    public abstract class InitSystem<T1, T2> : IInitSystem<T1, T2>
+    public abstract class InitSystem<T1, T2> : Component, IInitSystem<T1, T2>
     {
         public abstract void Init(T1 t1, T2 t2);
     }
 
-    public abstract class InitSystem<T1, T2, T3> : IInitSystem<T1, T2, T3>
+    public abstract class InitSystem<T1, T2, T3> : Component, IInitSystem<T1, T2, T3>
     {
         public abstract void Init(T1 t1, T2 t2, T3 t3);
     }
 
-    public abstract class InitSystem<T1, T2, T3, T4> : IInitSystem<T1, T2, T3, T4>
+    public abstract class InitSystem<T1, T2, T3, T4> : Component, IInitSystem<T1, T2, T3, T4>
     {
         public abstract void Init(T1 t1, T2 t2, T3 t3, T4 t4);
     }
 
-    public abstract class InitSystem<T1, T2, T3, T4, T5> : IInitSystem<T1, T2, T3, T4, T5>
+    public abstract class InitSystem<T1, T2, T3, T4, T5> : Component, IInitSystem<T1, T2, T3, T4, T5>
     {
         public abstract void Init(T1 t1, T2 t2, T3 t3, T4 t4, T5 t5);
     }
