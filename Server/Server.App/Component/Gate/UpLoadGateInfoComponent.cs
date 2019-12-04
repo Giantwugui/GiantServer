@@ -1,27 +1,24 @@
 ﻿using Giant.Core;
 using Giant.Framework;
 using Giant.Msg;
-using System;
 
 namespace Server.App
 {
-    public class UpLoadGateInfoComponent : InitSystem<FrontendComponent>, IUpdateSystem
+    public class UpLoadGateInfoComponent : InitSystem<FrontendComponent>
     {
-        private DateTime updateTime = TimeHelper.Now;
+        private long timerId;
         private FrontendComponent frontendComponent;
-
-        public void Update(double dt)
-        {
-            if (TimeHelper.Now > updateTime)
-            {
-                updateTime = TimeHelper.Now.AddSeconds(5);
-                SendGateInfo();
-            }
-        }
 
         public override void Init(FrontendComponent frontend)
         {
             frontendComponent = frontend;
+            timerId = TimerComponent.Instance.AddRepeatTimer(3 * 1000, SendGateInfo).InstanceId;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            TimerComponent.Instance.Remove(timerId);
         }
 
         private void SendGateInfo()

@@ -49,4 +49,9 @@
     {
         public abstract void Init(P1 p1, P2 p2);
     }
+
+    public abstract class InitSystem<P1, P2, P3> : Component, IInitSystem<P1, P2, P3>
+    {
+        public abstract void Init(P1 p1, P2 p2, P3 p3);
+    }
 }
