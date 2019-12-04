@@ -14,9 +14,8 @@ namespace Giant.Net
     /// <summary>
     /// 通讯类型抽象类
     /// </summary>
-    public abstract class BaseChannel : IDisposable
+    public abstract class BaseChannel : Component
     {
-        public long InstanceId { get; private set; }
         public ChannelType ChannelType { get; private set; }
         public bool IsConnected { get; protected set; }
         public IPEndPoint IPEndPoint { get; protected set; }
@@ -73,8 +72,9 @@ namespace Giant.Net
         {
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
+            base.Dispose();
             Service.Remove(InstanceId);
         }
 

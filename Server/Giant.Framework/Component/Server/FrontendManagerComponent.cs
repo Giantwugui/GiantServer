@@ -9,7 +9,13 @@ namespace Giant.Framework
 
         public void AddService(FrontendComponent frontend)
         {
-            services.Add(Scene.AppConfig.AppId, Scene.AppConfig.SubId, frontend);
+            if (services.TryGetValue(frontend.AppConfig.AppId, frontend.AppConfig.SubId, out var oldComponent))
+            {
+                oldComponent.Dispose();
+                services.Remove(frontend.AppConfig.AppId, frontend.AppConfig.SubId);
+            }
+
+            services.Add(frontend.AppConfig.AppId, frontend.AppConfig.SubId, frontend);
         }
 
         public FrontendComponent GetService(int appId, int subId)

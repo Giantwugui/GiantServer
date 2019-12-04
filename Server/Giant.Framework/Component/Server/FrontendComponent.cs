@@ -20,8 +20,7 @@ namespace Giant.Framework
         public void Start()
         {
             Session?.Dispose();
-            InnerNetworkComponent component = Scene.Pool.GetComponent<InnerNetworkComponent>();
-            Session = component.Create(AppConfig.InnerAddress);
+            Session = Scene.Pool.GetComponent<InnerNetworkComponent>().Create(AppConfig.InnerAddress);
             Session.OnConnectCallback += OnConnected;
             Session.Start();
         }
@@ -36,14 +35,22 @@ namespace Giant.Framework
             return Session.Call(request);
         }
 
+        public override void Dispose()
+        {
+            base.Dispose();
+            Session?.Dispose();
+        }
+
         private void OnConnected(Session session, bool connState)
         {
+            if (IsDisposed()) return;
+
             if (connState)
             {
                 RegistService();
 
                 //连接上之后添加心跳
-                GetComponent<HeartBeatComponent>()?.Dispose();
+                RemoveComponent<HeartBeatComponent>();
                 AddComponent<HeartBeatComponent, Session, int>(Session, 20);
             }
             else
@@ -57,7 +64,9 @@ namespace Giant.Framework
             await Task.Delay(3000);//3后重新连接
             Log.Warn($"app {Scene.AppConfig.AppType} {Scene.AppConfig.AppId} {Scene.AppConfig.SubId} connect to {AppConfig.AppType} {AppConfig.AppId} {Session.RemoteIPEndPoint}");
 
-            Start();
+            if (IsDisposed()) return;
+
+            Session.Connect();
         }
 
         private async void RegistService()

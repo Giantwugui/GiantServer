@@ -43,5 +43,19 @@ namespace Giant.Core
 
             Scene.EventSystem.Regist(component);
         }
+
+        public void RemoveComponent<T>() where T : Component
+        {
+            Type type = typeof(T);
+            if (componentes.TryGetValue(type, out var com))
+            {
+                componentes.Remove(type);
+
+                if (!com.IsDisposed())
+                {
+                    com.Dispose();
+                }
+            }
+        }
     }
 }

@@ -8,19 +8,6 @@ namespace Giant.Core
         public Dictionary<long, Entity> Children => children;
 
 
-        private Entity parent;
-        public Entity Parent
-        {
-            get { return parent; }
-            set
-            {
-                if (parent?.InstanceId == value.InstanceId) return;
-                parent = value;
-            }
-        }
-
-        public T GetParent<T>() where T : Entity => parent as T;
-
         public void AddChild(Entity component)
         {
             children[component.InstanceId] = component;
@@ -34,20 +21,28 @@ namespace Giant.Core
 
         public void RemoveChild(long instanceId)
         {
-            children.TryGetValue(instanceId, out var entity);
-            entity?.Dispose();
+            if (children.TryGetValue(instanceId, out var entity))
+            {
+                if (!entity.IsDisposed())
+                {
+                    entity.Dispose();
+                }
+            }
 
             children.Remove(instanceId);
         }
 
         public override void Dispose()
         {
+            if (IsDisposed()) return;
+
+            long instanceId = this.InstanceId;
+            base.Dispose();
+
             children.ForEach(x => x.Value.Dispose());
             children.Clear();
 
-            parent?.RemoveChild(InstanceId);
-
-            base.Dispose();
+            GetParent<Entity>()?.RemoveChild(instanceId);
         }
     }
 }

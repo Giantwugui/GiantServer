@@ -9,6 +9,19 @@ namespace Giant.Core
 
         public long InstanceId { get; set; }
 
+        private Component parent;
+        public Component Parent
+        {
+            get { return parent; }
+            set
+            {
+                if (parent?.InstanceId == value.InstanceId) return;
+                parent = value;
+            }
+        }
+
+        public T GetParent<T>() where T : Component => parent as T;
+
         public Component()
         {
             InstanceId = IdGenerator.NewId;
@@ -24,7 +37,13 @@ namespace Giant.Core
             componentes.Clear();
 
             Scene.EventSystem.Remove(this);
+
             InstanceId = 0;
+        }
+
+        public bool IsDisposed()
+        {
+            return InstanceId == 0;
         }
     }
 }

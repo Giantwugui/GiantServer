@@ -130,6 +130,11 @@ namespace Giant.Net
             channel.Start();
         }
 
+        public void Connect()
+        {
+            channel.Connect();
+        }
+
         public override void Dispose()
         {
             base.Dispose();

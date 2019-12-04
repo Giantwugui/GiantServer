@@ -2,9 +2,8 @@
 
 namespace Giant.Framework
 {
-    public abstract class BaseManagerComponent : InitSystem
+    public abstract class BaseManagerComponent : Component
     {
-        public override void Init() { }
         public abstract void NotifyServiceInfo(BackendComponent backend);
     }
 }
