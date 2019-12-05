@@ -65,7 +65,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponentWithParent<T, P, P1>(P parent, P1 p1) where T : Component where P : Component
+        public static T CreateComponentWithParent<T, P1>(Component parent, P1 p1) where T : Component
         {
             T component = Activator.CreateInstance<T>();
             component.Parent = parent;
@@ -76,7 +76,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponentWithParent<T, P, P1, P2>(P parent, P1 p1, P2 p2) where T : Component where P : Component
+        public static T CreateComponentWithParent<T, P1, P2>(Component parent, P1 p1, P2 p2) where T : Component
         {
             T component = Activator.CreateInstance<T>(); 
             component.Parent = parent;

@@ -2,49 +2,34 @@
 using Giant.Logger;
 using Giant.Msg;
 using Giant.Net;
-using System;
 using System.Threading;
 
 namespace Giant.Framework
 {
-    class HeartBeatComponent : Component, IInitSystem<Session, int>, IUpdateSystem
+    class HeartBeatComponent : InitSystem<Session, int>
     {
+        private long timerId;
         private Session session;
-        private int delayTime = 30;
         private CancellationTokenSource cancellation;
-        private DateTime lastHeatBeatTime = TimeHelper.Now;
 
         public bool IsConnected => session != null && session.IsConnected;
 
-        public void Init(Session session, int delayTime)
+        public override void Init(Session session, int delayTime)
         {
             this.session = session;
-            this.delayTime = delayTime;
+            timerId = TimerComponent.Instance.AddRepeatTimer(10 * 1000, HeartBeat).InstanceId;
         }
 
-        public void Update(double dt)
+        public override void Dispose()
         {
-            CheckHeartBeat();
-        }
-
-        private void CheckHeartBeat()
-        {
-            if (!IsConnected)
-            {
-                return;
-            }
-
-            if ((TimeHelper.Now - lastHeatBeatTime).TotalSeconds < delayTime)
-            {
-                return;
-            }
-
-            HeartBeat();
-            lastHeatBeatTime = TimeHelper.Now;
+            base.Dispose();
+            TimerComponent.Instance.Remove(timerId);
         }
 
         private async void HeartBeat()
         {
+            if (!IsConnected) return;
+
             Msg_HeartBeat_Ping ping = new Msg_HeartBeat_Ping
             {
                 AppType = (int)Scene.AppConfig.AppType,
@@ -53,7 +38,7 @@ namespace Giant.Framework
             };
 
             cancellation?.Cancel();
-            cancellation = new CancellationTokenSource(delayTime * 1000);
+            cancellation = new CancellationTokenSource(1 * 1000);
 
             if (await session.Call(ping, cancellation.Token) is Msg_HeartBeat_Pong message)
             {

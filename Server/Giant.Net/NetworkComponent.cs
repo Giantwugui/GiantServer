@@ -27,7 +27,7 @@ namespace Giant.Net
         {
             BaseChannel channel = service.CreateChannel(endPoint);
             
-            Session session = ComponentFactory.CreateComponentWithParent<Session, NetworkComponent, BaseChannel>(this, channel);
+            Session session = ComponentFactory.CreateComponentWithParent<Session, BaseChannel>(this, channel);
             AddChild(session);
             return session;
         }
@@ -82,7 +82,7 @@ namespace Giant.Net
 
         public virtual Session OnAccept(BaseChannel baseChannel)
         {
-            Session session = ComponentFactory.CreateComponentWithParent<Session, NetworkComponent, BaseChannel>(this, baseChannel);
+            Session session = ComponentFactory.CreateComponentWithParent<Session, BaseChannel>(this, baseChannel);
             baseChannel.Start();
 
             AddChild(session);
