@@ -21,8 +21,8 @@ namespace Giant.Framework
             IdGenerator.AppId = appOption.AppId;
 
             //注册Event
-            Scene.EventSystem.Add(Assembly.GetEntryAssembly());
-            Scene.EventSystem.Add(typeof(NetProxyComponent).Assembly);
+            Scene.EventSystem.RegistEvent(Assembly.GetEntryAssembly());
+            Scene.EventSystem.RegistEvent(typeof(NetProxyComponent).Assembly);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);

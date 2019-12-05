@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 using Giant.Net;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,10 @@ namespace Server.App
         }
     }
 
-    class ClientManagerComponent : InitSystem, IUpdateSystem
+    class ClientManagerComponent : InitSystem
     {
-        private readonly int timeOut = 3;
+        private long timerId;
+        private readonly int timeOut = 5;
         private readonly Dictionary<long, Client> waittingClient = new Dictionary<long, Client>();
         private readonly Dictionary<string, ClientEnter> enterList = new Dictionary<string, ClientEnter>();
 
@@ -34,11 +36,7 @@ namespace Server.App
         public override void Init()
         {
             Instance = this;
-        }
-
-        public void Update(double dt)
-        {
-            RemoveTimeOutClient();
+            timerId = TimerComponent.Instance.AddRepeatTimer(10 * 1000, RemoveTimeOutClient).InstanceId;
         }
 
         public void WillEnter(ClientEnter client)
@@ -98,6 +96,12 @@ namespace Server.App
         {
             Client client = GetClient(session.Id);
             client?.Offline();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            TimerComponent.Instance.Remove(timerId);
         }
 
         private void RemoveTimeOutClient()

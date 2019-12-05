@@ -1,16 +1,24 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Server.Account
 {
-    public class UserManagerComponent : Entity, IUpdateSystem
+    public class UserManagerComponent : InitSystem
     {
+        private long timerId;
         private readonly int timeOut = 3;
         private readonly Dictionary<long, User> clients = new Dictionary<long, User>();
 
-        public static UserManagerComponent Instance { get; } = new UserManagerComponent();
+        public static UserManagerComponent Instance { get; private set; }
+
+        public override void Init()
+        {
+            Instance = this;
+            timerId = TimerComponent.Instance.AddRepeatTimer(10 * 1000, RemoveTimeOutClient).InstanceId;
+        }
 
         public void Add(User client)
         {
@@ -33,10 +41,12 @@ namespace Server.Account
             return clients.Count;
         }
 
-        public void Update(double dt)
+        public override void Dispose()
         {
-            RemoveTimeOutClient();
+            base.Dispose();
+            TimerComponent.Instance.Remove(timerId);
         }
+
         private void RemoveTimeOutClient()
         {
             DateTime time = TimeHelper.Now;
@@ -45,7 +55,5 @@ namespace Server.Account
             var wattingList = clients.Where(x => (time - x.Value.HeartBeatTime).TotalMinutes > timeOut).Select(x => x.Key).ToList();
             wattingList.ForEach(x => clients.Remove(x));
         }
-
-
     }
 }

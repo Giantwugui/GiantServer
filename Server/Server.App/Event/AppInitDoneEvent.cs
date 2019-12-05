@@ -3,7 +3,7 @@
 namespace Server.App
 {
     [Event(EventType.InitDone)]
-    public class AppInitDoneEventSystem : Event
+    public class AppInitDoneEvent : Event
     {
         public override void Handle()
         {

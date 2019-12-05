@@ -4,16 +4,7 @@ using System.Collections.Generic;
 
 namespace Giant.Framework
 {
-    [Event(EventType.InitDone)]
-    public class NetProxyComponentEventSystem : Event
-    {
-        public override void Handle()
-        {
-            Scene.Pool.GetComponent<NetProxyComponent>().Start();
-        }
-    }
-
-    public class NetProxyComponent : InitSystem, IUpdateSystem
+    public class NetProxyComponent : InitSystem
     {
         private readonly Dictionary<AppType, FrontendManagerComponent> frontendServices = new Dictionary<AppType, FrontendManagerComponent>();
         private readonly Dictionary<AppType, BackendManagerComponent> backendServices = new Dictionary<AppType, BackendManagerComponent>();
@@ -38,10 +29,6 @@ namespace Giant.Framework
 
             FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
             AddFrontend(frontend);
-        }
-
-        public void Update(double t)
-        {
         }
 
         #region Frontend

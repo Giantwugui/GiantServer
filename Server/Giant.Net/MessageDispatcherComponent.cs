@@ -34,7 +34,7 @@ namespace Giant.Net
 
         private void Load()
         {
-            List<Type> handler = Scene.EventSystem.Get(typeof(MessageHandlerAttribute));
+            List<Type> handler = Scene.EventSystem.GetTypes(typeof(MessageHandlerAttribute));
 
             handler?.ForEach(type =>
             {

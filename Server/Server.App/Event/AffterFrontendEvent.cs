@@ -4,7 +4,7 @@ using Giant.Framework;
 namespace Server.App
 {
     [Event(EventType.AffterFrontend)]
-    public class AffterFrontendEventSystem : Event<FrontendComponent>
+    public class AffterFrontendEvent : Event<FrontendComponent>
     {
         public override void Handle(FrontendComponent frontend)
         {

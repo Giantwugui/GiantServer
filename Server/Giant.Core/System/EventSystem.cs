@@ -13,7 +13,7 @@ namespace Giant.Core
 
         private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
-        public void Regist(Component component)
+        public void RegistSystem(Component component)
         {
             switch (component)
             {
@@ -54,7 +54,7 @@ namespace Giant.Core
             }
         }
 
-        public List<Type> Get(Type type)
+        public List<Type> GetTypes(Type type)
         {
             attributeTypes.TryGetValue(type, out var types);
             return types;
@@ -62,22 +62,26 @@ namespace Giant.Core
 
         #region event
 
-        public void Add(Assembly assembly)
+        public void RegistEvent(Assembly assembly)
         {
-            Type type = typeof(ObjectAttribute);
-            var objectTypes = assembly?.GetTypes().ToList().Where(x => x.GetCustomAttribute(type) != null);
+            Type objType = typeof(ObjectAttribute);
+            var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
             foreach (Type kv in objectTypes)
             {
-                ObjectAttribute objectAttribute = kv.GetCustomAttribute(type) as ObjectAttribute;
-                switch (objectAttribute)
+                ObjectAttribute objectAttribute = kv.GetCustomAttribute(objType) as ObjectAttribute;
+                attributeTypes.Add(objectAttribute.GetType(), kv);
+            }
+
+            eventList.Clear();
+            Type eventAttributeType = typeof(EventAttribute);
+            if (attributeTypes.TryGetValue(eventAttributeType, out var types))
+            {
+                foreach(var type in types)
                 {
-                    case EventAttribute eventAttribute:
-                        if (!(Activator.CreateInstance(kv) is IEvent @event)) continue;
-                        eventList.Add(eventAttribute.EventType, @event);
-                        break;
-                    case MessageHandlerAttribute messageHandlerAttribute:
-                        attributeTypes.Add(messageHandlerAttribute.GetType(), kv);
-                        break;
+                    if (!(Activator.CreateInstance(type) is IEvent @event)) continue;
+                    
+                    EventAttribute attribute = type.GetCustomAttribute(eventAttributeType) as EventAttribute;
+                    eventList.Add(attribute.EventType, @event);
                 }
             }
         }

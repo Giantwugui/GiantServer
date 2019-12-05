@@ -1,14 +1,9 @@
 ﻿using System;
 
-namespace Giant.Framework
+namespace Giant.Core
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class BaseAttribute : Attribute
-    {
-    }
-
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class SystemAttribute : BaseAttribute
+    public class SystemAttribute : ObjectAttribute
     {
     }
 }
