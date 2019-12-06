@@ -5,6 +5,7 @@ namespace Giant.Core
 {
     public abstract class DataTask : IDataTask
     {
+        public DataTask() { }
         public long TaskId { get; set; }
 
         public abstract IDataService DataService { get; }

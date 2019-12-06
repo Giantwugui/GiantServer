@@ -21,7 +21,7 @@ namespace Server.App
 
             if (player == null)
             {
-                MongoDBQuery<PlayerInfo> query = new MongoDBQuery<PlayerInfo>(DBName.Player, x=>x.Uid == message.Uid);
+                MongoDBQuery<PlayerInfo> query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid == message.Uid);
                 PlayerInfo info = await query.Task();
 
                 if (player == null)

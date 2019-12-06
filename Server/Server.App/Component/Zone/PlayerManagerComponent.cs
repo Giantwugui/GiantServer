@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Giant.Core;
 using System.Collections.Generic;
-using Giant.Core;
 
 namespace Server.App
 {
@@ -17,7 +16,7 @@ namespace Server.App
         }
 
         public void Update(double dt)
-        { 
+        {
         }
 
         public Player GetPlayer(int uid)

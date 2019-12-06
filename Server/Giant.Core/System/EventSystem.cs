@@ -76,10 +76,10 @@ namespace Giant.Core
             Type eventAttributeType = typeof(EventAttribute);
             if (attributeTypes.TryGetValue(eventAttributeType, out var types))
             {
-                foreach(var type in types)
+                foreach (var type in types)
                 {
                     if (!(Activator.CreateInstance(type) is IEvent @event)) continue;
-                    
+
                     EventAttribute attribute = type.GetCustomAttribute(eventAttributeType) as EventAttribute;
                     eventList.Add(attribute.EventType, @event);
                 }

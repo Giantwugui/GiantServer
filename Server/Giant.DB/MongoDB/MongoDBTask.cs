@@ -1,5 +1,7 @@
 ﻿using Giant.Core;
 using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Giant.DB.MongoDB
 {
@@ -21,5 +23,19 @@ namespace Giant.DB.MongoDB
             return Service.GetCollection<TDocumnet>(collectionName);
         }
 
+        public static async Task<List<string>> GetIndex<TDocumnet>(IMongoCollection<TDocumnet> collection)
+        {
+            List<string> indexList = new List<string>();
+            var cursor = await collection.Indexes.ListAsync();
+            while (cursor.MoveNext())
+            {
+                if (cursor.Current == null) continue;
+                foreach (var kv in cursor.Current)
+                {
+                    indexList.Add(kv.GetValue("name").AsString);
+                }
+            }
+            return indexList;
+        }
     }
 }

@@ -35,7 +35,7 @@ namespace Server.App
 
         public void EnterWorld()
         {
-            Msg_GateZ_EnterWorld msg = new Msg_GateZ_EnterWorld { Uid = this.Uid };
+            Msg_GateZ_EnterWorld msg = new Msg_GateZ_EnterWorld { Uid = Uid };
             SendToZone(msg);
         }
 

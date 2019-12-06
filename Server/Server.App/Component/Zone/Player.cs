@@ -23,7 +23,7 @@ namespace Server.App
         }
 
         public void EnterMap(int mapId)
-        { 
+        {
             MapComponent map = MapManangerComponent.Instance.GetMap(mapId);
         }
 

@@ -36,7 +36,7 @@ namespace Giant.Core
         {
             if (IsDisposed()) return;
 
-            long instanceId = this.InstanceId;
+            long instanceId = InstanceId;
             base.Dispose();
 
             children.ForEach(x => x.Value.Dispose());

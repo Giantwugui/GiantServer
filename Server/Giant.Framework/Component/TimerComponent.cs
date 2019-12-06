@@ -55,7 +55,7 @@ namespace Giant.Framework
 
             long time = TimeHelper.NowMilliSeconds + RepeatTime;
             TimerComponent component = GetParent<TimerComponent>();
-            component.Add(time, this.InstanceId);
+            component.Add(time, InstanceId);
 
             try
             {

@@ -1,5 +1,4 @@
 ﻿using Giant.Core;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 
@@ -26,7 +25,7 @@ namespace Giant.Net
         public Session Create(IPEndPoint endPoint)
         {
             BaseChannel channel = service.CreateChannel(endPoint);
-            
+
             Session session = ComponentFactory.CreateComponentWithParent<Session, BaseChannel>(this, channel);
             AddChild(session);
             return session;

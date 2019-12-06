@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 
 namespace Server.App
 {
@@ -21,6 +22,7 @@ namespace Server.App
                     break;
                 case AppType.Manager:
                     Scene.Pool.AddComponent<UidComponent>();
+                    Scene.Pool.AddComponent<UpdateIndexComponent>();
                     break;
             }
         }

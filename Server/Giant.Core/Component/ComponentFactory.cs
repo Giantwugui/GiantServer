@@ -78,7 +78,7 @@ namespace Giant.Core
 
         public static T CreateComponentWithParent<T, P1, P2>(Component parent, P1 p1, P2 p2) where T : Component
         {
-            T component = Activator.CreateInstance<T>(); 
+            T component = Activator.CreateInstance<T>();
             component.Parent = parent;
 
             IInitSystem<P1, P2> system = component as IInitSystem<P1, P2>;
