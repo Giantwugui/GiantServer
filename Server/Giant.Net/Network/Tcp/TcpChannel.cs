@@ -81,10 +81,8 @@ namespace Giant.Net
 
         public override void Send(MemoryStream stream)
         {
-            if (!IsConnected)
-            {
-                return;
-            }
+            if (IsDisposed()) return;
+            if (!IsConnected) return;
 
             switch (((TcpService)Service).PacketSizeLength)
             {
@@ -125,7 +123,8 @@ namespace Giant.Net
 
         public override void Dispose()
         {
-            socket.Close();
+            base.Dispose();
+            socket.Dispose();
         }
 
         protected override void OnError(object error)
@@ -159,10 +158,8 @@ namespace Giant.Net
 
         private void StartSend()
         {
-            if (!IsConnected)
-            {
-                return;
-            }
+            if (IsDisposed()) return;
+            if (!IsConnected) return;
 
             // 没有数据需要发送
             if (sendBuffer.Length == 0)
@@ -184,6 +181,8 @@ namespace Giant.Net
 
         private void SendAsync(byte[] buffer, int offset, int count)
         {
+            if (IsDisposed()) return;
+
             try
             {
                 innerArgs.SetBuffer(buffer, offset, count);
@@ -192,11 +191,18 @@ namespace Giant.Net
             {
                 throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
             }
-            if (socket.SendAsync(innerArgs))
+            try
             {
-                return;
+                if (socket.SendAsync(innerArgs))
+                {
+                    return;
+                }
+                SendComplete(innerArgs);
             }
-            SendComplete(innerArgs);
+            catch (Exception ex)
+            { 
+                OnError(ex);
+            }
         }
 
         private void StartRecv()
@@ -208,13 +214,22 @@ namespace Giant.Net
 
         private void ReceiveAsync(byte[] buffer, int offset, int length)
         {
-            outtererArgs.SetBuffer(buffer, offset, length);
-            if (socket.ReceiveAsync(outtererArgs))
-            {
-                return;
-            }
+            if (IsDisposed()) return;
 
-            ReceiveComplete(outtererArgs);
+            try
+            {
+                outtererArgs.SetBuffer(buffer, offset, length);
+                if (socket.ReceiveAsync(outtererArgs))
+                {
+                    return;
+                }
+
+                ReceiveComplete(outtererArgs);
+            }
+            catch (Exception ex)
+            {
+                OnError(ex);
+            }
         }
 
         private void OnComplete(object sender, SocketAsyncEventArgs eventArgs)

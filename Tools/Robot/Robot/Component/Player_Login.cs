@@ -2,16 +2,14 @@ using Giant.Core;
 using Giant.Msg;
 using Giant.Net;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Reflection;
-using Giant.Framework;
+using System.Linq;
 
 namespace Robort
 {
     public partial class Player
     {
-        static AccountInfo accountInfo;
+        private AccountInfo accountInfo;
         private string accountHost = "127.0.0.1:6002";
 
         private int token;
@@ -138,6 +136,13 @@ namespace Robort
 
         private void EnterWorld(int uid)
         {
+            PlayerManagerComponent.Instance.EnterWorld(this);
+            int count = PlayerManagerComponent.Instance.PlayerCount();
+            if (count % 20 == 0)
+            {
+                Console.WriteLine($"total count {PlayerManagerComponent.Instance.TotalCount} login {count} cost {PlayerManagerComponent.Instance.Stopwatch.ElapsedMilliseconds}");
+            }
+
             Msg_CG_EnterWorld msg = new Msg_CG_EnterWorld() { Uid = uid };
             session.Notify(msg);
         }

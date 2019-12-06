@@ -1,6 +1,8 @@
 ﻿using Giant.Core;
 using Giant.Net;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System;
 
 namespace Robort
 {
@@ -12,6 +14,10 @@ namespace Robort
         private Dictionary<int, Player> playerList = new Dictionary<int, Player>();
         private Dictionary<Session, Player> playerSessions = new Dictionary<Session, Player>();
 
+        public int TotalCount { get; set; }
+        public Stopwatch Stopwatch { get; private set; }
+
+
         public static PlayerManagerComponent Instance { get; private set; }
 
         public override void Init()
@@ -19,12 +25,17 @@ namespace Robort
             Instance = this;
         }
 
-        public void CreatePlayers(int num)
+        public void CreatePlayers(int count)
         {
-            for (int i = 0; i < num; ++i)
+            TotalCount = count;
+            for (int i = 0; i < count; ++i)
             {
                 wattingLoginList.Enqueue(ComponentFactory.CreateComponent<Player, string>(accountPre + i));
             }
+
+            Stopwatch = new Stopwatch();
+            Stopwatch.Start();
+
             while (wattingLoginList.TryDequeue(out var player))
             {
                 player.DoLogin();
@@ -33,7 +44,6 @@ namespace Robort
 
         public void AddPlayer(Player player)
         {
-            playerList.Add(player.Uid, player);
             playerSessions.Add(player.Session, player);
         }
 
@@ -54,6 +64,13 @@ namespace Robort
             playerList.TryGetValue(uid, out var player);
             return player;
         }
+
+        public void EnterWorld(Player player)
+        {
+            playerList[player.Uid] = player;
+        }
+
+        public int PlayerCount() => playerList.Count;
 
         public void Update(double dt)
         {
