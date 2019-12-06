@@ -6,28 +6,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Giant.Core">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Framework">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Logger">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Logger.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Msg">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Net">
-      <HintPath>..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\..\Bin\netcoreapp3.0\Google.Protobuf.dll</HintPath>
-    </Reference>
+    <Folder Include="Net\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Net\" />
+    <PackageReference Include="Google.Protobuf" Version="3.11.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Giant.Core">
+      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Framework">
+      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Msg">
+      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
+    </Reference>
+    <Reference Include="Giant.Net">
+      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
