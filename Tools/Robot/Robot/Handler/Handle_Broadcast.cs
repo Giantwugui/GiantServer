@@ -3,7 +3,7 @@ using Giant.Msg;
 using Giant.Net;
 using System.Threading.Tasks;
 
-namespace Client
+namespace Robort
 {
     [MessageHandler]
     class Handle_Broadcast : MHandler<ZGC_Broadcast>

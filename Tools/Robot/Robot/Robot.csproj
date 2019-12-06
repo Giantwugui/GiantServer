@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="Giant.Core">
       <HintPath>..\..\Bin\netcoreapp3.0\Giant.Core.dll</HintPath>
     </Reference>
@@ -28,6 +24,10 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\Bin\netcoreapp3.0\Google.Protobuf.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Net\" />
   </ItemGroup>
 
 </Project>

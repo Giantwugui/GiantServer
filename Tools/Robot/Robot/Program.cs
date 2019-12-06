@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Giant.Framework;
 
-namespace Client
+namespace Robort
 {
     class Program
     {

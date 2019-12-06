@@ -1,7 +1,7 @@
 ﻿using Giant.Msg;
 using Giant.Net;
 
-namespace Client
+namespace Robort
 {
     public static class MessageEx
     {
