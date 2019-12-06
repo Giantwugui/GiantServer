@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler]
-    public class Handle_GetUid : RpcMHandler<Msg_GateM_GetUid, Msg_MGate_GetUid>
+    public class Handle_GetUid : MHandler<Msg_GateM_GetUid, Msg_MGate_GetUid>
     {
         public override Task Run(Session session, Msg_GateM_GetUid request, Msg_MGate_GetUid response)
         {

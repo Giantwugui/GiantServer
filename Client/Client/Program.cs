@@ -4,6 +4,7 @@ using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Giant.Framework;
 
 namespace Client
 {
@@ -15,12 +16,15 @@ namespace Client
         {
             try
             {
-                //Scene.Pool.AddComponentWithCreate<DataComponent>();
-                Scene.Pool.AddComponentWithCreate<OpcodeComponent>();
-                Scene.Pool.AddComponentWithCreate<MessageDispatcherComponent>();
-                Scene.Pool.AddComponentWithCreate<OutterNetworkComponent, NetworkType>(NetworkType.Tcp);
+                Scene.EventSystem.RegistEvent(Assembly.GetExecutingAssembly());
 
-                Scene.EventSystem.Add(Assembly.GetExecutingAssembly());
+                Scene.Pool.AddComponent<TimerComponent>();
+                Scene.Pool.AddComponent<OpcodeComponent>();
+                Scene.Pool.AddComponent<MessageDispatcherComponent>();
+                Scene.Pool.AddComponent<PlayerManagerComponent>();
+                Scene.Pool.AddComponent<OutterNetworkComponent, NetworkType>(NetworkType.Tcp);
+
+                PlayerManagerComponent.Instance.CreatePlayers(int.Parse(args[0]));
             }
             catch (Exception ex)
             {
@@ -34,7 +38,7 @@ namespace Client
                     ReadLineAsync();
 
                     OneThreadSynchronizationContext.Instance.Update();
-                    PlayerManager.Instance.Update();
+                    Scene.EventSystem.Update(0);
                     Thread.Sleep(1);
                 }
                 catch (Exception ex)
@@ -66,11 +70,6 @@ namespace Client
 
             switch (param[0])
             {
-                case "Login":
-                    {
-                        NET.DoLogin(param[1], "");
-                    }
-                    break;
                 default:
                     Console.WriteLine("Not suport cmd !");
                     break;

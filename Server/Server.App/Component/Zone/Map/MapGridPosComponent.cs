@@ -7,13 +7,13 @@ using System.IO;
 
 namespace Server.App
 {
-    public class MapGridPosComponent : Component, IUpdateSystem, ILoadSystem
+    public class MapGridPosComponent : InitSystem, ILoadSystem
     {
         private Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
 
         public static MapGridPosComponent Instance { get; private set; }
 
-        public void Init()
+        public override void Init()
         {
             Instance = this;
             Load();

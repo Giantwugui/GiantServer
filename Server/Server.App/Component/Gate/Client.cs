@@ -33,6 +33,12 @@ namespace Server.App
             HeartBeatTime = TimeHelper.Now;
         }
 
+        public void EnterWorld()
+        {
+            Msg_GateZ_EnterWorld msg = new Msg_GateZ_EnterWorld { Uid = this.Uid };
+            SendToZone(msg);
+        }
+
         public void SendToClient(IMessage message)
         {
             Session.Notify(message);

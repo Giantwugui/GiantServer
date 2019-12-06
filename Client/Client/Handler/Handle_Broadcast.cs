@@ -10,8 +10,7 @@ namespace Client
     {
         public override async Task Run(Session session, ZGC_Broadcast message)
         {
-            Player player = PlayerManager.Instance.GetPlayer(session);
-            player?.OnNotify_BroadCast(message);
+            Player player = PlayerManagerComponent.Instance.GetPlayer(session);
 
             await Task.CompletedTask;
         }

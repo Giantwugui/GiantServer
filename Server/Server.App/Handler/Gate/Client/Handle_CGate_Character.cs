@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler]
-    class Handle_CGate_GetCharacter : RpcMHandler<Msg_CG_GetCharacter, Msg_GC_GetCharacter>
+    class Handle_CGate_GetCharacter : MHandler<Msg_CG_GetCharacter, Msg_GC_GetCharacter>
     {
         public override async Task Run(Session session, Msg_CG_GetCharacter request, Msg_GC_GetCharacter response)
         {
@@ -29,7 +29,7 @@ namespace Server.App
     }
 
     [MessageHandler]
-    class Handle_CGate_CreateCharacter : RpcMHandler<Msg_CG_CreateCharacter, Msg_GC_CreateCharacter>
+    class Handle_CGate_CreateCharacter : MHandler<Msg_CG_CreateCharacter, Msg_GC_CreateCharacter>
     {
         public override async Task Run(Session session, Msg_CG_CreateCharacter request, Msg_GC_CreateCharacter response)
         {

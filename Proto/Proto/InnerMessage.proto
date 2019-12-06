@@ -122,3 +122,11 @@ message Msg_GetLoginKey // IResponse
 
     int64 Key = 1;
 }
+
+/*********************** Gate ==> Zone ****************************/
+
+message Msg_GateZ_EnterWorld // IMessage
+{
+    int32 RpcId = 90;
+	int32 Uid = 1;
+}

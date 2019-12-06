@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler]
-    public class Handle_Ping : RpcMHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
+    public class Handle_Ping : MHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
     {
         public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
         {
@@ -22,7 +22,7 @@ namespace Server.App
     }
 
     [MessageHandler]
-    public class Handle_GetSecretKey : RpcMHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
+    public class Handle_GetSecretKey : MHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
     {
         public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response)
         {
@@ -31,7 +31,7 @@ namespace Server.App
     }
 
     [MessageHandler]
-    public class Handle_Login : RpcMHandler<Msg_CG_Login, Msg_GC_Login>
+    public class Handle_Login : MHandler<Msg_CG_Login, Msg_GC_Login>
     {
         public override Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
         {
@@ -54,7 +54,7 @@ namespace Server.App
     }
 
     [MessageHandler]
-    public class Handle_EnterWorld : RpcMHandler<Msg_CG_EnterWorld, Msg_GC_EnterWorld>
+    public class Handle_EnterWorld : MHandler<Msg_CG_EnterWorld, Msg_GC_EnterWorld>
     {
         public override async Task Run(Session session, Msg_CG_EnterWorld request, Msg_GC_EnterWorld response)
         {
@@ -78,6 +78,8 @@ namespace Server.App
             Msg_MGate_BalanceZone zone = (await NetProxyComponent.Instance.FrontendManagerServer.Call(msg)) as Msg_MGate_BalanceZone;
             FrontendComponent server = NetProxyComponent.Instance.GetFrontend(AppType.Zone, zone.ZoneId, zone.SubId);
             client.AddComponent(server);
+
+            client.EnterWorld();
 
             client.Uid = request.Uid;
             response.Error = ErrorCode.Success;

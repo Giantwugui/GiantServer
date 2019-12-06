@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Server.App
 {
     [MessageHandler]
-    class Handle_CA_Login : RpcMHandler<Msg_CA_Login, Msg_AC_Login>
+    class Handle_CA_Login : MHandler<Msg_CA_Login, Msg_AC_Login>
     {
         public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response)
         {
@@ -42,7 +42,7 @@ namespace Server.App
     }
 
     [MessageHandler]
-    class Handle_Login_Zone : RpcMHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
+    class Handle_Login_Zone : MHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
     {
         public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server.App
 {
-    public class MapComponent : Component, IInitSystem<MapModel>
+    public class MapComponent : InitSystem<MapModel>
     {
         private DynamicGrid dynamicGrid;
         private JumpPointParam jumpPointParam;
@@ -12,7 +12,7 @@ namespace Server.App
         public MapModel Model { get; private set; }
         public int MapId => Model.MapId;
 
-        public void Init(MapModel model)
+        public override void Init(MapModel model)
         {
             Model = model;
 
