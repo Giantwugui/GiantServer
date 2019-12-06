@@ -40,6 +40,10 @@ namespace Giant.DB
         {
         }
 
+        public void UpdateIndex()
+        { 
+        }
+
         public IMongoCollection<T> GetCollection<T>(string collectionName)
         {
             IMongoCollection<T> reCollection = null;

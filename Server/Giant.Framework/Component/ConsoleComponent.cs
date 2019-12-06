@@ -12,10 +12,6 @@ namespace Giant.Framework
 
         public static ConsoleComponent Instance { get; private set; }
 
-        public ConsoleComponent()
-        {
-        }
-
         public override void Init()
         {
             Instance = this;
