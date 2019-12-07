@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Server.App
+namespace Giant.DB
 {
     [BsonIgnoreExtraElements]
     public class AccountInfo : MongoUpdateTask

@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.DB;
 using Giant.DB.MongoDB;
 using Giant.Framework;
 using Giant.Logger;

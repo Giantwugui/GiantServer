@@ -19,6 +19,7 @@ namespace Giant.Framework
                 .WithParsed(options => { appOption = options; });
 
             IdGenerator.AppId = appOption.AppId;
+            Logger.Log.Init(true, appOption.AppType.ToString(), appOption.AppId, appOption.SubId);
 
             //注册Event
             Scene.EventSystem.RegistEvent(Assembly.GetEntryAssembly());
