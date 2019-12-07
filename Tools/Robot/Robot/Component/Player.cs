@@ -1,22 +1,24 @@
 ﻿using Giant.Core;
 using Giant.Msg;
 using Giant.Net;
-using System;
-using System.Collections.Generic;
 
-namespace Robort
+namespace Robot
 {
-    public partial class Player : InitSystem<string>
+    public partial class Player : InitSystem<string, int, Session>
     {
         private Msg_PlayerInfo playerInfo;
         private long heartBeatLastTime = TimeHelper.NowSeconds;
 
+        private Session session;
+        public Session Session => session;
         public string Account { get; private set; }
         public int Uid { get; private set; }
 
-        public override void Init(string account)
+        public override void Init(string account, int uid, Session session)
         {
-            this.Account = account;
+            Account = account;
+            Uid = uid;
+            this.session = session;
         }
 
         public void SetPlayerInfo(Msg_PlayerInfo playerInfo)
@@ -29,38 +31,24 @@ namespace Robort
             CheckHeartBeat();
         }
 
-
-
-        private Session session;
-        public Session Session => session;
-
-        private void SetCharacters(IEnumerable<Msg_CharacterInfo> characters)
+        public void EnterWorld()
         {
-            characterInfos.Clear();
-            foreach (var kv in characters)
-            {
-                characterInfos.Add(kv.Uid, kv);
-            }
+            Msg_CG_EnterWorld msg = new Msg_CG_EnterWorld() { Uid = Uid };
+            session.Notify(msg);
         }
 
         public void OnDisconnected()
         {
             //TODO 短线重连逻辑
-            this.Dispose();
+            Dispose();
         }
 
         public override void Dispose()
         {
             PlayerManagerComponent.Instance.RemovePlayer(this);
-            
+
             Dispose();
             session.Dispose();
-        }
-
-        private void SetLoginedServers(IEnumerable<int> servers)
-        {
-            loginedServers.Clear();
-            loginedServers.AddRange(servers);
         }
 
         private async void CheckHeartBeat()

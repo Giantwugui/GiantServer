@@ -1,12 +1,12 @@
 ﻿using Giant.Core;
+using Giant.Framework;
 using Giant.Net;
 using System;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using Giant.Framework;
 
-namespace Robort
+namespace Robot
 {
     class Program
     {
@@ -21,10 +21,11 @@ namespace Robort
                 Scene.Pool.AddComponent<TimerComponent>();
                 Scene.Pool.AddComponent<OpcodeComponent>();
                 Scene.Pool.AddComponent<MessageDispatcherComponent>();
+                Scene.Pool.AddComponent<ClientManagerComponent>();
                 Scene.Pool.AddComponent<PlayerManagerComponent>();
                 Scene.Pool.AddComponent<OutterNetworkComponent, NetworkType>(NetworkType.Tcp);
 
-                PlayerManagerComponent.Instance.CreatePlayers(int.Parse(args[0]));
+                ClientManagerComponent.Instance.CreateClients(int.Parse(args[0]));
             }
             catch (Exception ex)
             {
