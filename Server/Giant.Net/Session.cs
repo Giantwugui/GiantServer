@@ -118,7 +118,11 @@ namespace Giant.Net
                 }
             };
 
-            cancellation.Register(() => responseCallback.Remove(rpcId));
+            cancellation.Register(() =>
+            {
+                responseCallback.Remove(rpcId);
+                Log.Warn($"session call OOT request {rpcId} type {request.GetType().Name}");
+            }) ;
 
             Notify(opcode, request);
 
@@ -187,9 +191,7 @@ namespace Giant.Net
             switch (error)
             {
                 case int errorCode:
-                    {
-                        Log.Error($"ErrorCode {errorCode}");
-                    }
+                    Log.Error($"ErrorCode {errorCode}");
                     break;
                 case SocketError socketError:
                     Log.Error($"SocketError {socketError}");

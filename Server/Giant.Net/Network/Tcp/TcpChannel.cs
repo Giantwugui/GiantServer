@@ -1,5 +1,4 @@
 ﻿using Giant.Core;
-using Giant.Logger;
 using System;
 using System.IO;
 using System.Net;
@@ -191,6 +190,7 @@ namespace Giant.Net
             {
                 throw new Exception($"socket set buffer error: {buffer.Length}, {offset}, {count}", e);
             }
+
             try
             {
                 if (socket.SendAsync(innerArgs))
@@ -199,9 +199,9 @@ namespace Giant.Net
                 }
                 SendComplete(innerArgs);
             }
-            catch (Exception ex)
+            catch (Exception)
             { 
-                OnError(ex);
+                OnError(ErrorCode.SocketCantSend);
             }
         }
 
@@ -215,7 +215,6 @@ namespace Giant.Net
         private void ReceiveAsync(byte[] buffer, int offset, int length)
         {
             if (IsDisposed()) return;
-
             try
             {
                 outtererArgs.SetBuffer(buffer, offset, length);
@@ -226,9 +225,9 @@ namespace Giant.Net
 
                 ReceiveComplete(outtererArgs);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                OnError(ex);
+                OnError(ErrorCode.SocketError);
             }
         }
 
@@ -305,21 +304,13 @@ namespace Giant.Net
                     {
                         break;
                     }
-                }
-                catch (Exception ex)
-                {
-                    Log.Error(ex);
-                    OnError(ErrorCode.SocketError);
-                    return;
-                }
 
-                try
-                {
                     OnRead(parser.GetPacket());
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex);
+                    OnError(ex);
+                    return;
                 }
             }
 
