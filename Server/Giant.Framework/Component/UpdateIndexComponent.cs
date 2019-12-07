@@ -6,7 +6,7 @@ namespace Giant.Framework
 {
     public class UpdateIndexComponent : InitSystem, ILoadSystem
     {
-        public List<DataTask> taskList = new List<DataTask>();
+        public List<DataTask<string>> taskList = new List<DataTask<string>>();
 
         public override void Init()
         {
@@ -19,12 +19,12 @@ namespace Giant.Framework
             List<Type> types = Scene.EventSystem.GetTypes(typeof(MongoDBIndexAttribute));
             foreach (var kv in types)
             {
-                if (Activator.CreateInstance(kv) is DataTask task)
+                if (Activator.CreateInstance(kv) is DataTask<string> task)
                 {
                     taskList.Add(task);
                 }
             }
-            taskList.ForEach(async x => await x.Run());
+            taskList.ForEach(x => x.Call());
         }
     }
 }

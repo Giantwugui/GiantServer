@@ -19,6 +19,8 @@ namespace Robot
             Account = account;
             Uid = uid;
             this.session = session;
+
+            AddComponent<>
         }
 
         public void SetPlayerInfo(Msg_PlayerInfo playerInfo)

@@ -47,16 +47,8 @@ namespace Server.App
             {
                 return;
             }
-
             var keys = Builders<AccountInfo>.IndexKeys.Ascending("Account");
-            var indexOptions = new CreateIndexOptions<AccountInfo>
-            {
-                //PartialFilterExpression = Builders<BsonDocument>.Filter.Gt(document => document["rating"], 5),
-                //Background = true,
-                //Unique = true
-            };
-
-            await GetCollection<AccountInfo>(DBName.Account)?.Indexes.CreateOneAsync(new CreateIndexModel<AccountInfo>(keys, indexOptions));
+            await GetCollection<AccountInfo>(DBName.Account)?.Indexes.CreateOneAsync(new CreateIndexModel<AccountInfo>(keys));
         }
     }
 
