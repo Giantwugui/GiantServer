@@ -22,8 +22,8 @@ namespace Giant.Framework
             Logger.Log.Init(true, appOption.AppType.ToString(), appOption.AppId, appOption.SubId);
 
             //注册Event
-            Scene.EventSystem.RegistEvent(Assembly.GetEntryAssembly());
-            Scene.EventSystem.RegistEvent(typeof(NetProxyComponent).Assembly);
+            Scene.EventSystem.SubscribeEvent(Assembly.GetEntryAssembly());
+            Scene.EventSystem.SubscribeEvent(typeof(NetProxyComponent).Assembly);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);

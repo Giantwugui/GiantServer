@@ -62,7 +62,7 @@ namespace Giant.Core
 
         #region event
 
-        public void RegistEvent(Assembly assembly)
+        public void SubscribeEvent(Assembly assembly)
         {
             Type objType = typeof(ObjectAttribute);
             var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
