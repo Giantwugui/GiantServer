@@ -2,7 +2,7 @@
 
 ## Giant 介绍
 Giant是一个基于 C# .NetCore 开发的一套，单线程异步游戏服务器框架。使用分层架构。服务器支持分布式部署、支持服务的自动注册与发现。
-使用的插件 https://github.com/giantwugui/GiantPlugins
+使用的插件 [https://github.com/giantwugui/GiantPlugins/tree/GiantPlugins1.0/GiantPlugins]
 
 ### 1. 配置表
 配置表采用通用的 xml 配置
