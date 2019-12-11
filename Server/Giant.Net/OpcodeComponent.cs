@@ -5,7 +5,7 @@ using System;
 
 namespace Giant.Net
 {
-    public class OpcodeComponent : InitSystem, ILoadSystem
+    public class OpcodeComponent : InitSystem, ILoad
     {
         private readonly MultiMap<ushort, Type> opcodeTypes = new MultiMap<ushort, Type>();
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Server.App
 {
-    class PlayerManagerComponent : InitSystem, IUpdateSystem
+    class PlayerManagerComponent : InitSystem, IUpdate
     {
         private Dictionary<int, Player> playerList = new Dictionary<int, Player>();
         private Dictionary<int, Player> offlinePlayerList = new Dictionary<int, Player>();

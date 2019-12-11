@@ -1,6 +1,6 @@
 ﻿namespace Giant.Core
 {
-    public interface ILoadSystem
+    public interface ILoad
     {
         void Load();
     }

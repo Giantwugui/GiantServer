@@ -1,6 +1,6 @@
 ﻿namespace Giant.Core
 {
-    public interface IUpdateSystem
+    public interface IUpdate
     {
         void Update(double dt) { }
     }

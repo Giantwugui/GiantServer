@@ -2,7 +2,7 @@
 
 namespace Giant.Framework
 {
-    public class DBConfigComponent : InitSystem, ILoadSystem
+    public class DBConfigComponent : InitSystem, ILoad
     {
         public DBConfig DBConfig { get; private set; }
         public RedisConfig RedisConfig { get; private set; }

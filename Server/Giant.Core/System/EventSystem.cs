@@ -8,23 +8,23 @@ namespace Giant.Core
     public class EventSystem
     {
         private readonly Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
-        private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
-        private readonly DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
-        private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
-
-        private readonly Dictionary<Type, ISystem> systems = new Dictionary<Type, ISystem>();
-
         private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
-        public void RegistSystem(Component component)
+        private readonly DepthMap<Type, long, ILoad> loadComponent = new DepthMap<Type, long, ILoad>();
+        private readonly DepthMap<Type, long, IUpdate> updateComponent = new DepthMap<Type, long, IUpdate>();
+
+        private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
+        private readonly Dictionary<Type, ISystem> systems = new Dictionary<Type, ISystem>();
+
+        public void Regist(Component component)
         {
             switch (component)
             {
-                case IUpdateSystem updateSystem:
-                    updateComponent.Add(component.GetType(), component.InstanceId, updateSystem);
+                case ILoad load:
+                    loadComponent.Add(component.GetType(), component.InstanceId, load);
                     break;
-                case ILoadSystem loadSystem:
-                    loadComponent.Add(component.GetType(), component.InstanceId, loadSystem);
+                case IUpdate update:
+                    updateComponent.Add(component.GetType(), component.InstanceId, update);
                     break;
             }
         }
@@ -94,10 +94,16 @@ namespace Giant.Core
                 {
                     if (!(Activator.CreateInstance(type) is IEvent eve)) continue;
 
-                    EventAttribute attribute = type.GetCustomAttribute(typeof(EventAttribute)) as EventAttribute;
-                    eventList.Add(attribute.EventType, eve);
+                    if (!(type.GetCustomAttribute(typeof(EventAttribute)) is EventAttribute attribute)) continue;
+
+                    SubscribeEvent(attribute.EventType, eve);
                 }
             }
+        }
+
+        public void SubscribeEvent(EventType type, IEvent @event)
+        { 
+            eventList.Add(type, @event);
         }
 
         public void Handle(EventType type)

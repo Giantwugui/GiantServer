@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server.App
 {
-    public class MapDataComponent : InitSystem, ILoadSystem
+    public class MapDataComponent : InitSystem, ILoad
     {
         private Dictionary<int, MapModel> maps = new Dictionary<int, MapModel>();
         public Dictionary<int, MapModel> Maps => maps;

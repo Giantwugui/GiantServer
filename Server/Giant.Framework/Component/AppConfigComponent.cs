@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Giant.Framework
 {
-    public class AppConfigComponent : InitSystem, ILoadSystem
+    public class AppConfigComponent : InitSystem, ILoad
     {
         private readonly ListMap<AppType, AppConfig> appConfigs = new ListMap<AppType, AppConfig>();
 

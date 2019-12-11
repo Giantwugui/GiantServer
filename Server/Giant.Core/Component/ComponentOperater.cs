@@ -42,7 +42,7 @@ namespace Giant.Core
             componentes.Add(type, component);
 
             //注册Event load
-            Scene.EventSystem.RegistSystem(component);
+            Scene.EventSystem.Regist(component);
         }
 
         public void RemoveComponent<T>() where T : Component

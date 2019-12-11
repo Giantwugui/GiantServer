@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Giant.Framework
 {
-    public class NetGraphComponent : InitSystem, ILoadSystem
+    public class NetGraphComponent : InitSystem, ILoad
     {
         private readonly DepthMap<AppType, AppType, NetGraphType> netTopology = new DepthMap<AppType, AppType, NetGraphType>();
 

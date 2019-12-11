@@ -7,7 +7,7 @@ using System.IO;
 
 namespace Server.App
 {
-    public class MapGridPosComponent : InitSystem, ILoadSystem
+    public class MapGridPosComponent : InitSystem, ILoad
     {
         private Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
 
