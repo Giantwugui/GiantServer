@@ -14,7 +14,6 @@ Giant是一个基于 C# .NetCore 开发的一套，异步游戏服务器框架�
 缓存支持 Redis
 
 ### 4. 通讯协议
-支持 TCP Socket通讯，使用 Google Protobuf 通讯协议。
-
+支持 TCP Socket通讯，使用 Google Protobuf 通讯协议。支持通知和Rpc通讯方式
 ## Giant 2.0
 Giant2.0 以组件模式开发
