@@ -83,6 +83,12 @@ namespace Giant.Msg
 	[Message(OuterOpcode.Msg_CG_TestMap)]
 	public partial class Msg_CG_TestMap : IMessage {}
 
+	[Message(OuterOpcode.Msg_GateZ_Hero_Break)]
+	public partial class Msg_GateZ_Hero_Break : IRequest {}
+
+	[Message(OuterOpcode.Msg_ZGate_Hero_Break)]
+	public partial class Msg_ZGate_Hero_Break : IResponse {}
+
 }
 namespace Giant.Msg
 {
@@ -115,6 +121,8 @@ namespace Giant.Msg
 		 public const ushort MC_Reload = 125;
 		 public const ushort ZGC_Broadcast = 126;
 		 public const ushort Msg_CG_TestMap = 127;
+		 public const ushort Msg_GateZ_Hero_Break = 128;
+		 public const ushort Msg_ZGate_Hero_Break = 129;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
@@ -145,6 +153,8 @@ namespace Giant.Msg
 			{MC_Reload, typeof(MC_Reload)},
 			{ZGC_Broadcast, typeof(ZGC_Broadcast)},
 			{Msg_CG_TestMap, typeof(Msg_CG_TestMap)},
+			{Msg_GateZ_Hero_Break, typeof(Msg_GateZ_Hero_Break)},
+			{Msg_ZGate_Hero_Break, typeof(Msg_ZGate_Hero_Break)},
 		};
 	}
 }

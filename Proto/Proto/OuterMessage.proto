@@ -204,3 +204,22 @@ message Msg_CG_TestMap // IMessage
 	map<int32,int32> Map1 = 1;
 	map<int32,ZGC_Broadcast> Map2 = 2;
 }
+
+/*********************** Gate => Zone ****************************/
+
+message Msg_GateZ_Hero_Break // IRequest
+{
+	int32 RpcId = 90;
+	int32 Uid = 1;
+	int32 HeroId  = 2;
+}
+
+/*********************** Gate => Zone ****************************/
+
+message Msg_ZGate_Hero_Break // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	int32 Uid = 1;
+}

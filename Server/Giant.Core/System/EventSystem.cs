@@ -7,9 +7,12 @@ namespace Giant.Core
 {
     public class EventSystem
     {
+        private readonly Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
         private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
         private readonly DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
         private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
+
+        private readonly Dictionary<Type, ISystem> systems = new Dictionary<Type, ISystem>();
 
         private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
@@ -62,26 +65,37 @@ namespace Giant.Core
 
         #region event
 
-        public void SubscribeEvent(Assembly assembly)
+        public void Regist(Assembly assembly)
         {
-            Type objType = typeof(ObjectAttribute);
-            var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
-            foreach (Type kv in objectTypes)
+            assemblies[assembly.FullName] = assembly;
+            attributeTypes.Clear();
+
+            foreach (var asm in assemblies)
             {
-                ObjectAttribute objectAttribute = kv.GetCustomAttribute(objType) as ObjectAttribute;
-                attributeTypes.Add(objectAttribute.GetType(), kv);
+                Type objType = typeof(ObjectAttribute);
+                var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
+                foreach (Type kv in objectTypes)
+                {
+                    ObjectAttribute objectAttribute = kv.GetCustomAttribute(objType) as ObjectAttribute;
+                    attributeTypes.Add(objectAttribute.GetType(), kv);
+                }
             }
 
+            LoadEvent();
+            LoadSystem();
+        }
+
+        private void LoadEvent()
+        {
             eventList.Clear();
-            Type eventAttributeType = typeof(EventAttribute);
-            if (attributeTypes.TryGetValue(eventAttributeType, out var types))
+            if (attributeTypes.TryGetValue(typeof(EventAttribute), out var types))
             {
                 foreach (var type in types)
                 {
-                    if (!(Activator.CreateInstance(type) is IEvent @event)) continue;
+                    if (!(Activator.CreateInstance(type) is IEvent eve)) continue;
 
-                    EventAttribute attribute = type.GetCustomAttribute(eventAttributeType) as EventAttribute;
-                    eventList.Add(attribute.EventType, @event);
+                    EventAttribute attribute = type.GetCustomAttribute(typeof(EventAttribute)) as EventAttribute;
+                    eventList.Add(attribute.EventType, eve);
                 }
             }
         }
@@ -130,6 +144,30 @@ namespace Giant.Core
                 if (kv is Event<A, B, C>)
                 {
                     kv.Run(a, b, c);
+                }
+            }
+        }
+
+        #endregion
+
+        #region System
+
+        public T GetSystem<T>() where T : class, ISystem
+        {
+            systems.TryGetValue(typeof(T), out var system);
+            return system as T;
+        }
+
+        private void LoadSystem()
+        {
+            systems.Clear();
+            if (attributeTypes.TryGetValue(typeof(SystemAttribute), out var types))
+            {
+                foreach (var type in types)
+                {
+                    if (!(Activator.CreateInstance(type) is ISystem sys)) continue;
+
+                    systems.Add(type, sys);
                 }
             }
         }
