@@ -1,18 +1,26 @@
 ﻿using Giant.Core;
 using Giant.DB;
+using System;
 
 namespace Server.App
 {
-    public class Player : InitSystem<PlayerInfo>
+    public class Player : Field, IInitSystem<PlayerInfo>
     {
         private PlayerInfo playerInfo;
 
+        public int Uid { get; private set; }
         public int MapId { get; private set; }
+        public bool IsOnline { get; private set; }
+        public DateTime OnlineTime { get; private set; }
+        public DateTime OfflineTime { get; private set; }
 
-        public override void Init(PlayerInfo info)
+        public void Init(PlayerInfo info)
         {
             playerInfo = info;
+            MapId = info.Uid;
             MapId = info.MapId;
+
+            IsOnline = true;
         }
 
         public void EnterWorld(int mapId)
@@ -28,6 +36,16 @@ namespace Server.App
         }
 
         public void Offline()
+        {
+            IsOnline = false;
+            OfflineTime = TimeHelper.Now;
+
+            PlayerManagerComponent.Instance.AddOfflinePlayer(this);
+
+            //TODO 数据落盘
+        }
+
+        public override void Dispose()
         {
         }
     }

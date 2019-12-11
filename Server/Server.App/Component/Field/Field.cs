@@ -9,5 +9,7 @@ namespace Server.App
         }
 
         public virtual void BreakUp() { }
+
+        public virtual void Update() { }
     }
 }
