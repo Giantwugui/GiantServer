@@ -200,7 +200,7 @@ namespace Giant.Net
                 SendComplete(innerArgs);
             }
             catch (Exception)
-            { 
+            {
                 OnError(ErrorCode.SocketCantSend);
             }
         }

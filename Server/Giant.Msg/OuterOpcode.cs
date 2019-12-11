@@ -68,18 +68,6 @@ namespace Giant.Msg
 	[Message(OuterOpcode.Msg_UnitInfo)]
 	public partial class Msg_UnitInfo {}
 
-	[Message(OuterOpcode.Msg_MC_PathfindingResult)]
-	public partial class Msg_MC_PathfindingResult : IRequest {}
-
-	[Message(OuterOpcode.CM_Reload)]
-	public partial class CM_Reload : IRequest {}
-
-	[Message(OuterOpcode.MC_Reload)]
-	public partial class MC_Reload : IResponse {}
-
-	[Message(OuterOpcode.ZGC_Broadcast)]
-	public partial class ZGC_Broadcast : IMessage {}
-
 	[Message(OuterOpcode.Msg_CG_TestMap)]
 	public partial class Msg_CG_TestMap : IMessage {}
 
@@ -116,13 +104,9 @@ namespace Giant.Msg
 		 public const ushort Msg_CG_EnterMap = 120;
 		 public const ushort Msg_GC_EnterMap = 121;
 		 public const ushort Msg_UnitInfo = 122;
-		 public const ushort Msg_MC_PathfindingResult = 123;
-		 public const ushort CM_Reload = 124;
-		 public const ushort MC_Reload = 125;
-		 public const ushort ZGC_Broadcast = 126;
-		 public const ushort Msg_CG_TestMap = 127;
-		 public const ushort Msg_GateZ_Hero_Break = 128;
-		 public const ushort Msg_ZGate_Hero_Break = 129;
+		 public const ushort Msg_CG_TestMap = 123;
+		 public const ushort Msg_GateZ_Hero_Break = 124;
+		 public const ushort Msg_ZGate_Hero_Break = 125;
 
 		public static readonly Dictionary<ushort, Type> Opcode2Types = new Dictionary<ushort, Type>
 		{
@@ -148,10 +132,6 @@ namespace Giant.Msg
 			{Msg_CG_EnterMap, typeof(Msg_CG_EnterMap)},
 			{Msg_GC_EnterMap, typeof(Msg_GC_EnterMap)},
 			{Msg_UnitInfo, typeof(Msg_UnitInfo)},
-			{Msg_MC_PathfindingResult, typeof(Msg_MC_PathfindingResult)},
-			{CM_Reload, typeof(CM_Reload)},
-			{MC_Reload, typeof(MC_Reload)},
-			{ZGC_Broadcast, typeof(ZGC_Broadcast)},
 			{Msg_CG_TestMap, typeof(Msg_CG_TestMap)},
 			{Msg_GateZ_Hero_Break, typeof(Msg_GateZ_Hero_Break)},
 			{Msg_ZGate_Hero_Break, typeof(Msg_ZGate_Hero_Break)},

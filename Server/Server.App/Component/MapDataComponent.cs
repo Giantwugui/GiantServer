@@ -6,7 +6,7 @@ namespace Server.App
 {
     public class MapDataComponent : InitSystem, ILoad
     {
-        private Dictionary<int, MapModel> maps = new Dictionary<int, MapModel>();
+        private readonly Dictionary<int, MapModel> maps = new Dictionary<int, MapModel>();
         public Dictionary<int, MapModel> Maps => maps;
 
         public override void Init()

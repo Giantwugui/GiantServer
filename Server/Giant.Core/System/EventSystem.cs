@@ -73,7 +73,7 @@ namespace Giant.Core
             foreach (var asm in assemblies)
             {
                 Type objType = typeof(ObjectAttribute);
-                var objectTypes = assembly.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
+                var objectTypes = asm.Value.GetTypes().ToList().Where(x => x.GetCustomAttribute(objType) != null);
                 foreach (Type kv in objectTypes)
                 {
                     ObjectAttribute objectAttribute = kv.GetCustomAttribute(objType) as ObjectAttribute;
@@ -102,7 +102,7 @@ namespace Giant.Core
         }
 
         public void SubscribeEvent(EventType type, IEvent @event)
-        { 
+        {
             eventList.Add(type, @event);
         }
 

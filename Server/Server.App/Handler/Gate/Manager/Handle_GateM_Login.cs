@@ -15,10 +15,15 @@ namespace Server.App
         }
     }
 
-    //public class Handle_BalanceZone : RpcMHandler<Msg_GateM_BalanceZone, Msg_MGate_BalanceZone>
-    //{
-    //    public override Task Run(Session session, Msg_GateM_BalanceZone request, Msg_MGate_BalanceZone response)
-    //    {
-    //    }
-    //}
+    [MessageHandler]
+    public class Handle_BalanceZone : MHandler<Msg_GateM_BalanceZone, Msg_MGate_BalanceZone>
+    {
+        public override Task Run(Session session, Msg_GateM_BalanceZone request, Msg_MGate_BalanceZone response)
+        {
+            response.ZoneId = 1001;
+            response.SubId = 1;
+
+            return Task.CompletedTask;
+        }
+    }
 }

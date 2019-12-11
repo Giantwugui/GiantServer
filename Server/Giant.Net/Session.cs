@@ -122,7 +122,7 @@ namespace Giant.Net
             {
                 responseCallback.Remove(rpcId);
                 Log.Warn($"session call OOT request {rpcId} type {request.GetType().Name}");
-            }) ;
+            });
 
             Notify(opcode, request);
 

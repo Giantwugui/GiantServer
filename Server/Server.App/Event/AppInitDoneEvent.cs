@@ -18,7 +18,10 @@ namespace Server.App
                     Scene.Pool.AddComponent<ClientManagerComponent>();
                     break;
                 case AppType.Zone:
-                    Scene.Pool.AddComponent<MapDataComponent>();
+                    MapDataComponent mapData = Scene.Pool.AddComponent<MapDataComponent>();
+                    Scene.Pool.AddComponent<MapGridPosComponent>();
+                    Scene.Pool.AddComponent<MapManangerComponent, MapDataComponent>(mapData);
+                    Scene.Pool.AddComponent<PlayerManagerComponent>();
                     break;
                 case AppType.Manager:
                     Scene.Pool.AddComponent<UidComponent>();

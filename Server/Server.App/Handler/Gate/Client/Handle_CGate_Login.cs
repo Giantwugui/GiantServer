@@ -79,9 +79,10 @@ namespace Server.App
             FrontendComponent server = NetProxyComponent.Instance.GetFrontend(AppType.Zone, zone.ZoneId, zone.SubId);
             client.AddComponent(server);
 
+            client.Uid = request.Uid;
+
             client.EnterWorld();
 
-            client.Uid = request.Uid;
             response.Error = ErrorCode.Success;
         }
     }

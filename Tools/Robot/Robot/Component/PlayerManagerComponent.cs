@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Robot
 {
-    public class PlayerManagerComponent : InitSystem, IUpdateSystem
+    public class PlayerManagerComponent : InitSystem, IUpdate
     {
         private Dictionary<int, Player> playerList = new Dictionary<int, Player>();
         private Dictionary<long, Player> playerSessions = new Dictionary<long, Player>();

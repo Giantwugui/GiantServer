@@ -7,9 +7,12 @@ using System.IO;
 
 namespace Server.App
 {
+    /// <summary>
+    /// 地形信息
+    /// </summary>
     public class MapGridPosComponent : InitSystem, ILoad
     {
-        private Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
+        private readonly Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
 
         public static MapGridPosComponent Instance { get; private set; }
 
@@ -45,7 +48,7 @@ namespace Server.App
             }
 
             DynamicGrid grid = new DynamicGrid();
-            FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
             using (BinaryReader reader = new BinaryReader(fileStream))
             {
                 int length = reader.ReadInt32();
@@ -57,7 +60,6 @@ namespace Server.App
 
             string[] name = fileStream.Name.Split('\\');
             mapGridList.Add(name[name.Length - 1], grid);
-            fileStream.Close();
         }
     }
 }

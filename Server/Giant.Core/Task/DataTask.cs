@@ -22,7 +22,7 @@ namespace Giant.Core
         /// 添加到任务队列，不需要返回结果
         /// </summary>
         public void Call()
-        { 
+        {
             AddToTaskPool();
         }
 

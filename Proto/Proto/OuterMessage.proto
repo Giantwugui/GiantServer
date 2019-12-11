@@ -79,6 +79,7 @@ message Msg_CG_EnterWorld // IRequest
 }
 
 /*********************** Gate => Client ****************************/
+
 message Msg_GC_HeartBeat_Pong // IResponse
 {
 	int32 RpcId = 90;
@@ -165,44 +166,9 @@ message Msg_UnitInfo
 	float Z = 4;
 }
 
-message Msg_MC_PathfindingResult // IRequest
-{
-	int32 RpcId = 90;
-	
-	int64 Id = 1;
-
-	float X = 2;
-	float Y = 3;
-	float Z = 4;
-	
-	repeated float Xs = 5;
-	repeated float Ys = 6;
-	repeated float Zs = 7;
-}
-
-message CM_Reload // IRequest
-{
-	int32 RpcId = 90;
-	string Account = 1;
-	string Password = 2;
-}
-
-message MC_Reload // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
-}
-
-message ZGC_Broadcast // IMessage
-{
-	string message = 1;
-}
-
 message Msg_CG_TestMap // IMessage
 {
 	map<int32,int32> Map1 = 1;
-	map<int32,ZGC_Broadcast> Map2 = 2;
 }
 
 /*********************** Gate => Zone ****************************/
@@ -214,7 +180,7 @@ message Msg_GateZ_Hero_Break // IRequest
 	int32 HeroId  = 2;
 }
 
-/*********************** Gate => Zone ****************************/
+/*********************** Zone => Gate ****************************/
 
 message Msg_ZGate_Hero_Break // IResponse
 {

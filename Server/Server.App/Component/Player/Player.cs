@@ -17,7 +17,7 @@ namespace Server.App
         public void Init(PlayerInfo info)
         {
             playerInfo = info;
-            MapId = info.Uid;
+            Uid = info.Uid;
             MapId = info.MapId;
 
             IsOnline = true;
@@ -40,7 +40,7 @@ namespace Server.App
             IsOnline = false;
             OfflineTime = TimeHelper.Now;
 
-            PlayerManagerComponent.Instance.AddOfflinePlayer(this);
+            PlayerManagerComponent.Instance.PlayerOffline(this);
 
             //TODO 数据落盘
         }

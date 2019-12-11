@@ -24,7 +24,7 @@ namespace Server.App
                 MongoDBQuery<PlayerInfo> query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid == message.Uid);
                 PlayerInfo info = await query.Task();
 
-                if (player == null)
+                if (info == null)
                 {
                     Log.Error($"Have not find player db info uid {message.Uid}");
                     return;
@@ -33,6 +33,7 @@ namespace Server.App
                 player = ComponentFactory.CreateComponent<Player, PlayerInfo>(info);
             }
 
+            PlayerManagerComponent.Instance.PlayerOnline(player);
             player.EnterWorld(player.MapId);
         }
     }

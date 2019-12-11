@@ -16,7 +16,7 @@ namespace Robot
         {
             try
             {
-                Scene.EventSystem.RegistEvent(Assembly.GetExecutingAssembly());
+                Scene.EventSystem.Regist(Assembly.GetExecutingAssembly());
 
                 Scene.Pool.AddComponent<TimerComponent>();
                 Scene.Pool.AddComponent<OpcodeComponent>();

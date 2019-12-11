@@ -18,7 +18,7 @@ namespace Server.App
         public override void Init()
         {
             Instance = this;
-            TimerComponent.Instance.AddRepeatTimer(60*1000, RemoveOfflinePlayer);
+            TimerComponent.Instance.AddRepeatTimer(60 * 1000, RemoveOfflinePlayer);
         }
 
         public void Update(double dt)
@@ -29,14 +29,20 @@ namespace Server.App
             }
         }
 
+        public void PlayerOnline(Player player)
+        {
+            playerList.Add(player.Uid, player);
+        }
+
         public Player GetPlayer(int uid)
         {
             playerList.TryGetValue(uid, out var player);
             return player;
         }
 
-        public void AddOfflinePlayer(Player player)
+        public void PlayerOffline(Player player)
         {
+            playerList.Remove(player.Uid);
             offlinePlayerList[player.Uid] = player;
         }
 
@@ -63,7 +69,7 @@ namespace Server.App
         private void RemoveOfflinePlayer()
         {
             DateTime now = TimeHelper.Now;
-            foreach(var kv in offlinePlayerList)
+            foreach (var kv in offlinePlayerList)
             {
                 if (kv.Value.IsOnline) continue;
                 if ((now - kv.Value.OfflineTime).TotalMinutes > offlineKeepTime)
