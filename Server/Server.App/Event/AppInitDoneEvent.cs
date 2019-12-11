@@ -1,5 +1,7 @@
 ﻿using Giant.Core;
 using Giant.Framework;
+using Giant.Net;
+using System.Collections.Generic;
 
 namespace Server.App
 {
@@ -10,6 +12,9 @@ namespace Server.App
         {
             switch (Scene.AppConfig.AppType)
             {
+                case AppType.Global:
+                    Scene.Pool.AddComponent<HttpComponent, List<int>>(Scene.AppConfig.HttpPorts);
+                    break;
                 case AppType.Account:
                     Scene.Pool.AddComponent<GateInfoComponent>();
                     break;

@@ -26,6 +26,7 @@ namespace Giant.Framework
                     SubId = data.GetInt("SubId"),
                     InnerAddress = data.GetString("InnerAddress"),
                     OutterAddress = data.GetString("OutterAddress"),
+                    HttpPorts = data.GetString("HttpPort").ToIntList()
                 };
 
                 appConfigs.Add(config.AppType, config);

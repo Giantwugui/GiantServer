@@ -1,9 +1,10 @@
 ﻿using System;
+using Giant.Core;
 
 namespace Giant.Net
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class HttpHandlerAttribute : Attribute
+    public class HttpHandlerAttribute : ObjectAttribute
     {
         public string Path { get; private set; }
 

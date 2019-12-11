@@ -2,7 +2,7 @@
   "profiles": {
     "Server.App": {
       "commandName": "Project",
-      "commandLineArgs": "--appType=Zone --appId=1001 --subId=1"
+      "commandLineArgs": "--appType=Global --appId=1001 --subId=1"
     }
   }
 }

@@ -27,6 +27,8 @@ namespace Giant.Net
                     Log.Debug("Http listen port" + port);
                 });
 
+                Load();
+
                 httpListener.Start();
                 AcceptAsync();
             }
@@ -53,25 +55,23 @@ namespace Giant.Net
             }
         }
 
-        public void Load(Assembly assembly)
+        public void Load()
         {
+            getMethodes.Clear();
+            postMethodes.Clear();
+            methodClassMap.Clear();
+
             HttpHandlerAttribute attribute;
-            var types = assembly.GetTypes();
+            var types = Scene.EventSystem.GetTypes(typeof(HttpHandlerAttribute));
             foreach (var type in types)
             {
                 attribute = type.GetCustomAttribute<HttpHandlerAttribute>();
-                if (attribute == null)
-                {
-                    continue;
-                }
-                if (!type.IsSubclassOf(typeof(BaseHttpHandler)))
-                {
-                    continue;
-                }
-                if (string.IsNullOrEmpty(attribute.Path))
-                {
-                    continue;
-                }
+
+                if (attribute == null) continue;
+
+                if (!type.IsSubclassOf(typeof(BaseHttpHandler))) continue;
+
+                if (string.IsNullOrEmpty(attribute.Path)) continue;
 
                 var handler = Activator.CreateInstance(type) as BaseHttpHandler;
                 var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
@@ -140,10 +140,8 @@ namespace Giant.Net
 
                 if (result != null)
                 {
-                    using (StreamWriter writer = new StreamWriter(context.Response.OutputStream))
-                    {
-                        writer.Write(result.ToJson());
-                    }
+                    using StreamWriter writer = new StreamWriter(context.Response.OutputStream);
+                    writer.Write(result.ToJson());
                 }
             }
             catch (Exception ex)

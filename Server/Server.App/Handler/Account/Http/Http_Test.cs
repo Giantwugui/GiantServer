@@ -4,7 +4,6 @@ using Giant.Net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Server.Account
@@ -12,14 +11,6 @@ namespace Server.Account
     public class Http_Test
     {
         static readonly HttpComponent service = new HttpComponent();
-
-        public static void Test()
-        {
-            service.Load(Assembly.GetCallingAssembly());
-            service.Init(new List<int>() { 8080, 8081, 8082 });
-
-            DoGet();
-        }
 
         private static async void DoGet()
         {
