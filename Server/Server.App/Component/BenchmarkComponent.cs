@@ -3,55 +3,50 @@ using Giant.Logger;
 using Giant.Msg;
 using Giant.Net;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Server.Map
+namespace Server.App
 {
-    public class BenchmarkComponent : Component
+    public class BenchmarkComponent : InitSystem
     {
-        static int num = 0;
-        static long time1 = 0;
+        private int num = 0;
+        private Stopwatch stopwatch;
 
-        public static void Test()
+        public override void Init()
         {
-            try
-            {
-                time1 = TimeHelper.NowMilliSeconds;
-                IPEndPoint ipEndPoint = NetworkHelper.ToIPEndPoint("127.0.0.1:8001");
-                for (int i = 0; i < 2000; i++)
-                {
-                    TestAsync(ipEndPoint);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
+            stopwatch = new Stopwatch();
         }
 
-        public static async void TestAsync(IPEndPoint ipEndPoint)
+        public void Test()
         {
-            try
-            {
-                OutterNetworkComponent component = Scene.Pool.GetComponent<OutterNetworkComponent>();
-                using Session session = component.Create(ipEndPoint);
-                session.Start();
-
-                int i = 0;
-                while (i < 100000000)
-                {
-                    ++i;
-                    await Send(session);
-                }
-            }
-            catch (Exception e)
-            {
-                Log.Error(e);
-            }
+            IPEndPoint ipEndPoint = NetworkHelper.ToIPEndPoint("127.0.0.1:9001");
+            TestAsync(ipEndPoint);
         }
 
-        public static async Task Send(Session session)
+        public void TestAsync(IPEndPoint ipEndPoint)
+        {
+            OutterNetworkComponent component = Scene.Pool.GetComponent<OutterNetworkComponent>();
+            Session session = component.Create(ipEndPoint);
+            session.OnConnectCallback += (async (se, state) =>
+            {
+                if (state)
+                {
+                    stopwatch.Start();
+                    int i = 0;
+                    int count = 50 * 10000;
+                    while (i++ < count)
+                    {
+                        await Send(session);
+                    }
+                    stopwatch.Stop();
+                }
+            });
+            session.Start();
+        }
+
+        public async Task Send(Session session)
         {
             try
             {
@@ -62,11 +57,8 @@ namespace Server.Map
                 {
                     return;
                 }
-
-                long time2 = TimeHelper.NowMilliSeconds;
-                long time = time2 - time1;
-                time1 = time2;
-                Log.Warn($"Benchmark k: {num} 每10W次耗时: {time} ms {session.GetParent<NetworkComponent>()?.Children.Count}");
+                Log.Warn($"Benchmark k: {num} 每10W次耗时: {stopwatch.ElapsedMilliseconds} ms {session.GetParent<NetworkComponent>()?.Children.Count}");
+                stopwatch.Restart();
             }
             catch (Exception e)
             {

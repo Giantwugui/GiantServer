@@ -52,6 +52,7 @@ namespace Giant.Net
             parser = new PacketPacker(packetSize, recvBuffer, memoryStream);
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //socket.NoDelay = true;
         }
 
         public override void Start()

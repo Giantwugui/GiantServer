@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Giant.Core
 {
@@ -13,7 +12,7 @@ namespace Giant.Core
         {
             if (string.IsNullOrEmpty(content)) return new List<int>();
 
-            return content.Split(splitChar, StringSplitOptions.RemoveEmptyEntries).ToList().ConvertAll<int>(x=>int.Parse(x));
+            return content.Split(splitChar, StringSplitOptions.RemoveEmptyEntries).ToList().ConvertAll(x => int.Parse(x));
         }
     }
 }

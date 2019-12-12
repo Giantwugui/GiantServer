@@ -1,5 +1,4 @@
-﻿using Giant.Logger;
-using Giant.Net;
+﻿using Giant.Net;
 using System;
 using System.Threading.Tasks;
 
@@ -23,8 +22,6 @@ namespace Server.Account
         [Post]
         public static string TestPostTime(string content)
         {
-            DateTime sendT = DateTime.Parse(content);
-            Log.Debug($"sendTime {content} costTime{(DateTime.Now - sendT).TotalMilliseconds}");
             return DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
 

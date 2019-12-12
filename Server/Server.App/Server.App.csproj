@@ -10,6 +10,10 @@
     <OutputPath>F:\Giant\Bin\</OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>F:\Giant\Bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="C5" Version="2.5.3" />
   </ItemGroup>

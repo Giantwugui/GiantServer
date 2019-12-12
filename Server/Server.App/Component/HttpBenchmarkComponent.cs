@@ -4,48 +4,45 @@ using Giant.Net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
-namespace Server.Account
+namespace Server.App
 {
-    public class Http_Test
+    public class HttpBenchmarkComponent : Component, IInitSystem
     {
-        static readonly HttpComponent service = new HttpComponent();
+        readonly int count = 100;
 
-        private static async void DoGet()
+        public async void Get()
         {
             int i = 0;
             string url = "http://127.0.0.1:8080/GetVAsync";
             Stopwatch stopwatch = new Stopwatch();
-            while (++i < 100)
+            stopwatch.Start();
+
+            while (++i < count)
             {
-                await Task.Delay(1000);
-                stopwatch.Restart();
-
-                string result = await HttpHelper.GetAsync(url);
-                stopwatch.Stop();
-
-                Log.Debug($"get {result} cost {stopwatch.ElapsedMilliseconds}");
+                await HttpHelper.GetAsync(url);
             }
+
+            stopwatch.Stop();
+            Log.Debug($"Get count {count} cost {stopwatch.ElapsedMilliseconds} ms");
         }
 
-        private static async void DoPost()
+        public async void Post()
         {
             try
             {
                 int i = 0;
                 string url = "http://127.0.0.1:8080/TestPostTime";
                 Stopwatch stopwatch = new Stopwatch();
-                while (++i < 100)
+                stopwatch.Start();
+
+                while (++i < count)
                 {
-                    await Task.Delay(1000);
-                    stopwatch.Restart();
-
-                    string result = await HttpHelper.PostAsync(url, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    stopwatch.Stop();
-
-                    Log.Debug($"get {result} cost {stopwatch.ElapsedMilliseconds}");
+                    await HttpHelper.PostAsync(url, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                 }
+
+                stopwatch.Stop();
+                Log.Debug($"Post count {count} cost {stopwatch.ElapsedMilliseconds} ms");
             }
             catch (Exception ex)
             {

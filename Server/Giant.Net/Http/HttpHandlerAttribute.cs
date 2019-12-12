@@ -1,5 +1,5 @@
-﻿using System;
-using Giant.Core;
+﻿using Giant.Core;
+using System;
 
 namespace Giant.Net
 {

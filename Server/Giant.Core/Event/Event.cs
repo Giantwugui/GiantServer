@@ -7,6 +7,7 @@ namespace Giant.Core
         InitDone,
         AffterFrontend,
         AffterBackend,
+        CommandLine,
     }
 
     public interface IEvent

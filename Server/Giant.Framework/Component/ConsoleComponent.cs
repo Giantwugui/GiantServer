@@ -1,5 +1,4 @@
 ﻿using Giant.Core;
-using Giant.Logger;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,20 +25,7 @@ namespace Giant.Framework
             {
                 string inStr = await Task.Run(() => Console.In.ReadLineAsync(), cancellationTokenSource.Token);
 
-                ConsoleRead(inStr);
-            }
-        }
-
-        private void ConsoleRead(string content)
-        {
-            switch (content)
-            {
-                case "load":
-                    Scene.EventSystem.Load();
-                    break;
-                default:
-                    Log.Warn("not support commond !");
-                    break;
+                Scene.EventSystem.Handle(EventType.CommandLine, inStr);
             }
         }
     }
