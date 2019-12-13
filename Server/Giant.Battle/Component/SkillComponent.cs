@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Data;
 using System.Collections.Generic;
 
 namespace Giant.Battle
@@ -12,8 +13,9 @@ namespace Giant.Battle
             skills = new List<Skill>(skillList);
         }
 
-        public void AddSkill(Skill skill)
-        { 
+        public void AddSkill(int skillId)
+        {
+            SkillModel model = SkillDataComponent.Instance.GetModel(skillId);
         }
     }
 }

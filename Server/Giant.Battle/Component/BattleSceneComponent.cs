@@ -2,7 +2,7 @@
 
 namespace Giant.Battle
 {
-    public class BattleSceneComponent : Entity, IInitSystem, IUpdateSystem
+    public class BattleSceneComponent : SingleEntity<BattleSceneComponent>, IUpdateSystem
     {
         public void Update(double dt)
         {
