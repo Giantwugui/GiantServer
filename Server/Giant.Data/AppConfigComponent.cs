@@ -1,7 +1,7 @@
 ﻿using Giant.Core;
 using System.Linq;
 
-namespace Giant.Framework
+namespace Giant.Data
 {
     public class AppConfigComponent : InitSystem, ILoad
     {

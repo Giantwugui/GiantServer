@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Giant.Core;
+using Giant.Data;
 using Giant.DB;
 using Giant.Net;
 using Giant.Redis;

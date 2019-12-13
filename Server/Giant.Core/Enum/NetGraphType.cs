@@ -1,4 +1,4 @@
-﻿namespace Giant.Framework
+﻿namespace Giant.Core
 {
     public enum NetGraphType
     {

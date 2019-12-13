@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Data;
 using Giant.Framework;
 using Giant.Net;
 using System.Collections.Generic;

@@ -3,15 +3,30 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class UnitComponent : Entity, IInitSystem<List<Unit>>
+    public class UnitComponent : Entity, IInitSystem, IUpdate
     {
-        public void Init(List<Unit> units)
+        private readonly Dictionary<int, Unit> units = new Dictionary<int, Unit>();
+
+        public void Init()
         {
-            units.ForEach(x => AddChild(x));
         }
 
-        public void AddUnit(Unit unit) => AddChild(unit);
+        public void AddUnit(Unit unit)
+        {
+            units[unit.Id] = unit;
+
+            AddChild(unit);
+        }
+
         public Unit GetUnit(long instanceId) => GetChild<Unit>(instanceId);
         public void RemoveUnit(long instanceId) => RemoveChild(instanceId);
+
+        public void Update(double dt)
+        {
+            foreach (var kv in units)
+            {
+                kv.Value.Update(dt);
+            }
+        }
     }
 }

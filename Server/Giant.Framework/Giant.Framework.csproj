@@ -13,12 +13,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Component\AppConfigComponent.cs" />
+    <Compile Remove="Component\DataComponent.cs" />
+    <Compile Remove="Component\DBConfigComponent.cs" />
+    <Compile Remove="Component\NetGraphComponent.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Giant.Data\Giant.Data.csproj" />
     <ProjectReference Include="..\Giant.DB\Giant.DB.csproj" />
-    <ProjectReference Include="..\Giant.Log\Giant.Logger.csproj" />
     <ProjectReference Include="..\Giant.Msg\Giant.Msg.csproj" />
     <ProjectReference Include="..\Giant.Net\Giant.Net.csproj" />
     <ProjectReference Include="..\Giant.Redis\Giant.Redis.csproj" />

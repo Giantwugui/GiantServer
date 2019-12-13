@@ -1,6 +1,6 @@
 ﻿using Giant.Core;
 
-namespace Giant.Framework
+namespace Giant.Data
 {
     public class DBConfigComponent : InitSystem, ILoad
     {

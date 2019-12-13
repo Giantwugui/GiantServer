@@ -25,6 +25,13 @@ namespace Giant.Core
             return component;
         }
 
+        public T AddComponentWithParent<T>() where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T>(this);
+            AddComponent(component);
+            return component;
+        }
+
         public T AddComponentWithParent<T>(Component parent) where T : Component, new()
         {
             T component = ComponentFactory.CreateComponentWithParent<T>(parent);
@@ -32,9 +39,23 @@ namespace Giant.Core
             return component;
         }
 
+        public T AddComponentWithParent<T, T1>(T1 t1) where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T, T1>(this, t1);
+            AddComponent(component);
+            return component;
+        }
+
         public T AddComponentWithParent<T, T1>(Component parent, T1 t1) where T : Component, new()
         {
             T component = ComponentFactory.CreateComponentWithParent<T, T1>(parent, t1);
+            AddComponent(component);
+            return component;
+        }
+
+        public T AddComponentWithParent<T, T1, T2>(T1 t1, T2 t2) where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T, T1, T2>(this, t1, t2);
             AddComponent(component);
             return component;
         }

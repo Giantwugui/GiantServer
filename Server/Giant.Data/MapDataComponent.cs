@@ -1,8 +1,7 @@
 ﻿using Giant.Core;
-using Giant.Framework;
 using System.Collections.Generic;
 
-namespace Server.App
+namespace Giant.Data
 {
     public class MapDataComponent : InitSystem, ILoad
     {

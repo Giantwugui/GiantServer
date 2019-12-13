@@ -10,6 +10,8 @@ namespace Giant.Battle
         public void Init(MapModel model)
         {
             MapModel = model;
+
+            AddComponentWithParent<UnitComponent>(this);
         }
 
         public void Update(double dt)

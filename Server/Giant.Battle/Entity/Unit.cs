@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class Unit : Entity, IInitSystem<UnitType, int, List<Numerical>, List<Skill>>
+    public class Unit : Entity, IInitSystem<UnitType, int, List<Numerical>, List<Skill>>, IUpdate
     {
         public int Id { get; private set; }
         public UnitType UnitType { get; private set; }
@@ -14,9 +14,18 @@ namespace Giant.Battle
             Id = id;
             UnitType = unitType;
 
-            AddComponentWithParent<NumericalComponent, List<Numerical>>(this, numericals);
-            AddComponentWithParent<SkillComponent, List<Skill>>(this, skills);
-            AddComponentWithParent<BuffComponent>(this);
+            AddComponentWithParent<NumericalComponent, List<Numerical>>(numericals);
+            AddComponentWithParent<SkillComponent, List<Skill>>(skills);
+            AddComponentWithParent<BuffComponent>();
+        }
+
+        public void Update(double dt)
+        {
+        }
+
+        public void UpdateHP(int hp)
+        {
+            GetComponent<NumericalComponent>().GetNumerical(NumericalType.HP).AddValue(hp);
         }
     }
 }

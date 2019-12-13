@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Giant.Framework
+namespace Giant.Data
 {
     public class NetGraphComponent : InitSystem, ILoad
     {
