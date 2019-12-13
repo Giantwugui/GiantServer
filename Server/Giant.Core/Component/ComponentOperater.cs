@@ -25,6 +25,27 @@ namespace Giant.Core
             return component;
         }
 
+        public T AddComponentWithParent<T>(Component parent) where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T>(parent);
+            AddComponent(component);
+            return component;
+        }
+
+        public T AddComponentWithParent<T, T1>(Component parent, T1 t1) where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T, T1>(parent, t1);
+            AddComponent(component);
+            return component;
+        }
+
+        public T AddComponentWithParent<T, T1, T2>(Component parent, T1 t1, T2 t2) where T : Component, new()
+        {
+            T component = ComponentFactory.CreateComponentWithParent<T, T1, T2>(parent, t1, t2);
+            AddComponent(component);
+            return component;
+        }
+
         public T GetComponent<T>() where T : Component, new()
         {
             componentes.TryGetValue(typeof(T), out var component);

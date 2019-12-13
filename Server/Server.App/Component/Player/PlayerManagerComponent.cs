@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Server.App
 {
-    class PlayerManagerComponent : InitSystem, IUpdate
+    class PlayerManagerComponent : InitSystem, IUpdateSystem
     {
         private static readonly short offlineKeepTime = 10;
 

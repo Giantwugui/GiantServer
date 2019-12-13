@@ -11,7 +11,7 @@ namespace Giant.Core
         private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
         private readonly DepthMap<Type, long, ILoad> loadComponent = new DepthMap<Type, long, ILoad>();
-        private readonly DepthMap<Type, long, IUpdate> updateComponent = new DepthMap<Type, long, IUpdate>();
+        private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
 
         private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
         private readonly Dictionary<Type, ISystem> systems = new Dictionary<Type, ISystem>();
@@ -23,7 +23,7 @@ namespace Giant.Core
                 case ILoad load:
                     loadComponent.Add(component.GetType(), component.InstanceId, load);
                     break;
-                case IUpdate update:
+                case IUpdateSystem update:
                     updateComponent.Add(component.GetType(), component.InstanceId, update);
                     break;
             }

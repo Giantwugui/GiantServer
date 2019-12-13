@@ -1,6 +1,4 @@
-﻿using Giant.Framework;
-
-namespace Server.App
+﻿namespace Giant.Data
 {
     public class MapModel
     {

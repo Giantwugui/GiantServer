@@ -4,4 +4,6 @@
     {
         void Update(double dt) { }
     }
+
+    public interface IUpdateSystem : IUpdate { }
 }

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Giant.Redis\Giant.Redis.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handler\Account\Http\" />
+  </ItemGroup>
+
 </Project>
