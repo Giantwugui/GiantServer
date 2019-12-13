@@ -9,4 +9,8 @@
     <ProjectReference Include="..\Giant.Log\Giant.Logger.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Base\" />
+  </ItemGroup>
+
 </Project>

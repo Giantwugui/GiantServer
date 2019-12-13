@@ -11,7 +11,7 @@ namespace Server.App
         private JumpPointParam jumpPointParam;
 
         public MapModel Model { get; private set; }
-        public int MapId => Model.MapId;
+        public int MapId => Model.Id;
 
         public override void Init(MapModel model)
         {

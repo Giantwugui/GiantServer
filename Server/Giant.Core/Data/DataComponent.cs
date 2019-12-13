@@ -1,15 +1,14 @@
-﻿using Giant.Core;
-using Giant.Logger;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace Giant.Data
+namespace Giant.Core
 {
     public class DataComponent : InitSystem, ILoad
     {
         private string xmlPath;
-        private DepthMap<string, int, Data> DataList = new DepthMap<string, int, Data>();
+        private DepthMap<string, int, DataModel> DataList = new DepthMap<string, int, DataModel>();
 
         private static DataComponent instance;
         public static DataComponent Instance => instance;
@@ -36,7 +35,7 @@ namespace Giant.Data
             }
         }
 
-        public Data GetData(string name, int id)
+        public DataModel GetData(string name, int id)
         {
             if (DataList.TryGetValue(name, out var data))
             {
@@ -48,7 +47,7 @@ namespace Giant.Data
             return null; ;
         }
 
-        public Dictionary<int, Data> GetDatas(string name)
+        public Dictionary<int, DataModel> GetDatas(string name)
         {
             if (DataList.TryGetValue(name, out var data))
             {
@@ -60,8 +59,7 @@ namespace Giant.Data
         {
             if (!File.Exists(path))
             {
-                Log.Error($"Xml must have not exist please check, xml : {path}");
-                return;
+                throw new Exception($"Xml must have not exist please check, xml : {path}");
             }
 
             XmlDocument doc = new XmlDocument();
@@ -73,8 +71,7 @@ namespace Giant.Data
             string tableName = root.Attributes["Config"].Value;
             if (string.IsNullOrEmpty(tableName))
             {
-                Log.Error($"Xml must have correct name (attribute 'Config'), xml : {path}");
-                return;
+                throw new Exception($"Xml must have correct name (attribute 'Config'), xml : {path}");
             }
 
             Dictionary<string, string> param;
@@ -84,12 +81,11 @@ namespace Giant.Data
                 string idStr = node.Attributes["id"].Value;
                 if (!int.TryParse(idStr, out int id))
                 {
-                    Log.Error($"Xml must have id (attribute 'id'), xml : {path}");
-                    continue;
+                    throw new Exception($"Xml must have id (attribute 'id'), xml : {path}");
                 }
 
                 param = ParesData(node.Attributes);
-                AddToDataList(tableName, new Data() { Id = id, Params = param });
+                AddToDataList(tableName, new DataModel() { Id = id, Params = param });
             }
 
         }
@@ -105,7 +101,7 @@ namespace Giant.Data
             return param;
         }
 
-        private void AddToDataList(string name, Data data)
+        private void AddToDataList(string name, DataModel data)
         {
             DataList.Add(name, data.Id, data);
         }

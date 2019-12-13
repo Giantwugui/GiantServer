@@ -1,24 +1,16 @@
-﻿namespace Giant.Data
+﻿using Giant.Core;
+
+namespace Giant.Data
 {
-    public class MapModel
+    public class MapModel : IData<MapModel>
     {
-        public int MapId { get; private set; }
+        public int Id { get; private set; }
         public string MapName { get; private set; }
         public string BianryName { get; private set; }
 
-        public Data Data { get; private set; }
-
-
-        public MapModel(Data data)
+        public void Bind(DataModel data)
         {
-            Data = data;
-            BindData();
-        }
-
-        private void BindData()
-        {
-            var data = Data;
-            MapId = data.Id;
+            Id = data.Id;
             MapName = data.GetString("MapName");
             BianryName = data.GetString("BianryName");
         }

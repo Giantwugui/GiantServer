@@ -9,7 +9,12 @@ namespace Giant.Data
 
         public override void Init()
         {
-            Data data = DataComponent.Instance.GetData("DBConfig", 1);
+            Load();
+        }
+
+        public void Load()
+        {
+            DataModel data = DataComponent.Instance.GetData("DBConfig", 1);
 
             DBConfig = new DBConfig
             {
@@ -26,11 +31,6 @@ namespace Giant.Data
                 Pwd = data.GetString("RedisPwd"),
                 DBIndex = data.GetInt("RedisIndex")
             };
-        }
-
-        public void Load()
-        {
-            Init();
         }
     }
 }

@@ -12,14 +12,14 @@ namespace Giant.Data
 
         public override void Init()
         {
-            netTopology.Clear();
-            var datas = DataComponent.Instance.GetDatas("NetGraph");
-            InitTopology(datas);
+            Load();
         }
 
         public void Load()
         {
-            Init();
+            netTopology.Clear();
+            var datas = DataComponent.Instance.GetDatas("NetGraph");
+            InitTopology(datas);
         }
 
         public bool NeedConnect(AppType appType, int appId, AppType otherAppType, int otherAppId)
@@ -50,9 +50,9 @@ namespace Giant.Data
             }
         }
 
-        private void InitTopology(Dictionary<int, Data> topology)
+        private void InitTopology(Dictionary<int, DataModel> topology)
         {
-            Data data;
+            DataModel data;
             string allApp = AppType.AllServer.ToString();
 
             foreach (var kv in topology)

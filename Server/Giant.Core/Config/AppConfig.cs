@@ -2,14 +2,25 @@
 
 namespace Giant.Core
 {
-    public class AppConfig
+    public partial class AppConfig : IData<AppConfig>
     {
-        public AppType AppType { get; set; }
-        public int AppId { get; set; }
-        public int SubId { get; set; }
-        public string InnerAddress { get; set; }
-        public string OutterAddress { get; set; }
+        public int Id { get; private set; }
+        public AppType AppType { get; private set; }
+        public int AppId { get; private set; }
+        public int SubId { get; private set; }
+        public string InnerAddress { get; private set; }
+        public string OutterAddress { get; private set; }
+        public List<int> HttpPorts { get; private set; }
 
-        public List<int> HttpPorts { get; set; }
+        public void Bind(DataModel data)
+        {
+            Id = data.Id;
+            AppType = EnumHelper.FromString<AppType>(data.GetString("Name"));
+            AppId = data.GetInt("AppId");
+            SubId = data.GetInt("SubId");
+            InnerAddress = data.GetString("InnerAddress");
+            OutterAddress = data.GetString("OutterAddress");
+            HttpPorts = data.GetString("HttpPort").ToIntList();
+        }
     }
 }

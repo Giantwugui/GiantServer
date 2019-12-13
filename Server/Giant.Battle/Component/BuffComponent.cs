@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Data;
 
 namespace Giant.Battle
 {
@@ -11,7 +12,8 @@ namespace Giant.Battle
         }
 
         public void AddBuff(int buffId)
-        { 
+        {
+            BuffModel model = BuffDataComponent.Instance.GetModel(buffId);
         }
 
         public void Update(double dt)

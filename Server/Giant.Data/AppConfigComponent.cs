@@ -3,40 +3,9 @@ using System.Linq;
 
 namespace Giant.Data
 {
-    public class AppConfigComponent : InitSystem, ILoad
+    public class AppConfigComponent : SingleDataComponent<AppConfigComponent, AppConfig>
     {
         private readonly ListMap<AppType, AppConfig> appConfigs = new ListMap<AppType, AppConfig>();
-
-        public AppConfigComponent() { }
-
-        public override void Init()
-        {
-            appConfigs.Clear();
-
-            Data data;
-            AppConfig config;
-            var datas = DataComponent.Instance.GetDatas("AppConfig");
-            foreach (var kv in datas)
-            {
-                data = kv.Value;
-                config = new AppConfig()
-                {
-                    AppType = EnumHelper.FromString<AppType>(data.GetString("Name")),
-                    AppId = data.GetInt("AppId"),
-                    SubId = data.GetInt("SubId"),
-                    InnerAddress = data.GetString("InnerAddress"),
-                    OutterAddress = data.GetString("OutterAddress"),
-                    HttpPorts = data.GetString("HttpPort").ToIntList()
-                };
-
-                appConfigs.Add(config.AppType, config);
-            }
-        }
-
-        public void Load()
-        {
-            Init();
-        }
 
         public AppConfig GetNetConfig(AppType appType)
         {
@@ -50,14 +19,21 @@ namespace Giant.Data
             return config?.Where(x => x.AppId == appId && x.SubId == subId).FirstOrDefault();
         }
 
-        //public static List<AppConfig> GetNetConfig(AppType appyType)
-        //{
-        //    if (!appConfigs .TryGetValue(appyType, out var topology))
-        //    {
-        //        Logger.Error($"Xml error, have no this AppType {appyType.ToString()}'s Netconfig");
-        //    }
-        //    return topology;
-        //}
+        public override void Load()
+        {
+            appConfigs.Clear();
 
+            //Load("AppConfig");
+
+            AppConfig config = null;
+            var datas = DataComponent.Instance.GetDatas("AppConfig");
+            foreach (var kv in datas)
+            {
+                config = new AppConfig();
+                config.Bind(kv.Value);
+            }
+
+            appConfigs.Add(config.AppType, config);
+        }
     }
 }

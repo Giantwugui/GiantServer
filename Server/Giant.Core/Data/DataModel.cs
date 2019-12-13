@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Giant.Data
+namespace Giant.Core
 {
-    public class Data
+    public class DataModel : IData
     {
         public int Id { get; set; }
         public Dictionary<string, string> Params { get; set; }

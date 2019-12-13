@@ -3,27 +3,14 @@ using System.Collections.Generic;
 
 namespace Giant.Data
 {
-    public class MapDataComponent : InitSystem, ILoad
+    public class MapDataComponent : SingleDataComponent<MapDataComponent, MapModel>
     {
-        private readonly Dictionary<int, MapModel> maps = new Dictionary<int, MapModel>();
-        public Dictionary<int, MapModel> Maps => maps;
+        public Dictionary<int, MapModel> Maps => Models;
 
-        public override void Init()
+        public override void Load()
         {
-            maps.Clear();
-
-            MapModel model;
-            var datas = DataComponent.Instance.GetDatas("Map");
-            foreach (var kv in datas)
-            {
-                model = new MapModel(kv.Value);
-                maps.Add(model.MapId, model);
-            }
-        }
-
-        public void Load()
-        {
-            Init();
+            Clear();
+            Load("Map");
         }
     }
 }
