@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Component\App\Zone\" />
     <Folder Include="Handler\Account\Http\" />
   </ItemGroup>
 
