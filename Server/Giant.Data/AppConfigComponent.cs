@@ -31,9 +31,9 @@ namespace Giant.Data
             {
                 config = new AppConfig();
                 config.Bind(kv.Value);
-            }
 
-            appConfigs.Add(config.AppType, config);
+                appConfigs.Add(config.AppType, config);
+            }
         }
     }
 }

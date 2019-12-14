@@ -10,7 +10,7 @@ namespace Giant.Core
         private readonly Dictionary<string, Assembly> assemblies = new Dictionary<string, Assembly>();
         private readonly ListMap<Type, Type> attributeTypes = new ListMap<Type, Type>();
 
-        private readonly DepthMap<Type, long, ILoad> loadComponent = new DepthMap<Type, long, ILoad>();
+        private readonly DepthMap<Type, long, ILoadSystem> loadComponent = new DepthMap<Type, long, ILoadSystem>();
         private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new DepthMap<Type, long, IUpdateSystem>();
 
         private readonly ListMap<EventType, IEvent> eventList = new ListMap<EventType, IEvent>();
@@ -20,7 +20,7 @@ namespace Giant.Core
         {
             switch (component)
             {
-                case ILoad load:
+                case ILoadSystem load:
                     loadComponent.Add(component.GetType(), component.InstanceId, load);
                     break;
                 case IUpdateSystem update:

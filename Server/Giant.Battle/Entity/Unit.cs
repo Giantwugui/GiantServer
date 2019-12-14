@@ -21,6 +21,7 @@ namespace Giant.Battle
 
         public void Update(double dt)
         {
+            GetComponent<BuffComponent>().Update(dt);
         }
 
         public void UpdateHP(int hp)

@@ -4,7 +4,7 @@ namespace Giant.Battle
 {
     public class BuffFactory
     {
-        public BaseBuff BuildBuff(BuffComponent component, BuffModel model)
+        public static BaseBuff BuildBuff(BuffComponent component, BuffModel model)
         {
             switch ((BuffType)model.BuffType)
             {

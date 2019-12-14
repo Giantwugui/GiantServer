@@ -14,12 +14,12 @@ namespace Giant.Battle
             addValue = value;
         }
 
-        public override void Start()
+        protected override void OnStart()
         {
             owner.GetComponent<NumericalComponent>().GetNumerical(NumericalType.Attack).AddValue(addValue);
         }
 
-        public override void End()
+        protected override void OnEnd()
         {
             owner.GetComponent<NumericalComponent>().GetNumerical(NumericalType.Attack).AddValue(addValue * -1);
         }

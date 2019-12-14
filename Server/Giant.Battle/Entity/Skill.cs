@@ -5,11 +5,17 @@ namespace Giant.Battle
 {
     public class Skill : Entity, IInitSystem<SkillModel>
     {
-        public SkillModel SkillModel { get; private set; }
+        private Unit owner;
+
+        public int Id { get; private set; }
+        public SkillType SkillType { get; private set; }
 
         public void Init(SkillModel model)
         {
-            SkillModel = model;
+            Id = model.Id;
+            SkillType = (SkillType)model.SkillType;
+
+            owner = GetParent<SkillComponent>().GetParent<Unit>();
         }
 
         public override void Dispose()

@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Server.App
+namespace Giant.Battle
 {
     /// <summary>
     /// 地形信息
     /// </summary>
-    public class MapGridPosComponent : InitSystem, ILoad
+    public class MapGridPosComponent : InitSystem, ILoadSystem
     {
         private readonly Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
 

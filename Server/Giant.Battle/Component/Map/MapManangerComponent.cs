@@ -2,7 +2,7 @@
 using Giant.Data;
 using System.Collections.Generic;
 
-namespace Server.App
+namespace Giant.Battle
 {
     public class MapManangerComponent : InitSystem<MapDataComponent>
     {

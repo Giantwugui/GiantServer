@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Giant.Framework
 {
-    public class UpdateIndexComponent : InitSystem, ILoad
+    public class UpdateIndexComponent : InitSystem, ILoadSystem
     {
         public List<DataTask<string>> taskList = new List<DataTask<string>>();
 

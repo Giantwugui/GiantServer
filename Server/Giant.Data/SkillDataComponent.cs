@@ -6,7 +6,6 @@ namespace Giant.Data
     {
         public override void Load()
         {
-            Clear();
             Load("Skill");
         }
     }

@@ -149,7 +149,6 @@ namespace EpPathFinding
         }
         public static List<GridPos> FindPath(JumpPointParam iParam)
         {
-
             IntervalHeap<Node> tOpenList = iParam.openList;
             Node tStartNode = iParam.StartNode;
             Node tEndNode = iParam.EndNode;

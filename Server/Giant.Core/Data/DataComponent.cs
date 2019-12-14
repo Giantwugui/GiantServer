@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace Giant.Core
 {
-    public class DataComponent : InitSystem, ILoad
+    public class DataComponent : InitSystem, ILoadSystem
     {
         private string xmlPath;
         private DepthMap<string, int, DataModel> DataList = new DepthMap<string, int, DataModel>();

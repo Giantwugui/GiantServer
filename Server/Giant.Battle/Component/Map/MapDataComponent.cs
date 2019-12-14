@@ -1,7 +1,7 @@
 ﻿using Giant.Core;
 using System.Collections.Generic;
 
-namespace Giant.Data
+namespace Giant.Battle
 {
     public class MapDataComponent : SingleDataComponent<MapDataComponent, MapModel>
     {
@@ -9,7 +9,6 @@ namespace Giant.Data
 
         public override void Load()
         {
-            Clear();
             Load("Map");
         }
     }
