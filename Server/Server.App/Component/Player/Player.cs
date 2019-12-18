@@ -4,7 +4,7 @@ using System;
 
 namespace Server.App
 {
-    public class Player : Field, IInitSystem<PlayerInfo>
+    public partial class Player : Entity, IInitSystem<PlayerInfo>
     {
         private PlayerInfo playerInfo;
 

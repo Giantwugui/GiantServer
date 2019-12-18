@@ -3,34 +3,43 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class UnitComponent : Entity, IInitSystem, IUpdate
+    public class UnitComponent : InitSystem, IUpdate
     {
-        private readonly Dictionary<int, Unit> units = new Dictionary<int, Unit>();
+        private readonly Dictionary<int, Unit> unitList = new Dictionary<int, Unit>();
+        public Dictionary<int, Unit> UnitList => unitList;
 
-        private readonly Dictionary<int, Unit> playerList = new Dictionary<int, Unit>();
-        public readonly Dictionary<int, Unit> PlayerList => playerList;
-
-        public void Init()
+        public override void Init()
         {
         }
 
-        public void AddUnit(Unit unit)
+        public bool AddUnit(Unit unit)
         {
-            Unit exUnit = GetUnit(unit.InstanceId);
+            Unit exUnit = GetUnit(unit.Id);
 
-            if (exUnit != null) return;
+            if (exUnit != null) return false;
 
-            units[unit.Id] = unit;
+            unitList[unit.Id] = unit;
 
-            AddChild(unit);
+            return true;
         }
 
-        public Unit GetUnit(long instanceId) => GetChild<Unit>(instanceId);
-        public void RemoveUnit(long instanceId) => RemoveChild(instanceId);
+        public Unit GetUnit(int id)
+        {
+            unitList.TryGetValue(id, out var unit);
+            return unit;
+        }
+
+        public void RemoveUnit(int id)
+        {
+            if (unitList.TryGetValue(id, out var unit))
+            {
+                unitList.Remove(id);
+            }
+        }
 
         public void Update(double dt)
         {
-            foreach (var kv in units)
+            foreach (var kv in unitList)
             {
                 kv.Value.Update(dt);
             }

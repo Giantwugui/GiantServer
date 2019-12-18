@@ -18,8 +18,6 @@ namespace Server.App
                 msg.Error = ErrorCode.Fail;
                 return;
             }
-
-            hero.LevelUp(1);
         }
 
         public void HeroLevelUp(Player player, int heroId)

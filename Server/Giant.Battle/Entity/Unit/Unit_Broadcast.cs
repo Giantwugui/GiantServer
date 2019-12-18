@@ -3,9 +3,14 @@
     partial class Unit
     {
         /// <summary>
+        /// 用于构造广播消息
+        /// </summary>
+        private IBattleMsgSource msgSource;
+
+        /// <summary>
         /// 向listener 广播消息
         /// </summary>
-        private readonly IBattleMsgListener msgListener;
+        private IBattleMsgListener msgListener;
         public IBattleMsgListener MsgListener => msgListener;
 
         public void BroadCast(Google.Protobuf.IMessage message)

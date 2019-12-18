@@ -24,8 +24,6 @@ namespace Server.App
                 return Task.CompletedTask;
             }
 
-            //TODO 其他逻辑层
-            hero.LevelUp(1);
 
             return Task.CompletedTask;
         }

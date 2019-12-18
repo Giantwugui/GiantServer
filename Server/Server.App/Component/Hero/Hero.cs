@@ -1,6 +1,8 @@
-﻿namespace Server.App
+﻿using Giant.Core;
+
+namespace Server.App
 {
-    public class Hero : Field
+    public class Hero : Entity
     {
     }
 }

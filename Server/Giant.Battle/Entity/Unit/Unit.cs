@@ -4,21 +4,23 @@ using UnityEngine;
 
 namespace Giant.Battle
 {
-    public partial class Unit : Entity, IInitSystem<UnitType, int, List<Numerical>, List<Skill>, IBattleMsgListener>, IUpdate
+    public partial class Unit : Entity, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>, IUpdate
     {
         public int Id { get; private set; }
         public UnitType UnitType { get; private set; }
         public bool IsDead { get; private set; }
         public Vector2 Position { get; private set; }
 
-        public void Init(UnitType unitType, int id, List<Numerical> numericals, List<Skill> skills, IBattleMsgListener listener)
+        public void Init(UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
         {
-            Id = id;
-            UnitType = unitType;
-            MsgListener = listener;
+            Id = info.Id;
+            UnitType = info.UnitType;
 
-            AddComponentWithParent<NumericalComponent, List<Numerical>>(numericals);
-            AddComponentWithParent<SkillComponent, List<Skill>>(skills);
+            msgSource = source;
+            msgListener = listener;
+
+            AddComponentWithParent<NumericalComponent, List<Numerical>>(info.Numericals);
+            AddComponentWithParent<SkillComponent, List<Skill>>(info.Skills);
             AddComponentWithParent<BuffComponent>();
         }
 
@@ -30,6 +32,9 @@ namespace Giant.Battle
         public bool Move(Vector2 vector)
         {
             Position = vector;
+
+            msgSource.OnMove(this, Position);
+
             return true;
         }
     }

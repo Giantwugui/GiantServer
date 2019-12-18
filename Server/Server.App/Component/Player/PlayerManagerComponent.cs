@@ -25,7 +25,6 @@ namespace Server.App
         {
             foreach (var kv in playerList)
             {
-                kv.Value.Update();
             }
         }
 

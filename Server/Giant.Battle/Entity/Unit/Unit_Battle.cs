@@ -2,7 +2,7 @@
 
 namespace Giant.Battle
 {
-    partial class Unit : IBattleMsgSource
+    partial class Unit : IBattleAction
     {
         public void UpdateHP(int hp)
         {
@@ -10,12 +10,12 @@ namespace Giant.Battle
             if (value <= 0)
             {
                 IsDead = true;
-                OnDead();
+                Dead();
             }
         }
 
 
-        public bool CaskSkill(int skillId)
+        public bool CastSkill(int skillId)
         {
             Skill skill = GetComponent<SkillComponent>().GetSkill(skillId);
 
@@ -24,6 +24,8 @@ namespace Giant.Battle
             if (!skill.CheckCast()) return false;
 
             if (!CheckSkillAttack(skill.SkillType)) return false;
+
+            msgSource.OnCastSkill(this, skillId);
 
             skill.Start();
 
@@ -41,36 +43,38 @@ namespace Giant.Battle
             return true;
         }
 
-        public void OnHit()
+        public void Hit(Unit target, int damage)
         {
         }
 
-        public void OnDamage(int damage)
+        public void Damage(int damage)
         {
+            msgSource.OnDamage(this, damage);
         }
 
-        public void OnCastSkill(int skillId)
+        public void AddBuff(List<int> buffList)
         {
+            msgSource.OnAddBuff(this, buffList);
         }
 
-        public void OnAddBuff(List<int> buffList)
+        public void RemoveBuff(List<int> buffList)
         {
+            msgSource.OnRemoveBuff(this, buffList);
         }
 
-        public void OnRemoveBuff(List<int> buffList)
+        public void NumericalChange(NumericalType type, int value)
         {
+            msgSource.OnNumericalChange(this, type, value);
         }
 
-        public void OnNumericalChange(NumericalType type, int value)
+        public virtual void Dead()
         {
+            msgSource.OnDead(this);
         }
 
-        public virtual void OnDead()
+        public void Relive()
         {
-        }
-
-        public void OnRelive()
-        {
+            msgSource.OnRelive(this);
         }
     }
 }

@@ -20,14 +20,15 @@ namespace Giant.Battle
 
         public virtual void Start()
         {
-            Broadcast_BattleStart();
+            OnBattleStart();
         }
 
-        public virtual void Stop()
+        public virtual void Stop(BattleResult result)
         {
+            OnBattleStop(result);
         }
 
-        public virtual void Close()
+        public void Close()
         {
         }
 
@@ -39,22 +40,30 @@ namespace Giant.Battle
 
         public void Enter(Unit unit)
         {
-            UnitComponent.AddUnit(unit);
+            if (UnitComponent.AddUnit(unit))
+            {
+                OnUnitEnter(unit);
+            }
         }
 
-        public void Leave(long instanceId)
+        public void Leave(int id)
         {
-            UnitComponent.RemoveUnit(instanceId);
+            Unit unit = UnitComponent.GetUnit(id);
+            if (unit == null) return;
+
+            UnitComponent.RemoveUnit(id);
+
+            OnUnitLeave(unit);
         }
 
-        public void Move(long instanceId, Vector2 vector)
+        public void Move(int id, Vector2 vector)
         {
-            UnitComponent.GetUnit(instanceId)?.Move(vector);
+            UnitComponent.GetUnit(id)?.Move(vector);
         }
 
-        public void CastSkill(long instanceId, int skillId)
+        public void CastSkill(int id, int skillId)
         {
-            UnitComponent.GetUnit(instanceId)?.CaskSkill(skillId);
+            UnitComponent.GetUnit(id)?.CastSkill(skillId);
         }
 
         #endregion

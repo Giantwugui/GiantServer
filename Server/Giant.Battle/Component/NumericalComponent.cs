@@ -48,7 +48,7 @@ namespace Giant.Battle
                 changedValue = numerical.AddValue(value);
             }
 
-            owner.OnNumericalChange(type, value);
+            owner.NumericalChange(type, value);
             return changedValue;
         }
 
