@@ -182,6 +182,10 @@ message Msg_GateZ_Hero_Break // IRequest
 
 /*********************** Zone => Gate ****************************/
 
+message Msg_ZGate_Battle_Start // IMessage
+{
+}
+
 message Msg_ZGate_Hero_Break // IResponse
 {
 	int32 RpcId = 90;

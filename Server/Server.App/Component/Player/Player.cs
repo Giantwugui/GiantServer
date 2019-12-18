@@ -32,7 +32,7 @@ namespace Server.App
 
         public void EnterMap(int mapId)
         {
-            MapComponent map = MapManangerComponent.Instance.GetMap(mapId);
+            //MapComponent map = MapManangerComponent.Instance.GetMap(mapId);
         }
 
         public void Offline()

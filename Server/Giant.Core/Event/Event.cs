@@ -4,10 +4,14 @@ namespace Giant.Core
 {
     public enum EventType
     {
-        InitDone,
-        AffterFrontend,
-        AffterBackend,
-        CommandLine,
+        //1-1000 系统事件
+        InitDone = 1,
+        AffterFrontend = 2,
+        AffterBackend = 3,
+        CommandLine = 4,
+
+        //1001-2000 战斗系统事件
+        PositionChange = 1001,
     }
 
     public interface IEvent

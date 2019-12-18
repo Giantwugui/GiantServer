@@ -56,6 +56,11 @@ namespace Giant.Battle
             }
         }
 
+        public bool InBuffState(BuffType type)
+        {
+            return buffsType2Id.ContainsKey(type);
+        }
+
         public void Update(double dt)
         {
             BaseBuff buff;

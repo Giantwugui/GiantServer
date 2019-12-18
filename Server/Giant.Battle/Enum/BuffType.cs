@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Giant.Battle
+﻿namespace Giant.Battle
 {
     public enum BuffType
     {

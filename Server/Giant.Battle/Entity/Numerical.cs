@@ -2,25 +2,26 @@
 
 namespace Giant.Battle
 {
-    public class Numerical : InitSystem<NumericalType, float>
+    public class Numerical : InitSystem<NumericalType, int>
     {
-        private float basicValue;
-        private float basicAddValue;
+        private int basicValue;
+        private int basicAddValue;
 
         public NumericalType NumericalType { get; private set; }
-        public float Value { get; private set; }
+        public int Value { get; private set; }
 
-        public override void Init(NumericalType numericalType, float value)
+        public override void Init(NumericalType numericalType, int value)
         {
             NumericalType = numericalType;
             basicValue = value;
             SetValue();
         }
 
-        public void AddValue(float value)
+        public int AddValue(int value)
         {
             basicAddValue += value;
             SetValue();
+            return value;
         }
 
         private void SetValue()

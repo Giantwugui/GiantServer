@@ -49,6 +49,11 @@ namespace Giant.Core
             }
         }
 
+        public bool ContainsKey(K key)
+        {
+            return dicList.ContainsKey(key);
+        }
+
         public IEnumerator<KeyValuePair<K, List<V>>> GetEnumerator()
         {
             return dicList.GetEnumerator();

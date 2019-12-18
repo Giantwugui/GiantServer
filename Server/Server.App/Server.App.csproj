@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Giant.Battle\Giant.Battle.csproj" />
     <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\Giant.Framework\Giant.Framework.csproj" />
     <ProjectReference Include="..\Giant.Msg\Giant.Msg.csproj" />

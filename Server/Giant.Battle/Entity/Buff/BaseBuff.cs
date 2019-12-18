@@ -41,7 +41,7 @@ namespace Giant.Battle
         protected virtual void OnEnd() { }
 
         public virtual void Reset() { }
-        public virtual void Update(double dt) 
+        public virtual void Update(double dt)
         {
             if (TimeHelper.Now >= EndTime)
             {
