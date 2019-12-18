@@ -7,6 +7,7 @@ namespace Giant.Battle
     public abstract class BaseBuff : Entity, IUpdate
     {
         protected Unit owner;
+        public bool IsBuffEnd { get; set; }
 
         public int Id { get; private set; }
         public BuffType BuffType { get; private set; }
@@ -23,11 +24,15 @@ namespace Giant.Battle
 
         public void Start()
         {
+            IsBuffEnd = false;
+
             OnStart();
         }
 
         public void End()
         {
+            IsBuffEnd = true;
+
             OnEnd();
             GetParent<BuffComponent>().RemoveBuff(InstanceId);
         }

@@ -6,7 +6,7 @@ namespace Giant.Battle
     public class Skill : Entity, IInitSystem<SkillModel>
     {
         private Unit owner;
-        private int skillCastEnergy;
+        private int energy;
 
         public int Id { get; private set; }
         public int SkillEnergy { get; private set; }
@@ -22,7 +22,12 @@ namespace Giant.Battle
 
         public bool CheckCast()
         {
-            return SkillEnergy >= skillCastEnergy;
+            return SkillEnergy >= energy;
+        }
+
+        public void AddEnergy(int value)
+        {
+            energy += value;
         }
 
         public void Start()

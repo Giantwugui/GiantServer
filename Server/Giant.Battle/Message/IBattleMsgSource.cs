@@ -15,8 +15,8 @@ namespace Giant.Battle
         void OnMove(Unit unit, Vector2 vector);
         void OnDamage(Unit unit, int damage);
         void OnCastSkill(Unit unit, int skillId);
-        void OnAddBuff(Unit unit, List<int> buffList);
-        void OnRemoveBuff(Unit unit, List<int> buffList);
+        void OnAddBuff(Unit unit, int buffId);
+        void OnRemoveBuff(Unit unit, int buffId);
         void OnNumericalChange(Unit unit, NumericalType type, int value);
         void OnDead(Unit unit);
         void OnRelive(Unit unit);

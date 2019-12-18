@@ -6,26 +6,30 @@ using System.Linq;
 
 namespace Giant.Battle
 {
-    public class BuffComponent : InitSystem, IUpdate
+    public class BuffComponent : InitSystem<IBattleMsgSource>, IUpdate
     {
+        private IBattleMsgSource msgSource;
         private readonly Dictionary<long, BaseBuff> buffs = new Dictionary<long, BaseBuff>();
         private readonly ListMap<BuffType, long> buffsType2Id = new ListMap<BuffType, long>();
 
-        public override void Init()
+        public override void Init(IBattleMsgSource msgSource)
         {
+            this.msgSource = msgSource;
         }
 
-        public void AddBuff(int buffId)
+        public bool AddBuff(int buffId)
         {
             BuffModel model = BuffDataComponent.Instance.GetModel(buffId);
             if (model == null)
             {
                 Log.Warn($"have no this buff {buffId}");
-                return;
+                return false;
             }
 
             BaseBuff buff = BuffFactory.BuildBuff(this, model);
             AddBuff(buff);
+
+            return true;
         }
 
         public void AddBuff(BaseBuff buff)
@@ -35,6 +39,8 @@ namespace Giant.Battle
                 Log.Error($"add buff repeat instanceId{buff.InstanceId} buff type {buff.BuffType} buff Id {buff.Id}");
                 return;
             }
+
+            msgSource.OnAddBuff(GetParent<Unit>(), buff.Id);
 
             buff.Start();
             buffs[buff.InstanceId] = buff;
@@ -47,13 +53,24 @@ namespace Giant.Battle
             return buff;
         }
 
-        public void RemoveBuff(long instanceId)
+        public bool RemoveBuff(long instanceId)
         {
             if (buffs.TryGetValue(instanceId, out var buff))
             {
+                if (!buff.IsBuffEnd)
+                {
+                    buff.End();
+                }
+
+                msgSource.OnRemoveBuff(GetParent<Unit>(), buff.Id);
+
                 buffsType2Id.Remove(buff.BuffType, buff.InstanceId);
+
                 buff.Dispose();
+
+                return true;
             }
+            return false;
         }
 
         public bool InBuffState(BuffType type)

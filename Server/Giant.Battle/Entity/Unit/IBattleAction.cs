@@ -7,8 +7,8 @@ namespace Giant.Battle
         void Hit(Unit target, int damage);
         void Damage(int damage);
         bool CastSkill(int skillId);
-        void AddBuff(List<int> buffList);
-        void RemoveBuff(List<int> buffList);
+        void AddBuff(int buffId);
+        void RemoveBuff(int buffId);
         void NumericalChange(NumericalType type, int value);
         void Dead();
         void Relive();

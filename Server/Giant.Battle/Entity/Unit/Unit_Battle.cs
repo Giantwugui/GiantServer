@@ -52,14 +52,14 @@ namespace Giant.Battle
             msgSource.OnDamage(this, damage);
         }
 
-        public void AddBuff(List<int> buffList)
+        public void AddBuff(int buffId)
         {
-            msgSource.OnAddBuff(this, buffList);
+            GetComponent<BuffComponent>().AddBuff(buffId);
         }
 
-        public void RemoveBuff(List<int> buffList)
+        public void RemoveBuff(int buffId)
         {
-            msgSource.OnRemoveBuff(this, buffList);
+            GetComponent<BuffComponent>().RemoveBuff(buffId);
         }
 
         public void NumericalChange(NumericalType type, int value)

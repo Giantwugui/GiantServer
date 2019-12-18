@@ -59,11 +59,11 @@ namespace Giant.Battle
         {
         }
 
-        public void OnAddBuff(Unit unit, List<int> buffList)
+        public void OnAddBuff(Unit unit, int buffId)
         {
         }
 
-        public void OnRemoveBuff(Unit unit, List<int> buffList)
+        public void OnRemoveBuff(Unit unit, int buffId)
         {
         }
 
