@@ -20,12 +20,12 @@ namespace Giant.Battle
 
         public virtual void Start()
         {
-            OnBattleStart();
+            Scene.EventSystem.Handle(EventType.BattleStart, this);
         }
 
         public virtual void Stop(BattleResult result)
         {
-            OnBattleStop(result);
+            Scene.EventSystem.Handle(EventType.BattleStop, this, result);
         }
 
         public void Close()
@@ -40,20 +40,12 @@ namespace Giant.Battle
 
         public void Enter(Unit unit)
         {
-            if (UnitComponent.AddUnit(unit))
-            {
-                OnUnitEnter(unit);
-            }
+            Scene.EventSystem.Handle(EventType.UnitEnterScene, this, unit);
         }
 
         public void Leave(int id)
         {
-            Unit unit = UnitComponent.GetUnit(id);
-            if (unit == null) return;
-
-            UnitComponent.RemoveUnit(id);
-
-            OnUnitLeave(unit);
+            Scene.EventSystem.Handle(EventType.UnitLeaveScene, this, id);
         }
 
         public void Move(int id, Vector2 vector)

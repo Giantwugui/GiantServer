@@ -11,7 +11,21 @@ namespace Giant.Core
         CommandLine = 4,
 
         //1001-2000 战斗系统事件
-        PositionChange = 1001,
+        BattleStart = 1001,
+        BattleStop = 1002,
+        BattleSceneClose = 1003,
+
+        UnitEnterScene = 1100,
+        UnitLeaveScene = 1101,
+        UnitCastSkill = 1102,
+        UnitAddBuff = 1103,
+        UnitRemoveBuff = 1104,
+        PosChange = 1105,
+        Damage = 1106,
+
+        UnitDead = 1200,
+        UnitRelive = 1201,
+        NumeercalChange = 1202,
     }
 
     public interface IEvent
@@ -20,6 +34,7 @@ namespace Giant.Core
         void Run(object a) { }
         void Run(object a, object b) { }
         void Run(object a, object b, object c) { }
+        void Run(object a, object b, object c, object d) { }
     }
 
     public abstract class Event : IEvent
@@ -66,5 +81,17 @@ namespace Giant.Core
         public new Type GetType() => typeof(A);
 
         public abstract void Handle(A self, B a, C b);
+    }
+
+    public abstract class Event<A, B, C, D> : IEvent
+    {
+        public void Run(object a, object b, object c, object d)
+        {
+            Handle((A)a, (B)b, (C)c, (D)d);
+        }
+
+        public new Type GetType() => typeof(A);
+
+        public abstract void Handle(A self, B a, C b, D d);
     }
 }

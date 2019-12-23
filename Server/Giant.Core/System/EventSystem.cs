@@ -154,6 +154,18 @@ namespace Giant.Core
             }
         }
 
+        public void Handle<A, B, C, D>(EventType type, A a, B b, C c, D d)
+        {
+            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            foreach (var kv in eventSystems)
+            {
+                if (kv is Event<A, B, C, D>)
+                {
+                    kv.Run(a, b, c, d);
+                }
+            }
+        }
+
         #endregion
 
         #region System
