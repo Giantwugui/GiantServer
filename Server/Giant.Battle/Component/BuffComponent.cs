@@ -9,8 +9,8 @@ namespace Giant.Battle
     public class BuffComponent : InitSystem<IBattleMsgSource>, IUpdate
     {
         private IBattleMsgSource msgSource;
+        private readonly List<long> removeList = new List<long>();
         private readonly Dictionary<long, BaseBuff> buffs = new Dictionary<long, BaseBuff>();
-        private readonly ListMap<BuffType, long> buffsType2Id = new ListMap<BuffType, long>();
 
         public override void Init(IBattleMsgSource msgSource)
         {
@@ -44,7 +44,6 @@ namespace Giant.Battle
 
             buff.Start();
             buffs[buff.InstanceId] = buff;
-            buffsType2Id.Add(buff.BuffType, buff.InstanceId);
         }
 
         public BaseBuff GetBuff(long instanceId)
@@ -64,8 +63,6 @@ namespace Giant.Battle
 
                 msgSource.OnRemoveBuff(GetParent<Unit>(), buff.Id);
 
-                buffsType2Id.Remove(buff.BuffType, buff.InstanceId);
-
                 buff.Dispose();
 
                 return true;
@@ -75,7 +72,7 @@ namespace Giant.Battle
 
         public bool InBuffState(BuffType type)
         {
-            return buffsType2Id.ContainsKey(type);
+            return buffs.Values.Where(x => x.BuffType == type).FirstOrDefault() != null;
         }
 
         public void Update(double dt)
@@ -84,8 +81,29 @@ namespace Giant.Battle
             foreach (long id in buffs.Keys.ToList())
             {
                 buff = GetBuff(id);
-                buff?.Update(dt);
+                if (buff == null || buff.IsBuffEnd)
+                {
+                    removeList.Add(id);
+                }
+                else
+                {
+                    buff.Update(dt);
+                }
             }
+
+            foreach (var id in removeList)
+            {
+                buffs.Remove(id);
+
+                buff = GetBuff(id);
+                if (buff != null && !buff.IsBuffEnd)
+                {
+                    buff.End();
+                }
+
+                buff?.Dispose();
+            }
+
         }
     }
 }

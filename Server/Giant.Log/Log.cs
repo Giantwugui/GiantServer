@@ -33,6 +33,14 @@ namespace Giant.Logger
             LogManager.Configuration.Variables["subId"] = subId.ToString();
         }
 
+        public static void Trace(object message)
+        {
+#if DEBUG
+            logAdapter.Trace(message);
+            WriteToConsole(message);
+#endif
+        }
+
         public static void Debug(object message)
         {
 #if DEBUG
@@ -44,17 +52,7 @@ namespace Giant.Logger
         public static void Info(object message)
         {
             logAdapter.Info(message);
-#if DEBUG
             WriteToConsole(message);
-#endif
-        }
-
-        public static void Trace(object message)
-        {
-            logAdapter.Trace(message);
-#if DEBUG
-            WriteToConsole(message);
-#endif
         }
 
         public static void Warn(object message)

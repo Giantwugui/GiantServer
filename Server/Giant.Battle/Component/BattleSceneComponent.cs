@@ -10,6 +10,6 @@ namespace Giant.Battle
 
         public void AddBattleScene(Unit unit) => AddChild(unit);
         public Unit GetBattleScene(long instanceId) => GetChild<Unit>(instanceId);
-        public void GetBattleUnit(long instanceId) => RemoveChild(instanceId);
+        public void RemoveBattleScene(long instanceId) => RemoveChild(instanceId);
     }
 }
