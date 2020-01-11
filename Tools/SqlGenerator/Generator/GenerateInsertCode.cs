@@ -11,19 +11,19 @@ namespace SqlGenerator
 
             builder.Append($"INSERT INTO `{columInfo.TableName}` ");
             builder.Append("(");
-            foreach (var kv in columInfo.colume2Type)
+            foreach (var kv in columInfo.Colume2Type)
             {
                 builder.Append($"`{kv.Key}`,");
             }
             builder.Append(")");
             builder.Append("VALUES");
             builder.Append("(");
-            foreach (var kv in columInfo.colume2Type)
+            foreach (var kv in columInfo.Colume2Type)
             {
                 builder.Append($"@{kv.Key},");
             }
             builder.Append(");\r\n");
-            foreach (var kv in columInfo.colume2Type)
+            foreach (var kv in columInfo.Colume2Type)
             {
                 builder.Append($"command.Parameters.AddWithValue(@{kv.Key},)\r\n");
             }

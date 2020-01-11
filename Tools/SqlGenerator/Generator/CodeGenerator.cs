@@ -132,6 +132,12 @@ namespace SqlGenerator
                         string name = reader.GetString("Field");
                         string type = reader.GetString("Type");
 
+                        string key = reader.GetString("Key");
+                        if ("PRI".Equals(key))
+                        {
+                            columInfo.AddPrimaryKey(name);
+                        }
+
                         columInfo.AddColume(name, DBType2ClassType(type));
                     }
 

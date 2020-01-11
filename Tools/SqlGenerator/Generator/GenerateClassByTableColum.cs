@@ -8,19 +8,21 @@ namespace SqlGenerator
     {
         public override void GenerateCode(ColumInfo columInfo)
         {
+            string className = SerializeText(columInfo.TableName);
+
             StringBuilder builder = new StringBuilder();
-            builder.Append($"public class {SerializeText(columInfo.TableName)}\r\n");
+            builder.Append($"public class {className}\r\n");
             builder.Append("{\r\n");
 
-            foreach (var cloume in columInfo.colume2Type)
+            foreach (var cloume in columInfo.Colume2Type)
             {
-                builder.Append($"\tpublic {SerializeText(cloume.Value.Name)} {cloume.Key} ");
+                builder.Append($"\tpublic {cloume.Value.Name} {SerializeText(cloume.Key)} ");
                 builder.Append("{ get; set; }\r\n");
             }
 
             builder.Append("}\r\n");
 
-            Write2File(columInfo.TableName, builder);
+            Write2File(className, builder);
 
             Console.WriteLine(builder.ToString());
         }

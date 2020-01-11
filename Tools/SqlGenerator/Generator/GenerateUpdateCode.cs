@@ -10,13 +10,29 @@ namespace SqlGenerator
             StringBuilder builder = new StringBuilder();
 
             builder.Append($"UPDATE `{columInfo.TableName}` SET ");
-            foreach (var kv in columInfo.colume2Type)
+            foreach (var kv in columInfo.Colume2Type)
             {
+                if (columInfo.IsPrimaryKey(kv.Key)) continue;
+
                 builder.Append($"{kv.Key}=@{kv.Key},");
             }
-            builder.Append(" WHERE A=B ;\r\n");
 
-            foreach (var kv in columInfo.colume2Type)
+            builder.Append(" WHERE ");
+
+            int keyCount = columInfo.PrimaryKey.Count;
+            int andCount = keyCount - 1;
+
+            for (int i = 0; i < keyCount; ++i)
+            { 
+                builder.Append($"{columInfo.PrimaryKey[i]}= ");
+                if (i < andCount)
+                { 
+                    builder.Append(" AND ");
+                }
+            }
+            builder.Append(";\r\n");
+
+            foreach (var kv in columInfo.Colume2Type)
             {
                 builder.Append($"command.Parameters.AddWithValue(@{kv.Key},)\r\n");
             }

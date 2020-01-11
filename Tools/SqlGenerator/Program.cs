@@ -16,10 +16,10 @@ namespace SqlGenerator
 
             Console.WriteLine("Operation：\r\n");
             Console.WriteLine("1.生成表对应的Class");
-            Console.WriteLine("2.生成出入数据语句");
+            Console.WriteLine("2.生成插入数据语句");
             Console.WriteLine("3.生成更新数据语句(where条件需要生成后手动替换)");
 
-            Console.WriteLine("请输入表名：");
+            Console.WriteLine("请输入生成代码类型 表名");
 
             while (true)
             {
