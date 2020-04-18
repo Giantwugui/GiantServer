@@ -26,7 +26,7 @@ namespace Giant.Battle
         {
             foreach (var kv in scene.GetComponent<UnitComponent>().UnitList)
             {
-                kv.Value.MsgListener.OnStopBattle(result);
+                kv.Value.MsgListener.OnBattleStop(result);
             }
         }
     }

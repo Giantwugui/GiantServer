@@ -23,7 +23,7 @@ namespace Server.App
             //TODO 回到原来的图
         }
 
-        public void OnStopBattle(BattleResult result)
+        public void OnBattleStop(BattleResult result)
         {
             //战斗奖励结算
         }

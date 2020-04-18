@@ -5,6 +5,7 @@ namespace Giant.Battle
 {
     public partial class BattleScene : Entity, IInitSystem<MapModel>, IUpdate
     {
+        public MapComponent MapComponent => GetComponent<MapComponent>();
         public UnitComponent UnitComponent => GetComponent<UnitComponent>();
 
         public void Init(MapModel model)

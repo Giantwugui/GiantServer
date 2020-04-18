@@ -6,7 +6,12 @@ namespace Giant.Battle
     {
         void OnEnterBattleScene(BattleScene scene);
         void OnLeaveBattleScene();
-        void OnStopBattle(BattleResult result);
+
+        void OnBattleStart();
+        void OnBattleStop(BattleResult result);
+        void OnBattleEnd();
+
+
         void BroadCastBattleMsg(IMessage message);
     }
 }

@@ -8,6 +8,7 @@ namespace Giant.Battle
     {
         void OnBattleStart();
         void OnBattleStop(BattleResult result);
+        void OnBattkeEnd();
 
         void OnUnitEnter(Unit unit);
         void OnUnitLeave(Unit unit);
