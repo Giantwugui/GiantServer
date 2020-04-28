@@ -34,7 +34,7 @@ namespace Server.App
             }
 
             PlayerManagerComponent.Instance.PlayerOnline(player);
-            player.EnterWorld(player.MapId);
+            player.EnterWorld();
         }
     }
 

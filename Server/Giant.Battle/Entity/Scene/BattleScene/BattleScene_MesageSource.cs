@@ -1,48 +1,25 @@
 ﻿using Giant.Core;
-using Giant.Msg;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Giant.Battle
 {
     partial class BattleScene : IBattleMsgSource
     {
-        public void BroadCastMsg(Google.Protobuf.IMessage message)
-        {
-            foreach (var kv in UnitComponent.UnitList)
-            {
-                kv.Value.BroadCast(message);
-            }
-        }
-
-        private void BroadCastMsgExceptUnit(Google.Protobuf.IMessage message, int id)
-        {
-            foreach (var kv in UnitComponent.UnitList)
-            {
-                if (kv.Key == id) continue;
-
-                kv.Value.BroadCast(message);
-            }
-        }
-
         #region 广播
 
         public void OnBattleStart()
         {
-            Msg_ZGate_Battle_Start msg = new Msg_ZGate_Battle_Start();
-            BroadCastMsg(msg);
+            PlayerList.ForEach(x => x.Value.MsgListener.OnBattleStart());
         }
 
-        public void OnBattleStop(BattleResult result)
+        public void OnBattleStop(MapModel model, BattleResult result)
         {
-            foreach (var kv in UnitComponent.UnitList)
-            {
-                kv.Value.MsgListener.OnBattleStop(result);
-            }
+            PlayerList.ForEach(x => x.Value.MsgListener.OnBattleStop(model, result));
         }
 
-        public void OnBattkeEnd()
+        public void OnBattleEnd()
         {
+            PlayerList.ForEach(x => x.Value.MsgListener.OnBattleEnd());
         }
 
 
@@ -64,7 +41,7 @@ namespace Giant.Battle
         public void OnRemoveBuff(Unit unit, int buffId)
             =>Scene.EventSystem.Handle(EventType.UnitRemoveBuff, this, unit, buffId);
 
-        public void OnNumericalChange(Unit unit, NumericalType type, int value)
+        public void OnNumericalChange(Unit unit, NatureType type, int value)
             =>Scene.EventSystem.Handle(EventType.NumbercalChange, this, unit, type, value);
 
         public void OnDead(Unit unit)

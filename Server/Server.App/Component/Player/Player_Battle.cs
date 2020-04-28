@@ -5,27 +5,18 @@ namespace Server.App
 {
     partial class Player : IBattleMsgListener
     {
-        public BattleScene BattleScene { get; private set; }
-
-        public void BroadCastBattleMsg(IMessage message)
+        public void OnBattleStart()
         {
+            //战斗开始
         }
 
-        public void OnEnterBattleScene(BattleScene scene)
-        {
-            BattleScene = scene;
-        }
-
-        public void OnLeaveBattleScene()
-        {
-            BattleScene = null;
-
-            //TODO 回到原来的图
-        }
-
-        public void OnBattleStop(BattleResult result)
+        public void OnBattleStop(MapModel model, BattleResult result)
         {
             //战斗奖励结算
+        }
+
+        public void OnBattleEnd()
+        {
         }
     }
 }

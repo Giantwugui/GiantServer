@@ -6,12 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Event\BattleSceneEventSystem.cs" />
+    <Compile Remove="Event\UnitActionEventSystem.cs" />
+    <Compile Remove="Event\UnitStateEventSystem.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Giant.Data\Giant.Data.csproj" />
     <ProjectReference Include="..\Giant.Msg\Giant.Msg.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Entity\Skill\" />
+    <Folder Include="Event\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -4,12 +4,9 @@ namespace Giant.Battle
 {
     public interface IBattleMsgListener
     {
-        void OnEnterBattleScene(BattleScene scene);
-        void OnLeaveBattleScene();
-
         void OnBattleStart();
-        void OnBattleStop(BattleResult result);
         void OnBattleEnd();
+        void OnBattleStop(MapModel model, BattleResult result);
 
 
         void BroadCastBattleMsg(IMessage message);

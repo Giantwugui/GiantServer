@@ -4,9 +4,17 @@ namespace Giant.Battle
 {
     partial class Unit : IBattleAction
     {
+        protected virtual void UpdateInBattle(double dt)
+        {
+        }
+
+        public virtual void StartFighting() { }
+        public virtual void StopFighting() { }
+
+
         public void UpdateHP(int hp)
         {
-            int value = GetComponent<NumericalComponent>().AddValue(NumericalType.HP, hp);
+            int value = GetComponent<NatureComponent>().AddValue(NatureType.HP, hp);
             if (value <= 0)
             {
                 IsDead = true;
@@ -62,7 +70,7 @@ namespace Giant.Battle
             GetComponent<BuffComponent>().RemoveBuff(buffId);
         }
 
-        public void NumericalChange(NumericalType type, int value)
+        public void NumericalChange(NatureType type, int value)
         {
             msgSource.OnNumericalChange(this, type, value);
         }

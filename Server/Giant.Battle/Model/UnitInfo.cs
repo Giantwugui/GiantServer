@@ -6,7 +6,7 @@ namespace Giant.Battle
     {
         public int Id { get; set; }
         public UnitType UnitType { get; set; }
-        public List<Numerical> Numericals { get; set; }
+        public List<Nature> Natures { get; set; }
         public List<Skill> Skills { get; set; }
     }
 }

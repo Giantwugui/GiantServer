@@ -20,13 +20,13 @@ namespace Giant.Battle
 
 
     [Event(EventType.BattleStop)]
-    public class BattleStopEventSystem : Event<BattleScene, BattleResult>
+    public class BattleStopEventSystem : Event<BattleScene, MapModel, BattleResult>
     {
-        public override void Handle(BattleScene scene, BattleResult result)
+        public override void Handle(BattleScene scene, MapModel model, BattleResult result)
         {
             foreach (var kv in scene.GetComponent<UnitComponent>().UnitList)
             {
-                kv.Value.MsgListener.OnBattleStop(result);
+                kv.Value.MsgListener.OnBattleStop(model, result);
             }
         }
     }

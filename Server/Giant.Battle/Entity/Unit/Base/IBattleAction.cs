@@ -9,7 +9,7 @@ namespace Giant.Battle
         bool CastSkill(int skillId);
         void AddBuff(int buffId);
         void RemoveBuff(int buffId);
-        void NumericalChange(NumericalType type, int value);
+        void NumericalChange(NatureType type, int value);
         void Dead();
         void Relive();
     }

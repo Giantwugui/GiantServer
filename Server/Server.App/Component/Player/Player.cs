@@ -23,18 +23,6 @@ namespace Server.App
             IsOnline = true;
         }
 
-        public void EnterWorld(int mapId)
-        {
-            //同步各种数据，任务，货币
-
-            EnterMap(mapId);
-        }
-
-        public void EnterMap(int mapId)
-        {
-            //MapComponent map = MapManangerComponent.Instance.GetMap(mapId);
-        }
-
         public void Offline()
         {
             IsOnline = false;

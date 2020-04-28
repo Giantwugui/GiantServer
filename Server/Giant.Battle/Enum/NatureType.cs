@@ -1,6 +1,6 @@
 ﻿namespace Giant.Battle
 {
-    public enum NumericalType
+    public enum NatureType
     {
         Attack = 1,
         HP = 2,
