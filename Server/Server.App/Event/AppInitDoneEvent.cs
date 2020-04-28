@@ -28,7 +28,7 @@ namespace Server.App
                     break;
                 case AppType.Gate:
                     Scene.Pool.AddComponent<BenchmarkComponent>();
-                    Scene.Pool.AddComponent<MapDataComponent>();
+                    //Scene.Pool.AddComponent<MapDataComponent>();
                     Scene.Pool.AddComponent<ClientManagerComponent>();
                     break;
                 case AppType.Zone:

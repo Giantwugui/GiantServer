@@ -1,5 +1,6 @@
 ﻿using Giant.Core;
 using Giant.Logger;
+using System;
 using System.Runtime.InteropServices;
 
 namespace Giant.Framework
@@ -8,8 +9,14 @@ namespace Giant.Framework
     {
         public override void Init()
         {
-            //窗口关闭事件
-            SetConsoleCtrlHandler(cancelHandler, true);
+            OperatingSystem operatingSystem = Environment.OSVersion;
+            if (operatingSystem.VersionString.StartsWith("Microsoft Windows"))
+            {
+                Log.Info($"system version {operatingSystem.ToString()}");
+
+                //窗口关闭事件
+                SetConsoleCtrlHandler(cancelHandler, true);
+            }
         }
 
         delegate bool ControlCtrlHandle(int ctrlType);

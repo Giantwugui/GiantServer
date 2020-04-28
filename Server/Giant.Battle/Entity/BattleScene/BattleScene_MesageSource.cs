@@ -37,8 +37,12 @@ namespace Giant.Battle
         {
             foreach (var kv in UnitComponent.UnitList)
             {
-                kv.Value.MsgListener.OnStopBattle(result);
+                kv.Value.MsgListener.OnBattleStop(result);
             }
+        }
+
+        public void OnBattkeEnd()
+        {
         }
 
 
@@ -61,7 +65,7 @@ namespace Giant.Battle
             =>Scene.EventSystem.Handle(EventType.UnitRemoveBuff, this, unit, buffId);
 
         public void OnNumericalChange(Unit unit, NumericalType type, int value)
-            =>Scene.EventSystem.Handle(EventType.NumeercalChange, this, unit, type, value);
+            =>Scene.EventSystem.Handle(EventType.NumbercalChange, this, unit, type, value);
 
         public void OnDead(Unit unit)
             =>Scene.EventSystem.Handle(EventType.UnitDead, this, unit);

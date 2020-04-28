@@ -23,7 +23,7 @@ namespace Giant.Battle.Event
         }
     }
 
-    [Event(EventType.NumeercalChange)]
+    [Event(EventType.NumbercalChange)]
     public class NumeercalChangeeEventSystem : Event<BattleScene, Unit, NumericalType, int>
     {
         public override void Handle(BattleScene self, Unit a, NumericalType type, int value)
