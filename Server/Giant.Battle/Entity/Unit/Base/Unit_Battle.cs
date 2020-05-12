@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Giant.Battle
 {
@@ -23,7 +24,7 @@ namespace Giant.Battle
         }
 
 
-        public bool CastSkill(int skillId)
+        public bool CastSkill(int skillId, int targetId, Vector2 direction)
         {
             Skill skill = GetComponent<SkillComponent>().GetSkill(skillId);
 

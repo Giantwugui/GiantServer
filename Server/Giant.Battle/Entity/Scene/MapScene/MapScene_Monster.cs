@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Core;
+using System.Collections.Generic;
 
 namespace Giant.Battle
 {
@@ -9,6 +10,16 @@ namespace Giant.Battle
 
         protected void UpdateMonster(double dt)
         {
+        }
+
+        protected void MonsterStartFighting()
+        {
+            monsterList.ForEach(x => x.Value.StartFighting());
+        }
+
+        protected void MonsterStopFighting()
+        {
+            monsterList.ForEach(x => x.Value.StartFighting());
         }
     }
 }

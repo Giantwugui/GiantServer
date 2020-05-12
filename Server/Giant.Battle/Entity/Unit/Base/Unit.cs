@@ -33,6 +33,8 @@ namespace Giant.Battle
         {
             Position = vector;
 
+            //TODO视野检测
+
             msgSource.OnMove(this, Position);
 
             return true;

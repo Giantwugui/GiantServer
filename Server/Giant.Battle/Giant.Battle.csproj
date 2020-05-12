@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Component\Trigger\" />
     <Folder Include="Entity\Skill\" />
     <Folder Include="Event\" />
   </ItemGroup>

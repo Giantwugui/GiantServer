@@ -1,22 +1,13 @@
 ﻿using Giant.Battle;
-using Google.Protobuf;
+using UnityEngine;
 
 namespace Server.App
 {
-    partial class Player : IBattleMsgListener
+    partial class Player
     {
-        public void OnBattleStart()
+        public void CastSkill(int skillId, int targetId, Vector2 direction)
         {
-            //战斗开始
-        }
-
-        public void OnBattleStop(MapModel model, BattleResult result)
-        {
-            //战斗奖励结算
-        }
-
-        public void OnBattleEnd()
-        {
+            PlayerUnit.CastSkill(skillId, targetId, direction);
         }
     }
 }

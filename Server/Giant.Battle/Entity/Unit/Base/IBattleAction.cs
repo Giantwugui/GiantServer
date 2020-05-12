@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 
 namespace Giant.Battle
 {
@@ -6,7 +6,7 @@ namespace Giant.Battle
     {
         void Hit(Unit target, int damage);
         void Damage(int damage);
-        bool CastSkill(int skillId);
+        bool CastSkill(int skillId, int targetId, Vector2 direction);
         void AddBuff(int buffId);
         void RemoveBuff(int buffId);
         void NumericalChange(NatureType type, int value);

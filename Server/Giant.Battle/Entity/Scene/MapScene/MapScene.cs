@@ -6,6 +6,7 @@ namespace Giant.Battle
     {
         private int unitId = 0;
 
+        public double StartTime { get; private set; }
         public MapComponent MapComponent { get; private set; }
         public MapModel MapModel=>MapComponent.Model;
 
@@ -16,6 +17,8 @@ namespace Giant.Battle
 
         public virtual void Update(double dt)
         {
+            StartTime += dt;
+
             UpdateNpc(dt);
             UpdateHero(dt);
             UpdatePlayer(dt);

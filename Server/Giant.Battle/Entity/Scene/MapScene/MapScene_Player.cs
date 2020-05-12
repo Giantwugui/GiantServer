@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Core;
+using System.Collections.Generic;
 
 namespace Giant.Battle
 {
@@ -11,12 +12,22 @@ namespace Giant.Battle
         {
         }
 
-        public virtual void OnPlayerLeave(PlayerUnit player)
+        protected void PlayerStartFighting()
         {
+            playerList.ForEach(x => x.Value.StartFighting());
+        }
+
+        protected void PlayerStopFighting()
+        {
+            playerList.ForEach(x => x.Value.StartFighting());
         }
 
         public virtual void OnPlayerEnter(PlayerUnit player)
-        { 
+        {
+        }
+
+        public virtual void OnPlayerLeave(PlayerUnit player)
+        {
         }
     }
 }

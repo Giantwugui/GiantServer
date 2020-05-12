@@ -13,7 +13,7 @@
         private IBattleMsgListener msgListener;
         public IBattleMsgListener MsgListener => msgListener;
 
-        public void BroadCast(Google.Protobuf.IMessage message)
+        public void Broadcast(Google.Protobuf.IMessage message)
         {
             msgListener?.BroadCastBattleMsg(message);
         }

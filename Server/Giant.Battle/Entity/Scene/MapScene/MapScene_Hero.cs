@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Core;
+using System.Collections.Generic;
 
 namespace Giant.Battle
 {
@@ -9,6 +10,16 @@ namespace Giant.Battle
 
         protected void UpdateHero(double dt)
         { 
+        }
+
+        protected void HeroStartFighting()
+        {
+            heroList.ForEach(x => x.Value.StartFighting());
+        }
+
+        protected void HeroStopFighting()
+        {
+            heroList.ForEach(x => x.Value.StartFighting());
         }
     }
 }

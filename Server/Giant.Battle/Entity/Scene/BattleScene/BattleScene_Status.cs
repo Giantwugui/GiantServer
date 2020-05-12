@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Giant.Battle
+﻿namespace Giant.Battle
 {
     public partial class BattleScene
     {
-        public void Start()
+        public virtual void OnStart()
         {
+            MonsterStartFighting();
+            PlayerStartFighting();
+            HeroStartFighting();
+
             OnBattleStart();
         }
 
-        public void Stop(BattleResult result)
+        public virtual void OnStop(BattleResult result)
         {
-            OnBattleStop(MapComponent.Model, result);
+            MonsterStopFighting();
+            PlayerStopFighting();
+            HeroStopFighting();
+
+            OnBattleStop(MapModel, result);
         }
 
-        public void Close()
+        public virtual void Close()
         {
             OnBattleEnd();
         }
