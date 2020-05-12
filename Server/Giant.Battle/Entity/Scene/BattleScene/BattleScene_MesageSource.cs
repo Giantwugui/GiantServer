@@ -41,7 +41,7 @@ namespace Giant.Battle
         public void OnRemoveBuff(Unit unit, int buffId)
             =>Scene.EventSystem.Handle(EventType.UnitRemoveBuff, this, unit, buffId);
 
-        public void OnNumericalChange(Unit unit, NatureType type, int value)
+        public void OnNatureChange(Unit unit, NatureType type, int value)
             =>Scene.EventSystem.Handle(EventType.NumbercalChange, this, unit, type, value);
 
         public void OnDead(Unit unit)

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Giant.Battle
 {
-    public partial class PlayerUnit : Unit, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>, IUpdate
+    public partial class PlayerUnit : Unit, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>
     {
         public override void Init(UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
         {

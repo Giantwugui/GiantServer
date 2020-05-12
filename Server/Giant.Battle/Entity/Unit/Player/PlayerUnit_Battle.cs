@@ -14,5 +14,20 @@ namespace Giant.Battle
         {
             base.StopFighting();
         }
+
+        protected override void UpdateInBattle(double dt)
+        {
+            base.UpdateInBattle(dt);
+        }
+
+        public override void OnDead()
+        {
+            base.OnDead();
+        }
+
+        public override void OnHit(Unit target, int damage)
+        {
+            base.OnHit(target, damage);
+        }
     }
 }

@@ -7,54 +7,54 @@ namespace Giant.Battle
     {
         private Unit owner => GetParent<Unit>();
 
-        private Dictionary<NatureType, Nature> numericals;
-        public Dictionary<NatureType, Nature> Numericals => numericals;
+        private Dictionary<NatureType, Nature> natures;
+        public Dictionary<NatureType, Nature> Natures => natures;
 
-        public override void Init(List<Nature> numerical)
+        public override void Init(List<Nature> nature)
         {
-            numericals = new Dictionary<NatureType, Nature>();
+            natures = new Dictionary<NatureType, Nature>();
         }
 
-        public void Add(Nature numerical)
+        public void Add(Nature nature)
         {
-            Nature existNumerical = GetNumerical(numerical.NumericalType);
+            Nature existNumerical = GetNumerical(nature.NatureType);
             if (existNumerical == null)
             {
-                numericals.Add(numerical.NumericalType, numerical);
+                natures.Add(nature.NatureType, nature);
                 return;
             }
 
-            existNumerical.AddValue(numerical.Value);
+            existNumerical.AddValue(nature.Value);
         }
 
-        public void Add(List<Nature> numerical)
+        public void Add(List<Nature> natures)
         {
-            numerical?.ForEach(x => Add(x));
+            natures?.ForEach(x => Add(x));
         }
 
         public int AddValue(NatureType type, int value)
         {
             int changedValue = 0;
-            Nature numerical = GetNumerical(type);
-            if (numerical == null)
+            Nature nature = GetNumerical(type);
+            if (nature == null)
             {
                 //减少不存在的值
                 if (value < 0) return 0;
 
-                numerical = AddComponentWithParent<Nature, NatureType, float>(type, value);
+                nature = AddComponentWithParent<Nature, NatureType, float>(type, value);
             }
             else
             {
-                changedValue = numerical.AddValue(value);
+                changedValue = nature.AddValue(value);
             }
 
-            owner.NumericalChange(type, value);
+            owner.NatureChange(type, value);
             return changedValue;
         }
 
         public Nature GetNumerical(NatureType type)
         {
-            numericals.TryGetValue(type, out var numerical);
+            natures.TryGetValue(type, out var numerical);
             return numerical;
         }
     }

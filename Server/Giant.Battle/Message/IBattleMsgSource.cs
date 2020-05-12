@@ -18,7 +18,7 @@ namespace Giant.Battle
         void OnCastSkill(Unit unit, int skillId);
         void OnAddBuff(Unit unit, int buffId);
         void OnRemoveBuff(Unit unit, int buffId);
-        void OnNumericalChange(Unit unit, NatureType type, int value);
+        void OnNatureChange(Unit unit, NatureType type, int value);
         void OnDead(Unit unit);
         void OnRelive(Unit unit);
     }

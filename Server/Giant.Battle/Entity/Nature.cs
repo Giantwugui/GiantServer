@@ -7,12 +7,12 @@ namespace Giant.Battle
         private int basicValue;
         private int basicAddValue;
 
-        public NatureType NumericalType { get; private set; }
+        public NatureType NatureType { get; private set; }
         public int Value { get; private set; }
 
-        public override void Init(NatureType numericalType, int value)
+        public override void Init(NatureType natureType, int value)
         {
-            NumericalType = numericalType;
+            NatureType = natureType;
             basicValue = value;
             SetValue();
         }
