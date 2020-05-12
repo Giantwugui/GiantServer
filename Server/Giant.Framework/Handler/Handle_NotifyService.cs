@@ -15,7 +15,7 @@ namespace Giant.Framework
             AppType appType = (AppType)message.AppType;
             Log.Debug($"service notify from appType {appType} appId {message.AppId} subId {message.SubId}");
 
-            if (Scene.Pool.GetComponent<NetGraphComponent>().NeedConnect(Scene.AppConfig.AppType, Scene.AppConfig.AppId, appType, message.AppId))
+            if (Scene.Pool.GetComponent<NetGraphLibComponent>().NeedConnect(Scene.AppConfig.AppType, Scene.AppConfig.AppId, appType, message.AppId))
             {
                 AppConfig config = AppConfigComponent.Instance.GetNetConfig(appType, message.AppId, message.SubId);
                 if (config == null)

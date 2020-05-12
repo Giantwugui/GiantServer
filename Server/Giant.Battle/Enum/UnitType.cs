@@ -2,11 +2,12 @@
 {
     public enum UnitType
     {
-        None,
-        Player,
-        Hero,
-        Pat,
-        Monster
+        None = 0,
+        NPC = 1,
+        Player = 2,
+        Hero = 3,
+        Monster = 4,
+        Pat = 5,
     }
 
     public enum BattleResult

@@ -1,17 +1,33 @@
 ﻿using Giant.Core;
+using Giant.Data;
 
 namespace Giant.Battle
 {
-    public partial class NPC : Unit, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>
+    public partial class NPC : Unit, IInitSystem<MapScene, NPCModel>
     {
-        public override void Init(UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
+        public void Init(MapScene mapScene, NPCModel model)
         {
-            base.Init(info, source, listener);
+            base.Init(mapScene, UnitType.NPC);
         }
 
         public override void Update(double dt)
         {
             base.Update(dt);
+        }
+
+        protected override bool IsAny(Unit unit)
+        {
+            return false;
+        }
+
+        protected override bool IsEnemy(Unit unit)
+        {
+            return false;
+        }
+
+        protected override bool IsAutoAI()
+        {
+            return false;
         }
     }
 }

@@ -1,36 +1,40 @@
 ﻿using Giant.Core;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Giant.Battle
 {
-    public partial class Unit : Entity, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>, IUpdate, IBattleAction
+    public partial class Unit : Entity, IInitSystem<MapScene, UnitType>, IUpdate, IBattleAction
     {
         public int Id { get; private set; }
         public UnitType UnitType { get; private set; }
         public bool IsDead { get; private set; }
         public Vector2 Position { get; private set; }
+        public MapScene MapScene { get; private set; }
 
-        public virtual void Init(UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
+        public void Init(MapScene mapScene, UnitType type)
         {
-            Id = info.Id;
-            UnitType = info.UnitType;
+            Id = mapScene.GetUnitId();
 
-            msgSource = source;
-            msgListener = listener;
+            UnitType = type;
+            MapScene = mapScene;
 
-            BuffComponent = AddComponentWithParent<BuffComponent>();
-            FsmComponent = AddComponentWithParent<FsmComponent>(this);
-            HateComponent = AddComponentWithParent<HateComponent>(this);
-            TriggeComponent = AddComponentWithParent<TriggeComponent>(this);
-            NatureComponent = AddComponentWithParent<NatureComponent, List<Nature>>(info.Natures);
-
-            SkillComponent = AddComponentWithParent<SkillComponent, List<Skill>>(info.Skills);
+            InitBuff();
+            InitFsm();
+            InitHate();
+            InitTrigger();
+            InitNature();
+            InitSkill();
         }
 
         public virtual void Update(double dt)
         {
-            UpdateInBattle(dt);
+            FsmComponent.Update(dt);
+            TriggeComponent.Update(dt);
+
+            if (MapScene is BattleScene)
+            {
+                UpdateInBattle(dt);
+            }
         }
 
         public bool Move(Vector2 vector)
@@ -39,28 +43,29 @@ namespace Giant.Battle
 
             //TODO视野检测，地图可达性检测
 
-            msgSource.OnMove(this, Position);
+            MsgSource.OnMove(this, Position);
 
             return true;
         }
 
         public virtual void OnDead()
         {
-            msgSource.OnDead(this);
+            MsgSource.OnDead(this);
         }
 
         public virtual void OnRelive()
         {
-            msgSource.OnRelive(this);
+            MsgSource.OnRelive(this);
         }
 
         protected virtual void UpdateInBattle(double dt)
         {
             BuffComponent.Update(dt);
+            HateComponent.Update(dt);
         }
 
-        protected virtual bool IsAny() { return false; }
-        protected virtual bool IsEnemy() { return false; }
+        protected virtual bool IsAny(Unit unit) { return false; }
+        protected virtual bool IsEnemy(Unit unit) { return false; }
         protected virtual bool IsAutoAI() { return false; }
     }
 }

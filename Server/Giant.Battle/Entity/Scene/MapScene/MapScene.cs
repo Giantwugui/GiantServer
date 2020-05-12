@@ -13,6 +13,8 @@ namespace Giant.Battle
         public virtual void Init(MapModel model)
         {
             MapComponent = ComponentFactory.CreateComponentWithParent<MapComponent, MapModel>(this, model);
+
+            InitNPC();
         }
 
         public virtual void Update(double dt)
@@ -33,6 +35,10 @@ namespace Giant.Battle
         public override void Dispose()
         {
             base.Dispose();
+        }
+
+        private void InitNPC()
+        { 
         }
     }
 }

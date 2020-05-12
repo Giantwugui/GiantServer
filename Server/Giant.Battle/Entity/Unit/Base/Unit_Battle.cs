@@ -17,7 +17,7 @@ namespace Giant.Battle
 
         public void Damage(int damage)
         {
-            msgSource.OnDamage(this, damage);
+            MsgSource.OnDamage(this, damage);
         }
     }
 }

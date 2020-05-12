@@ -2,7 +2,7 @@
 
 namespace Giant.Data
 {
-    public class BuffDataComponent : SingleDataComponent<BuffDataComponent, BuffModel>
+    public class BuffLibComponent : SingleDataComponent<BuffLibComponent, BuffModel>
     {
         public override void Load()
         {

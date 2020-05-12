@@ -23,8 +23,6 @@ namespace Giant.Data
         {
             appConfigs.Clear();
 
-            //Load("AppConfig");
-
             AppConfig config = null;
             var datas = DataComponent.Instance.GetDatas("AppConfig");
             foreach (var kv in datas)

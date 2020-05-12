@@ -1,13 +1,13 @@
 ﻿using Giant.Core;
-using UnityEngine;
+using Giant.Data;
 
 namespace Giant.Battle
 {
-    public partial class Hero : Unit, IInitSystem<UnitInfo, IBattleMsgSource, IBattleMsgListener>
+    public partial class Hero : Unit, IInitSystem<MapScene, HeroModel>
     {
-        public override void Init(UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
+        public void Init(MapScene mapScene, HeroModel model)
         {
-            base.Init(info, source, listener);
+            base.Init(mapScene, UnitType.Hero);
         }
 
         public override void Update(double dt)
@@ -18,6 +18,21 @@ namespace Giant.Battle
         protected override void UpdateInBattle(double dt)
         {
             base.UpdateInBattle(dt);
+        }
+
+        protected override bool IsAny(Unit unit)
+        {
+            return false;
+        }
+
+        protected override bool IsEnemy(Unit unit)
+        {
+            return false;
+        }
+
+        protected override bool IsAutoAI()
+        {
+            return false;
         }
     }
 }

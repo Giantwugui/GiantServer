@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class NatureComponent : InitSystem<List<Nature>>
+    public class NatureComponent : InitSystem
     {
         private Unit owner => GetParent<Unit>();
 
         private Dictionary<NatureType, Nature> natures;
         public Dictionary<NatureType, Nature> Natures => natures;
 
-        public override void Init(List<Nature> nature)
+        public override void Init()
         {
             natures = new Dictionary<NatureType, Nature>();
         }

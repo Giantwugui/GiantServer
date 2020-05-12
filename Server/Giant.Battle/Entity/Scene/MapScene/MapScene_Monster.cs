@@ -8,6 +8,11 @@ namespace Giant.Battle
         private Dictionary<int, Monster> monsterList = new Dictionary<int, Monster>();
         public Dictionary<int, Monster> MonsterList => monsterList;
 
+
+        public void AddMonster(Monster monster)
+        { 
+        }
+
         protected void UpdateMonster(double dt)
         {
         }

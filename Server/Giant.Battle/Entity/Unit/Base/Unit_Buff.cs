@@ -4,6 +4,11 @@
     {
         protected BuffComponent BuffComponent { get; private set; }
 
+        protected virtual void InitBuff()
+        {
+            BuffComponent = AddComponentWithParent<BuffComponent>();
+        }
+
         public void AddBuff(int buffId)
         {
             BuffComponent.AddBuff(buffId);

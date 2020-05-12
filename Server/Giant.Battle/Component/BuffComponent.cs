@@ -19,7 +19,7 @@ namespace Giant.Battle
 
         public bool AddBuff(int buffId)
         {
-            BuffModel model = BuffDataComponent.Instance.GetModel(buffId);
+            BuffModel model = BuffLibComponent.Instance.GetModel(buffId);
             if (model == null)
             {
                 Log.Warn($"have no this buff {buffId}");

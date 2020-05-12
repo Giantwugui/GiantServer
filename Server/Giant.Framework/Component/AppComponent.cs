@@ -32,7 +32,7 @@ namespace Giant.Framework
             //xml表
             Scene.Pool.AddComponent<DataComponent>();
             Scene.Pool.AddComponent<AppConfigComponent>();
-            Scene.Pool.AddComponent<NetGraphComponent>();
+            Scene.Pool.AddComponent<NetGraphLibComponent>();
 
             Scene.AppConfig = Scene.Pool.GetComponent<AppConfigComponent>().GetNetConfig(appOption.AppType);
 

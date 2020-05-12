@@ -2,7 +2,7 @@
 
 namespace Giant.Data
 {
-    public class SkillDataComponent : SingleDataComponent<SkillDataComponent, SkillModel>
+    public class SkillLibComponent : SingleDataComponent<SkillLibComponent, SkillModel>
     {
         public override void Load()
         {

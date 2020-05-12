@@ -5,13 +5,12 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class SkillComponent : InitSystem<List<int>>
+    public class SkillComponent : InitSystem
     {
         private readonly Dictionary<int, Skill> skills = new Dictionary<int, Skill>();
 
-        public override void Init(List<int> skillList)
+        public override void Init()
         {
-            skillList.ForEach(x => AddSkill(x));
         }
 
         public void AddSkill(int skillId)
@@ -22,7 +21,7 @@ namespace Giant.Battle
                 return;
             }
 
-            SkillModel model = SkillDataComponent.Instance.GetModel(skillId);
+            SkillModel model = SkillLibComponent.Instance.GetModel(skillId);
             if (model == null)
             {
                 Log.Error($"have no this skill model {skillId}");

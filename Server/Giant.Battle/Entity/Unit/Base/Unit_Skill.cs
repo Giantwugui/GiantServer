@@ -1,10 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Giant.Battle
 {
     public partial class Unit
     {
         protected SkillComponent SkillComponent { get; private set; }
+
+        protected virtual void InitSkill() 
+        {
+            SkillComponent = AddComponentWithParent<SkillComponent>();
+        }
+
+        public void AddSkills(List<Skill> skills)
+        { 
+        }
 
         public bool CastSkill(int skillId, int targetId, Vector2 direction)
         {
@@ -16,7 +26,7 @@ namespace Giant.Battle
 
             if (!CheckSkillAttack(skill.SkillType)) return false;
 
-            msgSource.OnCastSkill(this, skillId);
+            MsgSource.OnCastSkill(this, skillId);
 
             skill.Start();
 

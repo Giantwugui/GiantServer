@@ -5,17 +5,16 @@
         /// <summary>
         /// 用于构造广播消息
         /// </summary>
-        private IBattleMsgSource msgSource;
+        public IBattleMsgSource MsgSource { get; protected set; }
 
         /// <summary>
         /// 向listener 广播消息
         /// </summary>
-        private IBattleMsgListener msgListener;
-        public IBattleMsgListener MsgListener => msgListener;
+        public IBattleMsgListener MsgListener { get; protected set; }
 
         public void Broadcast(Google.Protobuf.IMessage message)
         {
-            msgListener?.BroadCastBattleMsg(message);
+            MsgListener?.BroadCastBattleMsg(message);
         }
     }
 }

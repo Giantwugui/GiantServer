@@ -24,7 +24,7 @@ namespace Giant.Core
             models.Add(model.Id, model);
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             models.Clear();
         }

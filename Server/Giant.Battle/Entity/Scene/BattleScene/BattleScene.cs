@@ -1,5 +1,6 @@
 ﻿using Giant.Core;
 using Giant.Data;
+using Giant.Logger;
 using System;
 
 namespace Giant.Battle
@@ -9,11 +10,14 @@ namespace Giant.Battle
         protected DateTime StopTime { get; private set; }
 
         public DungeonModel DungeonModel { get; private set; }
+        public int DungeonId { get { return DungeonModel.Id; } }
 
 
         public override void Init(MapModel model) 
         {
             base.Init(model);
+
+            InitMonster();
         }
 
         public override void Update(double dt)
@@ -27,6 +31,24 @@ namespace Giant.Battle
         public override void Dispose()
         {
             base.Dispose();
+        }
+
+        private void InitMonster()
+        {
+            //TODO 种怪逻辑
+
+            var monsters = MonsterLibComponent.Instance.GetMonsterModels(DungeonId);
+            if (monsters == null)
+            {
+                Log.Error($"monsters error monster id {DungeonId}");
+                return;
+            }
+
+            foreach (var curr in monsters)
+            {
+                Monster monster = ComponentFactory.CreateComponent<Monster, MonsterModel>(curr);
+                AddMonster(monster);
+            }
         }
 
         private void CheckStart()

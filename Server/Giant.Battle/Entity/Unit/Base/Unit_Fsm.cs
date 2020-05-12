@@ -6,6 +6,7 @@
 
         protected virtual void InitFsm() 
         {
+            FsmComponent = AddComponentWithParent<FsmComponent>(this);
         }
     }
 }
