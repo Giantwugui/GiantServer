@@ -16,12 +16,12 @@ namespace Giant.Battle
 
         protected override void OnStart()
         {
-            owner.GetComponent<NatureComponent>().GetNumerical(NatureType.Attack).AddValue(addValue);
+            owner.GetComponent<NatureComponent>().GetNature(NatureType.Attack).AddValue(addValue);
         }
 
         protected override void OnEnd()
         {
-            owner.GetComponent<NatureComponent>().GetNumerical(NatureType.Attack).AddValue(addValue * -1);
+            owner.GetComponent<NatureComponent>().GetNature(NatureType.Attack).AddValue(addValue * -1);
         }
     }
 }

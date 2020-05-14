@@ -5,5 +5,8 @@ namespace Giant.Battle
 {
     public partial class PlayerUnit
     {
+        protected override void InitFsm()
+        {
+        }
     }
 }

@@ -5,5 +5,8 @@ namespace Giant.Battle
 {
     public partial class NPC
     {
+        protected override void InitFsm()
+        {
+        }
     }
 }

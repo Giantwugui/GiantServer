@@ -5,5 +5,8 @@ namespace Giant.Battle
 {
     public partial class Monster
     {
+        protected override void InitFsm()
+        {
+        }
     }
 }

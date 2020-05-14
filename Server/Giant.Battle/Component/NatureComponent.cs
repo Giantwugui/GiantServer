@@ -17,7 +17,7 @@ namespace Giant.Battle
 
         public void Add(Nature nature)
         {
-            Nature existNumerical = GetNumerical(nature.NatureType);
+            Nature existNumerical = GetNature(nature.NatureType);
             if (existNumerical == null)
             {
                 natures.Add(nature.NatureType, nature);
@@ -32,16 +32,33 @@ namespace Giant.Battle
             natures?.ForEach(x => Add(x));
         }
 
+        public void SetValue(NatureType type, int value)
+        {
+            Nature nature = GetNature(type);
+            if (nature == null)
+            {
+                nature = AddComponentWithParent<Nature, NatureType, float>(type, value);
+
+                Add(nature);
+            }
+            else
+            {
+                nature.SetValue(value);
+            }
+        }
+
         public int AddValue(NatureType type, int value)
         {
             int changedValue = 0;
-            Nature nature = GetNumerical(type);
+            Nature nature = GetNature(type);
             if (nature == null)
             {
                 //减少不存在的值
                 if (value < 0) return 0;
 
                 nature = AddComponentWithParent<Nature, NatureType, float>(type, value);
+
+                Add(nature);
             }
             else
             {
@@ -52,10 +69,15 @@ namespace Giant.Battle
             return changedValue;
         }
 
-        public Nature GetNumerical(NatureType type)
+        public Nature GetNature(NatureType type)
         {
-            natures.TryGetValue(type, out var numerical);
-            return numerical;
+            natures.TryGetValue(type, out var nature);
+            return nature;
+        }
+
+        public int GetNatureValue(NatureType type)
+        {
+            return natures.TryGetValue(type, out var nature) ? nature.Value : 0;
         }
     }
 }

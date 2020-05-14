@@ -18,7 +18,7 @@ namespace Giant.Battle
 
         public bool CastSkill(int skillId, int targetId, Vector2 direction)
         {
-            Skill skill = GetComponent<SkillComponent>().GetSkill(skillId);
+            Skill skill = SkillComponent.GetSkill(skillId);
 
             if (skill == null) return false;
 

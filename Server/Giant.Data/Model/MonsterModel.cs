@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using System.Collections.Generic;
 
 namespace Giant.Data
 {
@@ -6,15 +7,17 @@ namespace Giant.Data
     {
         public int Id { get; private set; }
         public int DungeonId { get; private set; }
+        public int MaxHP { get; private set; }
         public int Attack { get; private set; }
-        public int HP { get; private set; }
+        public int Defense { get; private set; }
 
         public void Bind(Core.DataModel data)
         {
             Id = data.Id;
             DungeonId = data.GetInt("DungeonId");
             Attack = data.GetInt("Attack");
-            HP = data.GetInt("HP");
+            MaxHP = data.GetInt("MaxHP");
+            Defense = data.GetInt("Defense");
         }
     }
 }

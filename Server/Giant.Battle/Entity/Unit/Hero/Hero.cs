@@ -3,16 +3,25 @@ using Giant.Data;
 
 namespace Giant.Battle
 {
-    public partial class Hero : Unit, IInitSystem<MapScene, HeroModel>
+    public partial class Hero : Unit, IInitSystem<MapScene, UnitInfo, HeroModel>
     {
-        public void Init(MapScene mapScene, HeroModel model)
+        private UnitInfo unitInfo;
+        
+        public void Init(MapScene mapScene, UnitInfo info, HeroModel model)
         {
             base.Init(mapScene, UnitType.Hero);
+
+            unitInfo = info;
         }
 
         public override void Update(double dt)
         {
             base.Update(dt);
+        }
+
+        protected override void InitNature()
+        {
+            NatureComponent.Add(unitInfo?.Natures);
         }
 
         protected override void UpdateInBattle(double dt)
