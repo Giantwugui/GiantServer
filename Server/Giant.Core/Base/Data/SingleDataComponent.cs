@@ -10,6 +10,8 @@ namespace Giant.Core
 
         public override void Init()
         {
+            Clear();
+
             Load();
         }
 

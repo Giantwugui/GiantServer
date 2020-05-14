@@ -1,9 +1,9 @@
 ﻿using Giant.Core;
 using System.Collections.Generic;
 
-namespace Giant.Battle
+namespace Giant.Data
 {
-    public class MapDataComponent : SingleDataComponent<MapDataComponent, MapModel>
+    public class MapLibComponent : SingleDataComponent<MapLibComponent, MapModel>
     {
         public Dictionary<int, MapModel> Maps => Models;
 

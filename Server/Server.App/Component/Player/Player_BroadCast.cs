@@ -1,4 +1,5 @@
 ﻿using Giant.Battle;
+using Giant.Data;
 using Google.Protobuf;
 
 namespace Server.App

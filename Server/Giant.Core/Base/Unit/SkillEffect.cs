@@ -2,7 +2,7 @@
 {
     public class SkillEffect
     {
+        public int SkillId { get; set; }
         public int SkillLevel { get; set; }
-        public SkillModel SkillModel { get; private set; }
     }
 }

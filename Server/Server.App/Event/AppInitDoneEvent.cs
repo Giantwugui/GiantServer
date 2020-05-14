@@ -1,9 +1,9 @@
 ﻿using Giant.Battle;
 using Giant.Core;
+using Giant.Data;
 using Giant.Framework;
 using Giant.Net;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Server.App
 {
@@ -28,18 +28,22 @@ namespace Server.App
                     break;
                 case AppType.Gate:
                     Scene.Pool.AddComponent<BenchmarkComponent>();
-                    //Scene.Pool.AddComponent<MapDataComponent>();
                     Scene.Pool.AddComponent<ClientManagerComponent>();
                     break;
                 case AppType.Zone:
                     //注册战斗回调事件
                     Scene.EventSystem.Regist(typeof(BattleScene).Assembly);
 
-                    MapDataComponent mapData = Scene.Pool.AddComponent<MapDataComponent>();
+                    //各种读表
+                    Scene.Pool.AddComponent<DataLabComponent, AppType>(AppType.Zone);
+
+                    //世界地图信息
                     Scene.Pool.AddComponent<MapGridPosComponent>();
-                    Scene.Pool.AddComponent<MapManangerComponent, MapDataComponent>(mapData);
+                    Scene.Pool.AddComponent<MapManangerComponent, MapLibComponent>(Scene.Pool.GetComponent<MapLibComponent>());
+
                     Scene.Pool.AddComponent<PlayerManagerComponent>();
                     Scene.Pool.AddComponent<BattleSceneComponent>();
+                    Scene.Pool.AddComponent<ScriptComponent>();
                     break;
             }
         }

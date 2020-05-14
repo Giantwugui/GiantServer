@@ -1,4 +1,5 @@
-﻿using Google.Protobuf;
+﻿using Giant.Data;
+using Google.Protobuf;
 
 namespace Giant.Battle
 {

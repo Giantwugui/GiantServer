@@ -1,15 +1,16 @@
 ﻿using Giant.Core;
+using Giant.Data;
 using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class MapManangerComponent : InitSystem<MapDataComponent>
+    public class MapManangerComponent : InitSystem<MapLibComponent>
     {
         private Dictionary<int, MapComponent> maps = new Dictionary<int, MapComponent>();
 
         public static MapManangerComponent Instance { get; private set; }
 
-        public override void Init(MapDataComponent dataList)
+        public override void Init(MapLibComponent dataList)
         {
             Instance = this;
             MapComponent map;

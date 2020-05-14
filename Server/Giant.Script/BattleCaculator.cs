@@ -7,7 +7,7 @@ namespace Giant.Script
         public DamageInfo CalculateDamage(IUnit caster, IUnit target, SkillEffect effect)
         {
             int damage = 0;
-            DamageInfo info = new DamageInfo() { SkillId = effect.SkillModel.Id };
+            DamageInfo info = new DamageInfo() { SkillId = effect.SkillId };
 
             CalculateNatureDamage(caster.GetNatures(), target.GetNatures());
 
