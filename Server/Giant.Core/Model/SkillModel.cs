@@ -1,6 +1,4 @@
-﻿using Giant.Core;
-
-namespace Giant.Data
+﻿namespace Giant.Core
 {
     public class SkillModel : IData<SkillModel>
     {

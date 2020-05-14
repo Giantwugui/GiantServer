@@ -1,8 +1,6 @@
-﻿using Giant.Core;
-
-namespace Giant.Battle
+﻿namespace Giant.Core
 {
-    public class Nature : InitSystem<NatureType, int>
+    public class Nature
     {
         private int basicValue;
         private int addValue;
@@ -11,9 +9,9 @@ namespace Giant.Battle
         public NatureType NatureType { get; private set; }
         public int Value { get; private set; }
 
-        public override void Init(NatureType natureType, int value)
+        public Nature(NatureType type, int value)
         {
-            NatureType = natureType;
+            NatureType = type;
             basicValue = value;
             SetValue();
         }

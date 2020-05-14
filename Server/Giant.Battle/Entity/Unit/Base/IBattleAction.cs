@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Giant.Core;
+using UnityEngine;
 
 namespace Giant.Battle
 {

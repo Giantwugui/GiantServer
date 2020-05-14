@@ -28,11 +28,27 @@ namespace Giant.Battle
 
         protected override bool IsAny(Unit unit)
         {
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                case UnitType.Hero:
+                    return false;
+                case UnitType.Monster:
+                    return true;
+            }
             return false;
         }
 
         protected override bool IsEnemy(Unit unit)
         {
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                case UnitType.Hero:
+                    return true;
+                case UnitType.Monster:
+                    return false;
+            }
             return false;
         }
 

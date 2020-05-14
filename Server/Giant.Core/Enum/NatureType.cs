@@ -1,4 +1,4 @@
-﻿namespace Giant.Battle
+﻿namespace Giant.Core
 {
     public enum NatureType
     {

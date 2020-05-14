@@ -1,4 +1,6 @@
-﻿namespace Giant.Battle
+﻿using Giant.Core;
+
+namespace Giant.Battle
 {
     public partial class Unit
     {

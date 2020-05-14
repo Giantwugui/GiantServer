@@ -1,5 +1,4 @@
-﻿using Google.Protobuf;
-using System.Collections.Generic;
+﻿using Giant.Core;
 using UnityEngine;
 
 namespace Giant.Battle
