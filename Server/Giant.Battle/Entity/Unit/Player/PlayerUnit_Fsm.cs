@@ -7,6 +7,9 @@ namespace Giant.Battle
     {
         protected override void InitFsm()
         {
+            FsmComponent.AddFsm(FsmFactory.BuildFsm(this, FsmType.Idle));
+            FsmComponent.AddFsm(FsmFactory.BuildFsm(this, FsmType.Skill));
+            FsmComponent.AddFsm(FsmFactory.BuildFsm(this, FsmType.Run));
         }
     }
 }
