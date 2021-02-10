@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Giant.Core
+﻿namespace Giant.Core
 {
     public partial class AppConfig : IData<AppConfig>
     {
@@ -10,7 +8,7 @@ namespace Giant.Core
         public int SubId { get; private set; }
         public string InnerAddress { get; private set; }
         public string OutterAddress { get; private set; }
-        public List<int> HttpPorts { get; private set; }
+        public int HttpPort { get; private set; }
 
         public void Bind(DataModel data)
         {
@@ -20,7 +18,7 @@ namespace Giant.Core
             SubId = data.GetInt("SubId");
             InnerAddress = data.GetString("InnerAddress");
             OutterAddress = data.GetString("OutterAddress");
-            HttpPorts = data.GetString("HttpPort").ToIntList();
+            HttpPort = data.GetInt("HttpPort");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Giant.Core;
 using Giant.Logger;
+using Giant.Model;
 using StackExchange.Redis;
 using System;
 

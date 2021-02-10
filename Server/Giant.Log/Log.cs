@@ -37,7 +37,7 @@ namespace Giant.Logger
         {
 #if DEBUG
             logAdapter.Trace(message);
-            WriteToConsole(message);
+            WriteToConsole(message, "Trace");
 #endif
         }
 
@@ -45,38 +45,38 @@ namespace Giant.Logger
         {
 #if DEBUG
             logAdapter.Debug(message);
-            WriteToConsole(message);
+            WriteToConsole(message, "Debug", ConsoleColor.Blue);
 #endif
         }
 
         public static void Info(object message)
         {
             logAdapter.Info(message);
-            WriteToConsole(message);
+            WriteToConsole(message, "Info", ConsoleColor.Green);
         }
 
         public static void Warn(object message)
         {
             logAdapter.Warn(message);
-            WriteToConsole(message, ConsoleColor.Yellow);
+            WriteToConsole(message, "Warn", ConsoleColor.Yellow);
         }
 
         public static void Error(object message)
         {
             logAdapter.Error(message);
-            WriteToConsole(message, ConsoleColor.Red);
+            WriteToConsole(message, "Error", ConsoleColor.Red);
         }
 
         public static void Fatal(object message)
         {
             logAdapter.Fatal(message);
-            WriteToConsole(message, ConsoleColor.DarkRed);
+            WriteToConsole(message, "Fatal", ConsoleColor.DarkRed);
         }
 
-        public static void WriteToConsole(object message, ConsoleColor consoleColor = ConsoleColor.White)
+        public static void WriteToConsole(object message, string messageType, ConsoleColor consoleColor = ConsoleColor.White)
         {
             Console.ForegroundColor = consoleColor;
-            Console.WriteLine($"{DateTime.Now.ToString(nowStringWithSeconds)} {message}");
+            Console.WriteLine($"{DateTime.Now.ToString(nowStringWithSeconds)} {messageType} {message}");
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

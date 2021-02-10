@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Data\Giant.Data.csproj" />
+    <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
     <ProjectReference Include="..\Giant.Msg\Giant.Msg.csproj" />
   </ItemGroup>
 

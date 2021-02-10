@@ -23,7 +23,7 @@ namespace Server.App
                 gateInfos.Add(info.AppId, info.SubId, info);
             }
 
-            Log.Info($"appId {gateInfo.AppId} subId {gateInfo.SubId} client count {gateInfo.ClientCount}");
+            //Log.Info($"appId {gateInfo.AppId} subId {gateInfo.SubId} client count {gateInfo.ClientCount}");
         }
 
         public GateInfo GetGateInfo(int appId, int subId = 1)

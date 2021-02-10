@@ -7,7 +7,7 @@
         private static ComponentPool pool;
         public static ComponentPool Pool
         {
-            get { return pool ?? (pool = new ComponentPool()); }
+            get { return pool ??= new ComponentPool(); }
         }
 
         private static EventSystem eventSystem;

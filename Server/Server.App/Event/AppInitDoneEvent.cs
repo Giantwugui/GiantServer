@@ -1,9 +1,8 @@
 ﻿using Giant.Battle;
 using Giant.Core;
-using Giant.Data;
 using Giant.Framework;
+using Giant.Model;
 using Giant.Net;
-using System.Collections.Generic;
 
 namespace Server.App
 {
@@ -16,11 +15,11 @@ namespace Server.App
             {
                 case AppType.Global:
                     Scene.Pool.AddComponent<HttpBenchmarkComponent>();
-                    Scene.Pool.AddComponent<HttpComponent, List<int>>(Scene.AppConfig.HttpPorts);
+                    Scene.Pool.AddComponent<HttpComponent, int>(Scene.AppConfig.HttpPort);
                     break;
                 case AppType.Account:
                     Scene.Pool.AddComponent<GateInfoComponent>();
-                    Scene.Pool.AddComponent<HttpComponent, List<int>>(Scene.AppConfig.HttpPorts);
+                    Scene.Pool.AddComponent<HttpComponent, int>(Scene.AppConfig.HttpPort);
                     break;
                 case AppType.Manager:
                     Scene.Pool.AddComponent<UidComponent>();

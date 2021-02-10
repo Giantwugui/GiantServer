@@ -1,4 +1,4 @@
-﻿using Giant.Data;
+﻿using Giant.Model;
 using Google.Protobuf;
 
 namespace Giant.Battle

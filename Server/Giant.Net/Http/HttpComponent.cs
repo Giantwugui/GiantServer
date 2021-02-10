@@ -9,23 +9,20 @@ using System.Threading.Tasks;
 
 namespace Giant.Net
 {
-    public class HttpComponent : Component, IInitSystem<List<int>>
+    public class HttpComponent : Component, IInitSystem<int>
     {
         private HttpListener httpListener;
         private readonly Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
         private readonly Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
         private readonly Dictionary<MethodInfo, BaseHttpHandler> methodClassMap = new Dictionary<MethodInfo, BaseHttpHandler>();
 
-        public void Init(List<int> ports)
+        public void Init(int port)
         {
             try
             {
                 httpListener = new HttpListener();
-                ports.ForEach(port =>
-                {
-                    httpListener.Prefixes.Add($"http://*:{port}/");
-                    Log.Debug("Http listen port" + port);
-                });
+                httpListener.Prefixes.Add($"http://*:{port}/");
+                Log.Debug("Http listen port" + port);
 
                 Load();
 
@@ -36,12 +33,12 @@ namespace Giant.Net
             {
                 if (e.ErrorCode == 5)
                 {
-                    throw new Exception($"CMD管理员中输入: netsh http add urlacl url=http://*:8080/ user=Everyone", e);
+                    throw new Exception($"CMD管理员中输入: netsh http add urlacl url=http://*:{port}/ user=Everyone", e);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Log.Error(e);
             }
         }
 

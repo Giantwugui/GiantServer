@@ -6,17 +6,18 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE</DefineConstants>
-    <OutputPath></OutputPath>
+    <OutputPath>..\..\Bin\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Dapper" Version="2.0.35" />
-    <PackageReference Include="MongoDB.Driver" Version="2.10.4" />
-    <PackageReference Include="MySql.Data" Version="8.0.20" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="MongoDB.Driver" Version="2.11.6" />
+    <PackageReference Include="MySql.Data" Version="8.0.23" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
+    <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
   </ItemGroup>
 
 </Project>

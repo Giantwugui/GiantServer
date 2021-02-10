@@ -1,5 +1,5 @@
 ﻿using Giant.Core;
-using Giant.Data;
+using Giant.Model;
 using System.Collections.Generic;
 
 namespace Giant.Battle

@@ -8,28 +8,28 @@
     ".NETCoreApp,Version=v5.0": {
       "Giant.Logger/1.0.0": {
         "dependencies": {
-          "NLog": "4.7.0",
-          "NLog.Config": "4.7.0"
+          "NLog": "4.7.7",
+          "NLog.Config": "4.7.7"
         },
         "runtime": {
           "Giant.Logger.dll": {}
         }
       },
-      "NLog/4.7.0": {
+      "NLog/4.7.7": {
         "runtime": {
           "lib/netstandard2.0/NLog.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.7.0.11381"
+            "fileVersion": "4.7.7.12472"
           }
         }
       },
-      "NLog.Config/4.7.0": {
+      "NLog.Config/4.7.7": {
         "dependencies": {
-          "NLog": "4.7.0",
-          "NLog.Schema": "4.7.0"
+          "NLog": "4.7.7",
+          "NLog.Schema": "4.7.7"
         }
       },
-      "NLog.Schema/4.7.0": {}
+      "NLog.Schema/4.7.7": {}
     }
   },
   "libraries": {
@@ -38,26 +38,26 @@
       "serviceable": false,
       "sha512": ""
     },
-    "NLog/4.7.0": {
+    "NLog/4.7.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ch4piF/ifV6ZapFx5Vj8MGaiCZkztHwTMFghJJSOkA/LeWcNdvqW8VzRw7ZMvS8anUmsH81FV334Vay6+ja4Kg==",
-      "path": "nlog/4.7.0",
-      "hashPath": "nlog.4.7.0.nupkg.sha512"
+      "sha512": "sha512-lCfAaKel4trne8Suf4/0aR9YPKDFLWKgqBupnHKNYx+cIjutF2BsVxfF2fAb+ObaYN3m5hDjx/ToVS15ouB+SA==",
+      "path": "nlog/4.7.7",
+      "hashPath": "nlog.4.7.7.nupkg.sha512"
     },
-    "NLog.Config/4.7.0": {
+    "NLog.Config/4.7.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cNNAdC96/l6xsIwmlIV4TiNl6Rq8ETiI9sYjNLj8psgAVVv51FqPnylFQ/9Gd/N+ubvaQuiA+9+50XysD/n8pQ==",
-      "path": "nlog.config/4.7.0",
-      "hashPath": "nlog.config.4.7.0.nupkg.sha512"
+      "sha512": "sha512-SvcBYLm7ZDKiJTh0VE+ys3wTKLuYCABQ4fmLQrIBnM0zql/k0QCD3AF8evA5OKy6/l3vDxFnC02bdxT2LJGAPw==",
+      "path": "nlog.config/4.7.7",
+      "hashPath": "nlog.config.4.7.7.nupkg.sha512"
     },
-    "NLog.Schema/4.7.0": {
+    "NLog.Schema/4.7.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wNPtswvUtwQMqvUDUMij0AP5NeXYcWgcI+GLAS2cZOi+EMi60l0f/Azaa0zgyliHQBMeveTSgkRtEaipyvHV/g==",
-      "path": "nlog.schema/4.7.0",
-      "hashPath": "nlog.schema.4.7.0.nupkg.sha512"
+      "sha512": "sha512-qaRZ1CS8Dqq1B4HsnXt3+6K2mPjiTDb/SkDkNGbivSwXSk1ioUcmg5YgD7dO8zKJTvjWKTQcXNjHGiKpUoI8Ow==",
+      "path": "nlog.schema/4.7.7",
+      "hashPath": "nlog.schema.4.7.7.nupkg.sha512"
     }
   }
 }

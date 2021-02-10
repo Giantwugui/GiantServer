@@ -26,10 +26,10 @@ namespace Server.App
 
         private async void LoadMaxUid()
         {
-            var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid > 0, 1, 0, new BsonDocument("_id", -1));
-            PlayerInfo player = await query.Task();
+            //var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid > 0, 1, 0, new BsonDocument("_id", -1));
+            //PlayerInfo player = await query.Task();
 
-            InitUid(player == null ? 0 : player.Uid);
+            //InitUid(player == null ? 0 : player.Uid);
         }
 
         private void InitUid(int uid)

@@ -1,6 +1,6 @@
 ﻿using EpPathFinding;
 using Giant.Core;
-using Giant.Data;
+using Giant.Model;
 using System;
 using System.Collections.Generic;
 using UnityEngine;

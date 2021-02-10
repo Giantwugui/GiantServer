@@ -1,6 +1,6 @@
 ﻿using Giant.Core;
-using Giant.Data;
 using Giant.Logger;
+using Giant.Model;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,6 +1,6 @@
 ﻿using Giant.Battle;
 using Giant.Core;
-using Giant.Data;
+using Giant.Model;
 
 namespace Server.App
 {

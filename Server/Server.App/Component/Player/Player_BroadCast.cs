@@ -1,5 +1,5 @@
 ﻿using Giant.Battle;
-using Giant.Data;
+using Giant.Model;
 using Google.Protobuf;
 
 namespace Server.App

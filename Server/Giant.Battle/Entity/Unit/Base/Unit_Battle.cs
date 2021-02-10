@@ -1,7 +1,4 @@
-﻿using Giant.Data;
-using UnityEngine;
-
-namespace Giant.Battle
+﻿namespace Giant.Battle
 {
     partial class Unit : IBattleAction
     {

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 被2011 rel. 2 sp1 (1) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<Root Config="Dungeon">
+	<content id="1" MapType="1" DelayTime="15" DuringTime="300"/>
+</Root>

@@ -1,5 +1,5 @@
 ﻿using Giant.Core;
-using Giant.Data;
+using Giant.Model;
 using Giant.Msg;
 
 namespace Giant.Framework

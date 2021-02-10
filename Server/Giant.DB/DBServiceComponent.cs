@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.Model;
 
 namespace Giant.DB
 {
