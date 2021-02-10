@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<Root Config="AppConfig">
+	<content id="1" Name="Global" AppId="1001" SubId="1" InnerAddress="127.0.0.1:5001" OutterAddress="127.0.0.1:5002" HttpPort="8080"/>
+	<content id="2" Name="Account" AppId="1001" SubId="1" InnerAddress="127.0.0.1:6001" OutterAddress="127.0.0.1:6002" HttpPort="8081"/>
+	<content id="3" Name="Gate" AppId="1001" SubId="1" InnerAddress="127.0.0.1:8001" OutterAddress="127.0.0.1:9001"/>
+	<content id="4" Name="Manager" AppId="1001" SubId="1" InnerAddress="127.0.0.1:8002" OutterAddress=""/>
+	<content id="5" Name="Zone" AppId="1001" SubId="1" InnerAddress="127.0.0.1:8003" OutterAddress=""/>
+	<content id="6" Name="Relation" AppId="1001" SubId="1" InnerAddress="127.0.0.1:8004" OutterAddress=""/>
+</Root>

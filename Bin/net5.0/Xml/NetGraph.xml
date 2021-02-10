@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<Root Config="NetGraph">
+ 	<content id="1" Type="Global" Global="None" Gate="AcceptAll" Manager="AcceptAll"  Zone="AcceptAll" Relation="AcceptAll" Account="AcceptAll"/>
+	<content id="2" Type="Account" Global="ConnectAll" Gate="AcceptAll" Manager="None"  Zone="None" Relation="None" Account="None"/>
+	<content id="3" Type="Gate" Global="ConnectAll" Gate="None" Manager="ConnectByApp"  Zone="ConnectByApp" Relation="None" Account="ConnectAll"/>
+	<content id="4" Type="Manager" Global="ConnectAll" Gate="AcceptByApp" Manager="None"  Zone="AcceptByApp" Relation="AcceptByApp" Account="None"/>
+	<content id="5" Type="Zone" Global="ConnectAll" Gate="AcceptByApp" Manager="ConnectByApp"  Zone="None" Relation="ConnectByApp" Account="None"/>
+	<content id="6" Type="Relation" Global="ConnectAll" Gate="None" Manager="ConnectByApp"  Zone="AcceptByApp" Relation="None" Account="None"/>
+</Root>
