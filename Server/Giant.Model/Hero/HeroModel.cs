@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class HeroModel : IData<HeroModel>
+    public class HeroModel : IData
     {
         public int Id { get; private set; }
         public int Attack { get; private set; }

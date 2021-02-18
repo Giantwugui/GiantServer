@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Giant.Core
 {
-    public abstract class SingleDataComponent<T, M> : SingleComponent<T>, ILoadSystem where M : IData<M> where T : Component, new()
+    public abstract class SingleDataComponent<T, M> : SingleComponent<T>, ILoadSystem where M : IData where T : Component, new()
     {
         private readonly Dictionary<int, M> models = new Dictionary<int, M>();
         public Dictionary<int, M> Models => models;

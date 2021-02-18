@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="nuget.exe" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\Giant.Log\Giant.Logger.csproj" />
   </ItemGroup>

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace Giant.Battle
 {
-    public class MapManangerComponent : InitSystem<MapLibComponent>
+    public class MapManangerComponent : InitSystem<MapLibrary>
     {
         private Dictionary<int, MapComponent> maps = new Dictionary<int, MapComponent>();
 
         public static MapManangerComponent Instance { get; private set; }
 
-        public override void Init(MapLibComponent dataList)
+        public override void Init(MapLibrary dataList)
         {
             Instance = this;
             MapComponent map;

@@ -1,5 +1,4 @@
-﻿using Giant.Battle;
-using Giant.Core;
+﻿using Giant.Core;
 using Giant.Model;
 
 namespace Server.App
@@ -11,11 +10,11 @@ namespace Server.App
             switch (appType)
             {
                 case AppType.Zone:
-                    Scene.Pool.AddComponent<MapLibComponent>();
-                    Scene.Pool.AddComponent<DungeonLibComponent>();
-                    Scene.Pool.AddComponent<MonsterLibComponent>();
-                    Scene.Pool.AddComponent<SkillLibComponent>();
-                    Scene.Pool.AddComponent<BuffLibComponent>();
+                    Scene.Pool.AddComponent<MapLibrary>();
+                    Scene.Pool.AddComponent<DungeonLibrary>();
+                    Scene.Pool.AddComponent<MonsterLibrary>();
+                    Scene.Pool.AddComponent<SkillLibrary>();
+                    Scene.Pool.AddComponent<BuffLibrary>();
                     break;
                 default:
                     break;

@@ -1,6 +1,6 @@
 ﻿namespace Giant.Core
 {
-    public partial class AppConfig : IData<AppConfig>
+    public partial class AppConfig : IData
     {
         public int Id { get; private set; }
         public AppType AppType { get; private set; }

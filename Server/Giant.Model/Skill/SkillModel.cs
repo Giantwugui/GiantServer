@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class SkillModel : IData<SkillModel>
+    public class SkillModel : IData
     {
         public int Id { get; private set; }
         public int SkillType { get; private set; }

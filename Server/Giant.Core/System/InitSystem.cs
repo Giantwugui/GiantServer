@@ -54,4 +54,14 @@
     {
         public abstract void Init(P1 p1, P2 p2, P3 p3);
     }
+
+    public abstract class InitLoadSystem : Component, IInitSystem, ILoadSystem
+    {
+        public void Init()
+        {
+            Load();
+        }
+
+        public abstract void Load();
+    }
 }

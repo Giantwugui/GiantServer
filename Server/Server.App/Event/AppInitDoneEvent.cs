@@ -38,7 +38,7 @@ namespace Server.App
 
                     //世界地图信息
                     Scene.Pool.AddComponent<MapGridPosComponent>();
-                    Scene.Pool.AddComponent<MapManangerComponent, MapLibComponent>(Scene.Pool.GetComponent<MapLibComponent>());
+                    Scene.Pool.AddComponent<MapManangerComponent, MapLibrary>(Scene.Pool.GetComponent<MapLibrary>());
 
                     Scene.Pool.AddComponent<PlayerManagerComponent>();
                     Scene.Pool.AddComponent<BattleSceneComponent>();

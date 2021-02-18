@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class BuffModel : IData<BuffModel>
+    public class BuffModel : IData
     {
         public int Id { get; private set; }
         public int BuffType { get; private set; }

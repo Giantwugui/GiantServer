@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class NPCModel : IData<NPCModel>
+    public class NPCModel : IData
     {
         public int Id { get; private set; }
 

@@ -2,7 +2,7 @@
 
 namespace Giant.Core
 {
-    public class DataModel : IData
+    public class DataModel
     {
         public int Id { get; set; }
         public Dictionary<string, string> Params { get; set; }

@@ -15,9 +15,9 @@ namespace Giant.Framework
             AppType appType = (AppType)message.AppType;
             Log.Debug($"service notify from appType {appType} appId {message.AppId} subId {message.SubId}");
 
-            if (Scene.Pool.GetComponent<NetGraphLibComponent>().NeedConnect(Scene.AppConfig.AppType, Scene.AppConfig.AppId, appType, message.AppId))
+            if (Scene.Pool.GetComponent<NetGraphLibrary>().NeedConnect(Scene.AppConfig.AppType, Scene.AppConfig.AppId, appType, message.AppId))
             {
-                AppConfig config = AppConfigComponent.Instance.GetNetConfig(appType, message.AppId, message.SubId);
+                AppConfig config = AppConfigLibrary.Instance.GetNetConfig(appType, message.AppId, message.SubId);
                 if (config == null)
                 {
                     Log.Error($"have not {appType} appId {message.AppId} subId {message.SubId} appConfig, create frontendService fail, please check !");

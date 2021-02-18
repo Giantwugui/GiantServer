@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class MapModel : IData<MapModel>
+    public class MapModel : IData
     {
         public int Id { get; private set; }
         public MapType MapType { get; private set; }
