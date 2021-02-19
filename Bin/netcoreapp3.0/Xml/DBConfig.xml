@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<!-- 被2011 rel. 2 sp1 (1) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
-<Root Config="DBConfig">
-	<content id="1" DBHost="127.0.0.1:27017" DBName="Giant" Account="dbOwner" Pwd="dbOwner" TaskCount="2" RedisHost="127.0.0.1:6379" RedisPwd="dbOwner" RedisIndex="0"/>
-</Root>
