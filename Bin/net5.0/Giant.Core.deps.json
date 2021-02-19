@@ -7,14 +7,27 @@
   "targets": {
     ".NETCoreApp,Version=v5.0": {
       "Giant.Core/1.0.0": {
+        "dependencies": {
+          "Giant.Util": "1.0.0"
+        },
         "runtime": {
           "Giant.Core.dll": {}
+        }
+      },
+      "Giant.Util/1.0.0": {
+        "runtime": {
+          "Giant.Util.dll": {}
         }
       }
     }
   },
   "libraries": {
     "Giant.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Util/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
