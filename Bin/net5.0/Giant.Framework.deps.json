@@ -1080,7 +1080,6 @@
       "Giant.DB/1.0.0": {
         "dependencies": {
           "Dapper": "2.0.78",
-          "Giant.Core": "1.0.0",
           "Giant.Model": "1.0.0",
           "MongoDB.Driver": "2.11.6",
           "MySql.Data": "8.0.23"
@@ -1127,8 +1126,6 @@
       },
       "Giant.Redis/1.0.0": {
         "dependencies": {
-          "Giant.Core": "1.0.0",
-          "Giant.Logger": "1.0.0",
           "Giant.Model": "1.0.0",
           "StackExchange.Redis": "2.2.4"
         },

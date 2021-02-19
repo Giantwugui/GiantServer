@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
   </ItemGroup>
 

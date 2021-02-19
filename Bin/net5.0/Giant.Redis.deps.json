@@ -8,8 +8,6 @@
     ".NETCoreApp,Version=v5.0": {
       "Giant.Redis/1.0.0": {
         "dependencies": {
-          "Giant.Core": "1.0.0",
-          "Giant.Logger": "1.0.0",
           "Giant.Model": "1.0.0",
           "StackExchange.Redis": "2.2.4"
         },
