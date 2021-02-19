@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Giant.Core
+namespace Giant.Util
 {
     public static class EnumHelper
     {

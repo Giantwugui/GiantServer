@@ -5,6 +5,10 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\..\Bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Event\BattleSceneEventSystem.cs" />
     <Compile Remove="Event\UnitActionEventSystem.cs" />

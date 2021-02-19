@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Giant.Util;
+using System.Collections.Generic;
 
 namespace Giant.Core
 {

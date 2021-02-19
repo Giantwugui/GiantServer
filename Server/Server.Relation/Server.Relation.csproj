@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\Giant.Framework\Giant.Framework.csproj" />
   </ItemGroup>
 

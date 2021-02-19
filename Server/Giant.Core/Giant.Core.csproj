@@ -14,4 +14,8 @@
     <OutputPath></OutputPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Giant.Util\Giant.Util.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -10,10 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Giant.Core\Giant.Core.csproj" />
     <ProjectReference Include="..\Giant.Framework\Giant.Framework.csproj" />
-    <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
-    <ProjectReference Include="..\Giant.Net\Giant.Net.csproj" />
   </ItemGroup>
 
 </Project>

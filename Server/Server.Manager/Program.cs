@@ -7,7 +7,7 @@ namespace Server.Manager
     {
         static void Main(string[] args)
         {
-            ComponentFactory.CreateComponent<BaseServiceComponent, string[]>(args);
+            ComponentFactory.CreateComponent<BaseServerComponent, string[]>(args);
         }
     }
 }

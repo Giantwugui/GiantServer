@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 
-namespace Giant.Core
+namespace Giant.Util
 {
     public static class JsonHelper
     {

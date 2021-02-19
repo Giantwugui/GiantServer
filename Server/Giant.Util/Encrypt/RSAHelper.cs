@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Giant.Core
+namespace Giant.Util
 {
     public class RSAHelper
     {

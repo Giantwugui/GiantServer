@@ -1,6 +1,7 @@
 ﻿using Giant.Core;
 using Giant.Model;
 using Giant.Logger;
+using Giant.Util;
 using System;
 
 namespace Giant.Battle

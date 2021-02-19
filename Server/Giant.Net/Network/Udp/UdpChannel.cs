@@ -1,4 +1,4 @@
-﻿using Giant.Core;
+﻿using Giant.Util;
 using System;
 using System.IO;
 using System.Net;

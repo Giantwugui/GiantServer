@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Giant.Core
+namespace Giant.Util
 {
     public static class StringSplit
     {

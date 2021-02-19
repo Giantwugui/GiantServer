@@ -1,5 +1,6 @@
 ﻿using Giant.Core;
 using Giant.Model;
+using Giant.Util;
 using UnityEngine;
 
 namespace Giant.Battle

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Giant.Core
+namespace Giant.Util
 {
     public static class MD5Helper
     {

@@ -1,4 +1,6 @@
-﻿namespace Giant.Core
+﻿using Giant.Util;
+
+namespace Giant.Core
 {
     public partial class AppConfig : IData
     {

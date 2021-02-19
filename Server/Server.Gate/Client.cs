@@ -2,6 +2,7 @@
 using Giant.Framework;
 using Giant.Msg;
 using Giant.Net;
+using Giant.Util;
 using System;
 
 namespace Server.Gate

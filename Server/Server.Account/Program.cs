@@ -7,7 +7,7 @@ namespace Server.Account
     {
         static void Main(string[] args)
         {
-            ComponentFactory.CreateComponent<BaseServiceComponent, string[]>(args);
+            ComponentFactory.CreateComponent<BaseProgramComponent, string[]>(args);
         }
     }
 }
