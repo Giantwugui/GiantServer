@@ -1,0 +1,483 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Robot/1.0.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.15.1",
+          "Giant.Core": "1.0.0.0",
+          "Giant.Data": "1.0.0.0",
+          "Giant.Framework": "1.0.0.0",
+          "Giant.Msg": "1.0.0.0",
+          "Giant.Net": "1.0.0.0",
+          "Giant.Util": "1.0.0.0"
+        },
+        "runtime": {
+          "Robot.dll": {}
+        }
+      },
+      "Google.Protobuf/3.15.1": {
+        "dependencies": {
+          "System.Memory": "4.5.3",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Google.Protobuf.dll": {
+            "assemblyVersion": "3.15.1.0",
+            "fileVersion": "3.15.1.0"
+          }
+        }
+      },
+      "System.Memory/4.5.3": {},
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {},
+      "Giant.Core/1.0.0.0": {
+        "runtime": {
+          "Giant.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Data/1.0.0.0": {
+        "runtime": {
+          "Giant.Data.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Framework/1.0.0.0": {
+        "runtime": {
+          "Giant.Framework.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Msg/1.0.0.0": {
+        "runtime": {
+          "Giant.Msg.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Net/1.0.0.0": {
+        "runtime": {
+          "Giant.Net.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Util/1.0.0.0": {
+        "runtime": {
+          "Giant.Util.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Model/1.0.0.0": {
+        "runtime": {
+          "Giant.Model.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "CommandLine/2.8.0.0": {
+        "runtime": {
+          "CommandLine.dll": {
+            "assemblyVersion": "2.8.0.0",
+            "fileVersion": "2.8.0.0"
+          }
+        }
+      },
+      "Giant.Logger/1.0.0.0": {
+        "runtime": {
+          "Giant.Logger.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.DB/1.0.0.0": {
+        "runtime": {
+          "Giant.DB.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Giant.Redis/1.0.0.0": {
+        "runtime": {
+          "Giant.Redis.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "NLog/4.0.0.0": {
+        "runtime": {
+          "NLog.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.7.7.12472"
+          }
+        }
+      },
+      "MongoDB.Bson/2.11.6.0": {
+        "runtime": {
+          "MongoDB.Bson.dll": {
+            "assemblyVersion": "2.11.6.0",
+            "fileVersion": "2.11.6.0"
+          }
+        }
+      },
+      "MongoDB.Driver/2.11.6.0": {
+        "runtime": {
+          "MongoDB.Driver.dll": {
+            "assemblyVersion": "2.11.6.0",
+            "fileVersion": "2.11.6.0"
+          }
+        }
+      },
+      "MySql.Data/8.0.23.0": {
+        "runtime": {
+          "MySql.Data.dll": {
+            "assemblyVersion": "8.0.23.0",
+            "fileVersion": "8.0.23.0"
+          }
+        }
+      },
+      "MongoDB.Driver.Core/2.11.6.0": {
+        "runtime": {
+          "MongoDB.Driver.Core.dll": {
+            "assemblyVersion": "2.11.6.0",
+            "fileVersion": "2.11.6.0"
+          }
+        }
+      },
+      "Dapper/2.0.0.0": {
+        "runtime": {
+          "Dapper.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.78.45418"
+          }
+        }
+      },
+      "StackExchange.Redis/2.0.0.0": {
+        "runtime": {
+          "StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.2.4.27433"
+          }
+        }
+      },
+      "MongoDB.Libmongocrypt/1.0.0.0": {
+        "runtime": {
+          "MongoDB.Libmongocrypt.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Zstandard.Net/1.1.7.0": {
+        "runtime": {
+          "Zstandard.Net.dll": {
+            "assemblyVersion": "1.1.7.0",
+            "fileVersion": "1.1.7.0"
+          }
+        }
+      },
+      "K4os.Compression.LZ4.Streams/1.1.11.0": {
+        "runtime": {
+          "K4os.Compression.LZ4.Streams.dll": {
+            "assemblyVersion": "1.1.11.0",
+            "fileVersion": "1.1.11.0"
+          }
+        }
+      },
+      "BouncyCastle.Crypto/1.8.5.0": {
+        "runtime": {
+          "BouncyCastle.Crypto.dll": {
+            "assemblyVersion": "1.8.5.0",
+            "fileVersion": "1.8.19031.1"
+          }
+        }
+      },
+      "Ubiety.Dns.Core/2.2.1.0": {
+        "runtime": {
+          "Ubiety.Dns.Core.dll": {
+            "assemblyVersion": "2.2.1.0",
+            "fileVersion": "2.2.1.0"
+          }
+        }
+      },
+      "Renci.SshNet/2020.0.0.0": {
+        "runtime": {
+          "Renci.SshNet.dll": {
+            "assemblyVersion": "2020.0.0.0",
+            "fileVersion": "2020.0.0.0"
+          }
+        }
+      },
+      "DnsClient/1.3.1.0": {
+        "runtime": {
+          "DnsClient.dll": {
+            "assemblyVersion": "1.3.1.0",
+            "fileVersion": "1.3.1.0"
+          }
+        }
+      },
+      "SharpCompress/0.23.0.0": {
+        "runtime": {
+          "SharpCompress.dll": {
+            "assemblyVersion": "0.23.0.0",
+            "fileVersion": "0.23.0.0"
+          }
+        }
+      },
+      "Pipelines.Sockets.Unofficial/1.0.0.0": {
+        "runtime": {
+          "Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.0.45337"
+          }
+        }
+      },
+      "System.Diagnostics.PerformanceCounter/5.0.0.0": {
+        "runtime": {
+          "System.Diagnostics.PerformanceCounter.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "System.IO.Pipelines/5.0.0.0": {
+        "runtime": {
+          "System.IO.Pipelines.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.20.51904"
+          }
+        }
+      },
+      "K4os.Compression.LZ4/1.1.11.0": {
+        "runtime": {
+          "K4os.Compression.LZ4.dll": {
+            "assemblyVersion": "1.1.11.0",
+            "fileVersion": "1.1.11.0"
+          }
+        }
+      },
+      "K4os.Hash.xxHash/1.0.6.0": {
+        "runtime": {
+          "K4os.Hash.xxHash.dll": {
+            "assemblyVersion": "1.0.6.0",
+            "fileVersion": "1.0.6.0"
+          }
+        }
+      },
+      "SshNet.Security.Cryptography/1.3.0.0": {
+        "runtime": {
+          "SshNet.Security.Cryptography.dll": {
+            "assemblyVersion": "1.3.0.0",
+            "fileVersion": "1.3.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Robot/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Ed3MikbXQPPiLsH338AOW5qdXs5PLP3KA1ZINJ/0sPZ4VExBac3dc3pP7ANOmTm+bj+WlUFvqYR/UAnVz3OVmA==",
+      "path": "google.protobuf/3.15.1",
+      "hashPath": "google.protobuf.3.15.1.nupkg.sha512"
+    },
+    "System.Memory/4.5.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "path": "system.memory/4.5.3",
+      "hashPath": "system.memory.4.5.3.nupkg.sha512"
+    },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+    },
+    "Giant.Core/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Data/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Framework/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Msg/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Net/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Util/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Model/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "CommandLine/2.8.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Logger/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.DB/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.Redis/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "NLog/4.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MongoDB.Bson/2.11.6.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MongoDB.Driver/2.11.6.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MySql.Data/8.0.23.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MongoDB.Driver.Core/2.11.6.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Dapper/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StackExchange.Redis/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "MongoDB.Libmongocrypt/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Zstandard.Net/1.1.7.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "K4os.Compression.LZ4.Streams/1.1.11.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BouncyCastle.Crypto/1.8.5.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ubiety.Dns.Core/2.2.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Renci.SshNet/2020.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DnsClient/1.3.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SharpCompress/0.23.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Pipelines.Sockets.Unofficial/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Diagnostics.PerformanceCounter/5.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.IO.Pipelines/5.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "K4os.Compression.LZ4/1.1.11.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "K4os.Hash.xxHash/1.0.6.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SshNet.Security.Cryptography/1.3.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
