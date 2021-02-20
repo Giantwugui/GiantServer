@@ -57,25 +57,22 @@ message Msg_CG_PlayerInfo // IRequest
 message Msg_CG_GetCharacter //IRequest
 {
 	int32 RpcId = 90;
+	string Account = 1;
+	int32 Token = 2;
 }
 
 message Msg_CG_CreateCharacter // IRequest
 {
 	int32 RpcId = 90;
-	int32 RoleId = 1;
+	string Account = 1;
+	int32 RoleId = 2;
 }
 
 message Msg_CG_Login // IRequest
 {
 	int32 RpcId = 90;
 	string Account = 1;
-	int32 Token = 2;
-}
-
-message Msg_CG_EnterWorld // IRequest
-{
-	int32 RpcId = 90;
-	int32 Uid = 1;
+	int32 Uid = 2;
 }
 
 /*********************** Gate => Client ****************************/
@@ -133,13 +130,6 @@ message Msg_GC_Login // IResponse
 message Msg_PlayerInfo // IMessage
 {
 	int32 RpcId = 90;
-}
-
-message Msg_GC_EnterWorld // IResponse
-{
-	int32 RpcId = 90;
-	int32 Error = 91;
-	string Message = 92;
 }
 
 message Msg_CG_EnterMap // IRequest

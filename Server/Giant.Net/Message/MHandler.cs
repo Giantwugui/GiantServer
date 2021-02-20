@@ -32,7 +32,7 @@ namespace Giant.Net
     //请求响应类消息
     public abstract class MHandler<Request, Response> : IMHandler where Request : class, IRequest where Response : class, IResponse
     {
-        public abstract Task Run(Session session, Request request, Response response);
+        public abstract Task Run(Session session, Request request, Response response, Action replay);
 
         public Type GetMessageType()
         {
@@ -43,21 +43,33 @@ namespace Giant.Net
         {
             try
             {
+                long instanceId = session.InstanceId;
                 Request request = message as Request;
                 Response response = Activator.CreateInstance<Response>();
-                response.RpcId = request.RpcId;
-                response.Error = ErrorCode.Success;
+
+                void Reply()
+                {
+                    // 等回调回来,session可以已经断开了,所以需要判断session InstanceId是否一样
+                    if (session.InstanceId != instanceId)
+                    {
+                        return;
+                    }
+
+                    response.RpcId = request.RpcId;
+                    response.Error = ErrorCode.Success;
+
+                    session.Reply(response);
+                }
 
                 try
                 {
-                    await Run(session, request, response);
-                    session.Reply(response);
+                    await Run(session, request, response, Reply);
                 }
                 catch (Exception ex)
                 {
                     response.Error = ErrorCode.RpcFail;
                     response.Message = ex.ToString();
-                    session.Reply(response);
+                    Reply();
 
                     Log.Error(ex);
                 }

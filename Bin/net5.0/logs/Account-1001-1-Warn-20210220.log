@@ -1,0 +1,82 @@
+2021-02-20 10:45:05.9005 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 10:45:05.9513 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 10:45:05.9776 WARN regist service from appType Gate appId 1001
+2021-02-20 10:54:21.3392 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 10:54:21.3698 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 10:54:21.3997 WARN regist service from appType Gate appId 1001
+2021-02-20 11:17:48.0849 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 11:17:48.1287 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 11:17:48.1931 WARN regist service from appType Gate appId 1001
+2021-02-20 11:32:27.1461 WARN session call OOT request 75 type Msg_HeartBeat_Ping
+2021-02-20 13:37:43.6180 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 13:37:44.4558 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 13:37:45.5555 WARN regist service from appType Gate appId 1001
+2021-02-20 13:37:45.7062 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 13:37:46.0147 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 13:37:46.7979 WARN regist service from appType Gate appId 1001
+2021-02-20 14:03:59.7157 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 14:03:59.7917 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 14:03:59.8810 WARN regist service from appType Gate appId 1001
+2021-02-20 14:05:18.5959 WARN session call OOT request 6 type Msg_HeartBeat_Ping
+2021-02-20 14:08:45.5257 WARN session call OOT request 19 type Msg_HeartBeat_Ping
+2021-02-20 14:12:33.9650 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 14:12:34.0788 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 14:12:34.0969 WARN regist service from appType Gate appId 1001
+2021-02-20 14:28:52.8885 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:28:57.9775 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:03.0929 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:08.4567 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:13.5526 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:18.6520 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:23.7215 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:28.8094 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:42.6672 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:47.8531 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:52.9515 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:29:58.0199 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:03.1079 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:08.2001 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:13.2879 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:18.3755 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:23.4581 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:28.5285 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:33.5905 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:38.6917 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:43.7796 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:48.8683 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:53.9341 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:30:59.0275 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:31:04.1175 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:31:09.1878 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:31:14.2643 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:31:19.3442 WARN app Account 1001 1 connect to Global 1001 127.0.0.1:5001
+2021-02-20 14:31:33.4097 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 14:31:33.4371 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 14:31:33.4914 WARN regist service from appType Gate appId 1001
+2021-02-20 15:07:13.0553 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 15:07:13.2122 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 15:07:13.2381 WARN regist service from appType Gate appId 1001
+2021-02-20 15:11:09.9742 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 15:11:10.0590 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 15:11:10.1931 WARN regist service from appType Gate appId 1001
+2021-02-20 15:40:15.8682 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 15:40:16.1450 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 15:40:16.2478 WARN regist service from appType Gate appId 1001
+2021-02-20 16:05:04.7777 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 16:05:04.9178 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 16:05:04.9258 WARN regist service from appType Gate appId 1001
+2021-02-20 16:12:09.9979 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 16:12:10.1993 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 16:12:10.2519 WARN regist service from appType Gate appId 1001
+2021-02-20 16:16:32.8872 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 16:16:32.9844 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 16:16:33.0121 WARN regist service from appType Gate appId 1001
+2021-02-20 16:29:26.6384 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 16:29:26.7249 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 16:29:26.7496 WARN regist service from appType Gate appId 1001
+2021-02-20 17:37:22.9295 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 17:37:23.1701 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 17:37:23.1767 WARN regist service from appType Gate appId 1001
+2021-02-20 17:55:29.5572 WARN app Account 1001 1 start registe to Global 1001 ...
+2021-02-20 17:55:29.7359 WARN app Account 1001 1 registed to Global 1001 success !
+2021-02-20 17:55:29.8302 WARN regist service from appType Gate appId 1001

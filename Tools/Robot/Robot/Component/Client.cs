@@ -1,8 +1,10 @@
 ﻿using Giant.Core;
 using Giant.Msg;
 using Giant.Net;
+using Giant.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Robot
@@ -10,6 +12,7 @@ namespace Robot
     public class Client : InitSystem<string>
     {
         private int token;
+        private string publicKey;
         private Session session;
         private AccountInfo accountInfo;
         private string accountHost = "127.0.0.1:6002";
@@ -23,6 +26,13 @@ namespace Robot
         public override void Init(string account)
         {
             Account = account;
+
+            string path = Directory.GetCurrentDirectory();
+            string publicKeyPath = Path.Combine(path, "PrivateKey.txt");
+            if (File.Exists(publicKeyPath))
+            {
+                publicKey = File.ReadAllText(publicKeyPath);
+            }
         }
 
         private void SetCharacters(IEnumerable<Msg_CharacterInfo> characters)
@@ -105,7 +115,8 @@ namespace Robot
             {
                 if (state)
                 {
-                    LoginZone();
+                    GetEncyptKey();
+
                     session.OnConnectCallback += (session, state) =>
                     {
                         var player = PlayerManagerComponent.Instance.GetPlayer(session.InstanceId);
@@ -121,14 +132,17 @@ namespace Robot
             session.Start();
         }
 
-        private async void LoginZone()
+        private async void GetEncyptKey()
         {
-            Msg_CG_Login msg = new Msg_CG_Login() { Account = accountInfo.Account, Token = token };
-            Msg_GC_Login result = (await session.Call(msg)) as Msg_GC_Login;
-            if (result.IsSuccess())
-            {
-                GetCharacter();
-            }
+            Msg_CG_Get_SecretKey msg = new Msg_CG_Get_SecretKey();
+            Msg_GC_Get_SecretKey result = (await session.Call(msg)) as Msg_GC_Get_SecretKey;
+
+            byte[] aesBytes = RSAHelper.Decrypt(result.SecretKey.FromBase64String(), publicKey);
+
+            session.IsNeedEncrypt = true;
+            session.AESCrypt.SetCryptKey(aesBytes.ToBase64String());
+
+            GetCharacter();
         }
 
         private async void GetCharacter()

@@ -1,6 +1,7 @@
 ﻿using Giant.Core;
 using Giant.Msg;
 using Giant.Net;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Zone
@@ -11,7 +12,7 @@ namespace Server.Zone
     [MessageHandler]
     class Handle_GateZ_Hero : MHandler<Msg_GateZ_Hero_Break, Msg_ZGate_Hero_Break>
     {
-        public override Task Run(Session session, Msg_GateZ_Hero_Break request, Msg_ZGate_Hero_Break response)
+        public override Task Run(Session session, Msg_GateZ_Hero_Break request, Msg_ZGate_Hero_Break response, Action reply)
         {
             Player player = PlayerManagerComponent.Instance.GetPlayer(request.Uid);
             //HeroSystem system = Scene.EventSystem.GetSystem<HeroSystem>();
@@ -21,9 +22,11 @@ namespace Server.Zone
             if (hero == null)
             {
                 response.Error = ErrorCode.Fail;
+                reply();
                 return Task.CompletedTask;
             }
 
+            reply();
 
             return Task.CompletedTask;
         }

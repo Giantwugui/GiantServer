@@ -61,6 +61,8 @@ namespace Giant.Net
 
             HttpHandlerAttribute attribute;
             var types = Scene.EventSystem.GetTypes(typeof(HttpHandlerAttribute));
+            if (types == null) return;
+
             foreach (var type in types)
             {
                 attribute = type.GetCustomAttribute<HttpHandlerAttribute>();

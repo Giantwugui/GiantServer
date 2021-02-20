@@ -5,6 +5,7 @@ using Giant.Framework;
 using Giant.Model;
 using Giant.Msg;
 using Giant.Net;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Gate
@@ -12,32 +13,39 @@ namespace Server.Gate
     [MessageHandler]
     class Handle_CGate_GetCharacter : MHandler<Msg_CG_GetCharacter, Msg_GC_GetCharacter>
     {
-        public override async Task Run(Session session, Msg_CG_GetCharacter request, Msg_GC_GetCharacter response)
+        public override async Task Run(Session session, Msg_CG_GetCharacter request, Msg_GC_GetCharacter response, Action reply)
         {
-            Client client = ClientManagerComponent.Instance.GetClient(session.Id);
-            if (client == null)
+            ClientEnter client = ClientManagerComponent.Instance.GetClientEntry(request.Account);
+            if (client == null || client.Token!= request.Token)
             {
                 response.Error = ErrorCode.Fail;
+                reply();
                 return;
             }
 
             var query = new MongoDBQueryBatch<PlayerInfo>(DBName.Player, x => x.Account == client.Account);
             var playerInfos = await query.Task();
 
-            playerInfos.ForEach(player => response.Characters.Add(new Msg_CharacterInfo() { Uid = player.Uid, RoleId = player.RoleId }));
+            playerInfos.ForEach(player =>
+            {
+                client.AddCharacter(player);
+                response.Characters.Add(new Msg_CharacterInfo() { Uid = player.Uid, RoleId = player.RoleId });
+            });
             response.Error = ErrorCode.Success;
+            reply();
         }
     }
 
     [MessageHandler]
     class Handle_CGate_CreateCharacter : MHandler<Msg_CG_CreateCharacter, Msg_GC_CreateCharacter>
     {
-        public override async Task Run(Session session, Msg_CG_CreateCharacter request, Msg_GC_CreateCharacter response)
+        public override async Task Run(Session session, Msg_CG_CreateCharacter request, Msg_GC_CreateCharacter response, Action reply)
         {
-            Client client = ClientManagerComponent.Instance.GetClient(session.Id);
+            ClientEnter client = ClientManagerComponent.Instance.GetClientEntry(request.Account);
             if (client == null)
             {
                 response.Error = ErrorCode.Fail;
+                reply();
                 return;
             }
 
@@ -48,13 +56,17 @@ namespace Server.Gate
             if (result.Error != ErrorCode.Success)
             {
                 response.Error = ErrorCode.Fail;
+                reply();
                 return;
             }
 
             PlayerInfo player = await CreateCharacter(response, client.Account, result.Uid, request.RoleId);
             response.Character = new Msg_CharacterInfo() { Uid = player.Uid, RoleId = request.RoleId };
 
+            client.AddCharacter(player);
+
             response.Error = ErrorCode.Success;
+            reply();
         }
 
         private async Task<PlayerInfo> CreateCharacter(Msg_GC_CreateCharacter response, string account, int uid, int heroId)

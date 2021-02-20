@@ -32,9 +32,6 @@ namespace Giant.Msg
 	[Message(OuterOpcode.Msg_CG_Login)]
 	public partial class Msg_CG_Login : IRequest {}
 
-	[Message(OuterOpcode.Msg_CG_EnterWorld)]
-	public partial class Msg_CG_EnterWorld : IRequest {}
-
 	[Message(OuterOpcode.Msg_GC_HeartBeat_Pong)]
 	public partial class Msg_GC_HeartBeat_Pong : IResponse {}
 
@@ -55,9 +52,6 @@ namespace Giant.Msg
 
 	[Message(OuterOpcode.Msg_PlayerInfo)]
 	public partial class Msg_PlayerInfo : IMessage {}
-
-	[Message(OuterOpcode.Msg_GC_EnterWorld)]
-	public partial class Msg_GC_EnterWorld : IResponse {}
 
 	[Message(OuterOpcode.Msg_CG_EnterMap)]
 	public partial class Msg_CG_EnterMap : IRequest {}
@@ -124,7 +118,6 @@ namespace Giant.Msg
 			{Msg_CG_GetCharacter, typeof(Msg_CG_GetCharacter)},
 			{Msg_CG_CreateCharacter, typeof(Msg_CG_CreateCharacter)},
 			{Msg_CG_Login, typeof(Msg_CG_Login)},
-			{Msg_CG_EnterWorld, typeof(Msg_CG_EnterWorld)},
 			{Msg_GC_HeartBeat_Pong, typeof(Msg_GC_HeartBeat_Pong)},
 			{Msg_GC_Get_SecretKey, typeof(Msg_GC_Get_SecretKey)},
 			{Msg_GC_CreateCharacter, typeof(Msg_GC_CreateCharacter)},
@@ -132,7 +125,6 @@ namespace Giant.Msg
 			{Msg_GC_GetCharacter, typeof(Msg_GC_GetCharacter)},
 			{Msg_GC_Login, typeof(Msg_GC_Login)},
 			{Msg_PlayerInfo, typeof(Msg_PlayerInfo)},
-			{Msg_GC_EnterWorld, typeof(Msg_GC_EnterWorld)},
 			{Msg_CG_EnterMap, typeof(Msg_CG_EnterMap)},
 			{Msg_GC_EnterMap, typeof(Msg_GC_EnterMap)},
 			{Msg_UnitInfo, typeof(Msg_UnitInfo)},

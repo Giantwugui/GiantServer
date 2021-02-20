@@ -2,30 +2,15 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Net\" />
+    <PackageReference Include="Google.Protobuf" Version="3.15.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.11.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Giant.Core">
-      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Framework">
-      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Msg">
-      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Msg.dll</HintPath>
-    </Reference>
-    <Reference Include="Giant.Net">
-      <HintPath>..\..\..\Bin\netcoreapp3.0\Giant.Net.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\..\Server\Giant.Framework\Giant.Framework.csproj" />
   </ItemGroup>
 
 </Project>

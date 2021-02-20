@@ -34,9 +34,15 @@ namespace Giant.DB.MongoDB
         public override async Task Run()
         {
             var collection = GetCollection<T>(CollectionName);
-            var result = await collection.FindSync<T>(definition, options).FirstOrDefaultAsync();
-
-            SetResult(result);
+            if (collection == null)
+            {
+                SetResult(default);
+            }
+            else
+            { 
+                var result = await collection.FindSync<T>(definition, options).FirstOrDefaultAsync();
+                SetResult(result);
+            }
         }
     }
 

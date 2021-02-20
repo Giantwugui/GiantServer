@@ -2,9 +2,11 @@
 using Giant.DB;
 using Giant.DB.MongoDB;
 using Giant.Framework;
+using Giant.Model;
 using Giant.Msg;
 using Giant.Net;
-using Giant.Model;
+using Giant.Util;
+using System;
 using System.Threading.Tasks;
 
 namespace Server.Gate
@@ -12,11 +14,12 @@ namespace Server.Gate
     [MessageHandler]
     public class Handle_Ping : MHandler<Msg_CG_HeartBeat_Ping, Msg_GC_HeartBeat_Pong>
     {
-        public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response)
+        public override async Task Run(Session session, Msg_CG_HeartBeat_Ping request, Msg_GC_HeartBeat_Pong response, Action apply)
         {
             response.Error = ErrorCode.Success;
             Client client = ClientManagerComponent.Instance.GetClient(session.Id);
             client?.HeartBeat();
+            apply();
 
             await Task.CompletedTask;
         }
@@ -25,8 +28,15 @@ namespace Server.Gate
     [MessageHandler]
     public class Handle_GetSecretKey : MHandler<Msg_CG_Get_SecretKey, Msg_GC_Get_SecretKey>
     {
-        public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response)
+        public override async Task Run(Session session, Msg_CG_Get_SecretKey request, Msg_GC_Get_SecretKey response, Action apply)
         {
+            string encryptData = RSAHelper.Encrypt(session.SecretKey);
+            response.Error = ErrorCode.Success;
+            response.SecretKey = encryptData;
+            apply();
+
+            session.IsNeedEncrypt = true;
+
             await Task.CompletedTask;
         }
     }
@@ -34,13 +44,14 @@ namespace Server.Gate
     [MessageHandler]
     public class Handle_Login : MHandler<Msg_CG_Login, Msg_GC_Login>
     {
-        public override Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response)
+        public override async Task Run(Session session, Msg_CG_Login request, Msg_GC_Login response, Action apply)
         {
             ClientEnter enter = ClientManagerComponent.Instance.GetClientEntry(request.Account);
-            if (enter == null || enter.Token != request.Token)
+            if (enter == null)
             {
                 response.Error = ErrorCode.TokenOOT;
-                return Task.CompletedTask;
+                apply();
+                return;
             }
 
             ClientManagerComponent.Instance.RemoveClientEntry(request.Account);
@@ -50,27 +61,12 @@ namespace Server.Gate
             client = ComponentFactory.CreateComponent<Client, Session, string>(session, request.Account);
             ClientManagerComponent.Instance.Add(client);
 
-            return Task.CompletedTask;
-        }
-    }
-
-    [MessageHandler]
-    public class Handle_EnterWorld : MHandler<Msg_CG_EnterWorld, Msg_GC_EnterWorld>
-    {
-        public override async Task Run(Session session, Msg_CG_EnterWorld request, Msg_GC_EnterWorld response)
-        {
-            Client client = ClientManagerComponent.Instance.GetClient(session.Id);
-            if (client == null)
-            {
-                response.Error = ErrorCode.Fail;
-                return;
-            }
-
             var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid == request.Uid);
             PlayerInfo playerInfo = await query.Task();
             if (playerInfo == null)
             {
                 response.Error = ErrorCode.HaveNotFindCharacer;
+                apply();
                 return;
             }
 
@@ -82,9 +78,12 @@ namespace Server.Gate
 
             client.Uid = request.Uid;
 
-            client.EnterWorld();
+            client.LoginToZone();
 
             response.Error = ErrorCode.Success;
+            apply();
         }
     }
+
+    
 }

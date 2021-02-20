@@ -9,9 +9,6 @@ namespace Server.Gate
 {
     public class Client : Entity, IInitSystem<Session, string>
     {
-        private AESCrypt AESCrypt;
-        public string SecretKey => AESCrypt.EncryptKey;
-
         public Session Session { get; private set; }
         public string Account { get; set; }
         public int Uid { get; set; }
@@ -34,7 +31,7 @@ namespace Server.Gate
             HeartBeatTime = TimeHelper.Now;
         }
 
-        public void EnterWorld()
+        public void LoginToZone()
         {
             Msg_GateZ_EnterWorld msg = new Msg_GateZ_EnterWorld { Uid = Uid };
             SendToZone(msg);
@@ -48,11 +45,6 @@ namespace Server.Gate
         public void SendToZone(IMessage message)
         {
             GetComponent<FrontendComponent>()?.Send(message);
-        }
-
-        public void BuildSecretKey()
-        {
-            AESCrypt = new AESCrypt();
         }
     }
 }

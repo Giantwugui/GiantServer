@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Security.Cryptography;
 
 namespace Giant.Util
@@ -7,29 +6,55 @@ namespace Giant.Util
     public class RSAHelper
     {
         private static readonly int KeySize = 1024;
-        private static readonly RSACryptoServiceProvider RSA;
 
-        private static byte[] privateKey;
-        private static byte[] publicKey;
+        private static string publicKey;
+        private static string privateKey;
+        private static RSACryptoServiceProvider RSA;
 
-        public static string PublicKey { get; private set; }
-        public static string PrivateKey { get; private set; }
-
-        static RSAHelper()
+        public static string Encrypt(string data)
         {
-            LoadKey();
-            RSA = new RSACryptoServiceProvider();
-            RSA.ImportCspBlob(privateKey);//导入私钥，私钥已经包含公钥信息
+            CheckKey();
+
+            byte[] dataBytes = data.FromBase64String();
+            byte[] encryptBytes = Encrypt(dataBytes);
+            return encryptBytes.ToBase64String();
         }
 
         public static byte[] Encrypt(byte[] data)
         {
-            return RSA.Encrypt(data, RSAEncryptionPadding.Pkcs1);
+            CheckKey();
+
+            return RSA.Encrypt(data, false);
+        }
+
+        public static byte[] Encrypt(byte[] data, string xmlPublicKey)
+        {
+            RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
+            provider.FromXmlString(xmlPublicKey);
+            
+            return provider.Encrypt(data, false);
         }
 
         public static byte[] Decrypt(byte[] data)
         {
-            return RSA.Decrypt(data, RSAEncryptionPadding.Pkcs1);
+            CheckKey();
+
+            return RSA.Decrypt(data, false);
+        }
+
+        public static byte[] Decrypt(byte[] data, string xmlPrivateKey)
+        {
+            RSACryptoServiceProvider provider = new RSACryptoServiceProvider();
+            provider.FromXmlString(xmlPrivateKey);
+            return provider.Decrypt(data, false);
+        }
+
+        private static void CheckKey()
+        {
+            if (RSA == null)
+            {
+                LoadKey();
+            }
         }
 
         private static void LoadKey()
@@ -38,27 +63,23 @@ namespace Giant.Util
             string publicKeyPath = Path.Combine(path, "PublicKey.txt");
             string privateKeyPath = Path.Combine(path, "PrivateKey.txt");
 
-            if (!File.Exists(publicKeyPath) || !File.Exists(privateKeyPath))
+            if (!File.Exists(privateKeyPath))
             {
-                RSACryptoServiceProvider SACryptoServiceProvider = new RSACryptoServiceProvider(KeySize);
-                privateKey = SACryptoServiceProvider.ExportCspBlob(true);
-                publicKey = SACryptoServiceProvider.ExportCspBlob(false);
-                SACryptoServiceProvider.Dispose();
+                RSA = new RSACryptoServiceProvider(KeySize);
+                publicKey = RSA.ToXmlString(false);
+                privateKey = RSA.ToXmlString(true);
 
-                PublicKey = Convert.ToBase64String(publicKey);
-                PrivateKey = Convert.ToBase64String(privateKey);
-
-                File.WriteAllText(publicKeyPath, PublicKey);
-                File.WriteAllText(privateKeyPath, PrivateKey);
+                File.WriteAllText(publicKeyPath, publicKey);
+                File.WriteAllText(privateKeyPath, privateKey);
                 return;
             }
             else
             {
-                PublicKey = File.ReadAllText(publicKeyPath);
-                PrivateKey = File.ReadAllText(privateKeyPath);
+                publicKey = File.ReadAllText(publicKeyPath);
+                privateKey = File.ReadAllText(privateKeyPath);
 
-                publicKey = Convert.FromBase64String(PublicKey);
-                privateKey = Convert.FromBase64String(PrivateKey);
+                RSA = new RSACryptoServiceProvider();
+                RSA.FromXmlString(privateKey);
             }
         }
     }

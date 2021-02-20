@@ -33,6 +33,10 @@ namespace Giant.Net
             remove { onConnectCallback -= value; }
         }
 
+        public bool IsNeedEncrypt { get; set; }
+        public AESCrypt AESCrypt { get; private set; }
+        public string SecretKey => AESCrypt.EncryptKey;
+
         public void Init(BaseChannel baseChannel)
         {
             Id = baseChannel.InstanceId;
@@ -41,6 +45,8 @@ namespace Giant.Net
             channel.OnReadCallback += OnRead;
             channel.OnErrorCallback += OnError;
             channel.OnConnectCallback += OnConnect;
+
+            AESCrypt = new AESCrypt();
         }
 
         public void Reply(IMessage message)
@@ -158,7 +164,16 @@ namespace Giant.Net
             stream.Write(opcodeBytes, 0, opcodeBytes.Length);
             stream.SetLength(Packet.MessageIndex);
 
-            ProtoHelper.ToStream(stream, message);
+            if (IsNeedEncrypt)
+            {
+                byte[] encrypt = AESCrypt.Encrypt(ProtoHelper.ToBytes(message));
+                stream.Write(encrypt, 0, encrypt.Length);
+            }
+            else
+            { 
+                ProtoHelper.ToStream(stream, message);
+            }
+
             stream.Seek(0, SeekOrigin.Begin);
 
             channel.Send(stream);
@@ -170,8 +185,21 @@ namespace Giant.Net
             ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), Packet.OpcodeIndex);
             memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 
+            IMessage message;
             Type msgType = OpcodeComponent.Instance.GetMessageType(opcode);
-            IMessage message = NetworkComponent.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
+
+            if (!IsNeedEncrypt || opcode == OuterOpcode.Msg_CG_Get_SecretKey)
+            {
+                message = NetworkComponent.MessageParser.DeserializeFrom(memoryStream, msgType) as IMessage;
+            }
+            else
+            {
+                byte[] byteList = new byte[memoryStream.Length - Packet.PacketSizeLength2];
+                Array.Copy(memoryStream.GetBuffer(), Packet.PacketSizeLength2, byteList, 0, byteList.Length);
+
+                byte[] decode = AESCrypt.Decrypt(byteList);
+                message = NetworkComponent.MessageParser.DeserializeFrom(decode, msgType) as IMessage;
+            }
 
             if (message is IResponse response)
             {

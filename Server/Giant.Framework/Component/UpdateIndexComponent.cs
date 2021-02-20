@@ -17,6 +17,8 @@ namespace Giant.Framework
         {
             taskList.Clear();
             List<Type> types = Scene.EventSystem.GetTypes(typeof(MongoDBIndexAttribute));
+            if (types == null) return;
+
             foreach (var kv in types)
             {
                 if (Activator.CreateInstance(kv) is DataTask<string> task)

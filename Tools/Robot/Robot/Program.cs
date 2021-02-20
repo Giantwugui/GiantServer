@@ -16,6 +16,8 @@ namespace Robot
         {
             try
             {
+                //RsaTest.Test();
+
                 Scene.EventSystem.Regist(Assembly.GetExecutingAssembly());
 
                 Scene.Pool.AddComponent<TimerComponent>();

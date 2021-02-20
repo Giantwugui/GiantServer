@@ -7,6 +7,7 @@ using Giant.Model;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Util;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace Server.Account
     [MessageHandler]
     class Handle_CA_Login : MHandler<Msg_CA_Login, Msg_AC_Login>
     {
-        public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response)
+        public override async Task Run(Session session, Msg_CA_Login request, Msg_AC_Login response, Action apply)
         {
             var query = new MongoDBQuery<AccountInfo>(DBName.Account, x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -38,7 +39,7 @@ namespace Server.Account
             account.LastLoginTime = TimeHelper.NowString;
             await account.UpdateTask();
 
-            response.Error = ErrorCode.Success;
+            apply();
 
             Log.Debug($"user login {request.Account}");
         }
@@ -47,7 +48,7 @@ namespace Server.Account
     [MessageHandler]
     class Handle_Login_Zone : MHandler<Msg_CA_LoginZone, Msg_AC_LoginZone>
     {
-        public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response)
+        public override async Task Run(Session session, Msg_CA_LoginZone request, Msg_AC_LoginZone response, Action apply)
         {
             var query = new MongoDBQuery<AccountInfo>(DBName.Account, x => x.Account == request.Account);
             AccountInfo account = await query.Task();
@@ -60,7 +61,7 @@ namespace Server.Account
             {
                 if (account.Servers == null)
                 {
-                    account.Servers = new List<int>() { request.Zone };
+                    account.Servers = new List<int>();
                 }
                 if (!account.Servers.Contains(request.Zone))
                 {
@@ -88,6 +89,8 @@ namespace Server.Account
 
             var server = NetProxyComponent.Instance.GetBackend(AppType.Gate, gateInfo.AppId, gateInfo.SubId);
             server.Session.Notify(loginMsg);
+
+            apply();
 
             Log.Debug($"user login {session.RemoteIPEndPoint} {request.Account}");
         }

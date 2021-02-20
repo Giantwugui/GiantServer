@@ -4,8 +4,7 @@ namespace Giant.Util
 {
     public class AESCrypt
     {
-        private readonly byte[] encryptKey;
-
+        private byte[] encryptKey;
         public string EncryptKey { get; private set; }
 
         public AESCrypt()
@@ -16,6 +15,12 @@ namespace Giant.Util
             provider.Dispose();
 
             EncryptKey = encryptKey.ToBase64String();
+        }
+
+        public void SetCryptKey(string key)
+        {
+            EncryptKey = key;
+            encryptKey = key.FromBase64String();
         }
 
         public string Encrypt(string content)

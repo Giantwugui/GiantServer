@@ -1,0 +1,645 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\wg\\Giant\\Tools\\Robot\\Robot\\Robot.csproj": {}
+  },
+  "projects": {
+    "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj",
+        "projectName": "Giant.Core",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Util\\Giant.Util.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Util\\Giant.Util.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.DB\\Giant.DB.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.DB\\Giant.DB.csproj",
+        "projectName": "Giant.DB",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.DB\\Giant.DB.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.DB\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.78, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.11.6, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.23, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Framework\\Giant.Framework.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Framework\\Giant.Framework.csproj",
+        "projectName": "Giant.Framework",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Framework\\Giant.Framework.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Framework\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.DB\\Giant.DB.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.DB\\Giant.DB.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Net\\Giant.Net.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Net\\Giant.Net.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Redis\\Giant.Redis.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Redis\\Giant.Redis.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "CommandLineParser": {
+              "target": "Package",
+              "version": "[2.8.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj",
+        "projectName": "Giant.Logger",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Log\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "NLog": {
+              "target": "Package",
+              "version": "[4.7.7, )"
+            },
+            "NLog.Config": {
+              "target": "Package",
+              "version": "[4.7.7, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj",
+        "projectName": "Giant.Model",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj",
+        "projectName": "Giant.Msg",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Msg\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Net\\Giant.Net.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Net\\Giant.Net.csproj",
+        "projectName": "Giant.Net",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Net\\Giant.Net.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Net\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Core\\Giant.Core.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Log\\Giant.Logger.csproj"
+              },
+              "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Msg\\Giant.Msg.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Redis\\Giant.Redis.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Redis\\Giant.Redis.csproj",
+        "projectName": "Giant.Redis",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Redis\\Giant.Redis.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Redis\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Model\\Giant.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Server\\Giant.Util\\Giant.Util.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.Util\\Giant.Util.csproj",
+        "projectName": "Giant.Util",
+        "projectPath": "D:\\wg\\Giant\\Server\\Giant.Util\\Giant.Util.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Server\\Giant.Util\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\wg\\Giant\\Tools\\Robot\\Robot\\Robot.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\wg\\Giant\\Tools\\Robot\\Robot\\Robot.csproj",
+        "projectName": "Robot",
+        "projectPath": "D:\\wg\\Giant\\Tools\\Robot\\Robot\\Robot.csproj",
+        "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+        "outputPath": "D:\\wg\\Giant\\Tools\\Robot\\Robot\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "D:\\wg\\Giant\\Server\\Giant.Framework\\Giant.Framework.csproj": {
+                "projectPath": "D:\\wg\\Giant\\Server\\Giant.Framework\\Giant.Framework.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Google.Protobuf": {
+              "target": "Package",
+              "version": "[3.15.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
