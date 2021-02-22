@@ -4,14 +4,14 @@ using Giant.Net;
 using System;
 using System.Threading.Tasks;
 
-namespace Server.Gate
+namespace Server.Manager
 {
     [MessageHandler]
     public class Handle_GetUid : MHandler<Msg_GateM_GetUid, Msg_MGate_GetUid>
     {
         public override Task Run(Session session, Msg_GateM_GetUid request, Msg_MGate_GetUid response, Action reply)
         {
-            //response.Uid = UidComponent.Instance.GetUid();
+            response.Uid = UidComponent.Instance.GetUid();
             reply();
 
             return Task.CompletedTask;

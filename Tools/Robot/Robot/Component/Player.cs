@@ -1,6 +1,7 @@
 ﻿using Giant.Core;
 using Giant.Msg;
 using Giant.Net;
+using Giant.Logger;
 using Giant.Util;
 
 namespace Robot
@@ -32,9 +33,11 @@ namespace Robot
             CheckHeartBeat();
         }
 
-        public void EnterWorld()
+        public void Login2Zone()
         {
-            Msg_CG_EnterWorld msg = new Msg_CG_EnterWorld() { Uid = Uid };
+            Log.Info($"login to zone, account {Account} uid {Uid}");
+
+            Msg_CG_Login msg = new Msg_CG_Login() { Uid = Uid, Account = Account };
             session.Notify(msg);
         }
 

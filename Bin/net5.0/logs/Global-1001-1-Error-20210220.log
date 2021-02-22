@@ -1,6 +1,0 @@
-2021-02-20 10:45:03.8881 ERROR System.NullReferenceException: Object reference not set to an instance of an object.
-   at Giant.Net.HttpComponent.Load() in D:\wg\Giant\Server\Giant.Net\Http\HttpComponent.cs:line 64
-   at Giant.Net.HttpComponent.Init(Int32 port) in D:\wg\Giant\Server\Giant.Net\Http\HttpComponent.cs:line 28 Giant.Net.HttpComponent.Init(HttpComponent.cs:28)
-2021-02-20 10:54:20.8334 ERROR System.NullReferenceException: Object reference not set to an instance of an object.
-   at Giant.Net.HttpComponent.Load() in D:\wg\Giant\Server\Giant.Net\Http\HttpComponent.cs:line 64
-   at Giant.Net.HttpComponent.Init(Int32 port) in D:\wg\Giant\Server\Giant.Net\Http\HttpComponent.cs:line 28 Giant.Net.HttpComponent.Init(HttpComponent.cs:28)

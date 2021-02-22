@@ -13,4 +13,8 @@
     <ProjectReference Include="..\Giant.Framework\Giant.Framework.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handler\Manager\" />
+  </ItemGroup>
+
 </Project>

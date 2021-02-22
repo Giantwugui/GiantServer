@@ -147,7 +147,7 @@ namespace Robot
 
         private async void GetCharacter()
         {
-            Msg_CG_GetCharacter msg = new Msg_CG_GetCharacter();
+            Msg_CG_GetCharacter msg = new Msg_CG_GetCharacter() { Account = Account, Token = token };
             Msg_GC_GetCharacter result = (await session.Call(msg) as Msg_GC_GetCharacter);
             SetCharacters(result.Characters);
 
@@ -155,7 +155,7 @@ namespace Robot
             {
                 if (result.Characters.Count > 0)
                 {
-                    EnterWorld(result.Characters.First().Uid);
+                    Login2Zone(result.Characters.First().Uid);
                 }
                 else
                 {
@@ -166,20 +166,20 @@ namespace Robot
 
         private async void CreateCharacter(int roleId)
         {
-            Msg_CG_CreateCharacter msg = new Msg_CG_CreateCharacter { RoleId = roleId };
+            Msg_CG_CreateCharacter msg = new Msg_CG_CreateCharacter { RoleId = roleId, Account = Account };
             Msg_GC_CreateCharacter result = (await session.Call(msg)) as Msg_GC_CreateCharacter;
             if (result.IsSuccess())
             {
-                EnterWorld(result.Character.Uid);
+                Login2Zone(result.Character.Uid);
             }
         }
 
-        private void EnterWorld(int uid)
+        private void Login2Zone(int uid)
         {
             IsEnterWorlded = true;
             Player player = ComponentFactory.CreateComponent<Player, string, int, Session>(accountInfo.Account, uid, session);
             PlayerManagerComponent.Instance.AddPlayer(player);
-            player.EnterWorld();
+            player.Login2Zone();
 
             int count = PlayerManagerComponent.Instance.PlayerCount();
             if (count % 20 == 0)

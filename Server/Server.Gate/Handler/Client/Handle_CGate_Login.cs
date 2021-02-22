@@ -6,6 +6,7 @@ using Giant.Model;
 using Giant.Msg;
 using Giant.Net;
 using Giant.Util;
+using Giant.Logger;
 using System;
 using System.Threading.Tasks;
 
@@ -72,11 +73,18 @@ namespace Server.Gate
 
             //通知manager 负载均衡一个zone
             Msg_GateM_BalanceZone msg = new Msg_GateM_BalanceZone() { MapId = playerInfo.MapId };
-            Msg_MGate_BalanceZone zone = (await NetProxyComponent.Instance.FrontendManagerServer.Call(msg)) as Msg_MGate_BalanceZone;
-            FrontendComponent server = NetProxyComponent.Instance.GetFrontend(AppType.Zone, zone.ZoneId, zone.SubId);
-            client.AddComponent(server);
+            Msg_MGate_BalanceZone result = (await NetProxyComponent.Instance.FrontendManagerServer.Call(msg)) as Msg_MGate_BalanceZone;
+            FrontendComponent server = NetProxyComponent.Instance.GetFrontend(AppType.Zone, result.ZoneId, result.SubId);
+            if (server == null)
+            {
+                Log.Error($"Handle_Login error ! have not find zone mainId {result.ZoneId} subId {result.SubId}");
+                response.Error = ErrorCode.Fail;
+                apply();
+                return;
+            }
 
             client.Uid = request.Uid;
+            client.SetZoneServer(server);
 
             client.LoginToZone();
 

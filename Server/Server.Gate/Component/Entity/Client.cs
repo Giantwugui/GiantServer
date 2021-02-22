@@ -15,10 +15,17 @@ namespace Server.Gate
 
         public DateTime HeartBeatTime = TimeHelper.Now;
 
+        public FrontendComponent ZoneServer { get; private set; }
+
         public void Init(Session session, string account)
         {
             Session = session;
             Account = account;
+        }
+
+        public void SetZoneServer(FrontendComponent server)
+        {
+            ZoneServer = server;
         }
 
         public void Offline()
@@ -44,7 +51,7 @@ namespace Server.Gate
 
         public void SendToZone(IMessage message)
         {
-            GetComponent<FrontendComponent>()?.Send(message);
+            ZoneServer.Send(message);
         }
     }
 }
