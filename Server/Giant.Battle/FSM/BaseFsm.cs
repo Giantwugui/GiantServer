@@ -4,9 +4,6 @@ namespace Giant.Battle
 {
     public class BaseFsm : InitSystem<Unit, FsmType>
     {
-        private FsmType nextFsmType;
-        private object nextFsmParam;
-
         private FsmType fsmType = FsmType.Base;
         public FsmType FsmType
         {
@@ -23,26 +20,40 @@ namespace Giant.Battle
             Owner = unit;
         }
 
-        public void Start()
-        { 
+        public void Start(object param)
+        {
+            OnStart(param);
+        }
+
+        public void Update(float dt)
+        {
+            if (IsEnd) return;
+
+            OnUpdate(dt);
         }
 
         public void End()
         {
             IsEnd = true;
+
+            OnEnd();
         }
+
+        public bool CanStart()
+        {
+            return true;
+        }
+
+        protected virtual void OnStart(object param) { }
+        protected virtual void OnUpdate(float dt) { }
+        protected virtual void OnEnd() { }
 
         public override void Dispose()
         {
             base.Dispose();
 
             Owner = null;
-            nextFsmParam = null;
             fsmType = FsmType.Base;
         }
-
-        protected virtual void OnStart() { }
-        protected virtual void OnEnd() { }
-        protected virtual void OnUpdate() { }
     }
 }

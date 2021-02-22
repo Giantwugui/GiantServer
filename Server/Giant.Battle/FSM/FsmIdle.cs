@@ -6,15 +6,15 @@ namespace Giant.Battle
 {
     public class FsmIdle : BaseFsm
     {
-        protected override void OnStart()
+        protected override void OnStart(object param)
+        {
+        }
+
+        protected override void OnUpdate(float dt)
         {
         }
 
         protected override void OnEnd()
-        {
-        }
-
-        protected override void OnUpdate()
         {
         }
     }

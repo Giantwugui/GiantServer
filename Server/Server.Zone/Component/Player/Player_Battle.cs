@@ -10,9 +10,9 @@ namespace Server.Zone
             PlayerUnit.Move(vector);
         }
 
-        public void CastSkill(int skillId, int targetId, Vector2 direction)
+        public void CastSkill(int skillId, int targetId, Vector2 pos, Vector2 direction)
         {
-            PlayerUnit.CastSkill(skillId, targetId, direction);
+            PlayerUnit.CastSkill(skillId, targetId, pos, direction);
         }
     }
 }

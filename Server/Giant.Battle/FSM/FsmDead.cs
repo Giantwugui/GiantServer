@@ -6,7 +6,11 @@ namespace Giant.Battle
 {
     public class FsmDead : BaseFsm
     {
-        protected override void OnStart()
+        protected override void OnStart(object param)
+        {
+        }
+
+        protected override void OnUpdate(float dt)
         {
         }
 
@@ -14,8 +18,5 @@ namespace Giant.Battle
         {
         }
 
-        protected override void OnUpdate()
-        {
-        }
     }
 }

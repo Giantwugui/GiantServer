@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using Giant.Logger;
 using Giant.Model;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ namespace Giant.Battle
 {
     public class BuffComponent : InitSystem<IBattleMsgSource>, IUpdate
     {
+        private Unit owner;
         private IBattleMsgSource msgSource;
         private readonly List<long> removeList = new List<long>();
         private readonly Dictionary<long, BaseBuff> buffs = new Dictionary<long, BaseBuff>();
@@ -15,6 +17,7 @@ namespace Giant.Battle
         public override void Init(IBattleMsgSource msgSource)
         {
             this.msgSource = msgSource;
+            owner = GetParent<Unit>();
         }
 
         public bool AddBuff(int buffId)
@@ -26,7 +29,7 @@ namespace Giant.Battle
                 return false;
             }
 
-            BaseBuff buff = BuffFactory.BuildBuff(this, model);
+            BaseBuff buff = BuffFactory.BuildBuff(owner, model);
             AddBuff(buff);
 
             return true;
@@ -40,7 +43,7 @@ namespace Giant.Battle
                 return;
             }
 
-            msgSource.OnAddBuff(GetParent<Unit>(), buff.Id);
+            msgSource.OnAddBuff(owner, buff.Id);
 
             buff.Start();
             buffs[buff.InstanceId] = buff;
@@ -61,7 +64,7 @@ namespace Giant.Battle
                     buff.End();
                 }
 
-                msgSource.OnRemoveBuff(GetParent<Unit>(), buff.Id);
+                msgSource.OnRemoveBuff(owner, buff.Id);
 
                 buff.Dispose();
 
