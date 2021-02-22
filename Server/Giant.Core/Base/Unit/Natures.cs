@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Giant.EnumUtil;
+using System.Collections.Generic;
 
 namespace Giant.Core
 {

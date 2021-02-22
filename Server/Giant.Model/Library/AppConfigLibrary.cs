@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using Giant.Util;
 using System.Linq;
 

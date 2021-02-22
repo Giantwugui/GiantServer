@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using Giant.Model;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace Giant.Battle
         void OnAddBuff(Unit unit, int buffId);
         void OnRemoveBuff(Unit unit, int buffId);
         void OnNatureChange(Unit unit, NatureType type, int value);
+
         void OnDead(Unit unit);
         void OnRelive(Unit unit);
     }

@@ -1,4 +1,6 @@
-﻿namespace Giant.Core
+﻿using Giant.EnumUtil;
+
+namespace Giant.Core
 {
     public class Nature
     {

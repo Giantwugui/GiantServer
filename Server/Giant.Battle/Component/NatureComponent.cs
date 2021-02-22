@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using System.Collections.Generic;
 
 namespace Giant.Battle

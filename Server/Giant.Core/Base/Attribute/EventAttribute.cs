@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Giant.EnumUtil;
+using System;
 
 namespace Giant.Core
 {

@@ -1,5 +1,6 @@
 ﻿using Giant.Battle;
 using Giant.Core;
+using Giant.EnumUtil;
 using Giant.Framework;
 using Giant.Model;
 using Giant.Net;

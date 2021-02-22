@@ -3,9 +3,9 @@ using Giant.Model;
 
 namespace Giant.Battle
 {
-    public partial class NPC : Unit, IInitSystem<Map, NPCModel>
+    public partial class NPC : Unit, IInitSystem<MapScene, NPCModel>
     {
-        public void Init(Map mapScene, NPCModel model)
+        public void Init(MapScene mapScene, NPCModel model)
         {
             base.Init(mapScene, UnitType.NPC);
         }

@@ -8,10 +8,16 @@
     ".NETCoreApp,Version=v5.0": {
       "Giant.Core/1.0.0": {
         "dependencies": {
+          "Giant.EnumUtil": "1.0.0",
           "Giant.Util": "1.0.0"
         },
         "runtime": {
           "Giant.Core.dll": {}
+        }
+      },
+      "Giant.EnumUtil/1.0.0": {
+        "runtime": {
+          "Giant.EnumUtil.dll": {}
         }
       },
       "Giant.Util/1.0.0": {
@@ -23,6 +29,11 @@
   },
   "libraries": {
     "Giant.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.EnumUtil/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -202,10 +202,16 @@
       },
       "Giant.Core/1.0.0": {
         "dependencies": {
+          "Giant.EnumUtil": "1.0.0",
           "Giant.Util": "1.0.0"
         },
         "runtime": {
           "Giant.Core.dll": {}
+        }
+      },
+      "Giant.EnumUtil/1.0.0": {
+        "runtime": {
+          "Giant.EnumUtil.dll": {}
         }
       },
       "Giant.Logger/1.0.0": {
@@ -359,6 +365,11 @@
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
     "Giant.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.EnumUtil/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

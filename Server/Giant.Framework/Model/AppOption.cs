@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using Giant.Core;
+using Giant.EnumUtil;
 
 namespace Giant.Framework
 {

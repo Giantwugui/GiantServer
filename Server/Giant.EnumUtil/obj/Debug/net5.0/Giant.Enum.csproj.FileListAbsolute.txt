@@ -1,0 +1,12 @@
+D:\wg\Giant\Bin\net5.0\Giant.Enum.deps.json
+D:\wg\Giant\Bin\net5.0\Giant.Enum.dll
+D:\wg\Giant\Bin\net5.0\ref\Giant.Enum.dll
+D:\wg\Giant\Bin\net5.0\Giant.Enum.pdb
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.csprojAssemblyReference.cache
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.GeneratedMSBuildEditorConfig.editorconfig
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.AssemblyInfoInputs.cache
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.AssemblyInfo.cs
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.csproj.CoreCompileInputs.cache
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.dll
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\ref\Giant.Enum.dll
+D:\wg\Giant\Server\Giant.Enum\obj\Debug\net5.0\Giant.Enum.pdb

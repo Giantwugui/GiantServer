@@ -1,6 +1,7 @@
 ﻿using CommandLine;
 using Giant.Core;
 using Giant.DB;
+using Giant.EnumUtil;
 using Giant.Model;
 using Giant.Net;
 using Giant.Redis;

@@ -1,4 +1,5 @@
-﻿using Giant.Util;
+﻿using Giant.EnumUtil;
+using Giant.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;

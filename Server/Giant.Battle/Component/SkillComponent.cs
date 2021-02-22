@@ -42,5 +42,16 @@ namespace Giant.Battle
             skills.TryGetValue(skillId, out var skill);
             return skill;
         }
+
+        public void Check(Skill skill)
+        {
+            switch (skill.SkillModel.SkillType)
+            { 
+            }
+        }
+
+        public void StartCasting(Skill skill)
+        { 
+        }
     }
 }

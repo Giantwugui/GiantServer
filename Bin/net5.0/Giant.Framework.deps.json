@@ -1071,6 +1071,7 @@
       },
       "Giant.Core/1.0.0": {
         "dependencies": {
+          "Giant.EnumUtil": "1.0.0",
           "Giant.Util": "1.0.0"
         },
         "runtime": {
@@ -1086,6 +1087,11 @@
         },
         "runtime": {
           "Giant.DB.dll": {}
+        }
+      },
+      "Giant.EnumUtil/1.0.0": {
+        "runtime": {
+          "Giant.EnumUtil.dll": {}
         }
       },
       "Giant.Logger/1.0.0": {
@@ -1908,6 +1914,11 @@
       "sha512": ""
     },
     "Giant.DB/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Giant.EnumUtil/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

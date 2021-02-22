@@ -15,6 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Giant.EnumUtil\Giant.EnumUtil.csproj" />
     <ProjectReference Include="..\Giant.Util\Giant.Util.csproj" />
   </ItemGroup>
 

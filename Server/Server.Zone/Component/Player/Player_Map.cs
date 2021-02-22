@@ -43,11 +43,6 @@ namespace Server.Zone
             SetCurrMap(null);
         }
 
-        public void Move(Vector2 vector)
-        {
-            PlayerUnit.Move(vector);
-        }
-
         private void SetCurrMap(MapScene map)
         {
             CurrMap = map;
