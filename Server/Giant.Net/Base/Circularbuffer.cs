@@ -11,9 +11,8 @@ namespace Giant.Net
         private readonly Queue<byte[]> bufferQueue = new Queue<byte[]>();
         private readonly Queue<byte[]> bufferCache = new Queue<byte[]>();
 
-        public int LastIndex { get; set; }
-
         public int FirstIndex { get; set; }
+        public int LastIndex { get; set; }
 
         private byte[] lastBuffer;
         public byte[] Last

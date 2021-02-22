@@ -194,8 +194,8 @@ namespace Giant.Net
             }
             else
             {
-                byte[] byteList = new byte[memoryStream.Length - Packet.PacketSizeLength2];
-                Array.Copy(memoryStream.GetBuffer(), Packet.PacketSizeLength2, byteList, 0, byteList.Length);
+                byte[] byteList = new byte[memoryStream.Length - Packet.MessageIndex];
+                Array.Copy(memoryStream.GetBuffer(), Packet.MessageIndex, byteList, 0, byteList.Length);
 
                 byte[] decode = AESCrypt.Decrypt(byteList);
                 message = NetworkComponent.MessageParser.DeserializeFrom(decode, msgType) as IMessage;

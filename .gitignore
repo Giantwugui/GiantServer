@@ -30,3 +30,6 @@
 /Tools/SqlGenerator/obj/Debug/netcoreapp3.1
 /Tools/Robot/Robot/obj/Debug/netcoreapp3.0
 /Tools/Proto/Proto2CS/obj/Debug
+/Bin/net5.0/logs
+/Tools/Robot/Robot/bin/Debug/net5.0/logs
+/Tools/Robot/.vs/Robot/DesignTimeBuild
