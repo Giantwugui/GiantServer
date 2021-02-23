@@ -2,17 +2,16 @@
 
 namespace Giant.Battle
 {
-    public partial class PlayerUnit : Unit, IInitSystem<MapScene, UnitInfo, IBattleMsgSource, IBattleMsgListener>
+    public partial class PlayerUnit : Unit, IInitSystem<MapScene, UnitInfo, IBattleMsgListener>
     {
         private UnitInfo unitInfo;
 
-        public void Init(MapScene mapScene, UnitInfo info, IBattleMsgSource source, IBattleMsgListener listener)
+        public void Init(MapScene mapScene, UnitInfo info, IBattleMsgListener listener)
         {
             base.Init(mapScene, UnitType.Player);
 
             unitInfo = info;
 
-            MsgSource = source;
             MsgListener = listener;
         }
 

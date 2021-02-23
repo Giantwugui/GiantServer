@@ -50,7 +50,7 @@ namespace Giant.Battle
 
             //TODO视野检测，地图可达性检测
 
-            Owner.MsgSource.OnMove(Owner, vector);
+            Owner.OnMove(vector);
 
             return true;
         }

@@ -5,23 +5,21 @@ namespace Giant.Battle
     public class BaseFsm : InitSystem<Unit, FsmType>
     {
         private FsmType fsmType = FsmType.Base;
-        public FsmType FsmType
-        {
-            get { return fsmType; }
-            set { fsmType = value; }
-        }
-        public bool IsEnd { get; set; }
+        public FsmType FsmType => fsmType;
 
+        public bool IsEnd { get; set; }
         public Unit Owner { get; set; }
 
         public override void Init(Unit unit, FsmType fsmType)
         {
-            FsmType = fsmType;
             Owner = unit;
+            this.fsmType = fsmType;
         }
 
         public void Start(object param)
         {
+            IsEnd = false;
+
             OnStart(param);
         }
 

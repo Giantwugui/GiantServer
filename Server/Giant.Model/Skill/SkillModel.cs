@@ -10,7 +10,9 @@ namespace Giant.Model
         public int Priority { get; private set; }
         public int Energy { get; private set; }
 
+        public float DelayTime { get; private set; }
         public float EffectTime { get; private set; }
+        public float DuringTime { get; private set; }
 
         public void Bind(DataModel data)
         {
@@ -18,7 +20,9 @@ namespace Giant.Model
             SkillType = (SkillType)data.GetInt("SkillType");
             Priority = data.GetInt("Priority");
             Energy = data.GetInt("Energy");
-            EffectTime = data.GetFloat("Energy");
+            DelayTime = data.GetFloat("DelayTime");
+            EffectTime = data.GetFloat("EffectTime");
+            DuringTime = data.GetFloat("DuringTime");
         }
     }
 }

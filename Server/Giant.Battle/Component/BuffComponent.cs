@@ -7,14 +7,14 @@ using System.Linq;
 
 namespace Giant.Battle
 {
-    public class BuffComponent : InitSystem<IBattleMsgSource>, IUpdate
+    public class BuffComponent : InitSystem<IBattleSceneEvent>, IUpdate
     {
         private Unit owner;
-        private IBattleMsgSource msgSource;
+        private IBattleSceneEvent msgSource;
         private readonly List<long> removeList = new List<long>();
         private readonly Dictionary<long, BaseBuff> buffs = new Dictionary<long, BaseBuff>();
 
-        public override void Init(IBattleMsgSource msgSource)
+        public override void Init(IBattleSceneEvent msgSource)
         {
             this.msgSource = msgSource;
             owner = GetParent<Unit>();
@@ -43,7 +43,7 @@ namespace Giant.Battle
                 return;
             }
 
-            msgSource.OnAddBuff(owner, buff.Id);
+            owner.OnAddBuff(buff.Id);
 
             buff.Start();
             buffs[buff.InstanceId] = buff;
@@ -64,7 +64,7 @@ namespace Giant.Battle
                     buff.End();
                 }
 
-                msgSource.OnRemoveBuff(owner, buff.Id);
+                owner.OnRemoveBuff(buff.Id);
 
                 buff.Dispose();
 

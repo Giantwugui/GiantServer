@@ -4,6 +4,14 @@ namespace Giant.Battle
 {
     public partial class MapScene
     {
+        public void OnUnitEnter(Unit unit)
+        {
+        }
+
+        public void OnUnitLeave(Unit unit)
+        {
+        }
+
         public void BroadcastMsg(Google.Protobuf.IMessage message)
         {
             Broadcast2Players(message);
@@ -11,7 +19,7 @@ namespace Giant.Battle
 
         protected void Broadcast2Players(Google.Protobuf.IMessage message)
         {
-            playerList.ForEach(x => x.Value.Broadcast(message));
+            playerList.ForEach(x => x.Value.MsgListener?.BroadCastBattleMsg(message));
         }
 
         private void Broadcast2PlayerExcept(Google.Protobuf.IMessage message, int id)
@@ -20,7 +28,7 @@ namespace Giant.Battle
             {
                 if (kv.Key == id) continue;
 
-                kv.Value.Broadcast(message);
+                kv.Value.MsgListener?.BroadCastBattleMsg(message);
             }
         }
     }

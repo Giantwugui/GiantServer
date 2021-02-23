@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Giant.Battle
 {
-    internal class SkillCastParam
+    public class SkillCastParam
     {
         public Vector2 DestPos { get; set; }
         public Vector2 LookDir { get; set; }
@@ -23,6 +23,7 @@ namespace Giant.Battle
 
         public int Id => Model.Id;
         public SkillType SkillType => Model.SkillType;
+        public SkillCastParam SkillCastParam => skillCastParam;
 
         public void Init(Unit unit, SkillModel model)
         {
@@ -64,14 +65,6 @@ namespace Giant.Battle
             skillCastParam.DestPos = pos;
             skillCastParam.LookDir = lookDir;
             skillCastParam.TargetId = targetId;
-        }
-
-        public void Start()
-        {
-        }
-
-        public void End()
-        {
         }
     }
 }

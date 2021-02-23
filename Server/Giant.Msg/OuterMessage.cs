@@ -63,8 +63,11 @@ namespace Giant.Msg {
             "IkIKFE1zZ19HYXRlWl9IZXJvX0JyZWFrEg0KBVJwY0lkGFogASgFEgsKA1Vp",
             "ZBgBIAEoBRIOCgZIZXJvSWQYAiABKAUiGAoWTXNnX1pHYXRlX0JhdHRsZV9T",
             "dGFydCJSChRNc2dfWkdhdGVfSGVyb19CcmVhaxINCgVScGNJZBhaIAEoBRIN",
-            "CgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEgsKA1VpZBgBIAEoBWIG",
-            "cHJvdG8z"));
+            "CgVFcnJvchhbIAEoBRIPCgdNZXNzYWdlGFwgASgJEgsKA1VpZBgBIAEoBSKQ",
+            "AQoTTVNHX1pHQ19TS0lMTF9TVEFSVBIPCgdTa2lsbElkGAEgASgFEhAKCENh",
+            "c3RlcklkGAIgASgFEhAKCFRhcmdldElkGAMgASgFEhEKCVNraWxsUG9zWBgE",
+            "IAEoAhIRCglTa2lsbFBvc1kYBSABKAISDgoGQW5nbGVYGAYgASgCEg4KBkFu",
+            "Z2xlWRgHIAEoAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -91,7 +94,8 @@ namespace Giant.Msg {
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_CG_TestMap), global::Giant.Msg.Msg_CG_TestMap.Parser, new[]{ "Map1" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_GateZ_Hero_Break), global::Giant.Msg.Msg_GateZ_Hero_Break.Parser, new[]{ "RpcId", "Uid", "HeroId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_ZGate_Battle_Start), global::Giant.Msg.Msg_ZGate_Battle_Start.Parser, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_ZGate_Hero_Break), global::Giant.Msg.Msg_ZGate_Hero_Break.Parser, new[]{ "RpcId", "Error", "Message", "Uid" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.Msg_ZGate_Hero_Break), global::Giant.Msg.Msg_ZGate_Hero_Break.Parser, new[]{ "RpcId", "Error", "Message", "Uid" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Giant.Msg.MSG_ZGC_SKILL_START), global::Giant.Msg.MSG_ZGC_SKILL_START.Parser, new[]{ "SkillId", "CasterId", "TargetId", "SkillPosX", "SkillPosY", "AngleX", "AngleY" }, null, null, null)
           }));
     }
     #endregion
@@ -4442,6 +4446,306 @@ namespace Giant.Msg {
           }
           case 738: {
             Message = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///********************** Zone => Gate => Client ***************************
+  /// </summary>
+  public sealed partial class MSG_ZGC_SKILL_START : pb::IMessage<MSG_ZGC_SKILL_START> {
+    private static readonly pb::MessageParser<MSG_ZGC_SKILL_START> _parser = new pb::MessageParser<MSG_ZGC_SKILL_START>(() => new MSG_ZGC_SKILL_START());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<MSG_ZGC_SKILL_START> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Giant.Msg.OuterMessageReflection.Descriptor.MessageTypes[24]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MSG_ZGC_SKILL_START() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MSG_ZGC_SKILL_START(MSG_ZGC_SKILL_START other) : this() {
+      skillId_ = other.skillId_;
+      casterId_ = other.casterId_;
+      targetId_ = other.targetId_;
+      skillPosX_ = other.skillPosX_;
+      skillPosY_ = other.skillPosY_;
+      angleX_ = other.angleX_;
+      angleY_ = other.angleY_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public MSG_ZGC_SKILL_START Clone() {
+      return new MSG_ZGC_SKILL_START(this);
+    }
+
+    /// <summary>Field number for the "SkillId" field.</summary>
+    public const int SkillIdFieldNumber = 1;
+    private int skillId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SkillId {
+      get { return skillId_; }
+      set {
+        skillId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CasterId" field.</summary>
+    public const int CasterIdFieldNumber = 2;
+    private int casterId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CasterId {
+      get { return casterId_; }
+      set {
+        casterId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "TargetId" field.</summary>
+    public const int TargetIdFieldNumber = 3;
+    private int targetId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int TargetId {
+      get { return targetId_; }
+      set {
+        targetId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "SkillPosX" field.</summary>
+    public const int SkillPosXFieldNumber = 4;
+    private float skillPosX_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float SkillPosX {
+      get { return skillPosX_; }
+      set {
+        skillPosX_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "SkillPosY" field.</summary>
+    public const int SkillPosYFieldNumber = 5;
+    private float skillPosY_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float SkillPosY {
+      get { return skillPosY_; }
+      set {
+        skillPosY_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AngleX" field.</summary>
+    public const int AngleXFieldNumber = 6;
+    private float angleX_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float AngleX {
+      get { return angleX_; }
+      set {
+        angleX_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "AngleY" field.</summary>
+    public const int AngleYFieldNumber = 7;
+    private float angleY_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float AngleY {
+      get { return angleY_; }
+      set {
+        angleY_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as MSG_ZGC_SKILL_START);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(MSG_ZGC_SKILL_START other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SkillId != other.SkillId) return false;
+      if (CasterId != other.CasterId) return false;
+      if (TargetId != other.TargetId) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(SkillPosX, other.SkillPosX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(SkillPosY, other.SkillPosY)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(AngleX, other.AngleX)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(AngleY, other.AngleY)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SkillId != 0) hash ^= SkillId.GetHashCode();
+      if (CasterId != 0) hash ^= CasterId.GetHashCode();
+      if (TargetId != 0) hash ^= TargetId.GetHashCode();
+      if (SkillPosX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(SkillPosX);
+      if (SkillPosY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(SkillPosY);
+      if (AngleX != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(AngleX);
+      if (AngleY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(AngleY);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SkillId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SkillId);
+      }
+      if (CasterId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(CasterId);
+      }
+      if (TargetId != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(TargetId);
+      }
+      if (SkillPosX != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(SkillPosX);
+      }
+      if (SkillPosY != 0F) {
+        output.WriteRawTag(45);
+        output.WriteFloat(SkillPosY);
+      }
+      if (AngleX != 0F) {
+        output.WriteRawTag(53);
+        output.WriteFloat(AngleX);
+      }
+      if (AngleY != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(AngleY);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (SkillId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SkillId);
+      }
+      if (CasterId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CasterId);
+      }
+      if (TargetId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TargetId);
+      }
+      if (SkillPosX != 0F) {
+        size += 1 + 4;
+      }
+      if (SkillPosY != 0F) {
+        size += 1 + 4;
+      }
+      if (AngleX != 0F) {
+        size += 1 + 4;
+      }
+      if (AngleY != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(MSG_ZGC_SKILL_START other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SkillId != 0) {
+        SkillId = other.SkillId;
+      }
+      if (other.CasterId != 0) {
+        CasterId = other.CasterId;
+      }
+      if (other.TargetId != 0) {
+        TargetId = other.TargetId;
+      }
+      if (other.SkillPosX != 0F) {
+        SkillPosX = other.SkillPosX;
+      }
+      if (other.SkillPosY != 0F) {
+        SkillPosY = other.SkillPosY;
+      }
+      if (other.AngleX != 0F) {
+        AngleX = other.AngleX;
+      }
+      if (other.AngleY != 0F) {
+        AngleY = other.AngleY;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            SkillId = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            CasterId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            TargetId = input.ReadInt32();
+            break;
+          }
+          case 37: {
+            SkillPosX = input.ReadFloat();
+            break;
+          }
+          case 45: {
+            SkillPosY = input.ReadFloat();
+            break;
+          }
+          case 53: {
+            AngleX = input.ReadFloat();
+            break;
+          }
+          case 61: {
+            AngleY = input.ReadFloat();
             break;
           }
         }

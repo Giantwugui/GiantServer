@@ -13,7 +13,7 @@ namespace Giant.Battle
 
         public void NatureChange(NatureType type, int value)
         {
-            MsgSource.OnNatureChange(this, type, value);
+            OnNatureChange(type, value);
         }
 
         public void UpdateHP(int hp)
@@ -22,7 +22,7 @@ namespace Giant.Battle
             if (value <= 0)
             {
                 IsDead = true;
-                OnDead();
+                Dead();
             }
         }
 

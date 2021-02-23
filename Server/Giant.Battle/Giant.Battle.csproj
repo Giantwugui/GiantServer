@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Event\" />
+    <Folder Include="Message\" />
   </ItemGroup>
 
   <ItemGroup>

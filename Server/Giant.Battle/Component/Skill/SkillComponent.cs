@@ -81,8 +81,15 @@ namespace Giant.Battle
         }
 
         public void StartCasting(Skill skill)
-        { 
-
+        {
+            switch (skill.Model.SkillType)
+            {
+                case SkillType.NormalAttack1:
+                    break;
+                case SkillType.Normal:
+                    skill.ResetEnergy();
+                    break;
+            }
         }
 
         public void AfterCasting(Skill skill)

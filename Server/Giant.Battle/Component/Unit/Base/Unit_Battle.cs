@@ -1,6 +1,6 @@
 ﻿namespace Giant.Battle
 {
-    partial class Unit : IBattleAction
+    partial class Unit
     {
         public int HateRate { get; private set; }
 
@@ -18,7 +18,7 @@
 
         public void Damage(int damage)
         {
-            MsgSource.OnDamage(this, damage);
+            OnDamage(this, damage);
         }
     }
 }

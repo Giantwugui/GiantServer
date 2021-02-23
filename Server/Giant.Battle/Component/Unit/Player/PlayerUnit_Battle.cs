@@ -20,9 +20,9 @@ namespace Giant.Battle
             base.UpdateInBattle(dt);
         }
 
-        public override void OnDead()
+        public override void Dead()
         {
-            base.OnDead();
+            base.Dead();
         }
 
         public override void OnHit(Unit target, int damage)

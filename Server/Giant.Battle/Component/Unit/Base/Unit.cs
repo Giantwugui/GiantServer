@@ -1,10 +1,9 @@
 ﻿using Giant.Core;
-using Giant.Model;
 using UnityEngine;
 
 namespace Giant.Battle
 {
-    public partial class Unit : Entity, IInitSystem<MapScene, UnitType>, IUpdate, IBattleAction
+    public partial class Unit : Entity, IInitSystem<MapScene, UnitType>, IClientAction, IUnitEvent
     {
         public int Id { get; private set; }
         public UnitType UnitType { get; private set; }
@@ -38,14 +37,12 @@ namespace Giant.Battle
             }
         }
 
-        public virtual void OnDead()
+        public virtual void Dead()
         {
-            MsgSource.OnDead(this);
         }
 
-        public virtual void OnRelive()
+        public virtual void Relive()
         {
-            MsgSource.OnRelive(this);
         }
 
         protected virtual void UpdateInBattle(double dt)

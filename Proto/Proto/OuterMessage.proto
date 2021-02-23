@@ -183,3 +183,15 @@ message Msg_ZGate_Hero_Break // IResponse
 	string Message = 92;
 	int32 Uid = 1;
 }
+
+/*********************** Zone => Gate => Client ****************************/
+message MSG_ZGC_SKILL_START // IMessage
+{
+	int32 SkillId = 1;
+	int32 CasterId = 2;
+	int32 TargetId = 3;
+	float SkillPosX = 4;
+	float SkillPosY = 5;
+	float AngleX = 6;
+	float AngleY = 7;
+}
