@@ -22,6 +22,7 @@ namespace Giant.Battle
             MapModel = MapLibrary.Instance.GetModel(mapId);
 
             InitNPC();
+            InitRegionManager();
         }
 
         public virtual void Update(double dt)

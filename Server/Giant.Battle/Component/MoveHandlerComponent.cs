@@ -109,7 +109,7 @@ namespace Giant.Battle
                     return;
                 }
 
-                Region destRegion = currentMap.RegionMgr.GetRegion(curPosition);
+                Region destRegion = currentMap.RegionManager.GetRegion(curPosition);
                 if (destRegion != null && curRegion != null)
                 {
                     if (destRegion.index == curRegion.index)
@@ -162,7 +162,7 @@ namespace Giant.Battle
                     return;
                 }
 
-                Region destRegion = currentMap.RegionMgr.GetRegion(dest);
+                Region destRegion = currentMap.RegionManager.GetRegion(dest);
                 if (destRegion != null && curRegion != null)
                 {
                     if (!destRegion.InMyRegions(curRegion))

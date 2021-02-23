@@ -23,12 +23,6 @@ namespace Giant.Battle
         public Vector2 BeginPosition => MapModel.BeginPosition;
         public bool HighPrecision => MapModel.HighPrecision;
 
-        public void InitRegion()
-        {
-            dynamicGrid = MapGridPosComponent.Instance.GetGrid(Model.BianryName);
-            jumpPointParam = new JumpPointParam(dynamicGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.Never, HeuristicMode.EUCLIDEAN);
-        }
-
         public void InitDynamicGrid()
         {
             UseDynamicGrid = false;
