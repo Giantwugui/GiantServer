@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Giant.Battle
 {
-    public partial class Hero
+    public partial class HeroUnit
     {
         protected override void InitFsm()
         {

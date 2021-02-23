@@ -1,19 +1,25 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using Giant.Model;
 
 namespace Giant.Battle
 {
-    public partial class MapScene : Entity, IInitSystem<MapModel>, IUpdate
+    public partial class MapScene : Entity, IInitSystem<int, int>, IUnitContainer
     {
         private int unitId = 0;
 
         public double StartTime { get; private set; }
-        public MapComponent MapComponent { get; private set; }
-        public MapModel MapModel=>MapComponent.Model;
+        public int MapId { get; private set; }
+        public int Channel { get; private set; }
+        public MapModel MapModel { get; private set; }
 
-        public virtual void Init(MapModel model)
+        public AOIType AOIType => MapModel.AOIType;
+
+        public virtual void Init(int mapId, int channel)
         {
-            MapComponent = ComponentFactory.CreateComponentWithParent<MapComponent, MapModel>(this, model);
+            MapId = mapId;
+            Channel = channel;
+            MapModel = MapLibrary.Instance.GetModel(mapId);
 
             InitNPC();
         }

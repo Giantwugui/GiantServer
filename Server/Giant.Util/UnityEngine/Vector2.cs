@@ -111,6 +111,12 @@ namespace UnityEngine
             }
         }
 
+        public void Init(Vector2 vector)
+        {
+            x = vector.x;
+            y = vector.y;
+        }
+
         public static float Distance(Vector2 value1, Vector2 value2)
         {
             float num1 = value1.x - value2.x;

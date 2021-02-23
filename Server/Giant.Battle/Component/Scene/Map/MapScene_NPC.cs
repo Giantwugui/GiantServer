@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Giant.Battle
 {
@@ -7,7 +8,12 @@ namespace Giant.Battle
         private Dictionary<int, NPC> npcList = new Dictionary<int, NPC>();
         public Dictionary<int, NPC> NpcList => npcList;
 
-        protected void UpdateNpc(double dt)
+        public List<NPC> GetNPCs()
+        {
+            return npcList.Values.ToList();
+        }
+
+        protected virtual void UpdateNpc(double dt)
         {
         }
     }

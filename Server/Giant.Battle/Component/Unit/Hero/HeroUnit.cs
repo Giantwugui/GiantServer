@@ -3,7 +3,7 @@ using Giant.Model;
 
 namespace Giant.Battle
 {
-    public partial class Hero : Unit, IInitSystem<MapScene, UnitInfo, HeroModel>
+    public partial class HeroUnit : Unit, IInitSystem<MapScene, UnitInfo, HeroModel>
     {
         private UnitInfo unitInfo;
         

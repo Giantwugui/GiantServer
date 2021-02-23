@@ -1,17 +1,22 @@
-﻿using Giant.Core;
-using Giant.Logger;
+﻿using Giant.Logger;
 using Giant.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Giant.Battle
 {
     public partial class MapScene
     {
-        private Dictionary<int, Hero> heroList = new Dictionary<int, Hero>();
-        public Dictionary<int, Hero> HeroList => heroList;
+        private Dictionary<int, HeroUnit> heroList = new Dictionary<int, HeroUnit>();
+        public Dictionary<int, HeroUnit> HeroList => heroList;
 
-        protected void UpdateHero(double dt)
+        public List<HeroUnit> GetHeroes()
+        {
+            return heroList.Values.ToList();
+        }
+        
+        protected virtual void UpdateHero(double dt)
         { 
         }
 

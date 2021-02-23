@@ -11,6 +11,8 @@ namespace Giant.Battle
         public Vector2 Position { get; private set; }
         public MapScene MapScene { get; private set; }
 
+        public float Radius { get; private set; }
+
         public void Init(MapScene mapScene, UnitType type)
         {
             Id = mapScene.GetUnitId();

@@ -2,6 +2,7 @@
 using Giant.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Giant.Battle
 {
@@ -15,7 +16,13 @@ namespace Giant.Battle
         { 
         }
 
-        protected void UpdateMonster(double dt)
+        public List<Monster> GetMonsters()
+        {
+            return monsterList.Values.ToList();
+        }
+
+
+        protected virtual void UpdateMonster(double dt)
         {
         }
 

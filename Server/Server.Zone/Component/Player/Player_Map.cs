@@ -30,14 +30,14 @@ namespace Server.Zone
 
             SetCurrMap(aimMap);
 
-            aimMap.OnPlayerEnter(PlayerUnit);
+            aimMap.OnUnitEnter(PlayerUnit);
         }
 
         public void LeaveMap()
         {
             if (CurrMap != null)
             {
-                CurrMap.OnPlayerLeave(PlayerUnit);
+                CurrMap.OnUnitEnter(PlayerUnit);
             }
 
             SetCurrMap(null);

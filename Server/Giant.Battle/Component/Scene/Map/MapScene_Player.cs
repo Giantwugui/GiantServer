@@ -1,8 +1,8 @@
-﻿using Giant.Core;
-using Giant.Logger;
+﻿using Giant.Logger;
 using Giant.Util;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Giant.Battle
 {
@@ -11,7 +11,12 @@ namespace Giant.Battle
         private Dictionary<int, PlayerUnit> playerList = new Dictionary<int, PlayerUnit>();
         public Dictionary<int, PlayerUnit> PlayerList => playerList;
 
-        protected void UpdatePlayer(double dt)
+        public List<PlayerUnit> GetPlayers()
+        {
+            return playerList.Values.ToList();
+        }
+
+        protected virtual void UpdatePlayer(double dt)
         {
         }
 
@@ -33,14 +38,6 @@ namespace Giant.Battle
         protected void PlayerStopFighting()
         {
             playerList.ForEach(x => x.Value.StartFighting());
-        }
-
-        public virtual void OnPlayerEnter(PlayerUnit player)
-        {
-        }
-
-        public virtual void OnPlayerLeave(PlayerUnit player)
-        {
         }
     }
 }

@@ -7,7 +7,8 @@
         Player = 2,
         Hero = 3,
         Monster = 4,
-        Pat = 5,
+        Pet = 5,
+        Robot,
     }
 
     public enum BattleResult

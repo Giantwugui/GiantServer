@@ -64,4 +64,10 @@
 
         public abstract void Load();
     }
+
+    public abstract class InitUpdateSystem : Component, IInitSystem, IUpdateSystem
+    {
+        public abstract void Init();
+        public abstract void Update(double dt);
+    }
 }

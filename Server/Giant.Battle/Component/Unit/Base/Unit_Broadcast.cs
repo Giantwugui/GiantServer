@@ -9,6 +9,10 @@ namespace Giant.Battle
         /// </summary>
         public IBattleMsgListener MsgListener { get; protected set; }
 
+        public void BroadcastSimpleInfo()
+        { 
+        }
+
         public void Broadcast(Google.Protobuf.IMessage message)
         {
             if (MapScene == null) return;

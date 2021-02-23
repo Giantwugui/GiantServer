@@ -1,6 +1,6 @@
-﻿using EpPathFinding;
-using Giant.Core;
+﻿using Giant.Core;
 using Giant.Logger;
+using Giant.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,7 +12,7 @@ namespace Giant.Battle
     /// </summary>
     public class MapGridPosComponent : InitSystem, ILoadSystem
     {
-        private readonly Dictionary<string, DynamicGrid> mapGridList = new Dictionary<string, DynamicGrid>();
+        private readonly Dictionary<string, GeoMapModel> mapGridList = new Dictionary<string, GeoMapModel>();
 
         public static MapGridPosComponent Instance { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Giant.Battle
             }
         }
 
-        public DynamicGrid GetGrid(string name)
+        public GeoMapModel GetGrid(string name)
         {
             mapGridList.TryGetValue(name, out var grid);
             return grid;
@@ -47,19 +47,21 @@ namespace Giant.Battle
                 return;
             }
 
-            DynamicGrid grid = new DynamicGrid();
-            using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
-            using (BinaryReader reader = new BinaryReader(fileStream))
-            {
-                int length = reader.ReadInt32();
-                for (int i = 0; i < length; ++i)
-                {
-                    grid.SetWalkableAt(new GridPos(reader.ReadInt32(), reader.ReadInt32()), reader.ReadBoolean());
-                }
-            }
+            //DynamicGrid grid = new DynamicGrid();
+            //using FileStream fileStream = new FileStream(path, FileMode.Open, FileAccess.Read);
+            //using (BinaryReader reader = new BinaryReader(fileStream))
+            //{
+            //    int length = reader.ReadInt32();
+            //    for (int i = 0; i < length; ++i)
+            //    {
+            //        grid.SetWalkableAt(new GridPos(reader.ReadInt32(), reader.ReadInt32()), reader.ReadBoolean());
+            //    }
+            //}
 
-            string[] name = fileStream.Name.Split('\\');
-            mapGridList.Add(name[name.Length - 1], grid);
+            GeoMapModel geoMap = new GeoMapModel(path);
+
+            string[] name = path.Split('\\');
+            mapGridList.Add(name[name.Length - 1], geoMap);
         }
     }
 }
