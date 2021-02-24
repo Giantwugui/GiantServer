@@ -1171,6 +1171,9 @@
         }
       },
       "Giant.Util/1.0.0": {
+        "dependencies": {
+          "C5": "2.5.3"
+        },
         "runtime": {
           "Giant.Util.dll": {}
         }

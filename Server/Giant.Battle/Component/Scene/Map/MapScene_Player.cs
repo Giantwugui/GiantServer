@@ -11,11 +11,6 @@ namespace Giant.Battle
         private Dictionary<int, PlayerUnit> playerList = new Dictionary<int, PlayerUnit>();
         public Dictionary<int, PlayerUnit> PlayerList => playerList;
 
-        public List<PlayerUnit> GetPlayers()
-        {
-            return playerList.Values.ToList();
-        }
-
         protected virtual void UpdatePlayer(double dt)
         {
         }

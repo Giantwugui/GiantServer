@@ -23,6 +23,7 @@ namespace Server.Zone
                     Scene.EventSystem.Regist(typeof(BattleScene).Assembly);
 
                     //各种读表
+                    Scene.Pool.AddComponent<MapGridLibrary>();
                     Scene.Pool.AddComponent<MapLibrary>();
                     Scene.Pool.AddComponent<DungeonLibrary>();
                     Scene.Pool.AddComponent<MonsterLibrary>();
@@ -30,7 +31,6 @@ namespace Server.Zone
                     Scene.Pool.AddComponent<BuffLibrary>();
 
                     //世界地图信息
-                    Scene.Pool.AddComponent<MapGridPosComponent>();
                     Scene.Pool.AddComponent<MapSceneManangerComponent>();
 
                     Scene.Pool.AddComponent<PlayerManagerComponent>();

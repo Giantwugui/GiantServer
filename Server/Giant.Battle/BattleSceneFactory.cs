@@ -6,13 +6,13 @@ namespace Giant.Battle
 {
     public static class BattleSceneFactory
     {
-        public static BattleScene CreateBattleScene(MapModel model)
+        public static BattleScene CreateBattleScene(MapModel model, int mapId, int channel)
         {
             switch (model.MapType)
             {
                 case MapType.Normal:
                 default:
-                    return ComponentFactory.CreateComponentWithParent<BattleScene>(BattleSceneComponent.Instance);
+                    return ComponentFactory.CreateComponent<BattleScene, int, int>(mapId, channel);
             }
         }
     }

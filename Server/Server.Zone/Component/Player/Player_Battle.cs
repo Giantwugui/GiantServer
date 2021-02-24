@@ -5,9 +5,14 @@ namespace Server.Zone
 {
     partial class Player
     {
-        public void Move(Vector2 vector)
+        public void Transmit(Vector2 vector)
         {
-            PlayerUnit.Move(vector);
+            PlayerUnit.Transmit(vector);
+        }
+
+        public void SetDestination(Vector2 vector)
+        {
+            PlayerUnit.SetDestination(vector);
         }
 
         public void CastSkill(int skillId, int targetId, Vector2 pos, Vector2 direction)

@@ -1,5 +1,7 @@
 ﻿using EpPathFinding;
+using Giant.Core;
 using JumpPointSearch;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -26,9 +28,12 @@ namespace Giant.Model
         public readonly JpsPathFinder NewJpsFinderSmall;
         public readonly JpsPathFinder NewJpsFinderBig;
 
-        public GeoMapModel(string filePath)
+        public GeoMapModel(string fileName)
         {
-            FileName = filePath;
+            FileName = fileName;
+
+            string directory = $"{Environment.CurrentDirectory}/Grid";
+            string filePath = Path.Combine(directory, fileName);
 
             FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             BinaryReader binaryReader = new BinaryReader(fileStream);
@@ -79,7 +84,7 @@ namespace Giant.Model
                 MaxY_Small++;
 
                 OldGridSmall = new DynamicGrid(grids);
-                OldJpsFinderSmall = new JumpPointParam(OldGridSmall, false);
+                OldJpsFinderSmall = new JumpPointParam(OldGridSmall, null, null, EndNodeUnWalkableTreatment.DISALLOW);
 
                 //新版jps
                 GridMap map = new GridMap(MinX_Small, MaxX_Small, MinY_Small, MaxY_Small);
@@ -92,8 +97,7 @@ namespace Giant.Model
             fileStream.Close();
 
             // 读取Big
-            filePath = string.Format("{0}Big.bytes", filePath);
-            //filePath = Path.Combine(PathExt.FullPathFromServerData("Grid"), filePath);
+            filePath = string.Format("{0}Big.bytes", directory);
 
             fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             binaryReader = new BinaryReader(fileStream);
@@ -130,6 +134,7 @@ namespace Giant.Model
 
                     walkableList.Add(new KeyValuePair<int, int>(grid.x, grid.y));
                 }
+
                 // 校正边界值
                 MinX_Big--;
                 MaxX_Big++;
@@ -137,17 +142,20 @@ namespace Giant.Model
                 MaxY_Big++;
 
                 OldGridBig = new DynamicGrid(grids);
-                OldJpsFinderBig = new JumpPointParam(OldGridBig, false);
+                OldJpsFinderBig = new JumpPointParam(OldGridBig, null, null, EndNodeUnWalkableTreatment.DISALLOW);
 
                 // 新版jps
                 GridMap map = new GridMap(MinX_Big, MaxX_Big, MinY_Big, MaxY_Big);
                 map.InitWalkables(walkableList);
+
                 JpsExpansionPolicy expander = new JpsExpansionPolicy(map);
                 NewJpsFinderBig = new JpsPathFinder(expander);
             }
             binaryReader.Close();
             fileStream.Close();
         }
+
+        public int Id => throw new NotImplementedException();
 
         public bool GetWalkbleAt(int x, int y)
         {

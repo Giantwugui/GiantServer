@@ -8,11 +8,6 @@ namespace Giant.Battle
         private Dictionary<int, NPC> npcList = new Dictionary<int, NPC>();
         public Dictionary<int, NPC> NpcList => npcList;
 
-        public List<NPC> GetNPCs()
-        {
-            return npcList.Values.ToList();
-        }
-
         protected virtual void UpdateNpc(double dt)
         {
         }

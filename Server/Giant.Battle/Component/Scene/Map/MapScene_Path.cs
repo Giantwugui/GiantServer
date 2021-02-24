@@ -27,10 +27,12 @@ namespace Giant.Battle
         {
             UseDynamicGrid = false;
         }
+
         public void EnableDynamicGrid(bool enable)
         {
             UseDynamicGrid = enable;
         }
+
         public void SetFieldObjectObstract(Unit unit, bool obstract)
         {
             if (dynamicMap == null || rDynamicMap == null || unit == null)
@@ -67,56 +69,7 @@ namespace Giant.Battle
             return grid.IsWalkableAt(x, y);
         }
 
-
-        public Vector2[] GetPath_New(Vector2 from, Vector2 to, bool useDynamic)
-        {
-            Vector2[] result = null;
-            int startX = (int)Math.Round(from.x);
-            int startY = (int)Math.Round(from.y);
-            int endX = (int)Math.Round(to.x);
-            int endY = (int)Math.Round(to.y);
-            Stack<KeyValuePair<int, int>> path = null;
-            if (useDynamic)
-            {
-                MapModel.JpsPathFinder.SetDynamicGrid(dynamicMap, rDynamicMap);
-                //dynamicMap.PrintUnwalkable();
-            }
-            else
-            {
-                MapModel.JpsPathFinder.SetDynamicGrid(null, null);
-            }
-            path = MapModel.JpsPathFinder.FindPath(new KeyValuePair<int, int>(startX, startY), new KeyValuePair<int, int>(endX, endY), true);
-            // 重置动态格挡信息
-            MapModel.JpsPathFinder.SetDynamicGrid(null, null);
-
-            if (path == null)
-            {
-                // 小网格未找到，使用大网格不考虑动态阻挡
-                MapModel.JpsPathFinderBig.SetDynamicGrid(null, null);
-                path = MapModel.JpsPathFinderBig.FindPath(new KeyValuePair<int, int>(startX, startY), new KeyValuePair<int, int>(endX, endY), true);
-                if (path == null)
-                {
-                    return null;
-                }
-            }
-
-            KeyValuePair<int, int>[] arr = path.ToArray();
-            result = new Vector2[arr.Length];
-            for (int i = 0; i < arr.Length; i++)
-            {
-                result[i] = new Vector2(arr[i].Key, arr[i].Value);
-            }
-
-            //string pathStr = string.Empty;
-            //for (int i = 0; i < result.Length; i++)
-            //{
-            //    pathStr += " " + result[i].ToString() + "";
-            //}
-            //Logger.Log.Warn($"find path {pathStr}");
-            return result;
-        }
-
-        public bool CheckPath(Vector2 from, Vector2 to, bool useBig)
+        public bool CheckPath(Vector2 from, Vector2 to, bool useBig = false)
         {
             GridPos start = VectorToGridPos(from);
             GridPos end = VectorToGridPos(to);
@@ -161,9 +114,54 @@ namespace Giant.Battle
             {
                 result = path.ConvertAll(x => new Vector2(x.x, x.y)).ToArray();
                 result[0] = from;
-                result[result.Length - 1] = to;
+                result[^1] = to;
             }
             return result;
+        }
+
+        public Vector2[] GetPath_New(Vector2 from, Vector2 to, bool useDynamic)
+        {
+            int startX = (int)Math.Round(from.x);
+            int startY = (int)Math.Round(from.y);
+            int endX = (int)Math.Round(to.x);
+            int endY = (int)Math.Round(to.y);
+
+            if (useDynamic)
+            {
+                MapModel.JpsPathFinder.SetDynamicGrid(dynamicMap, rDynamicMap);
+                //dynamicMap.PrintUnwalkable();
+            }
+            else
+            {
+                MapModel.JpsPathFinder.SetDynamicGrid(null, null);
+            }
+
+            Stack<KeyValuePair<int, int>> path = FindPath(MapModel.JpsPathFinder, startX, startY, endX, endY);
+            // 重置动态格挡信息
+            MapModel.JpsPathFinder.SetDynamicGrid(null, null);
+
+            if (path == null)
+            {
+                // 小网格未找到，使用大网格不考虑动态阻挡
+                MapModel.JpsPathFinderBig.SetDynamicGrid(null, null);
+                path = FindPath(MapModel.JpsPathFinderBig, startX, startY, endX, endY);
+
+                if (path == null) return null;
+            }
+
+            KeyValuePair<int, int>[] arr = path.ToArray();
+            Vector2[] result = new Vector2[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+            {
+                result[i] = new Vector2(arr[i].Key, arr[i].Value);
+            }
+
+            return result;
+        }
+
+        private Stack<KeyValuePair<int, int>> FindPath(JpsPathFinder pathFinder, int startX, int startY, int endX, int endY)
+        {
+            return pathFinder.FindPath(new KeyValuePair<int, int>(startX, startY), new KeyValuePair<int, int>(endX, endY), true);
         }
 
         private GridPos VectorToGridPos(Vector2 vector)

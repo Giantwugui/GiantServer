@@ -37,6 +37,17 @@ namespace Giant.Model
             AOIType = (AOIType)data.GetInt("AOIType");
             MapName = data.GetString("MapName");
             BianryName = data.GetString("BianryName");
+
+            MinX = data.GetInt("MinX");
+            MinY = data.GetInt("MinY");
+            MaxX = data.GetInt("MaxX");
+            MaxY = data.GetInt("MaxY");
+
+            HighPrecision = data.GetBool("HighPrecision");
+            string[] beginPos = data.GetString("BeginPosition").Split(':');
+            BeginPosition = beginPos.Length == 2 ? new Vector2(int.Parse(beginPos[0]), int.Parse(beginPos[1])) : new Vector2(Vector2.zero.x, Vector2.zero.y);
+
+            geoModel = MapGridLibrary.Instance.GetGrid(BianryName);
         }
     }
 }

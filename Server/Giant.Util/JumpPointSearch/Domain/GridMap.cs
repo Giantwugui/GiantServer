@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace JumpPointSearch
 {
@@ -494,7 +491,7 @@ namespace JumpPointSearch
                 }
                 if(print)
                 {
-                    Logger.Log.Warn(str);
+                    //Logger.Log.Warn(str);
                 }
             }
         }

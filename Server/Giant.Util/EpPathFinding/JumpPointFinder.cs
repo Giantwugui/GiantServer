@@ -57,35 +57,6 @@ namespace EpPathFinding
 
     public class JumpPointParam : ParamBase
     {
-        public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-        {
-            switch (iMode)
-            {
-                case HeuristicMode.MANHATTAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
-                    break;
-                case HeuristicMode.EUCLIDEAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-                case HeuristicMode.CHEBYSHEV:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
-                    break;
-                default:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-            }
-            m_allowEndNodeUnWalkable = iAllowEndNodeUnWalkable;
-            m_crossAdjacentPoint = iCrossAdjacentPoint;
-            m_crossCorner = iCrossCorner;
-
-            openList = new List<Node>();
-
-            m_searchGrid = iGrid;
-            m_startNode = null;
-            m_endNode = null;
-            m_useRecursive = false;
-        }
-
         public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, EndNodeUnWalkableTreatment iAllowEndNodeUnWalkable = EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement iDiagonalMovement = DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
             : base(iGrid, iStartPos, iEndPos, iDiagonalMovement, iMode)
         {

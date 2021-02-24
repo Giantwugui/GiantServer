@@ -4,9 +4,9 @@ namespace Giant.Battle
 {
     public interface IUnitContainer
     {
-        Dictionary<int, PlayerUnit> GetPlayers();
-        Dictionary<int, HeroUnit> GetHeroes();
-        Dictionary<int, Monster> GetMonsters();
-        Dictionary<int, NPC> GetNPCs();
+        IReadOnlyDictionary<int, PlayerUnit> GetPlayers();
+        IReadOnlyDictionary<int, HeroUnit> GetHeroes();
+        IReadOnlyDictionary<int, Monster> GetMonsters();
+        IReadOnlyDictionary<int, NPC> GetNPCs();
     }
 }

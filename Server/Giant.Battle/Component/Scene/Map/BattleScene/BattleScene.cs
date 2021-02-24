@@ -6,7 +6,7 @@ using System;
 
 namespace Giant.Battle
 {
-    public partial class BattleScene : MapScene, IInitSystem<MapModel>, IUpdate
+    public partial class BattleScene : MapScene, IInitSystem<int, int>, IUpdate
     {
         protected DateTime StopTime { get; private set; }
 
@@ -14,9 +14,9 @@ namespace Giant.Battle
         public int DungeonId { get { return DungeonModel.Id; } }
 
 
-        public override void Init(MapModel model) 
+        public override void Init(int mapId, int channel) 
         {
-            base.Init(model);
+            base.Init(mapId, channel);
 
             InitMonster();
         }

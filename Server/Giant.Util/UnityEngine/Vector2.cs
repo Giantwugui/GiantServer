@@ -493,5 +493,12 @@ namespace UnityEngine
             vector2.y = value1.y * num;
             return vector2;
         }
+
+        public static bool VeryClose(Vector2 source, Vector2 target)
+        {
+            float deltaX = target.x - source.x;
+            float deltaY = target.y - source.y;
+            return -0.1 < deltaX && deltaX < 0.1 && -0.1 < deltaY && deltaY < 0.1;
+        }
     }
 }

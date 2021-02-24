@@ -308,22 +308,22 @@ namespace Giant.Battle
             return null;
         }
 
-        public Dictionary<int, PlayerUnit> GetPlayers()
+        IReadOnlyDictionary<int, PlayerUnit> IUnitContainer.GetPlayers()
         {
             return playerList;
         }
 
-        public Dictionary<int, HeroUnit> GetHeroes()
+        IReadOnlyDictionary<int, HeroUnit> IUnitContainer.GetHeroes()
         {
             return heroList;
         }
 
-        public Dictionary<int, Monster> GetMonsters()
+        IReadOnlyDictionary<int, Monster> IUnitContainer.GetMonsters()
         {
             return monsterList;
         }
 
-        public Dictionary<int, NPC> GetNPCs()
+        IReadOnlyDictionary<int, NPC> IUnitContainer.GetNPCs()
         {
             return npcList;
         }

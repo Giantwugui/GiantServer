@@ -9,8 +9,8 @@ namespace Giant.Battle
         private int speed;
         private float moveFactor;
         private float moveFactorSpeed;
-        private bool isMoving;
         public Unit Owner { get; private set; }
+        public bool IsMoving { get; private set; }
         MapScene currentMap => Owner.MapScene;
         Region curRegion => Owner.Region;
 
@@ -19,7 +19,15 @@ namespace Giant.Battle
         //当前位置
         private Vector2 curPositionCopy = new Vector2(Vector2.zero.x, Vector2.zero.y);
         private Vector2 curPosition = new Vector2(Vector2.zero.x, Vector2.zero.y);
-        public Vector2 CurPosition => curPosition;
+        public Vector2 CurPosition
+        {
+            get
+            {
+                curPositionCopy.x = curPosition.x;
+                curPositionCopy.y = curPosition.y;
+                return curPositionCopy;
+            }
+        }
 
         /// <summary>
         /// 位移起点
@@ -41,7 +49,9 @@ namespace Giant.Battle
         /// 需要寻路
         /// </summary>
         public bool NeedFindPath = true;
-
+        /// <summary>
+        /// Jps算法提高了寻路效率
+        /// </summary>
         public bool UseNewJps = true;
         /// <summary>
         /// 改变寻路终点
@@ -64,40 +74,99 @@ namespace Giant.Battle
             speed = Owner.GetNatureValue(NatureType.Speed);
         }
 
-        public bool Move(Vector2 vector)
-        {
-            SetPosition(vector);
-
-            //TODO视野检测，地图可达性检测
-
-            Owner.OnMove(vector);
-
-            return true;
-        }
-
         internal void SetPosition(float x, float y)
         {
             curPosition.x = x;
             curPosition.y = y;
         }
 
-        private void UpdatePositionByClampFactor(Vector2 from, Vector2 to, float clampFactor)
+        public void SetPosition(Vector2 pos)
         {
-            float x = from.x * (1 - clampFactor) + to.x * clampFactor;
-            float y = from.y * (1 - clampFactor) + to.y * clampFactor;
-            SetPosition(x, y);
+            curPosition.x = pos.x;
+            curPosition.y = pos.y;
+        }
+
+        public void SetDestination(Vector2 dest)
+        {
+            if (!Owner.CanMove())
+            {
+                return;
+            }
+            if (!Vector2.VeryClose(pathDestination, dest))
+            {
+                pathDestination.Init(dest);
+                NeedChangePathDestination = true;
+            }
+        }
+
+        public void MoveTo(Vector2 destPos)
+        {
+            moveToPosition.x = destPos.x;
+            moveToPosition.y = destPos.y;
+        }
+
+        public void MoveStart()
+        {
+            IsMoving = true;
+            bool useDynamicGrid = Owner.UseDynamicGrid();
+            if (useDynamicGrid)
+            {
+                // 生成动态阻挡信息
+                currentMap.UpdateDynamicGrid();
+                // 将自己设置为非阻挡后，再寻路
+                currentMap.SetFieldObjectObstract(Owner, false);
+            }
+            InitPath(CurPosition, pathDestination, useDynamicGrid);
+            InitValue();
+        }
+
+        public void MoveStop()
+        {
+            IsMoving = false;
+        }
+
+        /// <summary>
+        /// 检查寻路终点
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckDestination()
+        {
+            return NeedChangePathDestination;
+        }
+
+        public bool CheckPathEnd()
+        {
+            if (CurPosition == moveToPosition)
+            {
+                // Move has ended
+                if (movePathIndex == movePath.Length - 1)
+                {
+                    pathDestination.Init(CurPosition);
+                    IsMoving = false;
+                    return true;
+                }
+                else
+                {
+                    ++movePathIndex;
+                    moveFromPosition.Init(moveToPosition);
+                    moveToPosition.Init(movePath[movePathIndex]);
+
+                    InitValue();
+                    Owner.OnMove();
+                    return false;
+                }
+            }
+            return false;
         }
 
         /// <summary>
         /// 移动
         /// </summary>
-        /// <param name="deltaTime"></param>
-        /// <returns>返回duration</returns>
         public void Move(float deltaTime)
         {
             if (currentMap != null)
             {
-                isMoving = true;
+                IsMoving = true;
                 moveFactor += moveFactorSpeed * deltaTime;
                 float clampFactor = Mathf.Clamp01(moveFactor);
 
@@ -143,6 +212,13 @@ namespace Giant.Battle
                 }
             }
             return;
+        }
+
+        private void UpdatePositionByClampFactor(Vector2 from, Vector2 to, float clampFactor)
+        {
+            float x = from.x * (1 - clampFactor) + to.x * clampFactor;
+            float y = from.y * (1 - clampFactor) + to.y * clampFactor;
+            SetPosition(x, y);
         }
 
         /// <summary>
@@ -198,21 +274,6 @@ namespace Giant.Battle
             }
         }
 
-        public void MoveStart(float speedScale = 1.0f)
-        {
-            isMoving = true;
-            bool useDynamicGrid = Owner.UseDynamicGrid();
-            if (useDynamicGrid)
-            {
-                // 生成动态阻挡信息
-                currentMap.UpdateDynamicGrid();
-                // 将自己设置为非阻挡后，再寻路
-                currentMap.SetFieldObjectObstract(Owner, false);
-            }
-            InitPath(CurPosition, pathDestination, useDynamicGrid);
-            InitValue();
-        }
-
         public void InitPath(Vector2 from, Vector2 to, bool useDynamic)
         {
             //if (currentMap.IsHighPrecision)
@@ -265,7 +326,7 @@ namespace Giant.Battle
             movePathIndex = 1;
             NeedFindPath = true;
             NeedChangePathDestination = false;
-            pathDestination.Init(movePath[movePath.Length - 1]);
+            pathDestination.Init(movePath[^1]);
         }
 
         public float InitValue()
@@ -303,18 +364,6 @@ namespace Giant.Battle
                 }
             }
             return false;
-        }
-
-        public void SetPosition(Vector2 pos)
-        {
-            curPosition.x = pos.x;
-            curPosition.y = pos.y;
-        }
-
-        public void MoveTo(Vector2 destPos)
-        {
-            moveToPosition.x = destPos.x;
-            moveToPosition.y = destPos.y;
         }
     }
 }

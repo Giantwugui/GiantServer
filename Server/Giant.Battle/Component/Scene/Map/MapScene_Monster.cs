@@ -16,11 +16,6 @@ namespace Giant.Battle
         { 
         }
 
-        public List<Monster> GetMonsters()
-        {
-            return monsterList.Values.ToList();
-        }
-
 
         protected virtual void UpdateMonster(double dt)
         {

@@ -1,5 +1,4 @@
 ﻿using Giant.EnumUtil;
-using UnityEngine;
 
 namespace Giant.Battle
 {
@@ -8,7 +7,7 @@ namespace Giant.Battle
     /// </summary>
     interface IUnitEvent
     {
-        void OnMove(Vector2 vector);
+        void OnMove();
 
         void OnSkillStart(Skill skill);
         void OnSkillEnd(Skill skill);

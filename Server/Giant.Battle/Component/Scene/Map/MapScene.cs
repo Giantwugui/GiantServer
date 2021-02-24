@@ -4,7 +4,7 @@ using Giant.Model;
 
 namespace Giant.Battle
 {
-    public partial class MapScene : Entity, IInitSystem<int, int>, IUnitContainer
+    public partial class MapScene : Entity, IInitSystem<int, int>
     {
         private int unitId = 0;
 
@@ -23,6 +23,8 @@ namespace Giant.Battle
 
             InitNPC();
             InitRegionManager();
+
+            InitDynamicGrid();
         }
 
         public virtual void Update(double dt)

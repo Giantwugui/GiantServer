@@ -45,7 +45,7 @@ namespace Giant.Battle
         {
         }
 
-        public void OnMove(Vector2 vector)
+        public void OnMove()
         {
         }
     }

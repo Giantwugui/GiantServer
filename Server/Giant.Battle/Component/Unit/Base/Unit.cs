@@ -26,6 +26,8 @@ namespace Giant.Battle
             InitTrigger();
             InitNature();
             InitSkill();
+
+            InitMoverHandler();
         }
 
         public virtual void Update(double dt)
