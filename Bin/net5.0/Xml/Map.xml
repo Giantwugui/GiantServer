@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 被2011 rel. 2 sp1 (1) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
+<!-- 被2011 rel. 2 sp1 (TeaM DJiNN) 使用XMLSpy vTeaM DJiNN编辑的 (http://www.altova.com) by -->
 <Root Config="Map">
-	<content id="1" MapName="Test" BianryName="map1.byte"/>
+	<content id="1" MapType="1" AOIType="1" MapName="Zone" FileName="map1" MinX="0" MinY="0" MaxX="50" MaxY="50" HighPrecision="false" BeginPosition="0:0"/>
 </Root>

@@ -33,7 +33,7 @@ namespace Giant.Model
             FileName = fileName;
 
             string directory = $"{Environment.CurrentDirectory}/Grid";
-            string filePath = Path.Combine(directory, fileName);
+            string filePath = Path.Combine(directory, fileName) + ".bytes";
 
             FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             BinaryReader binaryReader = new BinaryReader(fileStream);
@@ -84,7 +84,7 @@ namespace Giant.Model
                 MaxY_Small++;
 
                 OldGridSmall = new DynamicGrid(grids);
-                OldJpsFinderSmall = new JumpPointParam(OldGridSmall, null, null, EndNodeUnWalkableTreatment.DISALLOW);
+                OldJpsFinderSmall = new JumpPointParam(OldGridSmall, EndNodeUnWalkableTreatment.DISALLOW);
 
                 //新版jps
                 GridMap map = new GridMap(MinX_Small, MaxX_Small, MinY_Small, MaxY_Small);
@@ -97,7 +97,7 @@ namespace Giant.Model
             fileStream.Close();
 
             // 读取Big
-            filePath = string.Format("{0}Big.bytes", directory);
+            filePath = string.Format("{0}Big.bytes", Path.Combine(directory, fileName));
 
             fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             binaryReader = new BinaryReader(fileStream);
@@ -142,7 +142,7 @@ namespace Giant.Model
                 MaxY_Big++;
 
                 OldGridBig = new DynamicGrid(grids);
-                OldJpsFinderBig = new JumpPointParam(OldGridBig, null, null, EndNodeUnWalkableTreatment.DISALLOW);
+                OldJpsFinderBig = new JumpPointParam(OldGridBig, EndNodeUnWalkableTreatment.DISALLOW);
 
                 // 新版jps
                 GridMap map = new GridMap(MinX_Big, MaxX_Big, MinY_Big, MaxY_Big);

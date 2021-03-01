@@ -19,6 +19,7 @@ namespace Giant.Battle
             base.Init(mapId, channel);
 
             InitMonster();
+            InitMessageDispatcher();
         }
 
         public override void Update(double dt)

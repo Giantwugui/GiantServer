@@ -29,6 +29,7 @@ namespace Server.Zone
                     Scene.Pool.AddComponent<MonsterLibrary>();
                     Scene.Pool.AddComponent<SkillLibrary>();
                     Scene.Pool.AddComponent<BuffLibrary>();
+                    Scene.Pool.AddComponent<TriggerLibrary>();
 
                     //世界地图信息
                     Scene.Pool.AddComponent<MapSceneManangerComponent>();

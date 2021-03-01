@@ -1,8 +1,9 @@
 {
   "profiles": {
-    "Server.App": {
-      "commandName": "Project",
-      "commandLineArgs": "--appType=Manager --appId=1001 --subId=1"
+    "Server.Zone": {
+      "commandName": "Executable",
+      "executablePath": "D:\\wg\\Giant\\Bin\\net5.0\\Server.Zone.exe",
+      "commandLineArgs": "--appType=Zone       --appId=1001 --subId=1"
     }
   }
 }

@@ -1,4 +1,5 @@
 ﻿using Giant.Core;
+using Giant.EnumUtil;
 using System;
 using System.Collections.Generic;
 
@@ -14,22 +15,29 @@ namespace Giant.Battle
         }
     }
 
-    public class MsgDispatchComponent : Component
+    public class MsgDispatchComponent : InitSystem<MapScene>
     {
-        private Dictionary<MessageType, MsgSubscriber> subscribers = new Dictionary<MessageType, MsgSubscriber>();
+        private Dictionary<TriggerMessageType, MsgSubscriber> subscribers = new Dictionary<TriggerMessageType, MsgSubscriber>();
 
-        public void SubscribeMessage(MessageType type, Action<object> action)
+        public MapScene Map { get; private set; }
+
+        public override void Init(MapScene map)
+        {
+            Map = map;
+        }
+
+        public void SubscribeMessage(TriggerMessageType type, Action<object> action)
         {
             MsgSubscriber subscriber = GetSubscriber(type);
             if (subscriber == null)
             {
-                subscriber = ComponentFactory.CreateComponent<MsgSubscriber, MessageType>(type);
+                subscriber = ComponentFactory.CreateComponent<MsgSubscriber, TriggerMessageType>(type);
                 subscribers[type] = subscriber;
             }
             subscriber.Subscribes += action;
         }
 
-        public void DisSubscribeMessage(MessageType type, Action<object> action)
+        public void DisSubscribeMessage(TriggerMessageType type, Action<object> action)
         {
             MsgSubscriber subscriber = GetSubscriber(type);
             if (subscriber != null)
@@ -38,12 +46,12 @@ namespace Giant.Battle
             }
         }
 
-        public void DispatchMessage(MessageType type, object param)
+        public void DispatchMessage(TriggerMessageType type, object param = null)
         { 
             GetSubscriber(type)?.Dispatch(param);
         }
 
-        private MsgSubscriber GetSubscriber(MessageType type)
+        private MsgSubscriber GetSubscriber(TriggerMessageType type)
         {
             subscribers.TryGetValue(type, out var action);
             return action;

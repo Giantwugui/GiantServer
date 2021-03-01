@@ -10,23 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Event\BattleSceneEventSystem.cs" />
-    <Compile Remove="Event\UnitActionEventSystem.cs" />
-    <Compile Remove="Event\UnitStateEventSystem.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Component\Map\q2yfatz2.ign~" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Giant.Model\Giant.Model.csproj" />
     <ProjectReference Include="..\Giant.Msg\Giant.Msg.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Event\" />
-    <Folder Include="Message\" />
   </ItemGroup>
 
   <ItemGroup>
