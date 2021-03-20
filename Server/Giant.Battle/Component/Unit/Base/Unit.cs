@@ -9,7 +9,9 @@ namespace Giant.Battle
         public UnitType UnitType { get; private set; }
         public bool IsDead { get; private set; }
         public Vector2 Position { get; private set; }
-        public MapScene MapScene { get; private set; }
+
+        private MapScene currentMap;
+        public MapScene CurrentMap => currentMap;
 
         public float Radius { get; private set; }
 
@@ -18,7 +20,7 @@ namespace Giant.Battle
             Id = mapScene.GetUnitId();
 
             UnitType = type;
-            MapScene = mapScene;
+            currentMap = mapScene;
 
             InitBuff();
             InitFsm();
@@ -35,7 +37,7 @@ namespace Giant.Battle
             FsmComponent.Update(dt);
             TriggeComponent.Update(dt);
 
-            if (MapScene is BattleScene)
+            if (CurrentMap is BattleScene)
             {
                 UpdateInBattle(dt);
             }

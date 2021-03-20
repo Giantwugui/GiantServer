@@ -60,11 +60,6 @@ namespace Giant.Battle
             return MoveHandler.CheckPathEnd();
         }
 
-        public void SetCurRegion(Region region)
-        {
-            Region = region;
-        }
-
         public bool UseDynamicGrid()
         {
             return false;

@@ -1,9 +1,11 @@
-﻿using Giant.Core;
+﻿using Giant.Battle;
+using Giant.Core;
 using Giant.Util;
+using Giant.Logger;
 using System;
 using System.Collections.Generic;
 
-namespace Giant.Battle
+namespace Server.Zone
 {
     public class MapSceneManangerComponent : InitUpdateSystem
     {
@@ -58,7 +60,7 @@ namespace Giant.Battle
                     }
                     catch (Exception ex)
                     {
-                        Logger.Log.Error($"update map Id {map.Value.MapModel.Id} type {map.Value.MapModel.MapType} error {ex}");
+                        Log.Error($"update map Id {map.Value.MapModel.Id} type {map.Value.MapModel.MapType} error {ex}");
                     }
                 }
             }

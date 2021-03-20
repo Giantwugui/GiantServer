@@ -161,6 +161,16 @@ message Msg_CG_TestMap // IMessage
 	map<int32,int32> Map1 = 1;
 }
 
+message MSG_GC_BROADCAST_INFO // IMessage
+{
+    int32 RpcId = 90;
+}
+
+message MSG_GC_CHAR_SIMPLE_INFO // IMessage
+{
+    int32 RpcId = 90;
+}
+
 /*********************** Gate => Zone ****************************/
 
 message Msg_GateZ_Hero_Break // IRequest

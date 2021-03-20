@@ -15,8 +15,8 @@ namespace Giant.Battle
 
         public void Broadcast(Google.Protobuf.IMessage message)
         {
-            if (MapScene == null) return;
-            switch (MapScene.MapModel.AOIType)
+            if (CurrentMap == null) return;
+            switch (CurrentMap.MapModel.AOIType)
             {
                 case AOIType.All:
                     BroadcastAll(message);
@@ -29,7 +29,7 @@ namespace Giant.Battle
 
         private void BroadcastAll(Google.Protobuf.IMessage message)
         {
-            MapScene.BroadcastMsg(message);
+            CurrentMap.BroadcastMsg(message);
         }
 
         private void BroadcastNearby(Google.Protobuf.IMessage message)

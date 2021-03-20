@@ -11,7 +11,7 @@ namespace Giant.Battle
         private float moveFactorSpeed;
         public Unit Owner { get; private set; }
         public bool IsMoving { get; private set; }
-        MapScene currentMap => Owner.MapScene;
+        MapScene currentMap => Owner.CurrentMap;
         Region curRegion => Owner.Region;
 
         private float duration;
@@ -225,7 +225,6 @@ namespace Giant.Battle
         /// 传送
         /// </summary>
         /// <param name="dest">目的地点</param>
-        /// <returns>duration</returns>
         public void Transmit(Vector2 dest)
         {
             if (currentMap != null)
@@ -267,6 +266,7 @@ namespace Giant.Battle
                             destRegion.NeighborList[i].NotifyCurRegionFieldObjectIn(Owner);
                         }
                     }
+
                     destRegion.EnterRegion(Owner);
 
                     Owner.SetCurRegion(destRegion);
@@ -287,7 +287,7 @@ namespace Giant.Battle
             {
                 if (UseNewJps)
                 {
-                    movePath = Owner.MapScene.GetPath_New(from, to, useDynamic);
+                    movePath = Owner.CurrentMap.GetPath_New(from, to, useDynamic);
                     if (movePath == null || movePath.Length == 0)
                     {
                         movePath = new Vector2[2];
@@ -297,7 +297,7 @@ namespace Giant.Battle
                 }
                 else
                 {
-                    movePath = Owner.MapScene.GetPath(from, to);
+                    movePath = Owner.CurrentMap.GetPath(from, to);
                     if (NeedUseBigPath(movePath))
                     {
                         movePath = currentMap.GetPath(from, to, true);

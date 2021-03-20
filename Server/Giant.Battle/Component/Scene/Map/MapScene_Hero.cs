@@ -2,14 +2,13 @@
 using Giant.Util;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Giant.Battle
 {
     public partial class MapScene
     {
-        private Dictionary<int, HeroUnit> heroList = new Dictionary<int, HeroUnit>();
-        public Dictionary<int, HeroUnit> HeroList => heroList;
+        private Dictionary<long, HeroUnit> heroList = new Dictionary<long, HeroUnit>();
+        public Dictionary<long, HeroUnit> HeroList => heroList;
 
         protected virtual void UpdateHero(double dt)
         { 

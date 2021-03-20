@@ -8,8 +8,8 @@ namespace Giant.Battle
 {
     public partial class MapScene
     {
-        private Dictionary<int, PlayerUnit> playerList = new Dictionary<int, PlayerUnit>();
-        public Dictionary<int, PlayerUnit> PlayerList => playerList;
+        private Dictionary<long, PlayerUnit> playerList = new Dictionary<long, PlayerUnit>();
+        public Dictionary<long, PlayerUnit> PlayerList => playerList;
 
         protected virtual void UpdatePlayer(double dt)
         {

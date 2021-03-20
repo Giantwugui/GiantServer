@@ -8,8 +8,8 @@ namespace Giant.Battle
 {
     public partial class MapScene
     {
-        private Dictionary<int, Monster> monsterList = new Dictionary<int, Monster>();
-        public Dictionary<int, Monster> MonsterList => monsterList;
+        private Dictionary<long, Monster> monsterList = new Dictionary<long, Monster>();
+        public Dictionary<long, Monster> MonsterList => monsterList;
 
 
         public void AddMonster(Monster monster)

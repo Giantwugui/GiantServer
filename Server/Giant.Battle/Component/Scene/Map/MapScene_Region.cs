@@ -16,24 +16,29 @@ namespace Giant.Battle
             RegionManager.Init(this, MaxX - MinX, MaxY - MinY, MinX, MinY);
         }
 
-        public IReadOnlyDictionary<int, PlayerUnit> GetPlayers()
+        public IReadOnlyDictionary<long, PlayerUnit> GetPlayers()
         {
             return playerList;
         }
 
-        public IReadOnlyDictionary<int, Monster> GetMonsters()
+        public IReadOnlyDictionary<long, Monster> GetMonsters()
         {
             return monsterList;
         }
 
-        public IReadOnlyDictionary<int, HeroUnit> GetHeroes()
+        public IReadOnlyDictionary<long, HeroUnit> GetHeroes()
         {
             return heroList;
         }
 
-        public IReadOnlyDictionary<int, NPC> GetNPCs()
+        public IReadOnlyDictionary<long, NPC> GetNPCs()
         {
             return npcList;
+        }
+
+        public IReadOnlyDictionary<long, Robot> GetRobots()
+        {
+            return robotList;
         }
     }
 }

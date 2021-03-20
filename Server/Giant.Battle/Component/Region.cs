@@ -30,18 +30,11 @@ namespace Giant.Battle
         public int height;
         private MapScene map;
 
-        Dictionary<int, PlayerUnit> playerList = new Dictionary<int, PlayerUnit>();
-        public Dictionary<int, PlayerUnit> PlayerList => playerList;
-
-        Dictionary<int, HeroUnit> heroList = new Dictionary<int, HeroUnit>();
-        Dictionary<int, HeroUnit> HeroList => heroList;
-
-        private Dictionary<int, NPC> npcList;
-        public Dictionary<int, NPC> NpcList => npcList;
-
-        private Dictionary<int, Monster> monsterList = new Dictionary<int, Monster>();
-        public Dictionary<int, Monster> MonsterList => monsterList;
-
+        private Dictionary<long, Monster> monsterList = new Dictionary<long, Monster>();
+        private Dictionary<long, PlayerUnit> playerList = new Dictionary<long, PlayerUnit>();
+        private Dictionary<long, HeroUnit> heroList = new Dictionary<long, HeroUnit>();
+        private Dictionary<long, Robot> robotList = new Dictionary<long, Robot>();
+        private Dictionary<long, NPC> npcList = new Dictionary<long, NPC>();
 
         public void Init(int index, int x, int y, int width, int height, MapScene map)
         {
@@ -51,89 +44,69 @@ namespace Giant.Battle
             this.width = width;
             this.height = height;
             this.map = map;
-            npcList = new Dictionary<int, NPC>();
         }
 
-        public void AddGameObject(Unit unit, Vector2 pos)
+        public void AddUnit(Unit unit, Vector2 pos)
         {
-            //Log.Write("map {0} region index {1} add obj type {2} instance id {3}", map.MapID, index, obj.type.ToString(), obj.Instance_id);
-            //switch (unit.FieldObjectType)
-            //{
-            //    case TYPE.PC:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        //Log.Warn("region index {0} add player {1} ====11 region index {2}", index, obj.Instance_id, index);
-            //        playerList[unit.InstanceId] = (PlayerChar)unit;
-            //        break;
-            //    case TYPE.ROBOT:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        robotList[unit.InstanceId] = (Robot)unit;
-            //        break;
-            //    case TYPE.PET:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        //Log.Warn("region index {0} add pet {1} ====200 region index {2}", index, obj.Instance_id, index);
-            //        petList[unit.InstanceId] = (Pet)unit;
-            //        break;
-            //    case TYPE.HERO:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        //Log.Warn("region index {0} add pet {1} ====200 region index {2}", index, obj.Instance_id, index);
-            //        heroList[unit.InstanceId] = (Hero)unit;
-            //        break;
-            //    case TYPE.NPC:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        //Log.Warn("region index {0} add pet {1} ====200 region index {2}", index, obj.Instance_id, index);
-            //        npcList[unit.InstanceId] = (NPC)unit;
-            //        break;
-            //    case TYPE.MONSTER:
-            //        NotifySurroundFieldObjectIn(unit, true);
-            //        //Log.Warn("region index {0} add pet {1} ====200 region index {2}", index, obj.Instance_id, index);
-            //        monsterList[unit.InstanceId] = (Monster)unit;
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                    NotifySurroundFieldObjectIn(unit, true);
+                    playerList[unit.InstanceId] = (PlayerUnit)unit;
+                    break;
+                case UnitType.Hero:
+                    NotifySurroundFieldObjectIn(unit, true);
+                    heroList[unit.InstanceId] = (HeroUnit)unit;
+                    break;
+                case UnitType.Robot:
+                    NotifySurroundFieldObjectIn(unit, true);
+                    robotList[unit.InstanceId] = (Robot)unit;
+                    break;
+                case UnitType.NPC:
+                    NotifySurroundFieldObjectIn(unit, true);
+                    npcList[unit.InstanceId] = (NPC)unit;
+                    break;
+                case UnitType.Monster:
+                    NotifySurroundFieldObjectIn(unit, true);
+                    monsterList[unit.InstanceId] = (Monster)unit;
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void RemoveGameObject(Unit unit)
         {
-            ////Log.Write("map {0} region index {1} remove obj type {2} instance id {3}", map.MapID, index, obj.type.ToString(), obj.Instance_id);
-            //switch (unit.FieldObjectType)
-            //{
-            //    case TYPE.PC:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        //Log.Warn("region index {0} remove player {1}=====8 region index {2}", index, obj.Instance_id, index);
-            //        playerList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.ROBOT:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        robotList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.PET:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        //Log.Warn("region index {0} remove player {1}=====8 region index {2}", index, obj.Instance_id, index);
-            //        petList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.HERO:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        //Log.Warn("region index {0} remove player {1}=====8 region index {2}", index, obj.Instance_id, index);
-            //        heroList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.NPC:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        //Log.Warn("region index {0} remove player {1}=====8 region index {2}", index, obj.Instance_id, index);
-            //        npcList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.MONSTER:
-            //        NotifySurroundFieldObjectOut(unit);
-            //        monsterList.Remove(unit.InstanceId);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                    NotifySurroundFieldObjectOut(unit);
+                    playerList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Robot:
+                    NotifySurroundFieldObjectOut(unit);
+                    robotList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Hero:
+                    NotifySurroundFieldObjectOut(unit);
+                    heroList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.NPC:
+                    NotifySurroundFieldObjectOut(unit);
+                    npcList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Monster:
+                    NotifySurroundFieldObjectOut(unit);
+                    monsterList.Remove(unit.InstanceId);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public void LinkNeighbor(RegionDirection diretion, Region neighbor_region)
+        public void LinkNeighbor(RegionDirection diretion, Region neighborRegion)
         {
-            neighborList[(int)diretion] = neighbor_region;
+            neighborList[(int)diretion] = neighborRegion;
         }
 
         public bool InMyRegions(Region region)
@@ -174,158 +147,150 @@ namespace Giant.Battle
 
         private void NotifySurroundFieldObjectIn(Unit unit, bool isBorn = false)
         {
-            //unit.NotifyContainerFieldObjectIn(this, true);
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    if (neighborList[i] != null)
-            //    {
-            //        unit.NotifyContainerFieldObjectIn(neighborList[i], true);
-            //    }
-            //}
+            unit.NotifyContainerUnitIn(this, true);
+            for (int i = 0; i < 8; i++)
+            {
+                if (neighborList[i] != null)
+                {
+                    unit.NotifyContainerUnitIn(neighborList[i], true);
+                }
+            }
         }
 
         public void NotifyCurRegionFieldObjectIn(Unit unit)
         {
-            //unit.NotifyContainerFieldObjectIn(this, true);
+            unit.NotifyContainerUnitIn(this, true);
         }
 
         private void NotifySurroundFieldObjectOut(Unit unit)
         {
-            //unit.NotifyCoutainerFieldObjectOut(this);
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    if (neighborList[i] != null)
-            //    {
-            //        unit.NotifyCoutainerFieldObjectOut(neighborList[i]);
-            //    }
-            //}
+            unit.NotifyCoutainerUnitOut(this);
+            for (int i = 0; i < 8; i++)
+            {
+                if (neighborList[i] != null)
+                {
+                    unit.NotifyCoutainerUnitOut(neighborList[i]);
+                }
+            }
         }
 
         public void NotifyCurRegionFieldObjectOut(Unit unit)
         {
-            //unit.NotifyCoutainerFieldObjectOut(this);
+            unit.NotifyCoutainerUnitOut(this);
         }
 
 
         public void EnterRegion(Unit unit)
         {
-            //switch (unit.UnitType)
-            //{
-            //    case UnitType.Player:
-            //        PlayerUnit player = (PlayerUnit)unit;
-            //        if (player.IsMapLoadingDone == false)
-            //        {
-            //            Log.Warn("player {0} enter region before map loading done", player.Uid);
-            //        }
-            //        //Log.Warn("region index {0} add pc {1}", index, obj.Instance_id);
-            //        playerList.Add(unit.InstanceId, player);
-            //        break;
-            //    case UnitType.Robot:
-            //        break;
-            //    case UnitType.Pet:
-            //        break;
-            //    case UnitType.Hero:
-            //        heroList.Add(unit.InstanceId, (HeroUnit)unit);
-            //        break;
-            //    case UnitType.NPC:
-            //        NpcList.Add(unit.InstanceId, (NPC)unit);
-            //        break;
-            //    case UnitType.Monster:
-            //        MonsterList.Add(unit.InstanceId, (Monster)unit);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                    PlayerUnit player = (PlayerUnit)unit;
+                    //if (player.IsMapLoadingDone == false)
+                    //{
+                    //    Log.Warn("player {0} enter region before map loading done", player.Uid);
+                    //}
+                    //Log.Warn("region index {0} add pc {1}", index, obj.Instance_id);
+                    playerList.Add(unit.InstanceId, player);
+                    break;
+                case UnitType.Robot:
+                    break;
+                case UnitType.Pet:
+                    break;
+                case UnitType.Hero:
+                    heroList.Add(unit.InstanceId, (HeroUnit)unit);
+                    break;
+                case UnitType.NPC:
+                    npcList.Add(unit.InstanceId, (NPC)unit);
+                    break;
+                case UnitType.Monster:
+                    monsterList.Add(unit.InstanceId, (Monster)unit);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void LeaveRegion(Unit unit)
         {
-            //switch (unit.UnitType)
-            //{
-            //    case TYPE.PC:
-            //        //Log.Warn("region index {0} remove pc {1}", index, obj.Instance_id);
-            //        playerList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.ROBOT:
-            //        robotList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.PET:
-            //        petList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.HERO:
-            //        heroList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.NPC:
-            //        NpcList.Remove(unit.InstanceId);
-            //        break;
-            //    case TYPE.MONSTER:
-            //        MonsterList.Remove(unit.InstanceId);
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (unit.UnitType)
+            {
+                case UnitType.Player:
+                    playerList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Robot:
+                    robotList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Hero:
+                    heroList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.NPC:
+                    npcList.Remove(unit.InstanceId);
+                    break;
+                case UnitType.Monster:
+                    monsterList.Remove(unit.InstanceId);
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public Unit GetFieldObject(UnitType type, int instance_id)
+        public Unit GetUnit(UnitType type, int instanceId)
         {
-            if (instance_id == 0)
+            if (instanceId == 0)
             {
                 return null;
             }
-            //switch (type)
-            //{
-            //    case TYPE.PC:
-            //        PlayerChar player = null;
-            //        playerList.TryGetValue(instance_id, out player);
-            //        return player;
-            //    case TYPE.ROBOT:
-            //        Robot robot = null;
-            //        robotList.TryGetValue(instance_id, out robot);
-            //        return robot;
-            //    case TYPE.NPC:
-            //        NPC npc = null;
-            //        npcList.TryGetValue(instance_id, out npc);
-            //        return npc;
-            //    case TYPE.GOODS:
-            //        Goods goods = null;
-            //        goodsList.TryGetValue(instance_id, out goods);
-            //        return goods;
-            //    case TYPE.PET:
-            //        Pet pet = null;
-            //        petList.TryGetValue(instance_id, out pet);
-            //        return pet;
-            //    case TYPE.HERO:
-            //        Hero hero = null;
-            //        heroList.TryGetValue(instance_id, out hero);
-            //        return hero;
-            //    case TYPE.MONSTER:
-            //        Monster monster = null;
-            //        MonsterList.TryGetValue(instance_id, out monster);
-            //        return monster;
-            //    default:
-            //        return null;
-            //}
-            return null;
+            switch (type)
+            {
+                case UnitType.Player:
+                    PlayerUnit player;
+                    playerList.TryGetValue(instanceId, out player);
+                    return player;
+                case UnitType.Robot:
+                    Robot robot;
+                    robotList.TryGetValue(instanceId, out robot);
+                    return robot;
+                case UnitType.NPC:
+                    NPC npc;
+                    npcList.TryGetValue(instanceId, out npc);
+                    return npc;
+                case UnitType.Hero:
+                    HeroUnit hero;
+                    heroList.TryGetValue(instanceId, out hero);
+                    return hero;
+                case UnitType.Monster:
+                    Monster monster;
+                    monsterList.TryGetValue(instanceId, out monster);
+                    return monster;
+                default:
+                    return null;
+            }
         }
 
-        IReadOnlyDictionary<int, PlayerUnit> IUnitContainer.GetPlayers()
+        public IReadOnlyDictionary<long, PlayerUnit> GetPlayers()
         {
             return playerList;
         }
 
-        IReadOnlyDictionary<int, HeroUnit> IUnitContainer.GetHeroes()
+        public IReadOnlyDictionary<long, HeroUnit> GetHeroes()
         {
             return heroList;
         }
 
-        IReadOnlyDictionary<int, Monster> IUnitContainer.GetMonsters()
+        public IReadOnlyDictionary<long, Monster> GetMonsters()
         {
             return monsterList;
         }
 
-        IReadOnlyDictionary<int, NPC> IUnitContainer.GetNPCs()
+        public IReadOnlyDictionary<long, NPC> GetNPCs()
         {
             return npcList;
+        }
+
+        public IReadOnlyDictionary<long, Robot> GetRobots()
+        {
+            return robotList;
         }
     }
 
