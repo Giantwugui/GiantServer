@@ -11,13 +11,8 @@ namespace Giant.Net
     {
         private readonly ListMap<ushort, IMHandler> Handlers = new ListMap<ushort, IMHandler>();
 
-        public static MessageDispatcherComponent Instance { get; private set; }
-
-        public MessageDispatcherComponent() { }
-
         public override void Init()
         {
-            Instance = this;
             Load();
         }
 

@@ -19,6 +19,8 @@ namespace Giant.Net
         private readonly byte[] opcodeBytes = new byte[2];
         private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
 
+        private MessageDispatcherComponent msgDispatcherComponent;
+
         public NetworkComponent NetworkComponent => GetParent<NetworkComponent>();
 
         public long Id { get; private set; }
@@ -42,9 +44,11 @@ namespace Giant.Net
             Id = baseChannel.InstanceId;
             channel = baseChannel;
 
-            channel.OnReadCallback += OnRead;
-            channel.OnErrorCallback += OnError;
-            channel.OnConnectCallback += OnConnect;
+            msgDispatcherComponent = Scene.Pool.GetComponent<MessageDispatcherComponent>();
+
+            channel.RegistReadCallback(OnRead);
+            channel.RegistErrorCallback(OnError);
+            channel.RegistConnectCallback(OnConnect);
 
             AESCrypt = new AESCrypt();
         }
@@ -211,7 +215,7 @@ namespace Giant.Net
             }
             else
             {
-                MessageDispatcherComponent.Instance.Dispatch(this, opcode, message);
+                msgDispatcherComponent.Dispatch(this, opcode, message);
             }
         }
 

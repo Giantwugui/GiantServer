@@ -1,12 +1,12 @@
-﻿using Giant.Core;
-using Giant.Logger;
-using Giant.Util;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using Giant.Core;
+using Giant.Logger;
+using Giant.Util;
 
 namespace Giant.Net
 {

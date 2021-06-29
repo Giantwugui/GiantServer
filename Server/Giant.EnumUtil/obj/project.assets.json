@@ -8,7 +8,7 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\wanxin\\.nuget\\packages\\": {}
+    "C:\\Users\\WanXin_04\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -16,11 +16,11 @@
       "projectUniqueName": "D:\\wg\\Giant\\Server\\Giant.EnumUtil\\Giant.EnumUtil.csproj",
       "projectName": "Giant.EnumUtil",
       "projectPath": "D:\\wg\\Giant\\Server\\Giant.EnumUtil\\Giant.EnumUtil.csproj",
-      "packagesPath": "C:\\Users\\wanxin\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\WanXin_04\\.nuget\\packages\\",
       "outputPath": "D:\\wg\\Giant\\Server\\Giant.EnumUtil\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\wanxin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\WanXin_04\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

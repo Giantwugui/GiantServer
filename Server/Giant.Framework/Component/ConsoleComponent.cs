@@ -10,11 +10,8 @@ namespace Giant.Framework
     {
         private CancellationTokenSource cancellationTokenSource;
 
-        public static ConsoleComponent Instance { get; private set; }
-
         public override void Init()
         {
-            Instance = this;
             cancellationTokenSource = new CancellationTokenSource();
 
             ReadLineAsync();

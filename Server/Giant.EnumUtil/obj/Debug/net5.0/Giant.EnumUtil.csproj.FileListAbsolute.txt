@@ -16,4 +16,4 @@ D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\Giant.EnumUtil.csproj.CoreCom
 D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\Giant.EnumUtil.dll
 D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\ref\Giant.EnumUtil.dll
 D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\Giant.EnumUtil.pdb
-D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\Giant.EnumUtil.csprojAssemblyReference.cache
+D:\wg\Giant\Server\Giant.EnumUtil\obj\Debug\net5.0\Giant.EnumUtil.csproj.AssemblyReference.cache

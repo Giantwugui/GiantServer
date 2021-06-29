@@ -16,6 +16,10 @@ namespace Giant.Net
     /// </summary>
     public abstract class BaseChannel : Component
     {
+        private Action<object> onErrorCallback;
+        private Action<bool> onConnectCallback;
+        private Action<MemoryStream> onReadCallback;
+
         public ChannelType ChannelType { get; private set; }
         public bool IsConnected { get; protected set; }
         public IPEndPoint IPEndPoint { get; protected set; }
@@ -23,35 +27,14 @@ namespace Giant.Net
 
         public abstract MemoryStream Stream { get; }
 
-        private Action<bool> onConnectCallback;
-        public event Action<bool> OnConnectCallback
-        {
-            add { onConnectCallback += value; }
-            remove { onConnectCallback -= value; }
-        }
-
-        private Action<object> onErrorCallback;
-        public event Action<object> OnErrorCallback
-        {
-            add { onErrorCallback += value; }
-            remove { onErrorCallback -= value; }
-        }
-
-        private Action<MemoryStream> onReadCallback;
-        public event Action<MemoryStream> OnReadCallback
-        {
-            add { onReadCallback += value; }
-            remove { onReadCallback -= value; }
-        }
-
-        public BaseChannel(BaseNetService service, ChannelType type)
+        protected BaseChannel(BaseNetService service, ChannelType type)
         {
             InstanceId = IdGenerator.NewId;
             ChannelType = type;
             Service = service;
         }
 
-        public BaseChannel(long id, BaseNetService service, ChannelType type)
+        protected BaseChannel(long id, BaseNetService service, ChannelType type)
         {
             InstanceId = id;
             ChannelType = type;
@@ -62,11 +45,7 @@ namespace Giant.Net
 
         public abstract void Connect();
 
-        /// <summary>
-        /// 转发消息
-        /// </summary>
         public abstract void Send(MemoryStream stream);
-
 
         public virtual void Start()
         {
@@ -76,6 +55,21 @@ namespace Giant.Net
         {
             base.Dispose();
             Service.Remove(InstanceId);
+        }
+
+        public void RegistReadCallback(Action<MemoryStream> readCallback)
+        {
+            onReadCallback += readCallback;
+        }
+
+        public void RegistErrorCallback(Action<object> errorCallback)
+        {
+            onErrorCallback += errorCallback;
+        }
+
+        public void RegistConnectCallback(Action<bool> errorCallback)
+        {
+            onConnectCallback += errorCallback;
         }
 
         protected void OnConnected(bool connect)
