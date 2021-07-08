@@ -8,7 +8,7 @@ namespace Giant.Battle
 
         protected virtual void InitTrigger()
         {
-            TriggeComponent = ComponentFactory.CreateComponent<TriggerComponent, Unit>(this);
+            TriggeComponent = ComponentFactory.Create<TriggerComponent, Unit>(this);
         }
     }
 }

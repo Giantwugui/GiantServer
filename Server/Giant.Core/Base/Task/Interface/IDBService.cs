@@ -9,7 +9,7 @@
     }
 
     //提供多种数据库服务
-    public interface IMultDBService : IDataService
+    public interface IMultiDBService : IDataService
     {
         IDBService DBService { get; }
     }

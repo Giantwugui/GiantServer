@@ -44,14 +44,14 @@ namespace Giant.Net
             Socket.Bind(endPoint);
         }
 
-        public UdpService(int port, Action<BaseChannel> onAcceptCallback)
+        public UdpService(int port, Action<BaseChannel> acceptCallbackCallback)
         {
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
 
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             Socket.Bind(endPoint);
 
-            OnAccept += onAcceptCallback;
+            AcceptCallback += acceptCallbackCallback;
         }
 
 

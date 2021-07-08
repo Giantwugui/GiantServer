@@ -4,7 +4,7 @@ namespace Giant.Core
 {
     public class ComponentFactory
     {
-        public static T CreateComponent<T>() where T : Component
+        public static T Create<T>() where T : Component
         {
             T component = Activator.CreateInstance<T>();
 
@@ -14,7 +14,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponent<T, P>(P p) where T : Component
+        public static T Create<T, P>(P p) where T : Component
         {
             T component = Activator.CreateInstance<T>();
 
@@ -24,7 +24,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponent<T, P1, P2>(P1 tp1, P2 p2) where T : Component
+        public static T Create<T, P1, P2>(P1 tp1, P2 p2) where T : Component
         {
             T component = Activator.CreateInstance<T>();
 
@@ -34,7 +34,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponent<T, P1, P2, P3>(P1 p1, P2 p2, P3 p3) where T : Component
+        public static T Create<T, P1, P2, P3>(P1 p1, P2 p2, P3 p3) where T : Component
         {
             T component = Activator.CreateInstance<T>();
 
@@ -44,7 +44,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponent<T, P1, P2, P3, P4>(P1 p1, P2 p2, P3 p3, P4 p4) where T : Component
+        public static T Create<T, P1, P2, P3, P4>(P1 p1, P2 p2, P3 p3, P4 p4) where T : Component
         {
             T component = Activator.CreateInstance<T>();
 
@@ -54,7 +54,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponentWithParent<T>(Component parent) where T : Component
+        public static T CreateWithParent<T>(Component parent) where T : Component
         {
             T component = Activator.CreateInstance<T>();
             component.Parent = parent;
@@ -65,7 +65,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponentWithParent<T, P1>(Component parent, P1 p1) where T : Component
+        public static T CreateWithParent<T, P1>(Component parent, P1 p1) where T : Component
         {
             T component = Activator.CreateInstance<T>();
             component.Parent = parent;
@@ -76,7 +76,7 @@ namespace Giant.Core
             return component;
         }
 
-        public static T CreateComponentWithParent<T, P1, P2>(Component parent, P1 p1, P2 p2) where T : Component
+        public static T CreateWithParent<T, P1, P2>(Component parent, P1 p1, P2 p2) where T : Component
         {
             T component = Activator.CreateInstance<T>();
             component.Parent = parent;

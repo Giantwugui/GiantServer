@@ -5,7 +5,7 @@ namespace Giant.Core
 {
     public class Entity : Component
     {
-        private readonly Dictionary<long, Entity> children = new Dictionary<long, Entity>();
+        private readonly Dictionary<long, Entity> children = new();
         public Dictionary<long, Entity> Children => children;
 
 
@@ -24,7 +24,7 @@ namespace Giant.Core
         {
             if (children.TryGetValue(instanceId, out var entity))
             {
-                if (!entity.IsDisposed())
+                if (!entity.IsDisposed)
                 {
                     entity.Dispose();
                 }
@@ -35,7 +35,7 @@ namespace Giant.Core
 
         public override void Dispose()
         {
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
 
             long instanceId = InstanceId;
             base.Dispose();

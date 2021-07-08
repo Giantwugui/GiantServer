@@ -7,7 +7,7 @@ namespace Server.Relation
     {
         static void Main(string[] args)
         {
-            ComponentFactory.CreateComponent<BaseProgramComponent, string[]>(args);
+            ComponentFactory.Create<BaseProgramComponent, string[]>(args);
         }
     }
 }

@@ -15,13 +15,13 @@ namespace Giant.Framework
         {
             AppConfig = appConfig;
 
-            Scene.EventSystem.Handle(EventType.AffterFrontend, this);
+            Scene.EventSystem.Handle(EventType.InitFrontend, this);
         }
 
         public void Start()
         {
             Session?.Dispose();
-            Session = Scene.Pool.GetComponent<InnerNetworkComponent>().Create(AppConfig.InnerAddress);
+            Session = Scene.Pool.GetComponent<InnerNetComponent>().Create(AppConfig.InnerAddress);
             Session.OnConnectCallback += OnConnected;
             Session.Start();
         }
@@ -44,7 +44,7 @@ namespace Giant.Framework
 
         private void OnConnected(Session session, bool connState)
         {
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
 
             if (connState)
             {
@@ -65,7 +65,7 @@ namespace Giant.Framework
             await Task.Delay(3000);//3后重新连接
             Log.Warn($"app {Scene.AppConfig.AppType} {Scene.AppConfig.AppId} {Scene.AppConfig.SubId} connect to {AppConfig.AppType} {AppConfig.AppId} {Session.RemoteIPEndPoint}");
 
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
 
             Session.Connect();
         }

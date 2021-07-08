@@ -31,7 +31,7 @@ namespace Server.Zone
                     return;
                 }
 
-                player = ComponentFactory.CreateComponent<Player, PlayerInfo>(info);
+                player = ComponentFactory.Create<Player, PlayerInfo>(info);
             }
 
             PlayerManagerComponent.Instance.PlayerOnline(player);

@@ -12,7 +12,7 @@ namespace Server.Zone
 
         public void EnterWorld()
         {
-            PlayerUnit = ComponentFactory.CreateComponent<PlayerUnit, MapScene, Player>(CurrMap, this);
+            PlayerUnit = ComponentFactory.Create<PlayerUnit, MapScene, Player>(CurrMap, this);
 
             EnterMap(MapId);
         }

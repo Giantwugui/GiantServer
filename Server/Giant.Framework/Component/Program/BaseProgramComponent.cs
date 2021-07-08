@@ -11,7 +11,7 @@ namespace Giant.Framework
         public override void Init(string[] args)
         {
             //公共基础服务
-            ComponentFactory.CreateComponent<AppComponent, string[]>(args);
+            ComponentFactory.Create<AppComponent, string[]>(args);
 
             //启动服务注册
             Scene.EventSystem.Handle(EventType.InitDone);

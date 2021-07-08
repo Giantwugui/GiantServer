@@ -10,7 +10,7 @@ namespace Giant.DB.MySQL
 
         public override IDataService DataService => DBService;
 
-        public IMultDBService DBService => DBServiceComponent.Instance;
+        public IMultiDBService DBService => DBServiceComponent.Instance;
 
         public MySQLService Service
         {

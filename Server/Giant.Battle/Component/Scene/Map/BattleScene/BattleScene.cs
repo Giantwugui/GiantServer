@@ -48,7 +48,7 @@ namespace Giant.Battle
 
             foreach (var curr in monsters)
             {
-                Monster monster = ComponentFactory.CreateComponent<Monster, MonsterModel>(curr);
+                Monster monster = ComponentFactory.Create<Monster, MonsterModel>(curr);
                 AddMonster(monster);
             }
         }

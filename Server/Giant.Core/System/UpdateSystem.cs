@@ -5,5 +5,6 @@
         void Update(double dt);
     }
 
+    [ObjectAttribute]
     public interface IUpdateSystem : IUpdate { }
 }

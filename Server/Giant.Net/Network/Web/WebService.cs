@@ -22,9 +22,9 @@ namespace Giant.Net
         {
         }
 
-        public WebService(List<string> prefixes, Action<BaseChannel> onAcceptCallback)
+        public WebService(List<string> prefixes, Action<BaseChannel> acceptCallbackCallback)
         {
-            OnAccept += onAcceptCallback;
+            AcceptCallback += acceptCallbackCallback;
 
             httpListener = new HttpListener();
             prefixes.ForEach(prefixe => httpListener.Prefixes.Add(prefixe));

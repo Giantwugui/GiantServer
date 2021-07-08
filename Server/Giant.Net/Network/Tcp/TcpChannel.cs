@@ -4,6 +4,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using Giant.Logger;
 
 namespace Giant.Net
 {
@@ -14,43 +15,42 @@ namespace Giant.Net
 
         private readonly PacketPacker parser;
         private readonly MemoryStream memoryStream;
-        private readonly CircularBuffer recvBuffer = new CircularBuffer();//接收消息临时缓冲区
-        private readonly CircularBuffer sendBuffer = new CircularBuffer();//发送消息临时缓冲区
+        private readonly CircularBuffer recvBuffer = new();//接收消息临时缓冲区
+        private readonly CircularBuffer sendBuffer = new();//发送消息临时缓冲区
 
-        private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
-        private readonly SocketAsyncEventArgs outtererArgs = new SocketAsyncEventArgs();
+        private readonly SocketAsyncEventArgs innerArgs = new();
+        private readonly SocketAsyncEventArgs outerArgs = new();
 
-
-        public bool IsSending { get; private set; }
-        public bool IsConnecting { get; private set; }
-        public bool IsRecving { get; private set; }
+        private bool isSending;
+        private bool isConnecting;
+        private bool isRecving;
 
         public override MemoryStream Stream => memoryStream;
 
-        public TcpChannel(int packetSize, Socket socket, TcpService service) : base(service, ChannelType.Accepter)
+        public TcpChannel(Socket socket, TcpService service) : base(service, ChannelType.Accepter)
         {
             this.socket = socket;
             IsConnected = true;
 
             innerArgs.Completed += OnComplete;
-            outtererArgs.Completed += OnComplete;
+            outerArgs.Completed += OnComplete;
 
-            packetSizeCache = new byte[service.PacketSizeLength];
+            packetSizeCache = new byte[Packet.PacketSizeLength];
             memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            parser = new PacketPacker(packetSize, recvBuffer, memoryStream);
+            parser = new PacketPacker(recvBuffer, memoryStream);
         }
 
-        public TcpChannel(int packetSize, IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
+        public TcpChannel(IPEndPoint endPoint, TcpService service) : base(service, ChannelType.Connecter)
         {
             IsConnected = false;
             IPEndPoint = endPoint;
 
             innerArgs.Completed += OnComplete;
-            outtererArgs.Completed += OnComplete;
+            outerArgs.Completed += OnComplete;
 
-            packetSizeCache = new byte[service.PacketSizeLength];
+            packetSizeCache = new byte[Packet.PacketSizeLength];
             memoryStream = service.MemoryStreamManager.GetStream("message", ushort.MaxValue);
-            parser = new PacketPacker(packetSize, recvBuffer, memoryStream);
+            parser = new PacketPacker(recvBuffer, memoryStream);
 
             socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             //socket.NoDelay = true;
@@ -64,9 +64,9 @@ namespace Giant.Net
             }
             else
             {
-                if (!IsRecving)
+                if (!isRecving)
                 {
-                    IsRecving = true;
+                    isRecving = true;
                     StartRecv();
                 }
             }
@@ -82,32 +82,20 @@ namespace Giant.Net
 
         public override void Send(MemoryStream stream)
         {
-            if (IsDisposed()) return;
+            if (IsDisposed)
+            {
+                Log.Error("can not send message with disposed object");
+                return;
+            }
+
             if (!IsConnected) return;
 
-            switch (((TcpService)Service).PacketSizeLength)
+            if (stream.Length > ushort.MaxValue * 16)
             {
-                case Packet.PacketSizeLength2:
-                    {
-                        if (stream.Length > ushort.MaxValue)
-                        {
-                            throw new Exception($"send packet too large: {stream.Length}");
-                        }
-
-                        packetSizeCache.WriteTo(0, (ushort)stream.Length);
-                    }
-                    break;
-                case Packet.PacketSizeLength4:
-                    {
-                        if (stream.Length > ushort.MaxValue * 16)
-                        {
-                            throw new Exception($"send packet too large: {stream.Length}");
-                        }
-
-                        packetSizeCache.WriteTo(0, (int)stream.Length);
-                    }
-                    break;
+                throw new Exception($"send packet too large: {stream.Length}");
             }
+
+            packetSizeCache.WriteTo(0, (int)stream.Length);
 
             sendBuffer.Write(packetSizeCache, 0, packetSizeCache.Length);
             sendBuffer.Write(stream);
@@ -117,7 +105,7 @@ namespace Giant.Net
 
         public override void Update()
         {
-            if (!IsSending)
+            if (!isSending)
             {
             }
         }
@@ -142,12 +130,12 @@ namespace Giant.Net
 
         private void ConnectAsync()
         {
-            if (socket == null || IsConnecting)
+            if (socket == null || isConnecting)
             {
                 return;
             }
 
-            IsConnecting = true;
+            isConnecting = true;
             innerArgs.RemoteEndPoint = IPEndPoint;
             if (socket.ConnectAsync(innerArgs))
             {
@@ -159,17 +147,17 @@ namespace Giant.Net
 
         private void StartSend()
         {
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
             if (!IsConnected) return;
 
             // 没有数据需要发送
             if (sendBuffer.Length == 0)
             {
-                IsSending = false;
+                isSending = false;
                 return;
             }
 
-            IsSending = true;
+            isSending = true;
 
             int sendSize = sendBuffer.ChunkSize - sendBuffer.FirstIndex;
             if (sendSize > sendBuffer.Length)
@@ -182,7 +170,7 @@ namespace Giant.Net
 
         private void SendAsync(byte[] buffer, int offset, int count)
         {
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
 
             try
             {
@@ -216,16 +204,16 @@ namespace Giant.Net
 
         private void ReceiveAsync(byte[] buffer, int offset, int length)
         {
-            if (IsDisposed()) return;
+            if (IsDisposed) return;
             try
             {
-                outtererArgs.SetBuffer(buffer, offset, length);
-                if (socket.ReceiveAsync(outtererArgs))
+                outerArgs.SetBuffer(buffer, offset, length);
+                if (socket.ReceiveAsync(outerArgs))
                 {
                     return;
                 }
 
-                ReceiveComplete(outtererArgs);
+                ReceiveComplete(outerArgs);
             }
             catch (Exception)
             {
@@ -266,7 +254,7 @@ namespace Giant.Net
             {
                 OnError(e.SocketError);
             }
-            IsConnecting = false;
+            isConnecting = false;
         }
 
         private void ReceiveComplete(object eventArgs)

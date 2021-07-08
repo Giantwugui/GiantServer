@@ -72,11 +72,11 @@ namespace Giant.Framework
     public class TimerComponent : InitSystem, IUpdateSystem
     {
         private long minTime = 0;//最近过期时间
-        private readonly Dictionary<long, ITimer> timers = new Dictionary<long, ITimer>();//timerid,timerinfo
-        private readonly SortedDictionary<long, List<long>> waitDicts = new SortedDictionary<long, List<long>>();//time, timerId
+        private readonly Dictionary<long, ITimer> timers = new();//timerid,timerinfo
+        private readonly SortedDictionary<long, List<long>> waitDicts = new();//time, timerId
 
-        private readonly Queue<long> outOfTime = new Queue<long>();
-        private readonly Queue<long> outOfTimeIds = new Queue<long>();
+        private readonly Queue<long> outOfTime = new();
+        private readonly Queue<long> outOfTimeIds = new();
 
         public static TimerComponent Instance { get; private set; }
 
@@ -128,20 +128,20 @@ namespace Giant.Framework
 
         public void Wait(long delay, Action action)
         {
-            OnceTimer timer = ComponentFactory.CreateComponent<OnceTimer, Action>(action);
+            OnceTimer timer = ComponentFactory.Create<OnceTimer, Action>(action);
             Add(TimeHelper.NowMilliSeconds + delay, timer.InstanceId, timer);
         }
 
         public void WaitTill(long time, Action action)
         {
-            OnceTimer timer = ComponentFactory.CreateComponentWithParent<OnceTimer, Action>(this, action);
+            OnceTimer timer = ComponentFactory.CreateWithParent<OnceTimer, Action>(this, action);
             Add(time, timer.InstanceId, timer);
         }
 
         public Task<bool> WaitAsync(int delay)
         {
-            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
-            OnceTimer timer = ComponentFactory.CreateComponentWithParent<OnceTimer, Action>(this, () => tcs.SetResult(true));
+            TaskCompletionSource<bool> tcs = new();
+            OnceTimer timer = ComponentFactory.CreateWithParent<OnceTimer, Action>(this, () => tcs.SetResult(true));
             Add(TimeHelper.NowMilliSeconds + delay, timer.InstanceId, timer);
 
             return tcs.Task;
@@ -149,7 +149,7 @@ namespace Giant.Framework
 
         public RepeatTimer AddRepeatTimer(long repeatTime, Action action)
         {
-            RepeatTimer timer = ComponentFactory.CreateComponentWithParent<RepeatTimer, long, Action>(this, repeatTime, action);
+            RepeatTimer timer = ComponentFactory.CreateWithParent<RepeatTimer, long, Action>(this, repeatTime, action);
             Add(TimeHelper.NowMilliSeconds + repeatTime, timer.InstanceId, timer);
             return timer;
         }
@@ -164,7 +164,7 @@ namespace Giant.Framework
             }
 
             timers.Remove(id);
-            (timer as Component).Dispose();
+            (timer as Component)?.Dispose();
         }
 
         public void Add(long time, long id, ITimer timer)

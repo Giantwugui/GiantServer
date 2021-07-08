@@ -1,4 +1,5 @@
-﻿using Giant.Core;
+﻿using System.Collections.Generic;
+using Giant.Core;
 using System.Linq;
 using System.Net;
 
@@ -15,32 +16,9 @@ namespace Giant.Net
     {
         private BaseNetService service;
 
+        public readonly Dictionary<long, Session> Sessions = new Dictionary<long, Session>();
+
         public IMessagePacker MessageParser { get; set; }
-
-        public Session Create(string address)
-        {
-            return Create(NetworkHelper.ToIPEndPoint(address));
-        }
-
-        public Session Create(IPEndPoint endPoint)
-        {
-            BaseChannel channel = service.CreateChannel(endPoint);
-
-            Session session = ComponentFactory.CreateComponentWithParent<Session, BaseChannel>(this, channel);
-            AddChild(session);
-            return session;
-        }
-
-        public virtual void Update()
-        {
-            service.Update();
-        }
-
-        public virtual void Remove(Session session)
-        {
-            RemoveChild(session.InstanceId);
-            OnDisconnecte(session);
-        }
 
         public void Init(NetworkType network)
         {
@@ -48,7 +26,7 @@ namespace Giant.Net
             switch (network)
             {
                 case NetworkType.Tcp:
-                    service = new TcpService(Packet.PacketSizeLength2);
+                    service = new TcpService();
                     break;
                 case NetworkType.Udp:
                     service = new UdpService();
@@ -67,7 +45,7 @@ namespace Giant.Net
             {
                 case NetworkType.Tcp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
-                    service = new TcpService(Packet.PacketSizeLength2, endPoint, channel => OnAccept(channel));
+                    service = new TcpService(endPoint, channel => OnAccept(channel));
                     break;
                 case NetworkType.Udp:
                     endPoint = NetworkHelper.ToIPEndPoint(address);
@@ -79,17 +57,63 @@ namespace Giant.Net
             }
         }
 
-        public virtual Session OnAccept(BaseChannel baseChannel)
+        protected virtual Session OnAccept(BaseChannel channel)
         {
-            Session session = ComponentFactory.CreateComponentWithParent<Session, BaseChannel>(this, baseChannel);
-            baseChannel.Start();
-
-            AddChild(session);
+            Session session = ComponentFactory.CreateWithParent<Session, BaseChannel>(this, channel);
+			Sessions.Add(session.Id, session);
+            channel.Start();
             return session;
         }
 
-        public virtual void OnDisconnecte(Session session)
+        protected virtual void OnDisconnect(Session session)
         {
+        }
+
+        public virtual void Remove(long id)
+        {
+            if (!this.Sessions.TryGetValue(id, out var session))
+            {
+                return;
+            }
+            this.Sessions.Remove(id);
+            session.Dispose();
+        }
+
+        public Session Get(long id)
+        {
+            this.Sessions.TryGetValue(id, out var session);
+            return session;
+        }
+
+        public Session Create(string address)
+        {
+            return Create(NetworkHelper.ToIPEndPoint(address));
+        }
+
+        public Session Create(IPEndPoint endPoint)
+        {
+            BaseChannel channel = service.CreateChannel(endPoint);
+            Session session = ComponentFactory.CreateWithParent<Session, BaseChannel>(this, channel);
+			Sessions.Add(session.Id, session);
+            channel.Start();
+            return session;
+        }
+
+        public virtual void Update()
+        {
+            service.Update();
+        }
+
+        public override void Dispose()
+        {
+            if (this.IsDisposed)
+            {
+                return;
+            }
+
+            base.Dispose();
+
+            service.Dispose();
         }
     }
 }

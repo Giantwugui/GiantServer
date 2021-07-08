@@ -25,7 +25,7 @@ namespace Giant.Framework
                 Log.Error("request == null");
             }
 
-            BackendComponent service = ComponentFactory.CreateComponent<BackendComponent, AppType, int, int, Session>(
+            BackendComponent service = ComponentFactory.Create<BackendComponent, AppType, int, int, Session>(
                 (AppType)request.AppType, request.AppId, request.SubId, session);
             NetProxyComponent.Instance.RegistBackendService(service);
 

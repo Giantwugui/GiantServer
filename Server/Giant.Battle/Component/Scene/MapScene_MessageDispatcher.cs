@@ -9,7 +9,7 @@ namespace Giant.Battle
 
         protected void InitMessageDispatcher()
         {
-            msgDispatcher = ComponentFactory.CreateComponent<MsgDispatchComponent, MapScene>(this);
+            msgDispatcher = ComponentFactory.Create<MsgDispatchComponent, MapScene>(this);
         }
 
         public MsgDispatchComponent GetMsgDispatcher()

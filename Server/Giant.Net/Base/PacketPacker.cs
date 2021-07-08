@@ -11,8 +11,7 @@ namespace Giant.Net
 
     public static class Packet
     {
-        public const int PacketSizeLength2 = 2;
-        public const int PacketSizeLength4 = 4;
+        public const int PacketSizeLength = 4;
         public const int MinPacketSize = 2;
         public const int OpcodeIndex = 0;
         public const int MessageIndex = 2;
@@ -24,14 +23,12 @@ namespace Giant.Net
         private int packetSize;
         private PackerState state;
         private readonly CircularBuffer buffer;
-        private readonly int packetSizeLength;
         private MemoryStream memoryStream;
 
-        public PacketPacker(int packetSizeLength, CircularBuffer buffer, MemoryStream memoryStream)
+        public PacketPacker(CircularBuffer buffer, MemoryStream memoryStream)
         {
             this.buffer = buffer;
             this.memoryStream = memoryStream;
-            this.packetSizeLength = packetSizeLength;
         }
 
         public bool Parse()
@@ -47,7 +44,7 @@ namespace Giant.Net
                 switch (state)
                 {
                     case PackerState.PacketSize:
-                        if (buffer.Length < packetSizeLength)
+                        if (buffer.Length < Packet.PacketSizeLength)
                         {
                             finish = true;
                         }
@@ -56,27 +53,14 @@ namespace Giant.Net
                             byte[] bytes = memoryStream.GetBuffer();
 
                             //获取消息长度放入到memorystream
-                            buffer.Read(bytes, 0, packetSizeLength);
+                            buffer.Read(bytes, 0, Packet.PacketSizeLength);
 
-                            switch (packetSizeLength)
+                            packetSize = BitConverter.ToInt32(bytes, 0);
+                            if (packetSize > ushort.MaxValue * 16 || packetSize < Packet.MinPacketSize)
                             {
-                                case Packet.PacketSizeLength4:
-                                    packetSize = BitConverter.ToInt32(bytes, 0);
-                                    if (packetSize > ushort.MaxValue * 16 || packetSize < Packet.MinPacketSize)
-                                    {
-                                        throw new Exception($"recv packet size error: {packetSize}");
-                                    }
-                                    break;
-                                case Packet.PacketSizeLength2:
-                                    packetSize = BitConverter.ToUInt16(bytes, 0);
-                                    if (packetSize > ushort.MaxValue || packetSize < Packet.MinPacketSize)
-                                    {
-                                        throw new Exception($"recv packet size error: {packetSize}");
-                                    }
-                                    break;
-                                default:
-                                    throw new Exception("packet size byte count must be 2 or 4!");
+                                throw new Exception($"recv packet size error: {packetSize}");
                             }
+
                             state = PackerState.PacketBody;
                         }
                         break;

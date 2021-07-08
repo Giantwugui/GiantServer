@@ -17,8 +17,8 @@ namespace Giant.Battle
         private float duration;
 
         //当前位置
-        private Vector2 curPositionCopy = new Vector2(Vector2.zero.x, Vector2.zero.y);
-        private Vector2 curPosition = new Vector2(Vector2.zero.x, Vector2.zero.y);
+        private Vector2 curPositionCopy = new(Vector2.zero.x, Vector2.zero.y);
+        private Vector2 curPosition = new(Vector2.zero.x, Vector2.zero.y);
         public Vector2 CurPosition
         {
             get
@@ -32,11 +32,11 @@ namespace Giant.Battle
         /// <summary>
         /// 位移起点
         /// </summary>
-        private Vector2 moveFromPosition= new Vector2();
+        private Vector2 moveFromPosition= new();
         /// <summary>
         /// 位移终点
         /// </summary>
-        private Vector2 moveToPosition = new Vector2();
+        private Vector2 moveToPosition = new();
         /// <summary>
         /// 移动路径
         /// </summary>
@@ -60,7 +60,7 @@ namespace Giant.Battle
         /// <summary>
         /// 寻路终点
         /// </summary>
-        public Vector2 pathDestination = new Vector2();
+        public Vector2 pathDestination = new();
 
 
         public void Init(Unit unit)

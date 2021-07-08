@@ -20,7 +20,7 @@ namespace Server.Zone
                     break;
                 case AppType.Zone:
                     //注册战斗回调事件
-                    Scene.EventSystem.Regist(typeof(BattleScene).Assembly);
+                    Scene.EventSystem.Add(typeof(BattleScene).Assembly);
 
                     //各种读表
                     Scene.Pool.AddComponent<MapGridLibrary>();

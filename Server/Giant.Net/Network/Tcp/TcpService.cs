@@ -11,28 +11,26 @@ namespace Giant.Net
 
     public class TcpService : BaseNetService
     {
-        private readonly SocketAsyncEventArgs innerArgs = new SocketAsyncEventArgs();
-        public readonly RecyclableMemoryStreamManager MemoryStreamManager = new RecyclableMemoryStreamManager();
+        private readonly SocketAsyncEventArgs innerArgs = new();
+
+        public readonly RecyclableMemoryStreamManager MemoryStreamManager = new();
+
+        private List<long> needStartSendChannel = new();
 
         /// <summary>
         /// 所有客户端连接信息
         /// </summary>
-        private Dictionary<long, TcpChannel> channels = new Dictionary<long, TcpChannel>();
+        private Dictionary<long, TcpChannel> channels = new();
         public Dictionary<long, TcpChannel> Channels { get { return channels; } }
 
 
-        public int PacketSizeLength { get; set; }
-
-        public TcpService(int packetSizeLength)
+        public TcpService()
         {
-            PacketSizeLength = packetSizeLength;
         }
 
-        public TcpService(int packetSizeLength, IPEndPoint endPoint, Action<BaseChannel> onAcceptCallback)
+        public TcpService(IPEndPoint endPoint, Action<BaseChannel> acceptCallbackCallback)
         {
-            PacketSizeLength = packetSizeLength;
-
-            OnAccept += onAcceptCallback;
+            AcceptCallback += acceptCallbackCallback;
             innerArgs.Completed += OnComplete;
 
             Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -82,11 +80,16 @@ namespace Giant.Net
         /// <returns></returns>
         public override BaseChannel CreateChannel(IPEndPoint endPoint)
         {
-            TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, endPoint, this);
+            TcpChannel channel = new TcpChannel(endPoint, this);
 
             channels[channel.InstanceId] = channel;
 
             return channel;
+        }
+
+        public void MarkNeedStartSend(long id)
+        {
+            this.needStartSendChannel.Add(id);
         }
 
         private void AcceptAsync()
@@ -129,7 +132,7 @@ namespace Giant.Net
 
             try
             {
-                TcpChannel channel = new TcpChannel(Packet.PacketSizeLength2, eventArgs.AcceptSocket, this);
+                TcpChannel channel = new TcpChannel(eventArgs.AcceptSocket, this);
 
                 channels[channel.InstanceId] = channel;
 

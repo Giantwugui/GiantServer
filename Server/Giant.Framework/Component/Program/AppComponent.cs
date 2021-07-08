@@ -24,8 +24,8 @@ namespace Giant.Framework
             Logger.Log.Init(true, appOption.AppType.ToString(), appOption.AppId, appOption.SubId);
 
             //注册Event
-            Scene.EventSystem.Regist(Assembly.GetEntryAssembly());
-            Scene.EventSystem.Regist(typeof(NetProxyComponent).Assembly);
+            Scene.EventSystem.Add(Assembly.GetEntryAssembly());
+            Scene.EventSystem.Add(typeof(NetProxyComponent).Assembly);
 
             // 异步方法全部会回掉到主线程
             SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
@@ -59,11 +59,11 @@ namespace Giant.Framework
             //网络
             if (!string.IsNullOrEmpty(Scene.AppConfig.InnerAddress))
             {
-                Scene.Pool.AddComponent<InnerNetworkComponent, NetworkType, string>(NetworkType.Tcp, Scene.AppConfig.InnerAddress);
+                Scene.Pool.AddComponent<InnerNetComponent, NetworkType, string>(NetworkType.Tcp, Scene.AppConfig.InnerAddress);
             }
             if (!string.IsNullOrEmpty(Scene.AppConfig.OutterAddress))
             {
-                Scene.Pool.AddComponent<OutterNetworkComponent, NetworkType, string>(NetworkType.Tcp, Scene.AppConfig.OutterAddress);
+                Scene.Pool.AddComponent<OuterNetComponent, NetworkType, string>(NetworkType.Tcp, Scene.AppConfig.OutterAddress);
             }
         }
     }

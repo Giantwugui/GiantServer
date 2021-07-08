@@ -60,7 +60,7 @@ namespace Server.Gate
             Client client = ClientManagerComponent.Instance.GetClient(session.Id);
             client?.Dispose();
 
-            client = ComponentFactory.CreateComponent<Client, Session, string>(session, request.Account);
+            client = ComponentFactory.Create<Client, Session, string>(session, request.Account);
             ClientManagerComponent.Instance.Add(client);
 
             var query = new MongoDBQuery<PlayerInfo>(DBName.Player, x => x.Uid == request.Uid);

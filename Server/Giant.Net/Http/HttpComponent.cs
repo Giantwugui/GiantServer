@@ -13,9 +13,9 @@ namespace Giant.Net
     public class HttpComponent : Component, IInitSystem<int>
     {
         private HttpListener httpListener;
-        private readonly Dictionary<string, MethodInfo> getMethodes = new Dictionary<string, MethodInfo>();
-        private readonly Dictionary<string, MethodInfo> postMethodes = new Dictionary<string, MethodInfo>();
-        private readonly Dictionary<MethodInfo, BaseHttpHandler> methodClassMap = new Dictionary<MethodInfo, BaseHttpHandler>();
+        private readonly Dictionary<string, MethodInfo> getMethodes = new();
+        private readonly Dictionary<string, MethodInfo> postMethodes = new();
+        private readonly Dictionary<MethodInfo, BaseHttpHandler> methodClassMap = new();
 
         public void Init(int port)
         {
@@ -110,7 +110,7 @@ namespace Giant.Net
                         break;
                     case "POST":
                         postMethodes.TryGetValue(context.Request.Url.AbsolutePath, out method);
-                        using (StreamReader reader = new StreamReader(context.Request.InputStream))
+                        using (StreamReader reader = new(context.Request.InputStream))
                         {
                             content = await reader.ReadToEndAsync();
                         }
@@ -140,7 +140,7 @@ namespace Giant.Net
 
                 if (result != null)
                 {
-                    using StreamWriter writer = new StreamWriter(context.Response.OutputStream);
+                    using StreamWriter writer = new(context.Response.OutputStream);
                     writer.Write(result.ToJson());
                 }
             }

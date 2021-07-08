@@ -25,7 +25,7 @@ namespace Giant.Framework
                     return;
                 }
 
-                FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
+                FrontendComponent frontend = ComponentFactory.Create<FrontendComponent, AppConfig>(config);
                 NetProxyComponent.Instance.GetFrontendServiceManager(appType).AddService(frontend);
                 frontend.Start();
             }

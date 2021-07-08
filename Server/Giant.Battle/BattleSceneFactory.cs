@@ -12,7 +12,7 @@ namespace Giant.Battle
             {
                 case MapType.Normal:
                 default:
-                    return ComponentFactory.CreateComponent<BattleScene, int, int>(mapId, channel);
+                    return ComponentFactory.Create<BattleScene, int, int>(mapId, channel);
             }
         }
     }

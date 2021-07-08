@@ -4,7 +4,7 @@ using Giant.Model;
 
 namespace Giant.DB
 {
-    public class DBServiceComponent : InitSystem<DBType, DBConfig>, IMultDBService
+    public class DBServiceComponent : InitSystem<DBType, DBConfig>, IMultiDBService
     {
         private DBType dbType;
 

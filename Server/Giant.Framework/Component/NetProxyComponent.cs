@@ -9,8 +9,8 @@ namespace Giant.Framework
 {
     public class NetProxyComponent : InitSystem
     {
-        private readonly Dictionary<AppType, FrontendManagerComponent> frontendServices = new Dictionary<AppType, FrontendManagerComponent>();
-        private readonly Dictionary<AppType, BackendManagerComponent> backendServices = new Dictionary<AppType, BackendManagerComponent>();
+        private readonly Dictionary<AppType, FrontendManagerComponent> frontendServices = new();
+        private readonly Dictionary<AppType, BackendManagerComponent> backendServices = new();
 
         public static NetProxyComponent Instance { get; private set; }
 
@@ -24,13 +24,14 @@ namespace Giant.Framework
             {
                 return;
             }
+
             AppConfig config = Scene.Pool.GetComponent<AppConfigLibrary>().GetNetConfig(AppType.Global);
             if (config == null)
             {
                 return;
             }
 
-            FrontendComponent frontend = ComponentFactory.CreateComponent<FrontendComponent, AppConfig>(config);
+            FrontendComponent frontend = ComponentFactory.Create<FrontendComponent, AppConfig>(config);
             AddFrontend(frontend);
         }
 
@@ -40,7 +41,7 @@ namespace Giant.Framework
         {
             if (!frontendServices.TryGetValue(appType, out var manager))
             {
-                manager = ComponentFactory.CreateComponent<FrontendManagerComponent>();
+                manager = ComponentFactory.Create<FrontendManagerComponent>();
                 frontendServices.Add(appType, manager);
             }
             return manager;
@@ -117,7 +118,7 @@ namespace Giant.Framework
         {
             if (!backendServices.TryGetValue(appType, out var manager))
             {
-                manager = ComponentFactory.CreateComponent<BackendManagerComponent>();
+                manager = ComponentFactory.Create<BackendManagerComponent>();
                 backendServices.Add(appType, manager);
             }
             return manager;

@@ -31,7 +31,7 @@ namespace Server.Zone
                 List<int> channel = kv.Value.GetString("Channel").ToIntList();
                 foreach (var curChannel in channel)
                 {
-                    MapScene mapScene = ComponentFactory.CreateComponent<MapScene, int, int>(mapId, curChannel);
+                    MapScene mapScene = ComponentFactory.Create<MapScene, int, int>(mapId, curChannel);
                     AddMap(mapScene);
                 }
             }

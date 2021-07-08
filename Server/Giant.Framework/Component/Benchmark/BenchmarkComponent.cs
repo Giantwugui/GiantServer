@@ -27,7 +27,7 @@ namespace Giant.Framework
 
         public void TestAsync(IPEndPoint ipEndPoint)
         {
-            OutterNetworkComponent component = Scene.Pool.GetComponent<OutterNetworkComponent>();
+            OuterNetComponent component = Scene.Pool.GetComponent<OuterNetComponent>();
             Session session = component.Create(ipEndPoint);
             session.OnConnectCallback += (async (se, state) =>
             {

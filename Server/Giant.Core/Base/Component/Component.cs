@@ -41,9 +41,6 @@ namespace Giant.Core
             InstanceId = 0;
         }
 
-        public bool IsDisposed()
-        {
-            return InstanceId == 0;
-        }
+        public bool IsDisposed=> InstanceId == 0;
     }
 }

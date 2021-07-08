@@ -17,7 +17,7 @@ namespace Giant.Net
         private int rpcId;
         private BaseChannel channel;//通讯对象
         private readonly byte[] opcodeBytes = new byte[2];
-        private readonly Dictionary<int, Action<IResponse>> responseCallback = new Dictionary<int, Action<IResponse>>();//消息回调
+        private readonly Dictionary<int, Action<IResponse>> responseCallback = new();//消息回调
 
         private MessageDispatcherComponent msgDispatcherComponent;
 
@@ -70,7 +70,7 @@ namespace Giant.Net
 
             ushort opcode = OpcodeComponent.Instance.GetOpcode(request.GetType());
 
-            TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
+            TaskCompletionSource<IResponse> tcs = new();
 
             responseCallback[rpcId] = (response) =>
             {
@@ -105,7 +105,7 @@ namespace Giant.Net
 
             ushort opcode = OpcodeComponent.Instance.GetOpcode(request.GetType());
 
-            TaskCompletionSource<IResponse> tcs = new TaskCompletionSource<IResponse>();
+            TaskCompletionSource<IResponse> tcs = new();
 
             responseCallback[rpcId] = (response) =>
             {
@@ -234,7 +234,7 @@ namespace Giant.Net
                     break;
             }
 
-            NetworkComponent.Remove(this);
+            NetworkComponent.Remove(InstanceId);
         }
 
         public void OnConnect(bool connState)

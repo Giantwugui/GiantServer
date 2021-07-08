@@ -19,7 +19,7 @@ namespace Giant.Framework
             AppType = appType;
             session.OnConnectCallback += OnDisconnect;
 
-            Scene.EventSystem.Handle(EventType.AffterBackend, this);
+            Scene.EventSystem.Handle(EventType.InitBackend, this);
         }
 
         private void OnDisconnect(Session session, bool connectState)

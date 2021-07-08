@@ -31,7 +31,7 @@ namespace Giant.Battle
             MsgSubscriber subscriber = GetSubscriber(type);
             if (subscriber == null)
             {
-                subscriber = ComponentFactory.CreateComponent<MsgSubscriber, TriggerMessageType>(type);
+                subscriber = ComponentFactory.Create<MsgSubscriber, TriggerMessageType>(type);
                 subscribers[type] = subscriber;
             }
             subscriber.Subscribes += action;

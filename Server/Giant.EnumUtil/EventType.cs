@@ -4,8 +4,8 @@
     {
         //1-1000 系统事件
         InitDone = 1,
-        AffterFrontend = 2,
-        AffterBackend = 3,
+        InitFrontend = 2,
+        InitBackend = 3,
         CommandLine = 4,
     }
 }
