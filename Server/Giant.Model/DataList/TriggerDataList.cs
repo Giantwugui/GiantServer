@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class TriggerLibrary : SingleDataComponent<TriggerLibrary, TriggerModel>
+    public class TriggerDataList : SingleDataComponent<TriggerDataList, TriggerModel>
     {
         public override void Load()
         {

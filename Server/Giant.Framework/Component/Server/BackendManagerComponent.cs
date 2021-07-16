@@ -28,7 +28,7 @@ namespace Giant.Framework
         public override void NotifyServiceInfo(BackendComponent backend)
         {
             BackendComponent server;
-            NetGraphLibrary component = Scene.Pool.GetComponent<NetGraphLibrary>();
+            NetGraphDataList component = Scene.Pool.GetComponent<NetGraphDataList>();
             foreach (var app in services)
             {
                 foreach (var service in app.Value)

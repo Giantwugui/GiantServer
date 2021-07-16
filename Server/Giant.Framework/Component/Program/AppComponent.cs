@@ -32,10 +32,10 @@ namespace Giant.Framework
 
             //xml表
             Scene.Pool.AddComponent<DataComponent>();
-            Scene.Pool.AddComponent<AppConfigLibrary>();
-            Scene.Pool.AddComponent<NetGraphLibrary>();
+            Scene.Pool.AddComponent<AppConfigDataList>();
+            Scene.Pool.AddComponent<NetGraphDataList>();
 
-            Scene.AppConfig = Scene.Pool.GetComponent<AppConfigLibrary>().GetNetConfig(appOption.AppType);
+            Scene.AppConfig = Scene.Pool.GetComponent<AppConfigDataList>().GetNetConfig(appOption.AppType);
 
             Scene.Pool.AddComponent<KeyboardInputEventComponent>();
             Scene.Pool.AddComponent<OpcodeComponent>();
@@ -44,7 +44,7 @@ namespace Giant.Framework
             Scene.Pool.AddComponent<NetProxyComponent>();
             Scene.Pool.AddComponent<ConsoleComponent>();
 
-            DBConfigLibrary component = Scene.Pool.AddComponent<DBConfigLibrary>();
+            DBConfigDataList component = Scene.Pool.AddComponent<DBConfigDataList>();
             if (Scene.AppConfig.AppType.NeedDBService())
             {
                 Scene.Pool.AddComponent<DBServiceComponent, DBType, DBConfig>(DBType.MongoDB, component.DBConfig);

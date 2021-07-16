@@ -25,7 +25,7 @@ namespace Giant.Framework
                 return;
             }
 
-            AppConfig config = Scene.Pool.GetComponent<AppConfigLibrary>().GetNetConfig(AppType.Global);
+            AppConfig config = Scene.Pool.GetComponent<AppConfigDataList>().GetNetConfig(AppType.Global);
             if (config == null)
             {
                 return;

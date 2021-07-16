@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Giant.Model
 {
-    public class MonsterLibrary : SingleDataComponent<MonsterLibrary, MonsterModel>
+    public class MonsterDataList : SingleDataComponent<MonsterDataList, MonsterModel>
     {
         private readonly Dictionary<int, List<MonsterModel>> dungeonMonsters = new Dictionary<int, List<MonsterModel>>();
 

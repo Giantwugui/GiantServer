@@ -2,11 +2,11 @@
 
 namespace Giant.Model
 {
-    public class SkillLibrary : SingleDataComponent<SkillLibrary, SkillModel>
+    public class DungeonDataList : SingleDataComponent<DungeonDataList, DungeonModel>
     {
         public override void Load()
         {
-            //Load("Skill");
+            Load("Dungeon");
         }
     }
 }

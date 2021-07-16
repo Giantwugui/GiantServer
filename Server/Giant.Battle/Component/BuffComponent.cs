@@ -22,7 +22,7 @@ namespace Giant.Battle
 
         public bool AddBuff(int buffId)
         {
-            BuffModel model = BuffLibrary.Instance.GetModel(buffId);
+            BuffModel model = BuffDataList.Instance.GetModel(buffId);
             if (model == null)
             {
                 Log.Warn($"have no this buff {buffId}");

@@ -2,7 +2,7 @@
 
 namespace Giant.Model
 {
-    public class DBConfigLibrary : InitLoadSystem
+    public class DBConfigDataList : InitLoadSystem
     {
         public DBConfig DBConfig { get; private set; }
         public RedisConfig RedisConfig { get; private set; }

@@ -12,10 +12,11 @@ namespace Giant.Core
         private readonly Dictionary<string, Assembly> assemblies = new();
         private readonly ListMap<Type, Type> attributeTypes = new();
 
-        private readonly DepthMap<Type, long, ILoadSystem> loadComponent = new();
-        private readonly DepthMap<Type, long, IUpdateSystem> updateComponent = new();
+        private readonly DepthMap<Type, long, ILoadSystem> loadComponents = new();
+        private readonly DepthMap<Type, long, IUpdateSystem> updateComponents = new();
 
-        private readonly ListMap<EventType, IEvent> eventList = new();
+        private readonly ListMap<EventType, IEvent> eventComponents = new();
+
         private readonly Dictionary<Type, ISystem> systems = new();
 
 
@@ -35,29 +36,38 @@ namespace Giant.Core
                 }
             }
 
-            eventList.Clear();
+            eventComponents.Clear();
             if (attributeTypes.TryGetValue(typeof(EventAttribute), out var types))
             {
                 foreach (var type in types)
                 {
-                    if (!(Activator.CreateInstance(type) is IEvent eve)) continue;
+                    if (Activator.CreateInstance(type) is not IEvent eve)
+                    {
+                        continue;
+                    }
 
-                    if (!(type.GetCustomAttribute(typeof(EventAttribute)) is EventAttribute attribute)) continue;
+                    if (type.GetCustomAttribute(typeof(EventAttribute)) is not EventAttribute attribute)
+                    {
+                        continue;
+                    }
 
-                    SubscribeEvent(attribute.EventType, eve);
+                    eventComponents.Add(attribute.EventType, eve);
                 }
             }
 
-            //systems.Clear();
-            //if (attributeTypes.TryGetValue(typeof(SystemAttribute), out var types))
-            //{
-            //    foreach (var type in types)
-            //    {
-            //        if (!(Activator.CreateInstance(type) is ISystem sys)) continue;
+            systems.Clear();
+            if (attributeTypes.TryGetValue(typeof(SystemAttribute), out var sysTypes))
+            {
+                foreach (var type in sysTypes)
+                {
+                    if (Activator.CreateInstance(type) is not ISystem sys)
+                    {
+                        continue;
+                    }
 
-            //        systems.Add(type, sys);
-            //    }
-            //}
+                    systems.Add(type, sys);
+                }
+            }
         }
 
         public void Register(Component component)
@@ -65,23 +75,23 @@ namespace Giant.Core
             switch (component)
             {
                 case ILoadSystem load:
-                    loadComponent.Add(component.GetType(), component.InstanceId, load);
+                    loadComponents.Add(component.GetType(), component.InstanceId, load);
                     break;
                 case IUpdateSystem update:
-                    updateComponent.Add(component.GetType(), component.InstanceId, update);
+                    updateComponents.Add(component.GetType(), component.InstanceId, update);
                     break;
             }
         }
 
         public void Remove(Component component)
         {
-            updateComponent.Remove(component.GetType(), component.InstanceId);
-            loadComponent.Remove(component.GetType(), component.InstanceId);
+            updateComponents.Remove(component.GetType(), component.InstanceId);
+            loadComponents.Remove(component.GetType(), component.InstanceId);
         }
 
         public void Update(double delayTime)
         {
-            foreach (var kv in updateComponent)
+            foreach (var kv in updateComponents)
             {
                 foreach (var curr in kv.Value)
                 {
@@ -92,7 +102,7 @@ namespace Giant.Core
 
         public void Load()
         {
-            foreach (var kv in loadComponent)
+            foreach (var kv in loadComponents)
             {
                 foreach (var curr in kv.Value)
                 {
@@ -109,14 +119,9 @@ namespace Giant.Core
 
         #region event
 
-        public void SubscribeEvent(EventType type, IEvent @event)
-        {
-            eventList.Add(type, @event);
-        }
-
         public void Handle(EventType type)
         {
-            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            if (!eventComponents.TryGetValue(type, out var eventSystems)) return;
             foreach (var kv in eventSystems)
             {
                 if (kv is Event)
@@ -128,7 +133,7 @@ namespace Giant.Core
 
         public void Handle<A>(EventType type, A a)
         {
-            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            if (!eventComponents.TryGetValue(type, out var eventSystems)) return;
             foreach (var kv in eventSystems)
             {
                 if (kv is Event<A>)
@@ -140,7 +145,7 @@ namespace Giant.Core
 
         public void Handle<A, B>(EventType type, A a, B b)
         {
-            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            if (!eventComponents.TryGetValue(type, out var eventSystems)) return;
             foreach (var kv in eventSystems)
             {
                 if (kv is Event<A, B>)
@@ -152,7 +157,7 @@ namespace Giant.Core
 
         public void Handle<A, B, C>(EventType type, A a, B b, C c)
         {
-            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            if (!eventComponents.TryGetValue(type, out var eventSystems)) return;
             foreach (var kv in eventSystems)
             {
                 if (kv is Event<A, B, C>)
@@ -164,7 +169,7 @@ namespace Giant.Core
 
         public void Handle<A, B, C, D>(EventType type, A a, B b, C c, D d)
         {
-            if (!eventList.TryGetValue(type, out var eventSystems)) return;
+            if (!eventComponents.TryGetValue(type, out var eventSystems)) return;
             foreach (var kv in eventSystems)
             {
                 if (kv is Event<A, B, C, D>)

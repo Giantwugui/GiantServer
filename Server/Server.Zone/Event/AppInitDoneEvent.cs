@@ -23,13 +23,13 @@ namespace Server.Zone
                     Scene.EventSystem.Add(typeof(BattleScene).Assembly);
 
                     //各种读表
-                    Scene.Pool.AddComponent<MapGridLibrary>();
-                    Scene.Pool.AddComponent<MapLibrary>();
-                    Scene.Pool.AddComponent<DungeonLibrary>();
-                    Scene.Pool.AddComponent<MonsterLibrary>();
-                    Scene.Pool.AddComponent<SkillLibrary>();
-                    Scene.Pool.AddComponent<BuffLibrary>();
-                    Scene.Pool.AddComponent<TriggerLibrary>();
+                    Scene.Pool.AddComponent<MapGridDataList>();
+                    Scene.Pool.AddComponent<MapDataList>();
+                    Scene.Pool.AddComponent<DungeonDataList>();
+                    Scene.Pool.AddComponent<MonsterDataList>();
+                    Scene.Pool.AddComponent<SkillDataList>();
+                    Scene.Pool.AddComponent<BuffDataList>();
+                    Scene.Pool.AddComponent<TriggerDataList>();
 
                     //世界地图信息
                     Scene.Pool.AddComponent<MapSceneManangerComponent>();

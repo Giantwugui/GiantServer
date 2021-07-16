@@ -39,7 +39,7 @@ namespace Giant.Battle
         {
             //TODO 种怪逻辑
 
-            var monsters = MonsterLibrary.Instance.GetMonsterModels(DungeonId);
+            var monsters = MonsterDataList.Instance.GetMonsterModels(DungeonId);
             if (monsters == null)
             {
                 Log.Error($"monsters error monster id {DungeonId}");

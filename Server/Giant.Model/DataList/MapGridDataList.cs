@@ -6,7 +6,7 @@ namespace Giant.Model
     /// <summary>
     /// 地形信息
     /// </summary>
-    public class MapGridLibrary : SingleComponent<MapGridLibrary>
+    public class MapGridDataList : SingleComponent<MapGridDataList>
     {
         private Dictionary<string, GeoMapModel> mapGridList = new Dictionary<string, GeoMapModel>();
 

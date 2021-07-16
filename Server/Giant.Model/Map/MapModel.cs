@@ -47,7 +47,7 @@ namespace Giant.Model
             string[] beginPos = data.GetString("BeginPosition").Split(':');
             BeginPosition = beginPos.Length == 2 ? new Vector2(int.Parse(beginPos[0]), int.Parse(beginPos[1])) : new Vector2(Vector2.zero.x, Vector2.zero.y);
 
-            geoModel = MapGridLibrary.Instance.GetGrid(FileName);
+            geoModel = MapGridDataList.Instance.GetGrid(FileName);
         }
     }
 }

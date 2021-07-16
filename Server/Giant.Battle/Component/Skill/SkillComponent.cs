@@ -24,7 +24,7 @@ namespace Giant.Battle
                 return;
             }
 
-            SkillModel model = SkillLibrary.Instance.GetModel(skillId);
+            SkillModel model = SkillDataList.Instance.GetModel(skillId);
             if (model == null)
             {
                 Log.Error($"have no this skill model {skillId}");

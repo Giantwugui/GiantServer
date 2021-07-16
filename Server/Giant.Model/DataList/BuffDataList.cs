@@ -2,11 +2,11 @@
 
 namespace Giant.Model
 {
-    public class DungeonLibrary : SingleDataComponent<DungeonLibrary, DungeonModel>
+    public class BuffDataList: SingleDataComponent<BuffDataList, BuffModel>
     {
         public override void Load()
         {
-            Load("Dungeon");
+            //Load("Buff");
         }
     }
 }

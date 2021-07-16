@@ -1,36 +1,36 @@
 ﻿namespace Giant.Core
 {
-    public interface IInitSystem
+    public interface IInitSystem : ISystem
     {
         void Init() { }
     }
 
-    public interface IInitSystem<P1>
+    public interface IInitSystem<P1>: ISystem
     {
         void Init(P1 p1);
     }
 
-    public interface IInitSystem<P1, P2>
+    public interface IInitSystem<P1, P2>: ISystem
     {
         void Init(P1 p1, P2 p2);
     }
 
-    public interface IInitSystem<P1, P2, P3>
+    public interface IInitSystem<P1, P2, P3> : ISystem
     {
         void Init(P1 p1, P2 p2, P3 p3);
     }
 
-    public interface IInitSystem<P1, P2, P3, P4>
+    public interface IInitSystem<P1, P2, P3, P4> : ISystem
     {
         void Init(P1 p1, P2 p2, P3 p3, P4 p4);
     }
 
-    public interface IInitSystem<P1, P2, P3, P4, P5>
+    public interface IInitSystem<P1, P2, P3, P4, P5>: ISystem
     {
         void Init(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5);
     }
 
-    public interface IInitSystem<P1, P2, P3, P4, P5, P6>
+    public interface IInitSystem<P1, P2, P3, P4, P5, P6>: ISystem
     {
         void Init(P1 p1, P2 p2, P3 p3, P4 p4, P5 p5, P6 p6);
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Giant.Model
 {
-    public class MapLibrary : SingleDataComponent<MapLibrary, MapModel>
+    public class MapDataList : SingleDataComponent<MapDataList, MapModel>
     {
         public Dictionary<int, MapModel> Maps => Models;
 

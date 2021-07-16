@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Giant.Model
 {
-    public class AppConfigLibrary: SingleDataComponent<AppConfigLibrary, AppConfig>
+    public class AppConfigDataList: SingleDataComponent<AppConfigDataList, AppConfig>
     {
         private readonly ListMap<AppType, AppConfig> appConfigs = new ListMap<AppType, AppConfig>();
 

@@ -7,6 +7,8 @@ namespace Server.Zone
     [System]
     public class HeroSystem : IHeroSystem
     {
+        private HeroManagerComponent heroManager;
+
         public void HeroBreak(Player player, int heroId)
         {
             Hero hero = player.GetComponent<HeroManagerComponent>().GetHero(heroId);

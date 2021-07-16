@@ -19,7 +19,7 @@ namespace Giant.Battle
         {
             MapId = mapId;
             Channel = channel;
-            MapModel = MapLibrary.Instance.GetModel(mapId);
+            MapModel = MapDataList.Instance.GetModel(mapId);
 
             InitNPC();
             InitRegionManager();
