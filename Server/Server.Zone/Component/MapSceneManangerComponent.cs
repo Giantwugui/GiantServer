@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace Server.Zone
 {
-    public class MapSceneManangerComponent : InitUpdateSystem
+    public class MapSceneManangerComponent : Component, IUpdateSystem, IInitSystem
     {
         private DepthMap<int, int, MapScene> mapSceneList = new DepthMap<int, int, MapScene>();
 
-        public override void Init()
+        public void Init()
         {
             InitMapScene();
         }
@@ -48,7 +48,7 @@ namespace Server.Zone
             return map;
         }
 
-        public override void Update(double dt)
+        public void Update(double dt)
         {
             foreach (var kv in mapSceneList)
             {

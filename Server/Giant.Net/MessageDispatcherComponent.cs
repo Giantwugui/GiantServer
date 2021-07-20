@@ -16,18 +16,6 @@ namespace Giant.Net
             Load();
         }
 
-        public void Dispatch(Session session, ushort opcode, IMessage message)
-        {
-            if (Handlers.TryGetValue(opcode, out var handler))
-            {
-                handler.ForEach(x => x.Handle(session, message));
-            }
-            else
-            {
-                Log.Error($"Can not find the handler mathord opcode {opcode} message type {message.GetType()}");
-            }
-        }
-
         private void Load()
         {
             List<Type> handler = Scene.EventSystem.GetTypes(typeof(MessageHandlerAttribute));
@@ -53,6 +41,18 @@ namespace Giant.Net
             }
 
             Handlers.Add(opcode, handler);
+        }
+
+        public void Dispatch(Session session, ushort opcode, IMessage message)
+        {
+            if (Handlers.TryGetValue(opcode, out var handler))
+            {
+                handler.ForEach(x => x.Handle(session, message));
+            }
+            else
+            {
+                Log.Error($"Can not find the handler mathord opcode {opcode} message type {message.GetType()}");
+            }
         }
     }
 }

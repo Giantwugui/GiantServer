@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Giant.Model
 {
-    public class NetGraphDataList : InitLoadSystem
+    public class NetGraphDataList : LoadSystem
     {
         private readonly DepthMap<AppType, AppType, NetGraphType> netTopology = new DepthMap<AppType, AppType, NetGraphType>();
 

@@ -10,7 +10,7 @@ namespace Server.Zone
     /// 消息处理的例子 由于使用组件方式开发，不在通讯层与实体层之间引入系统system层，以免过度设计
     /// </summary>
     [MessageHandler]
-    class Handle_GateZ_Hero : MHandler<Msg_GateZ_Hero_Break, Msg_ZGate_Hero_Break>
+    class Handle_HeroBreak : MHandler<Msg_GateZ_Hero_Break, Msg_ZGate_Hero_Break>
     {
         public override Task Run(Session session, Msg_GateZ_Hero_Break request, Msg_ZGate_Hero_Break response, Action reply)
         {

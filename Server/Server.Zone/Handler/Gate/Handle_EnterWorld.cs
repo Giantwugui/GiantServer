@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Server.Zone
 {
     [MessageHandler]
-    public class Handle_GateZ_EnterWorld : MHandler<Msg_GateZ_EnterWorld>
+    public class Handle_EnterWorld : MHandler<Msg_GateZ_EnterWorld>
     {
         public override async Task Run(Session session, Msg_GateZ_EnterWorld message)
         {
