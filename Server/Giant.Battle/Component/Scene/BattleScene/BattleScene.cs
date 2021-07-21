@@ -6,7 +6,7 @@ using System;
 
 namespace Giant.Battle
 {
-    public partial class BattleScene : MapScene, IInitSystem<int, int>, IUpdate
+    public partial class BattleScene : MapScene, IInitSystem<int, int>
     {
         protected DateTime StopTime { get; private set; }
 
